@@ -62,12 +62,12 @@ class GeoAssetRepositoryImpl
         }
 
         if (!dirExists || !await geoipFile.exists()) {
-          final bundledGeoip = await rootBundle.load(Assets.core.geoip);
-          await geoipFile.writeAsBytes(bundledGeoip.buffer.asInt8List());
+         // final bundledGeoip = await rootBundle.load(Assets.core.geoip);
+         // await geoipFile.writeAsBytes(bundledGeoip.buffer.asInt8List());
         }
         if (!dirExists || !await geositeFile.exists()) {
-          final bundledGeosite = await rootBundle.load(Assets.core.geosite);
-          await geositeFile.writeAsBytes(bundledGeosite.buffer.asInt8List());
+         // final bundledGeosite = await rootBundle.load(Assets.core.geosite);
+         // await geositeFile.writeAsBytes(bundledGeosite.buffer.asInt8List());
         }
         return right(unit);
       },

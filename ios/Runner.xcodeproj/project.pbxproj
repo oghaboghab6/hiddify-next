@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -513,7 +513,7 @@
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			packageReferences = (
-				6836D4002B57FEFF00A79D75 /* XCLocalSwiftPackageReference "Local Packages" */,
+				6836D4002B57FEFF00A79D75 /* XCLocalSwiftPackageReference "(null)" */,
 			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
@@ -955,7 +955,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 3JFTY5BP58;
+				DEVELOPMENT_TEAM = BD5U9GC5JR;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = armv7;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -981,7 +981,7 @@
 					"-ld_classic",
 					"-lresolv",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_IDENTIFIER)";
+				PRODUCT_BUNDLE_IDENTIFIER = app.hiddify.com11;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = app.hiddify.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1175,7 +1175,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 3JFTY5BP58;
+				DEVELOPMENT_TEAM = BD5U9GC5JR;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = armv7;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
@@ -1201,7 +1201,7 @@
 					"-ld_classic",
 					"-lresolv",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_IDENTIFIER)";
+				PRODUCT_BUNDLE_IDENTIFIER = app.hiddify.com11;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = app.hiddify.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1224,7 +1224,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 3JFTY5BP58;
+				DEVELOPMENT_TEAM = BD5U9GC5JR;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = armv7;
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -1250,7 +1250,7 @@
 					"-ld_classic",
 					"-lresolv",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "$(BASE_BUNDLE_IDENTIFIER)";
+				PRODUCT_BUNDLE_IDENTIFIER = app.hiddify.com11;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = app.hiddify.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1308,9 +1308,8 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		6836D4002B57FEFF00A79D75 /* XCLocalSwiftPackageReference "Local Packages" */ = {
+		6836D4002B57FEFF00A79D75 /* XCLocalSwiftPackageReference "(null)" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "Local Packages";
 		};
 /* End XCLocalSwiftPackageReference section */
 
