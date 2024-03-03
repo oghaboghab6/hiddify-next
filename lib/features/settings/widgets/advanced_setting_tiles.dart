@@ -30,6 +30,18 @@ class AdvancedSettingTiles extends HookConsumerWidget {
             FluentIcons.arrow_routing_rectangle_multiple_24_regular,
           ),
           onTap: () async {
+            // showDialog(
+            //   context: context,
+            //   builder: (BuildContext context) {
+            //     return const AlertDialog(
+            //       title: Text("My title"),
+            //       content: Text("This is my message."),
+            //       actions: [
+            //         // okButton,
+            //       ],
+            //     );
+            //   },
+            // );
             await const GeoAssetsRoute().push(context);
           },
         ),

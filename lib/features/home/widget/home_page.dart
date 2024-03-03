@@ -50,6 +50,11 @@ class HomePage extends HookConsumerWidget {
                     icon: const Icon(FluentIcons.add_circle_24_filled),
                     tooltip: t.profile.add.buttonText,
                   ),
+                  IconButton(
+                    onPressed: () => const LoginRoute().push(context),
+                    icon: const Icon(FluentIcons.cart_16_filled),
+                    tooltip: t.profile.add.buttonText,
+                  ),
                 ],
               ),
               switch (activeProfile) {

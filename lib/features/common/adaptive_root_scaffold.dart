@@ -49,6 +49,10 @@ class AdaptiveRootScaffold extends HookConsumerWidget {
         icon: const Icon(FluentIcons.info_20_filled),
         label: t.about.pageTitle,
       ),
+      NavigationDestination(
+        icon: const Icon(FluentIcons.person_board_20_regular),
+        label: "Login",
+      ),
     ];
 
     return _CustomAdaptiveScaffold(
