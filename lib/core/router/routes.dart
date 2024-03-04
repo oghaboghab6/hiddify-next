@@ -15,6 +15,7 @@ import 'package:hiddify/features/profile/overview/profiles_overview_page.dart';
 import 'package:hiddify/features/proxy/overview/proxies_overview_page.dart';
 import 'package:hiddify/features/settings/about/about_page.dart';
 import 'package:hiddify/features/settings/overview/settings_overview_page.dart';
+import 'package:hiddify/features/webview/widget/webview_page.dart';
 import 'package:hiddify/utils/utils.dart';
 
 part 'routes.g.dart';
@@ -73,6 +74,10 @@ GlobalKey<NavigatorState>? _dynamicRootKey =
         TypedGoRoute<LoginRoute>(
           path: "login",
           name: LoginRoute.name,
+        ),
+        TypedGoRoute<WebViewRoute>(
+          path: "webview",
+          name: WebViewRoute.name,
         ),
       ],
     ),
@@ -144,6 +149,10 @@ class MobileWrapperRoute extends ShellRouteData {
     TypedGoRoute<LoginRoute>(
       path: "/login",
       name: LoginRoute.name,
+    ),
+    TypedGoRoute<WebViewRoute>(
+      path: "/webview",
+      name: WebViewRoute.name,
     ),
   ],
 )
@@ -394,5 +403,24 @@ class LoginRoute extends GoRouteData {
       );
     }
     return const NoTransitionPage(name: name, child: LoginPage());
+  }
+}
+class WebViewRoute extends GoRouteData {
+  const WebViewRoute();
+  static const name = "WebView";
+
+  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    if (useMobileRouter) {
+      return const MaterialPage(
+        name: name,
+        child: WebViewPage(),
+      );
+    }
+    return const NoTransitionPage(name: name, child: WebViewPage());
   }
 }

@@ -58,6 +58,7 @@ final tabLocations = [
   const LogsOverviewRoute().location,
   const AboutRoute().location,
   const LoginRoute().location,
+  const WebViewRoute().location,
 ];
 
 int getCurrentIndex(BuildContext context) {

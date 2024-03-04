@@ -51,7 +51,9 @@ class HomePage extends HookConsumerWidget {
                     tooltip: t.profile.add.buttonText,
                   ),
                   IconButton(
-                    onPressed: () => const LoginRoute().push(context),
+                    onPressed: () => {
+                      if (1 == 1) const WebViewRoute().push(context) else const LoginRoute().push(context),
+                    },
                     icon: const Icon(FluentIcons.cart_16_filled),
                     tooltip: t.profile.add.buttonText,
                   ),
