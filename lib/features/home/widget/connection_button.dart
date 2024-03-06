@@ -135,7 +135,7 @@ class _ConnectionButton extends StatelessWidget {
                 onTap: onTap,
                 child: Padding(
                   padding: const EdgeInsets.all(36),
-                  child: Assets.images.logo.svg(
+                  child: Assets.images.vpn.svg(
                     colorFilter: ColorFilter.mode(
                       buttonColor,
                       BlendMode.srcIn,

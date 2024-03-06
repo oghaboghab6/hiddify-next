@@ -41,6 +41,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
           addProfileProvider) async {
     final prefs = await SharedPreferences.getInstance();
+    globals.urlLink=  prefs.getString('url_login')?? 'https://shop.hologate.pro/';
     globals.globalToken = prefs.getString('token') ?? '';
     // print("oghab @@@@ 0 token " + globals.globalToken.toString());
     // print("oghab @@@@ 0 globalCheckGetListServer " +
