@@ -188,8 +188,10 @@ class LoginPage extends HookConsumerWidget with PresLogger {
                     'Sign in',
                     style: TextStyle(fontSize: 20),
                   ),
-                  onPressed: () {
-                    //signup screen
+                  onPressed: () async {
+                    await UriUtils.tryLaunch(
+                      Uri.parse("https://shop.hologate.pro/register?type=android"),
+                    );
                   },
                 )
               ],
@@ -222,6 +224,8 @@ class LoginPage extends HookConsumerWidget with PresLogger {
         final jsonData = response.data!;
         var access_token=jsonData['access_token']?.toString() ?? "";
         var token_type=jsonData['token_type']?.toString() ?? "";
+        var loginUrl=jsonData['login_url']?.toString() ?? "";
+
         // loggy.debug(
         //   'oghab @@@: ${access_token}   ${token_type} ',
         // );
@@ -229,6 +233,7 @@ class LoginPage extends HookConsumerWidget with PresLogger {
        var token=token_type +" "+access_token;
         globals.globalToken=token;
        await prefs.setString('token', token);
+       await prefs.setString('url_login', loginUrl);
          Navigator.of(context).pop();
         // Navigator.of(context).popUntil(ModalRoute.withName('/'));
         // final regionLocale =
