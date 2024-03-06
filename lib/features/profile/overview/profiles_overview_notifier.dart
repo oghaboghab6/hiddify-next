@@ -70,6 +70,20 @@ class ProfilesOverviewNotifier extends _$ProfilesOverviewNotifier
     ).run();
   }
 
+  Future<void> deleteAllProfile() async {
+    await _profilesRepo.deleteAll().match(
+          (err) {
+        loggy.warning('failed to delete profile', err);
+        throw err;
+      },
+          (_) {
+        loggy.info(
+          'successfully deleted all profile, was active all? []',
+        );
+        return unit;
+      },
+    ).run();
+  }
   Future<void> exportConfigToClipboard(ProfileEntity profile) async {
     await _profilesRepo.generateConfig(profile.id).match(
       (err) {

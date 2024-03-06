@@ -19,6 +19,7 @@ abstract interface class ProfileDataSource {
   Future<void> insert(ProfileEntriesCompanion entry);
   Future<void> edit(String id, ProfileEntriesCompanion entry);
   Future<void> deleteById(String id);
+  Future<void> deleteAll();
 }
 
 Map<SortMode, OrderingMode> orderMap = {
@@ -141,6 +142,14 @@ class ProfileDao extends DatabaseAccessor<AppDatabase>
     await transaction(
       () async {
         await (delete(profileEntries)..where((tbl) => tbl.id.equals(id))).go();
+      },
+    );
+  }
+  @override
+  Future<void> deleteAll() async {
+    await transaction(
+      () async {
+        await delete(profileEntries).go();
       },
     );
   }

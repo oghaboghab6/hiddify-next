@@ -7,6 +7,7 @@ import 'package:hiddify/features/deep_link/notifier/deep_link_notifier.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'app_router.g.dart';
 
@@ -59,8 +60,23 @@ final tabLocations = [
   const AboutRoute().location,
   const LoginRoute().location,
   const WebViewRoute().location,
+
+  // exit11(),
 ];
 
+// class exit {
+//   const exit();
+//   // exit11() {
+//   //   // TODO: implement exit11
+//   //   throw UnimplementedError();
+//   // }
+//   // final prefs = await SharedPreferences.getInstance();
+//   // prefs.setString('token','');
+// }
+// void exit11() async{
+//   final prefs = await SharedPreferences.getInstance();
+//   prefs.setString('token','');
+// }
 int getCurrentIndex(BuildContext context) {
   final String location = GoRouterState.of(context).uri.path;
   if (location == const HomeRoute().location) return 0;
@@ -75,6 +91,7 @@ int getCurrentIndex(BuildContext context) {
 void switchTab(int index, BuildContext context) {
   assert(index >= 0 && index < tabLocations.length);
   final location = tabLocations[index];
+  print("oghab @@@ switchTab111"+location);
   return context.go(location);
 }
 

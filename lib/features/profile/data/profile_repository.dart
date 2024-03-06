@@ -60,6 +60,7 @@ abstract interface class ProfileRepository {
   TaskEither<ProfileFailure, Unit> patch(ProfileEntity profile);
   TaskEither<ProfileFailure, Unit> setAsActive(String id);
   TaskEither<ProfileFailure, Unit> deleteById(String id);
+  TaskEither<ProfileFailure, Unit> deleteAll();
 }
 
 class ProfileRepositoryImpl
@@ -361,6 +362,17 @@ class ProfileRepositoryImpl
       () async {
         await profileDataSource.deleteById(id);
         await profilePathResolver.file(id).delete();
+        return unit;
+      },
+      ProfileUnexpectedFailure.new,
+    );
+  }
+  @override
+  TaskEither<ProfileFailure, Unit> deleteAll() {
+    return TaskEither.tryCatch(
+      () async {
+        await profileDataSource.deleteAll();
+        await profilePathResolver.fileAll().delete();
         return unit;
       },
       ProfileUnexpectedFailure.new,

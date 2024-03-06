@@ -12,6 +12,9 @@ class ProfilePathResolver {
   File file(String fileName) {
     return File(p.join(directory.path, "$fileName.json"));
   }
+  File fileAll() {
+    return File(p.join(directory.path, ""));
+  }
 
   File tempFile(String fileName) => file("$fileName.tmp");
 }

@@ -186,9 +186,10 @@ class HomeRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const NoTransitionPage(
+   // return const NoTransitionPage(
+    return const  NoTransitionPage(
       name: name,
-      child: HomePage(),
+      child: HomePage( ),
     );
   }
 }

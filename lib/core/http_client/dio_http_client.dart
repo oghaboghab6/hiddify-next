@@ -11,14 +11,14 @@ class DioHttpClient with InfraLogger {
   DioHttpClient({
     required Duration timeout,
     required String userAgent,
-    required bool debug,
+    required bool debug, String Authorization="",
   }) {
     _dio = Dio(
       BaseOptions(
         connectTimeout: timeout,
         sendTimeout: timeout,
         receiveTimeout: timeout,
-        headers: {"User-Agent": userAgent},
+        headers: {"User-Agent": userAgent,"Authorization":Authorization},
       ),
     );
 
@@ -65,6 +65,20 @@ class DioHttpClient with InfraLogger {
       options: _options(url, userAgent: userAgent, credentials: credentials),
     );
   }
+
+  Future<Response<T>> post<T>(
+    String url,
+    FormData data, {
+    CancelToken? cancelToken,
+    String? userAgent,
+    ({String username, String password})? credentials,
+  }) async => _dio.post<T>(
+      url,
+
+      data: data,
+      cancelToken: cancelToken,
+      options: _options(url, userAgent: userAgent, credentials: credentials),
+    );
 
   Future<Response> download(
     String url,
