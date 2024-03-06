@@ -29,7 +29,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
   const HomePage({super.key});
 
   void funnc() {
-    print("oghab @@@@ yyyyyyyyyyyyyy ");
+    // print("oghab @@@@ yyyyyyyyyyyyyy ");
     //return true;
   }
 
@@ -42,9 +42,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
           addProfileProvider) async {
     final prefs = await SharedPreferences.getInstance();
     globals.globalToken = prefs.getString('token') ?? '';
-    print("oghab @@@@ 0 token " + globals.globalToken.toString());
-    print("oghab @@@@ 0 globalCheckGetListServer " +
-        globals.globalCheckGetListServer.toString());
+    // print("oghab @@@@ 0 token " + globals.globalToken.toString());
+    // print("oghab @@@@ 0 globalCheckGetListServer " +
+    //     globals.globalCheckGetListServer.toString());
     if (globals.globalToken == '') {
       // const LoginRoute().push(context).then((data){
       //   print("oghab @@@@ ppppppp1 " + globals.globalToken.toString());
@@ -69,7 +69,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
 
     const LoginRoute().push(context).then((data) {
-      print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
+      // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
       if (globals.globalCheckGetListServer)
         GetListAccountServer(context, ref, addProfileProvider);
       // then will return value when the loginscreen's pop is called.
@@ -103,7 +103,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //   },
     // );
     final token1 = _loadPreferences(context, ref, addProfileProvider);
-    print("oghab @@@@ 1 " + token.toString());
+   // print("oghab @@@@ 1 " + token.toString());
     //final eeeeee = ref.watch(funnc() as ProviderListenable);
     final t = ref.watch(translationsProvider);
     final hasAnyProfile = ref.watch(hasAnyProfileProvider);
@@ -139,7 +139,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         const WebViewRoute().push(context)
                       else
                         const LoginRoute().push(context).then((data) {
-                          print("oghab @@@@ ppppppp2 ${globals.globalToken}");
+                        //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
                           if (globals.globalCheckGetListServer) {
                             GetListAccountServer(
                                 context, ref, addProfileProvider);
@@ -156,7 +156,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         exit(context, ref, addProfileProvider)
                       else
                         const LoginRoute().push(context).then((data) {
-                          print("oghab @@@@ ppppppp2 ${globals.globalToken}");
+                          //print("oghab @@@@ ppppppp2 ${globals.globalToken}");
                           if (globals.globalCheckGetListServer) {
                             GetListAccountServer(
                                 context, ref, addProfileProvider);
@@ -220,9 +220,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
           addProfileProvider) async {
     final addProfileState = ref.watch(addProfileProvider);
 
-    loggy.debug(
-      'oghab @@@ token : ${globals.globalToken} } ',
-    );
+    // loggy.debug(
+    //   'oghab @@@ token : ${globals.globalToken} } ',
+    // );
     try {
       final DioHttpClient client = DioHttpClient(
           timeout: const Duration(seconds: 2),
@@ -241,9 +241,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
       if (response.statusCode == 200) {
         final jsonData = response.data!;
         // final jsonData1 = json.decode(response.data.toString());
-        loggy.debug(
-          'oghab @@@ jsonData : ${jsonData} } ',
-        );
+        // loggy.debug(
+        //   'oghab @@@ jsonData : ${jsonData} } ',
+        // );
         // loggy.debug(
         //   'oghab @@@ jsonData1 : ${jsonData1} } ',
         // );
@@ -253,21 +253,21 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // Int? length = jsonData['accounts']?.length??0;
         // var accounts1 = jsonData1['accounts'].length;
         var length = int.parse(accounts.length.toString());
-        loggy.debug(
-          'oghab @@@ accounts : ${accounts} ${length} } ',
-        );
+        // loggy.debug(
+        //   'oghab @@@ accounts : ${accounts} ${length} } ',
+        // );
         // loggy.debug(
         //   'oghab @@@ accounts1 : ${accounts1} } ',
         // );
         globals.globalCheckGetListServer = false;
         for (var i = 0; i < length; i++) {
-          loggy.debug(
-            'oghab @@@ accounts[] : ${accounts[i]['link']} } ',
-          );
+          // loggy.debug(
+          //   'oghab @@@ accounts[] : ${accounts[i]['link']} } ',
+          // );
           if (accounts[i]['link'] != null) {
-            loggy.debug(
-              'oghab @@@ accounts[] 44444 : ${accounts[i]['link']} } ',
-            );
+            // loggy.debug(
+            //   'oghab @@@ accounts[] 44444 : ${accounts[i]['link']} } ',
+            // );
           //  if (addProfileState.isLoading) return;
             await   ref.read(addProfileProvider.notifier).add(accounts[i]['link'].toString());
           }

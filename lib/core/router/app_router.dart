@@ -91,7 +91,7 @@ int getCurrentIndex(BuildContext context) {
 void switchTab(int index, BuildContext context) {
   assert(index >= 0 && index < tabLocations.length);
   final location = tabLocations[index];
-  print("oghab @@@ switchTab111"+location);
+  // print("oghab @@@ switchTab111"+location);
   return context.go(location);
 }
 

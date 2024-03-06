@@ -222,9 +222,9 @@ class LoginPage extends HookConsumerWidget with PresLogger {
         final jsonData = response.data!;
         var access_token=jsonData['access_token']?.toString() ?? "";
         var token_type=jsonData['token_type']?.toString() ?? "";
-        loggy.debug(
-          'oghab @@@: ${access_token}   ${token_type} ',
-        );
+        // loggy.debug(
+        //   'oghab @@@: ${access_token}   ${token_type} ',
+        // );
        final SharedPreferences prefs = await SharedPreferences.getInstance();
        var token=token_type +" "+access_token;
         globals.globalToken=token;
