@@ -11,7 +11,7 @@ if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
-boolean hasKeyStore = false
+boolean hasKeyStore = true
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
@@ -84,10 +84,10 @@ android {
     if (hasKeyStore) {
         signingConfigs {
             release {
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
-                storeFile file(keystoreProperties['storeFile'])
-                storePassword keystoreProperties['storePassword']
+                keyAlias "hologate"
+                keyPassword "holog@te159679?"
+                storeFile file("hologate")
+                storePassword "holog@te159679?"
             }
         }
     }
