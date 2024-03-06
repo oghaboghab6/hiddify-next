@@ -24,7 +24,7 @@
         android:name=".Application"
         android:banner="@mipmap/ic_banner"
         android:icon="@mipmap/ic_launcher"
-        android:label="Hiddify"
+        android:label="Hologate2"
         android:roundIcon="@mipmap/ic_launcher_round"
         tools:targetApi="31">
 
@@ -70,9 +70,9 @@
                 <data android:scheme="clash" />
                 <data android:host="install-config" />
                 <data android:scheme="clashmeta" />
-                <data android:scheme="hiddify" />
+                <data android:scheme="hologate2" />
                 <data android:host="install-sub" />
-                <data android:scheme="hiddify" />
+                <data android:scheme="hologate2" />
                 <data android:host="import" />
             </intent-filter>
 
