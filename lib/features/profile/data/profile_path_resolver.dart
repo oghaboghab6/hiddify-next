@@ -13,7 +13,13 @@ class ProfilePathResolver {
     return File(p.join(directory.path, "$fileName.json"));
   }
   File fileAll() {
-    return File(p.join(directory.path, ""));
+    // final dir = Directory(directory.path);
+    //directory.deleteSync(recursive: true);
+    directory.list(recursive: false).forEach((file) {
+      String fileName = file.path.split('/').last;
+      if (fileName.contains(".json")) file.deleteSync(recursive: true);
+    });
+    return File(p.join(directory.path, "*.json"));
   }
 
   File tempFile(String fileName) => file("$fileName.tmp");

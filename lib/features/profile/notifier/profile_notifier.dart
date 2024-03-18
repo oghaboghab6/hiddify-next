@@ -71,7 +71,13 @@ class AddProfile extends _$AddProfile with AppLogger {
           loggy.debug("adding profile, content");
           var name = parsed.name;
 
-          while (await _profilesRepo.getByName(name) != null) {
+          ProfileEntity? ddd;
+
+          while ((ddd = await _profilesRepo.getByName(name)) != null) {
+            loggy.debug("adding profile, content name 0" + ddd!.name.toString());
+            // if (ddd.name == parsed.name) {
+            //   return
+            // }
             name += '${randomInt(0, 9).run()}';
           }
           task = _profilesRepo.addByContent(

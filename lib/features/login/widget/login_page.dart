@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hiddify/core/app_info/app_info_provider.dart';
@@ -8,6 +9,7 @@ import 'package:hiddify/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
+import 'package:hiddify/utils/link_parsers.dart';
 
 class LoginPage extends HookConsumerWidget with PresLogger {
   const LoginPage({super.key});
@@ -216,8 +218,16 @@ class LoginPage extends HookConsumerWidget with PresLogger {
         'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
       });
+     var deviceID= await get_unique_identifier();
+
+      var device_model= await  get_info_device();
+     var device_code=await  get_info_device();
+     var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+    //  loggy.warning('oghab @@@ params: ${params}');
+      print("oghab @@@ params: ${params}");
+
       final response =
-          await client.post('https://shop.hologate.pro/api/login', formData);
+          await client.post('https://shop.hologate.pro/api/login'+params, formData);
       if (response.statusCode == 200) {
         globals.globalCheckGetListServer=true;
 

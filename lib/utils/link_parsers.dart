@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartx/dartx.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:hiddify/features/profile/data/profile_parser.dart';
 import 'package:hiddify/features/profile/data/profile_repository.dart';
 import 'package:hiddify/singbox/model/singbox_proxy_type.dart';
@@ -111,4 +113,47 @@ String safeDecodeBase64(String str) {
   } catch (e) {
     return str;
   }
+}
+Future<String?> get_unique_identifier() async{
+  var deviceInfo = DeviceInfoPlugin();
+  if (Platform.isIOS) { // import 'dart:io'
+    var iosDeviceInfo = await deviceInfo.iosInfo;
+    return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+  } else if(Platform.isAndroid) {
+    var androidDeviceInfo = await deviceInfo.androidInfo;
+    return androidDeviceInfo.id; // unique ID on Android
+  } else if(Platform.isWindows) {
+    var windowsDeviceInfo = await deviceInfo.windowsInfo;
+    return windowsDeviceInfo.deviceId; // unique ID on Android
+  }
+  return null;
+}
+Future<String?> get_info_device() async{
+  var deviceInfo = DeviceInfoPlugin();
+  if (Platform.isIOS) { // import 'dart:io'
+    var iosDeviceInfo = await deviceInfo.iosInfo;
+    return iosDeviceInfo.utsname.machine; // unique ID on iOS
+  } else if(Platform.isAndroid) {
+    var androidDeviceInfo = await deviceInfo.androidInfo;
+    return androidDeviceInfo.model+androidDeviceInfo.model; // unique ID on Android
+  } else if(Platform.isWindows) {
+    var windowsDeviceInfo = await deviceInfo.windowsInfo;
+    return windowsDeviceInfo.productName; // unique ID on Android
+  }
+  return null;
+}
+Future<String?> get_info_device_code() async{
+  var deviceInfo = DeviceInfoPlugin();
+  var platform= Platform;
+  if (Platform.isIOS) { // import 'dart:io'
+    var iosDeviceInfo = await deviceInfo.iosInfo;
+    return platform.toString() + iosDeviceInfo.utsname.machine; // unique ID on iOS
+  } else if(Platform.isAndroid) {
+    var androidDeviceInfo = await deviceInfo.androidInfo;
+    return platform.toString() +  androidDeviceInfo.model+androidDeviceInfo.model; // unique ID on Android
+  } else if(Platform.isWindows) {
+    var windowsDeviceInfo = await deviceInfo.windowsInfo;
+    return platform.toString() +  windowsDeviceInfo.productName; // unique ID on Android
+  }
+  return null;
 }
