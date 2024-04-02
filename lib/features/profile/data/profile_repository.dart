@@ -372,7 +372,8 @@ class ProfileRepositoryImpl
     return TaskEither.tryCatch(
       () async {
         await profileDataSource.deleteAll();
-        await profilePathResolver.fileAll().delete();
+      //  await profilePathResolver.fileAll().delete();
+        await profilePathResolver.fileAll();
         return unit;
       },
       ProfileUnexpectedFailure.new,
