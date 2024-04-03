@@ -322,7 +322,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           if (accounts[i]['link'] != null) {
             await ref
                 .read(addProfileProvider.notifier)
-                .add(accounts[i]['link'].toString());
+                .add(accounts[i]['link'].toString(),showMessageState1:(length-1==i));
             // loggy.debug(
             //   'oghab @@@ accounts[] 44444 : ${accounts[i]['link']} } ',
             // );
