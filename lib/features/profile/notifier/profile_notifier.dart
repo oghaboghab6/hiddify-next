@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hiddify/core/haptic/haptic_service.dart';
@@ -19,6 +21,7 @@ part 'profile_notifier.g.dart';
 
 @riverpod
 class AddProfile extends _$AddProfile with AppLogger {
+  bool showMessageState = true;
   @override
   AsyncValue<Unit?> build() {
     ref.disposeDelay(const Duration(minutes: 1));
@@ -32,7 +35,10 @@ class AddProfile extends _$AddProfile with AppLogger {
         final notification = ref.read(inAppNotificationControllerProvider);
         switch (next) {
           case AsyncData(value: final _?):
+          //  var ggg="";
+          if(showMessageState) {
             notification.showSuccessToast(t.profile.save.successMsg);
+          }
           case AsyncError(:final error):
             if (error case ProfileInvalidUrlFailure()) {
               notification.showErrorToast(t.failure.profiles.invalidUrl);
@@ -51,8 +57,10 @@ class AddProfile extends _$AddProfile with AppLogger {
       ref.read(profileRepositoryProvider).requireValue;
   CancelToken? _cancelToken;
 
-  Future<void> add(String rawInput) async {
+  Future<void> add(String rawInput, {bool showMessageState1=true}) async {
+    showMessageState =showMessageState1;
     if (state.isLoading) return;
+
     state = const AsyncLoading();
     state = await AsyncValue.guard(
       () async {
