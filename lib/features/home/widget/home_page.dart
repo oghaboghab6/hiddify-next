@@ -30,7 +30,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
   const HomePage({super.key});
 
-
   void funnc() {
     // print("oghab @@@@ yyyyyyyyyyyyyy ");
     //return true;
@@ -42,7 +41,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
       BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-          addProfileProvider,dynamic deleteProfileMutation) async {
+          addProfileProvider,
+      dynamic deleteProfileMutation) async {
     final prefs = await SharedPreferences.getInstance();
     globals.urlLink =
         prefs.getString('url_login') ?? 'https://shop.hologate.pro/';
@@ -59,7 +59,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
       // });
     } else {
       if (globals.globalCheckGetListServer)
-        GetListAccountServer(context, ref, addProfileProvider,deleteProfileMutation);
+        GetListAccountServer(
+            context, ref, addProfileProvider, deleteProfileMutation);
     }
     return globals.globalToken;
   }
@@ -68,14 +69,16 @@ class HomePage extends HookConsumerWidget with PresLogger {
       BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-          addProfileProvider,deleteProfileMutation) async {
+          addProfileProvider,
+      deleteProfileMutation) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('token', '');
 
     const LoginRoute().push(context).then((data) {
       // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
       if (globals.globalCheckGetListServer)
-        GetListAccountServer(context, ref, addProfileProvider,deleteProfileMutation);
+        GetListAccountServer(
+            context, ref, addProfileProvider, deleteProfileMutation);
       // then will return value when the loginscreen's pop is called.
     });
 
@@ -92,9 +95,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //
     // deleteProfileMutation.setFuture(ref.read(profilesOverviewNotifierProvider.notifier).deleteProfile(profile));
   }
+
   void initHook() {
     // WidgetsBinding.instance.addObserver(this);
   }
+
   // @override
   // void dispose() {
   //   WidgetsBinding.instance.removeObserver(this);
@@ -133,14 +138,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //
     //   },
     // );
-    final token1 = _loadPreferences(context, ref, addProfileProvider,deleteProfileMutation);
+    final token1 = _loadPreferences(
+        context, ref, addProfileProvider, deleteProfileMutation);
     // print("oghab @@@@ 1 " + token.toString());
     //final eeeeee = ref.watch(funnc() as ProviderListenable);
     final hasAnyProfile = ref.watch(hasAnyProfileProvider);
     final activeProfile = ref.watch(activeProfileProvider);
     final asyncProfiles = ref.watch(profilesOverviewNotifierProvider);
     if (asyncProfiles case AsyncData(value: final links)) {
-      print("oghab @@@@ count ******" + links.length.toString());
+      // print("oghab @@@@ count ******" + links.length.toString());
     }
     // switch (asyncProfiles) {
     //   AsyncData(value: final profiles) => var dd=1,
@@ -172,9 +178,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     onPressed: () => const AddProfileRoute().push(context),
                     icon: const Icon(FluentIcons.add_circle_24_filled),
                     tooltip: t.profile.add.buttonText,
-                  ),    IconButton(
-                    onPressed: () =>   GetListAccountServer(
-                        context, ref, addProfileProvider,deleteProfileMutation),
+                  ),
+                  IconButton(
+                    onPressed: () => GetListAccountServer(context, ref,
+                        addProfileProvider, deleteProfileMutation),
                     icon: const Icon(FluentIcons.server_12_filled),
                     tooltip: t.profile.add.buttonText,
                   ),
@@ -186,8 +193,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         const LoginRoute().push(context).then((data) {
                           //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
                           if (globals.globalCheckGetListServer) {
-                            GetListAccountServer(
-                                context, ref, addProfileProvider,deleteProfileMutation);
+                            GetListAccountServer(context, ref,
+                                addProfileProvider, deleteProfileMutation);
                           }
                           // then will return value when the loginscreen's pop is called.
                         }),
@@ -198,13 +205,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   IconButton(
                     onPressed: () => {
                       if (globals.globalToken != "")
-                        exit(context, ref, addProfileProvider,deleteProfileMutation)
+                        exit(context, ref, addProfileProvider,
+                            deleteProfileMutation)
                       else
                         const LoginRoute().push(context).then((data) {
                           //print("oghab @@@@ ppppppp2 ${globals.globalToken}");
                           if (globals.globalCheckGetListServer) {
-                            GetListAccountServer(
-                                context, ref, addProfileProvider,deleteProfileMutation);
+                            GetListAccountServer(context, ref,
+                                addProfileProvider, deleteProfileMutation);
                           }
                           // then will return value when the loginscreen's pop is called.
                         }),
@@ -216,15 +224,40 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   ),
                 ],
               ),
+           if(1!=1)   MultiSliver(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal:28.0,vertical: 6.0),
+                      child: FilledButton.icon(
+                        onPressed: () {
+
+                        },
+                        icon: const Icon(FluentIcons.arrow_sync_24_filled),
+                        label: const Text("بروزرسانی اپلیکیسشن"),
+                        // style: ButtonStyle( ),
+                      ),
+                    ),
+                  ],
+              ),
+
               switch (activeProfile) {
                 AsyncData(value: final profile?) => MultiSliver(
                     children: [
+
                       ProfileTile(profile: profile, isMain: true),
                       SliverFillRemaining(
                         hasScrollBody: false,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            // const Text(
+                            //   "profile.name",
+                            //   maxLines: 2,
+                            //   overflow: TextOverflow.ellipsis,
+                            //   // style: theme.textTheme.titleMedium,
+                            //   semanticsLabel: "aaaa",
+                            // ),
+
                             const Expanded(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -262,7 +295,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
       BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-          addProfileProvider, dynamic deleteProfileMutation) async {
+          addProfileProvider,
+      dynamic deleteProfileMutation) async {
     final addProfileState = ref.watch(addProfileProvider);
     // final t = ref.watch(translationsProvider);
     //
@@ -307,10 +341,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
         //   'oghab @@@ accounts1 : ${accounts1} } ',
         // );
         globals.globalCheckGetListServer = false;
-        print("oghab @@@@ count 2*****  " + length.toString());
+        // print("oghab @@@@ count 2*****  " + length.toString());
         // await notifier.delete();
 
-      deleteProfileMutation.setFuture(
+        deleteProfileMutation.setFuture(
           ref
               .read(profilesOverviewNotifierProvider.notifier)
               .deleteAllProfile(),
@@ -320,9 +354,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
           //   'oghab @@@ accounts[] : ${accounts[i]['link']} } ',
           // );
           if (accounts[i]['link'] != null) {
-            await ref
-                .read(addProfileProvider.notifier)
-                .add(accounts[i]['link'].toString(),showMessageState1:(length-1==i));
+            await ref.read(addProfileProvider.notifier).add(
+                accounts[i]['link'].toString(),
+                showMessageState1: (length - 1 == i));
             // loggy.debug(
             //   'oghab @@@ accounts[] 44444 : ${accounts[i]['link']} } ',
             // );
@@ -335,7 +369,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
 //                   .read(addProfileProvider.notifier)
 //                   .add(accounts[i]['link'].toString());
 //             });
-
           }
         }
         // final captureResult =
