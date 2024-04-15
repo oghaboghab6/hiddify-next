@@ -68,19 +68,19 @@ class ProfileTile extends HookConsumerWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (profile is RemoteProfileEntity || !isMain) ...[
-              SizedBox(
-                width: 48,
-                child: Semantics(
-                  sortKey: const OrdinalSortKey(1),
-                  child: ProfileActionButton(profile, !isMain),
-                ),
-              ),
-              VerticalDivider(
-                width: 1,
-                color: effectiveOutlineColor,
-              ),
-            ],
+            // if (profile is RemoteProfileEntity || !isMain) ...[
+            //   SizedBox(
+            //     width: 48,
+            //     child: Semantics(
+            //       sortKey: const OrdinalSortKey(1),
+            //       child: ProfileActionButton(profile, !isMain),
+            //     ),
+            //   ),
+            //   VerticalDivider(
+            //     width: 1,
+            //     color: effectiveOutlineColor,
+            //   ),
+            // ],
             Expanded(
               child: Semantics(
                 button: true,

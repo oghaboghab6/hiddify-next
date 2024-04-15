@@ -43,9 +43,9 @@ class AddProfile extends _$AddProfile with AppLogger {
             if (error case ProfileInvalidUrlFailure()) {
               notification.showErrorToast(t.failure.profiles.invalidUrl);
             } else {
-              notification.showErrorDialog(
-                t.presentError(error, action: t.profile.add.failureMsg),
-              );
+              // notification.showErrorDialog(
+              //   t.presentError(error, action: t.profile.add.failureMsg),
+              // );
             }
         }
       },
