@@ -1,4 +1,5 @@
 import 'package:dartx/dartx.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
+import 'dart:io';
 
 import '../../profile/overview/profiles_overview_notifier.dart';
 
@@ -300,6 +302,22 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final addProfileState = ref.watch(addProfileProvider);
     // final t = ref.watch(translationsProvider);
     //
+    // if (Platform.isIOS) { // import 'dart:io'
+    //   var iosDeviceInfo = await deviceInfo.iosInfo;
+    //   return iosDeviceInfo.utsname.machine; //
+    // }
+    var deviceInfo = DeviceInfoPlugin();
+ //   var iosDeviceInfo = await deviceInfo.iosInfo;
+    var androidDeviceInfo = await deviceInfo.androidInfo;
+    var abis=androidDeviceInfo.supportedAbis;
+    var stringAbi="";
+    for (var abi in abis) {
+      stringAbi+=abi.toString()+", ";
+      print("oghab @@@@ count 2*****www  " + abi );
+
+    }
+    print("oghab @@@@ count 2*****www  stringAbi " + stringAbi+"  -   "+androidDeviceInfo.serialNumber +androidDeviceInfo.device +androidDeviceInfo.id );
+
 
     // loggy.debug(
     //   'oghab @@@ token : ${globals.globalToken} } ',
