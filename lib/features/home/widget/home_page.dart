@@ -1,5 +1,7 @@
 import 'package:dartx/dartx.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-          addProfileProvider,
+      addProfileProvider,
       dynamic deleteProfileMutation) async {
     final prefs = await SharedPreferences.getInstance();
     globals.urlLink =
@@ -71,7 +73,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-          addProfileProvider,
+      addProfileProvider,
       deleteProfileMutation) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('token', '');
@@ -226,64 +228,64 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   ),
                 ],
               ),
-           if(1!=1)   MultiSliver(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:28.0,vertical: 6.0),
-                      child: FilledButton.icon(
-                        onPressed: () {
+              if(1!=1)   MultiSliver(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal:28.0,vertical: 6.0),
+                    child: FilledButton.icon(
+                      onPressed: () {
 
-                        },
-                        icon: const Icon(FluentIcons.arrow_sync_24_filled),
-                        label: const Text("بروزرسانی اپلیکیسشن"),
-                        // style: ButtonStyle( ),
-                      ),
+                      },
+                      icon: const Icon(FluentIcons.arrow_sync_24_filled),
+                      label: const Text("بروزرسانی اپلیکیسشن"),
+                      // style: ButtonStyle( ),
                     ),
-                  ],
+                  ),
+                ],
               ),
 
               switch (activeProfile) {
                 AsyncData(value: final profile?) => MultiSliver(
-                    children: [
+                  children: [
 
-                      ProfileTile(profile: profile, isMain: true),
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // const Text(
-                            //   "profile.name",
-                            //   maxLines: 2,
-                            //   overflow: TextOverflow.ellipsis,
-                            //   // style: theme.textTheme.titleMedium,
-                            //   semanticsLabel: "aaaa",
-                            // ),
+                    ProfileTile(profile: profile, isMain: true),
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // const Text(
+                          //   "profile.name",
+                          //   maxLines: 2,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   // style: theme.textTheme.titleMedium,
+                          //   semanticsLabel: "aaaa",
+                          // ),
 
-                            const Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ConnectionButton(),
-                                  ActiveProxyDelayIndicator(),
-                                ],
-                              ),
+                          const Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ConnectionButton(),
+                                ActiveProxyDelayIndicator(),
+                              ],
                             ),
-                            if (MediaQuery.sizeOf(context).width < 840)
-                              const ActiveProxyFooter(),
-                          ],
-                        ),
+                          ),
+                          if (MediaQuery.sizeOf(context).width < 840)
+                            const ActiveProxyFooter(),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
+                ),
                 AsyncData() => switch (hasAnyProfile) {
-                    AsyncData(value: true) =>
-                      const EmptyActiveProfileHomeBody(),
-                    _ => const EmptyProfilesHomeBody(),
-                  },
+                  AsyncData(value: true) =>
+                  const EmptyActiveProfileHomeBody(),
+                  _ => const EmptyProfilesHomeBody(),
+                },
                 AsyncError(:final error) =>
-                  SliverErrorBodyPlaceholder(t.presentShortError(error)),
+                    SliverErrorBodyPlaceholder(t.presentShortError(error)),
                 _ => const SliverToBoxAdapter(),
               },
             ],
@@ -293,12 +295,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
     );
   }
 
-  Future<void> GetListAccountServer(
+  Future<void> GetListAccountServer2233(
       BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-          addProfileProvider,
+      addProfileProvider,
       dynamic deleteProfileMutation) async {
+    final prefs = await SharedPreferences.getInstance();
+   var id_device = prefs.getString('id_device') ?? '';
     final addProfileState = ref.watch(addProfileProvider);
     // final t = ref.watch(translationsProvider);
     //
@@ -307,7 +311,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //   return iosDeviceInfo.utsname.machine; //
     // }
     var deviceInfo = DeviceInfoPlugin();
- //   var iosDeviceInfo = await deviceInfo.iosInfo;
+    //   var iosDeviceInfo = await deviceInfo.iosInfo;
     var androidDeviceInfo = await deviceInfo.androidInfo;
     var abis=androidDeviceInfo.supportedAbis;
     var stringAbi="";
@@ -318,25 +322,35 @@ class HomePage extends HookConsumerWidget with PresLogger {
     }
     print("oghab @@@@ count 2*****www  stringAbi " + stringAbi+"  -   "+androidDeviceInfo.serialNumber +androidDeviceInfo.device +androidDeviceInfo.id );
 
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final String version = packageInfo.version;
+    final String code = packageInfo.buildNumber;
+    print("oghab @@@@ count 2*****www   2 " +"  -   "+version + "    ----   " + code);
+
 
     // loggy.debug(
     //   'oghab @@@ token : ${globals.globalToken} } ',
     // );
     try {
       final DioHttpClient client = DioHttpClient(
-          timeout: const Duration(seconds: 2),
+          timeout: const Duration(seconds: 10),
           userAgent:
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
           Authorization: globals.globalToken);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
         'token': globals.globalToken,
+        'id_device': id_device,
+        'is_plus_device': true,
+
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
       });
       final response =
-          await client.post('https://shop.hologate.pro/api/accounts', formData);
+      await client.post('https://shop.hologate.pro/api/accounts', formData);
+      // await client.post('https://shop.hologate.pro/api/get-subscription', formData);
+      // await client.post('https://hologate6.com:83/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
         final jsonData = response.data!;
         // final jsonData1 = json.decode(response.data.toString());
@@ -348,6 +362,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // );
         //   var accounts = jsonData.getJSONArray['accounts'];
         // var accounts = jsonData.getJSONArray('accounts');
+        globals.globalVersionApp=20;
         var accounts = jsonData['accounts'];
         // Int? length = jsonData['accounts']?.length??0;
         // var accounts1 = jsonData1['accounts'].length;
@@ -406,6 +421,121 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // loggy.debug(
         //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
         // );
+      } else {
+        loggy.warning('Request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      loggy.warning('Could not get the local country code from ip');
+    }
+  }
+  Future<void> GetListAccountServer(
+      BuildContext context,
+      WidgetRef ref,
+      AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
+      addProfileProvider,
+      dynamic deleteProfileMutation) async {
+    final prefs = await SharedPreferences.getInstance();
+   var id_device = prefs.getString('id_device') ?? '';
+   var subscription = prefs.getString('subscription') ?? '';
+    print("oghab @@@@ subscription  " + subscription );
+    globals.globalCheckGetListServer = false;
+
+    deleteProfileMutation.setFuture(
+      ref
+          .read(profilesOverviewNotifierProvider.notifier)
+          .deleteAllProfile(),
+    );
+    await ref.read(addProfileProvider.notifier).add(subscription);
+    return;
+
+    final addProfileState = ref.watch(addProfileProvider);
+    // final t = ref.watch(translationsProvider);
+    //
+    // if (Platform.isIOS) { // import 'dart:io'
+    //   var iosDeviceInfo = await deviceInfo.iosInfo;
+    //   return iosDeviceInfo.utsname.machine; //
+    // }
+    var deviceInfo = DeviceInfoPlugin();
+    //   var iosDeviceInfo = await deviceInfo.iosInfo;
+    var androidDeviceInfo = await deviceInfo.androidInfo;
+    var abis=androidDeviceInfo.supportedAbis;
+    var stringAbi="";
+    for (var abi in abis) {
+      stringAbi+=abi.toString()+", ";
+      print("oghab @@@@ count 2*****www  " + abi );
+
+    }
+    print("oghab @@@@ count 2*****www  stringAbi " + stringAbi+"  -   "+androidDeviceInfo.serialNumber +androidDeviceInfo.device +androidDeviceInfo.id );
+
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final String version = packageInfo.version;
+    final String code = packageInfo.buildNumber;
+    print("oghab @@@@ count 2*****www   2 " +"  -   "+version + "    ----   " + code+ "    ----   " + id_device);
+
+
+    // loggy.debug(
+    //   'oghab @@@ token : ${globals.globalToken} } ',
+    // );
+    try {
+      var deviceID = await get_unique_identifier();
+
+      final DioHttpClient client = DioHttpClient(
+          timeout: const Duration(seconds: 10),
+          userAgent:
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+          debug: true,
+          Authorization: globals.globalToken);
+      // final response =
+      // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
+      var formData = FormData.fromMap({
+        'token': globals.globalToken,
+        'id_device': id_device,
+        'is_plus_device': true,
+        'unique_id': deviceID,
+
+        // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
+      });
+      final response =
+      // await client.post('https://shop.hologate.pro/api/accounts', formData);
+      // await client.post('https://shop.hologate.pro/api/get-subscription', formData);
+      await client.post('https://hologate6.com:83/api/accounts/get-subscription', formData);
+      loggy.warning(
+          'oghab @@@ response: home' + response.toString());
+      if (response.statusCode == 200) {
+        final jsonData = response.data!;
+        // final jsonData1 = json.decode(response.data.toString());
+        // loggy.debug(
+        //   'oghab @@@ jsonData : ${jsonData} } ',
+        // );
+        // loggy.debug(
+        //   'oghab @@@ jsonData1 : ${jsonData1} } ',
+        // );
+        //   var accounts = jsonData.getJSONArray['accounts'];
+        // var accounts = jsonData.getJSONArray('accounts');
+        globals.globalVersionApp=20;
+        var accounts = jsonData['subscription'];
+        // Int? length = jsonData['accounts']?.length??0;
+        // var accounts1 = jsonData1['accounts'].length;
+        // loggy.debug(
+        //   'oghab @@@ accounts : ${accounts} ${length} } ',
+        // );
+        // loggy.debug(
+        //   'oghab @@@ accounts1 : ${accounts1} } ',
+        // );
+        globals.globalCheckGetListServer = false;
+        // print("oghab @@@@ count 2*****  " + length.toString());
+        // await notifier.delete();
+
+        deleteProfileMutation.setFuture(
+          ref
+              .read(profilesOverviewNotifierProvider.notifier)
+              .deleteAllProfile(),
+        );
+        if (accounts != null) {
+          await ref.read(addProfileProvider.notifier).add(accounts.toString());
+
+        }
+
       } else {
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
