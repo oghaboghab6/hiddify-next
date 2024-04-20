@@ -15,6 +15,11 @@ class DioHttpClient with InfraLogger {
   }) {
     _dio = Dio(
       BaseOptions(
+        contentType: Headers.jsonContentType,
+        validateStatus: (int? status) {
+          return status != null;
+          // return status != null && status >= 200 && status < 300;
+        },
         connectTimeout: timeout,
         sendTimeout: timeout,
         receiveTimeout: timeout,

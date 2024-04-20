@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hiddify/core/router/app_router.dart';
 import 'package:hiddify/features/common/adaptive_root_scaffold.dart';
+import 'package:hiddify/features/config_device/widget/config_device_page2.dart';
 import 'package:hiddify/features/config_option/overview/config_options_page.dart';
 import 'package:hiddify/features/geo_asset/overview/geo_assets_overview_page.dart';
 import 'package:hiddify/features/home/widget/home_page.dart';
 import 'package:hiddify/features/intro/widget/intro_page.dart';
 import 'package:hiddify/features/log/overview/logs_overview_page.dart';
 import 'package:hiddify/features/login/widget/login_page.dart';
+import 'package:hiddify/features/config_device/widget/config_device_page.dart';
 import 'package:hiddify/features/per_app_proxy/overview/per_app_proxy_page.dart';
 import 'package:hiddify/features/profile/add/add_profile_modal.dart';
 import 'package:hiddify/features/profile/details/profile_details_page.dart';
@@ -74,6 +76,14 @@ GlobalKey<NavigatorState>? _dynamicRootKey =
         TypedGoRoute<LoginRoute>(
           path: "login",
           name: LoginRoute.name,
+        ),
+        TypedGoRoute<ConfigDeviceRoute>(
+          path: "ConfigDevice",
+          name: ConfigDeviceRoute.name,
+        ),
+        TypedGoRoute<ConfigDeviceRoute2>(
+          path: "ConfigDevice2",
+          name: ConfigDeviceRoute2.name,
         ),
         TypedGoRoute<WebViewRoute>(
           path: "webview",
@@ -149,6 +159,14 @@ class MobileWrapperRoute extends ShellRouteData {
     TypedGoRoute<LoginRoute>(
       path: "/login",
       name: LoginRoute.name,
+    ),
+    TypedGoRoute<ConfigDeviceRoute>(
+      path: "/ConfigDevice",
+      name: ConfigDeviceRoute.name,
+    ),
+    TypedGoRoute<ConfigDeviceRoute2>(
+      path: "/ConfigDevice2",
+      name: ConfigDeviceRoute2.name,
     ),
     TypedGoRoute<WebViewRoute>(
       path: "/webview",
@@ -404,6 +422,44 @@ class LoginRoute extends GoRouteData {
       );
     }
     return const NoTransitionPage(name: name, child: LoginPage());
+  }
+}
+class ConfigDeviceRoute extends GoRouteData {
+  const ConfigDeviceRoute();
+  static const name = "ConfigDevice";
+
+  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    if (useMobileRouter) {
+      return const MaterialPage(
+        name: name,
+        child: ConfigDevicePage(),
+      );
+    }
+    return const NoTransitionPage(name: name, child: ConfigDevicePage());
+  }
+}
+class ConfigDeviceRoute2 extends GoRouteData {
+  const ConfigDeviceRoute2();
+  static const name = "ConfigDevice2";
+
+  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    if (useMobileRouter) {
+      return const MaterialPage(
+        name: name,
+        child: ConfigDevicePage2(),
+      );
+    }
+    return const NoTransitionPage(name: name, child: ConfigDevicePage2());
   }
 }
 class WebViewRoute extends GoRouteData {
