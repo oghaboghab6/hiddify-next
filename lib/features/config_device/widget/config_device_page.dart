@@ -321,6 +321,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
       // print("oghab @@@ params: ${params}");
       var formData = FormData.fromMap({
         // 'unique_id': deviceID,
+        'is_plus_device': true,
 
         // 'username': user,
         // 'password': pass,
@@ -498,6 +499,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
           'https://hologate6.com:83/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
         globals.globalCheckGetListServer = true;
+        globals.globalWaitingGetListServer = true;
 
         final jsonData = response.data!;
         if (jsonData['subscription'].toString() != 'null') {

@@ -161,7 +161,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
-        children: [
+        children:(1!=1)?[
+          Text('You widget tree after loading ...'),
+          const CircularProgressIndicator()
+        ]: [
           CustomScrollView(
             slivers: [
               NestedAppBar(
