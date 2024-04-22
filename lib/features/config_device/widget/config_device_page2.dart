@@ -206,13 +206,13 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                   child: Card(
                     child: ListTile(
-                        tileColor: Colors.black12,
+                        //tileColor: Colors.black12,
                         dense: true,
                         contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
                         title: Text(
                           products2[index]['name'].toString()+ products2[index]['server'].toString(),
                           style: const TextStyle(
-                            color: Colors.black,
+                           // color: Colors.black,
                             fontSize: 16,
                           ),
                           textAlign: TextAlign.center,
