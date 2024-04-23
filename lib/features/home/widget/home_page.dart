@@ -49,7 +49,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       dynamic deleteProfileMutation) async {
     final prefs = await SharedPreferences.getInstance();
     globals.urlLink =
-        prefs.getString('url_login') ?? 'https://shop.hologate.pro/';
+        prefs.getString('url_login') ?? globals.global_url;
     globals.globalToken = prefs.getString('token') ?? '';
     // print("oghab @@@@ 0 token " + globals.globalToken.toString());
     // print("oghab @@@@ 0 globalCheckGetListServer " +
@@ -353,7 +353,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       final response =
       await client.post('https://shop.hologate.pro/api/accounts', formData);
       // await client.post('https://shop.hologate.pro/api/get-subscription', formData);
-      // await client.post('https://hologate6.com:83/api/accounts/get-subscription', formData);
+      // await client.post(globals.global_url+'/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
         final jsonData = response.data!;
         // final jsonData1 = json.decode(response.data.toString());
@@ -501,7 +501,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       final response =
       // await client.post('https://shop.hologate.pro/api/accounts', formData);
       // await client.post('https://shop.hologate.pro/api/get-subscription', formData);
-      await client.post('https://hologate6.com:83/api/accounts/get-subscription', formData);
+      await client.post(globals.global_url+'/api/accounts/get-subscription', formData);
       loggy.warning(
           'oghab @@@ response: home' + response.toString());
       if (response.statusCode == 200) {

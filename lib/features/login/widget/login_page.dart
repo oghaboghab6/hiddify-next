@@ -17,6 +17,10 @@ import 'package:hiddify/core/router/router.dart';
 
 class LoginPage extends HookConsumerWidget with PresLogger {
   const LoginPage({super.key});
+  void initHook() {
+    // WidgetsBinding.instance.addObserver(this);
+
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -146,9 +150,9 @@ class LoginPage extends HookConsumerWidget with PresLogger {
                 )),
             Container(
               padding: const EdgeInsets.all(10),
-              child: TextField(
+              child: const TextField(
                 controller: nameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'User Name',
                 ),
@@ -156,10 +160,10 @@ class LoginPage extends HookConsumerWidget with PresLogger {
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: TextField(
+              child: const TextField(
                 obscureText: true,
                 controller: passwordController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password',
                 ),
@@ -248,21 +252,21 @@ class LoginPage extends HookConsumerWidget with PresLogger {
         'platform': Platform,
         'device_model': device_model,
         'device_code': device_code,
-       // 'unique_id': deviceID,
+        // 'unique_id': deviceID,
         'is_plus_device': true,
 
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
       });
 
       final response = await client.post(
-      //    'https://shop.hologate.pro/api/login' + params, formData
+          //    'https://shop.hologate.pro/api/login' + params, formData
           //'https://shop.hologate.pro/api/login' , formData
-          'https://hologate6.com:83/api/login' , formData
-      );
-      loggy.warning(
-          'oghab @@@ response:' + response.toString());
+          globals.global_url + '/api/login',
+          formData);
+      loggy.warning('oghab @@@ response:' + response.toString());
+      final jsonData = response.data!;
+
       if (response.statusCode == 200) {
-        final jsonData = response.data!;
         //      if(jsonData['success']==true||jsonData['status']==true||jsonData['ok']==true){
         if (jsonData['success'] == true) {
           var access_token = jsonData['access_token']?.toString() ?? "";
@@ -285,31 +289,28 @@ class LoginPage extends HookConsumerWidget with PresLogger {
           //         .show(context);
           //     break;
           // }
-          if((jsonData['subscription'].toString()) !="null"){
-            final SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString('subscription', jsonData['subscription'].toString());
-            print("oghab @@@@ subscription 333  " + jsonData['subscription'].toString() );
+          if ((jsonData['subscription'].toString()) != "null") {
+            final SharedPreferences prefs =
+                await SharedPreferences.getInstance();
+            await prefs.setString(
+                'subscription', jsonData['subscription'].toString());
+            print("oghab @@@@ subscription 333  " +
+                jsonData['subscription'].toString());
 
             Navigator.of(context).pop();
-
-          }
-         else if((jsonData['state'].toString()).isNotEmpty){
-            if((jsonData['state'].toString())=="accounts"){
+          } else if ((jsonData['state'].toString()).isNotEmpty) {
+            if ((jsonData['state'].toString()) == "accounts") {
               const ConfigDeviceRoute().push(context);
-            }
-            else if((jsonData['state'].toString())=="get-devices"){
+            } else if ((jsonData['state'].toString()) == "get-devices") {
               const ConfigDeviceRoute2().push(context);
-            }
-            else if((jsonData['state'].toString())=="get-subscription"){
-             // const ConfigDeviceRoute2().push(context);
+            } else if ((jsonData['state'].toString()) == "get-subscription") {
+              // const ConfigDeviceRoute2().push(context);
               SetRequestServer_subScription(context);
               //    Navigator.of(context).popUntil((route) => false);
               // Navigator.of(context).pop();
             }
-
           }
-       //   Navigator.of(context).pop();
-
+          //   Navigator.of(context).pop();
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =
@@ -319,13 +320,22 @@ class LoginPage extends HookConsumerWidget with PresLogger {
           //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
           // );
         } else {
+          // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
+          //         ? jsonData['message'].toString()
+          //         : "سرور با خطا مواجه شد!!")
+          //     .show(context);
           CustomToast.error(
-                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
               .show(context);
         }
       } else {
-        CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
-
+        CustomToast.error(
+            jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+            .show(context);
+        // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
+        //     ? jsonData['message'].toString()
+        //     : "سرور با خطا مواجه شد!!")
+        //     .show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
@@ -335,6 +345,7 @@ class LoginPage extends HookConsumerWidget with PresLogger {
           'Could not get the local country code from ip 22 ' + e.toString());
     }
   }
+
   Future<void> SetRequestServer_subScription(BuildContext context) async {
     try {
       var deviceID = await get_unique_identifier();
@@ -342,7 +353,7 @@ class LoginPage extends HookConsumerWidget with PresLogger {
       final DioHttpClient client = DioHttpClient(
           timeout: const Duration(seconds: 10),
           userAgent:
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
           Authorization: globals.globalToken);
       // final response =
@@ -366,16 +377,18 @@ class LoginPage extends HookConsumerWidget with PresLogger {
       // print("oghab @@@ params: ${params}");
 
       final response = await client.post(
-          'https://hologate6.com:83/api/accounts/get-subscription', formData);
+          globals.global_url + '/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
         globals.globalCheckGetListServer = true;
         globals.globalWaitingGetListServer = true;
 
         final jsonData = response.data!;
         if (jsonData['subscription'].toString() != 'null') {
-          print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
+          print(
+              "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
           final SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('subscription', jsonData['subscription'].toString());
+          await prefs.setString(
+              'subscription', jsonData['subscription'].toString());
           Navigator.of(context).pop();
         } else
           //   Navigator.of(context).popUntil((route) => false);

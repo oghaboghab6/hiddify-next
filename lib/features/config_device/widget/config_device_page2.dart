@@ -321,7 +321,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
 
       final response = await client.post(
           // 'https://shop.hologate.pro/api/accounts/get-devices' , formData);
-          'https://hologate6.com:83/api/accounts/get-devices',
+          globals.global_url+'/api/accounts/get-devices',
           formData);
       if (response.statusCode == 200) {
         globals.globalCheckGetListServer = true;
@@ -382,7 +382,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       // print("oghab @@@ params: ${params}");
 
       final response = await client.post(
-          'https://hologate6.com:83/api/accounts/get-subscription', formData);
+          globals.global_url+'/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
         globals.globalCheckGetListServer = true;
         globals.globalWaitingGetListServer = true;
