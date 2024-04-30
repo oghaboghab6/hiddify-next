@@ -218,6 +218,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                           textAlign: TextAlign.center,
                         ),
                         onTap: () async{
+
+
+
                           final SharedPreferences prefs =
                               await SharedPreferences.getInstance();
                           await prefs.setString('device_id', products2[index]['id'].toString());
@@ -303,7 +306,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
         'account_id': globals.global_account_id,
-        //'unique_id': deviceID,
+        'unique_id': deviceID,
         'is_plus_device': true,
 
         // 'username': user,
@@ -324,29 +327,47 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           globals.global_url+'/api/accounts/get-devices',
           formData);
       if (response.statusCode == 200) {
-        globals.globalCheckGetListServer = true;
-
         final jsonData = response.data!;
-        setState(() {
-          products2 = jsonData['connections'] as List;
-          // products=[
-          //   {"id": 1, "name": "hologate256997"},
-          //   {"id": 2, "name": "hologate005781"}
-          // ];
-        });
-        //   Navigator.of(context).popUntil((route) => false);
-        //    Navigator.of(context).pop();
-        // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-        // final regionLocale =
-        // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
-        //
-        // loggy.debug(
-        //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
-        // );
+
+        if (jsonData['success'] == true) {
+          globals.globalCheckGetListServer = true;
+
+          setState(() {
+            products2 = jsonData['connections'] as List;
+            // products=[
+            //   {"id": 1, "name": "hologate256997"},
+            //   {"id": 2, "name": "hologate005781"}
+            // ];
+          });
+          //   Navigator.of(context).popUntil((route) => false);
+          //    Navigator.of(context).pop();
+          // Navigator.of(context).popUntil(ModalRoute.withName('/'));
+          // final regionLocale =
+          // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
+          //
+          // loggy.debug(
+          //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
+          // );
+        } else {
+          // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
+          //         ? jsonData['message'].toString()
+          //         : "سرور با خطا مواجه شد!!")
+          //     .show(context);
+          CustomToast.error(
+              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+              .show(context);
+        }
+
       } else {
+        CustomToast.error(
+           "سرور با خطا مواجه شد!!")
+            .show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
+      CustomToast.error(
+         "سرور با خطا مواجه شد!!")
+          .show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }
@@ -365,7 +386,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
         'device_id': device_id,
-       // 'unique_id': deviceID,
+       'unique_id': deviceID,
         'is_plus_device': true,
 
         // 'username': user,
@@ -384,35 +405,53 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       final response = await client.post(
           globals.global_url+'/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
-        globals.globalCheckGetListServer = true;
-        globals.globalWaitingGetListServer = true;
-
         final jsonData = response.data!;
-        if ((jsonData['subscription'].toString()) != 'null') {
-          print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
-          final SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.setString('subscription', jsonData['subscription'].toString());
-          // Navigator.of(context).pop();
-        //  Navigator.of(context).popUntil((route) => route.isFirst);
-          Navigator.of(context)..pop()..pop()..pop();
 
-        } else
-          //   Navigator.of(context).popUntil((route) => false);
-          // Navigator.of(context).pop();
-       //   Navigator.of(context).popUntil((route) => route.isFirst);
-        Navigator.of(context)..pop()..pop()..pop();
+        if (jsonData['success'] == true) {
+          globals.globalCheckGetListServer = true;
+          globals.globalWaitingGetListServer = true;
 
-        // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-        // final regionLocale =
-        // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
-        //
-        // loggy.debug(
-        //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
-        // );
+          if ((jsonData['subscription'].toString()) != 'null') {
+            print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
+            final SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.setString('subscription', jsonData['subscription'].toString());
+            // Navigator.of(context).pop();
+            //  Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.of(context)..pop()..pop()..pop();
+
+          } else
+            //   Navigator.of(context).popUntil((route) => false);
+            // Navigator.of(context).pop();
+            //   Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.of(context)..pop()..pop()..pop();
+
+          // Navigator.of(context).popUntil(ModalRoute.withName('/'));
+          // final regionLocale =
+          // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
+          //
+          // loggy.debug(
+          //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
+          // );
+        } else {
+          // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
+          //         ? jsonData['message'].toString()
+          //         : "سرور با خطا مواجه شد!!")
+          //     .show(context);
+          CustomToast.error(
+              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+              .show(context);
+        }
+
       } else {
+        CustomToast.error(
+  "سرور با خطا مواجه شد!!")
+            .show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
+      CustomToast.error(
+          "سرور با خطا مواجه شد!!")
+          .show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }

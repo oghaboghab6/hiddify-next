@@ -42,7 +42,7 @@ class ProxyTile extends HookConsumerWidget with PresLogger {
           children: [
             if (proxy.selectedName != null)
               TextSpan(
-                text: ' (${proxy.selectedName})',
+                text: ' (${proxy.selectedName}',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
           ],
