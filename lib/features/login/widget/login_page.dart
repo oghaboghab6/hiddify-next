@@ -15,7 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:hiddify/utils/link_parsers.dart';
 import 'package:hiddify/core/router/router.dart';
-
+final TextEditingController nameController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
 class LoginPage extends HookConsumerWidget with PresLogger {
   const LoginPage({super.key});
 
@@ -30,8 +31,7 @@ class LoginPage extends HookConsumerWidget with PresLogger {
     final t = ref.watch(translationsProvider);
     final appInfo = ref.watch(appInfoProvider).requireValue;
     final appUpdate = ref.watch(appUpdateNotifierProvider);
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
+
     // ref.listen(
     //   appUpdateNotifierProvider,
     //   (_, next) async {
@@ -431,17 +431,18 @@ class LoginPage extends HookConsumerWidget with PresLogger {
                           children: <Widget>[
                             const Text('Does not have account?'),
                             TextButton(
-                              child: const Text(
-                                'Sign in',
-                                style: TextStyle(fontSize: 20),
+                              child:  Text(
+                                'Register',
+                                //t.settings.general.locale,
+                                style: const TextStyle(fontSize: 20),
                               ),
                               onPressed: () async {
-                                const ConfigDeviceRoute().push(context);
+                                // const ConfigDeviceRoute().push(context);
 
-                                // await UriUtils.tryLaunch(
-                                //   Uri.parse(
-                                //       "https://shop.hologate.pro/register?type=android"),
-                                // );
+                                await UriUtils.tryLaunch(
+                                  Uri.parse(
+                                      "https://shop.hologate.pro/register?type=android"),
+                                );
                               },
                             )
                           ],

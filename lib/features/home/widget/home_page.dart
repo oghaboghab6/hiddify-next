@@ -72,12 +72,98 @@ class HomePage extends HookConsumerWidget with PresLogger {
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
       addProfileProvider,
       deleteProfileMutation) async {
+    try {
+      final DioHttpClient client = DioHttpClient(
+          timeout: const Duration(seconds: 10),
+          userAgent:
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+          debug: true,
+          Authorization: globals.globalToken);
+      // final response =
+      // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
+
+      var deviceID = await get_unique_identifier();
+
+      var device_model = await get_info_device();
+      var device_code = await get_info_device();
+      //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+      // var params =
+      //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+      // //  loggy.warning('oghab @@@ params: ${params}');
+      // print("oghab @@@ params: ${params}");
+      var formData = FormData.fromMap({
+        'token': globals.globalToken,
+        'unique_id': deviceID,
+        'is_plus_device': true,
+
+        // 'username': user,
+        // 'password': pass,
+        // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
+      });
+      final response = await client.post(
+        // 'https://shop.hologate.pro/api/accounts' + params, formData);
+          globals.global_url + '/api/accounts/log_out',
+          formData);
+      final jsonData = response.data!;
+
+      if (response.statusCode == 200) {
+        if (jsonData['success'] == true) {
+
+          // final prefs = await SharedPreferences.getInstance();
+          // prefs.setString('token', '');
+          // prefs.setString('subscription', '');
+          // globals.globalToken = "";
+          // deleteProfileMutation.setFuture(
+          //   ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
+          // );
+          //
+          // const LoginRoute().push(context).then((data) {
+          //   // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
+          //   if (globals.globalCheckGetListServer)
+          //     GetListAccountServer(
+          //         context, ref, addProfileProvider, deleteProfileMutation);
+          //   // then will return value when the loginscreen's pop is called.
+          // });
+
+        } else {
+          // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
+          //         ? jsonData['message'].toString()
+          //         : "سرور با خطا مواجه شد!!")
+          //     .show(context);
+          CustomToast.error(
+              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+              .show(context);
+        }
+
+        // Navigator.of(context).pop();
+        // Navigator.of(context).popUntil(ModalRoute.withName('/'));
+        // final regionLocale =
+        // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
+        //
+        // loggy.debug(
+        //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
+        // );
+      } else {
+        CustomToast.error(
+            "سرور با خطا مواجه شد!!")
+            .show(context);
+        loggy.warning('Request failed with status: ${response.statusCode}');
+      }
+    } catch (e) {
+      CustomToast.error(
+          "سرور با خطا مواجه شد!!")
+          .show(context);
+      loggy.warning('Could not get the local country code from ip');
+    }
+
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('token', '');
+    prefs.setString('subscription', '');
     globals.globalToken = "";
     deleteProfileMutation.setFuture(
       ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
     );
+
     const LoginRoute().push(context).then((data) {
       // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
       if (globals.globalCheckGetListServer)
@@ -85,6 +171,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
             context, ref, addProfileProvider, deleteProfileMutation);
       // then will return value when the loginscreen's pop is called.
     });
+
+
 
     // final t = ref.watch(translationsProvider);
     // final deleteProfileMutation = useMutation(
@@ -184,11 +272,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     icon: const Icon(FluentIcons.add_circle_24_filled),
                     tooltip: t.profile.add.buttonText,
                   ),
-                  IconButton(
+                  if(globals.globalToken != "")  IconButton(
                     onPressed: () =>
                         GetListAccountServer(context, ref,
                             addProfileProvider, deleteProfileMutation),
-                    icon: const Icon(FluentIcons.server_12_filled),
+                    icon: const Icon(FluentIcons.arrow_sync_24_regular),
                     tooltip: t.profile.add.buttonText,
                   ),
                   IconButton(
@@ -221,7 +309,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       else
                         const LoginRoute().push(context).then((data) {
                           //print("oghab @@@@ ppppppp2 ${globals.globalToken}");
-                          if (globals.globalCheckGetListServer) {
+                          if (globals.globalCheckGetListServer==true) {
                             GetListAccountServer(
                               context,
                               ref,

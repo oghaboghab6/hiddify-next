@@ -26,7 +26,7 @@ class LocalePrefTile extends HookConsumerWidget {
           context: context,
           builder: (context) {
             return SimpleDialog(
-              title: Text(t.settings.general.locale),
+              title: Text(t.settings.general.locale,),
               children: AppLocale.values
                   .map(
                     (e) => RadioListTile(
