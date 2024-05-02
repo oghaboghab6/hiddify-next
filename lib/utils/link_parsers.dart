@@ -121,7 +121,7 @@ Future<String?> get_unique_identifier() async{
     return iosDeviceInfo.identifierForVendor; // unique ID on iOS
   } else if(Platform.isAndroid) {
     var androidDeviceInfo = await deviceInfo.androidInfo;
-    return androidDeviceInfo.id; // unique ID on Android
+    return androidDeviceInfo.device+" - "+androidDeviceInfo.model+" - "+androidDeviceInfo.id; // unique ID on Android
   } else if(Platform.isWindows) {
     var windowsDeviceInfo = await deviceInfo.windowsInfo;
     return windowsDeviceInfo.deviceId; // unique ID on Android

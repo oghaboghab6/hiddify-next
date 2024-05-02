@@ -125,17 +125,17 @@ class AboutPage extends HookConsumerWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                ...conditionalTiles,
+                // ...conditionalTiles,
                 if (conditionalTiles.isNotEmpty) const Divider(),
-                ListTile(
-                  title: Text(t.about.sourceCode),
-                  trailing: const Icon(FluentIcons.open_24_regular),
-                  onTap: () async {
-                    await UriUtils.tryLaunch(
-                      Uri.parse(Constants.githubUrl),
-                    );
-                  },
-                ),
+                // ListTile(
+                //   title: Text(t.about.sourceCode),
+                //   trailing: const Icon(FluentIcons.open_24_regular),
+                //   onTap: () async {
+                //     await UriUtils.tryLaunch(
+                //       Uri.parse(Constants.githubUrl),
+                //     );
+                //   },
+                // ),
                 ListTile(
                   title: Text(t.about.telegramChannel),
                   trailing: const Icon(FluentIcons.open_24_regular),
@@ -145,24 +145,24 @@ class AboutPage extends HookConsumerWidget {
                     );
                   },
                 ),
-                ListTile(
-                  title: Text(t.about.termsAndConditions),
-                  trailing: const Icon(FluentIcons.open_24_regular),
-                  onTap: () async {
-                    await UriUtils.tryLaunch(
-                      Uri.parse(Constants.termsAndConditionsUrl),
-                    );
-                  },
-                ),
-                ListTile(
-                  title: Text(t.about.privacyPolicy),
-                  trailing: const Icon(FluentIcons.open_24_regular),
-                  onTap: () async {
-                    await UriUtils.tryLaunch(
-                      Uri.parse(Constants.privacyPolicyUrl),
-                    );
-                  },
-                ),
+                // ListTile(
+                //   title: Text(t.about.termsAndConditions),
+                //   trailing: const Icon(FluentIcons.open_24_regular),
+                //   onTap: () async {
+                //     await UriUtils.tryLaunch(
+                //       Uri.parse(Constants.termsAndConditionsUrl),
+                //     );
+                //   },
+                // ),
+                // ListTile(
+                //   title: Text(t.about.privacyPolicy),
+                //   trailing: const Icon(FluentIcons.open_24_regular),
+                //   onTap: () async {
+                //     await UriUtils.tryLaunch(
+                //       Uri.parse(Constants.privacyPolicyUrl),
+                //     );
+                //   },
+                // ),
               ],
             ),
           ),
