@@ -23,8 +23,8 @@
     },
     "home": {
         "pageTitle": "خانه",
-        "emptyProfilesMsg": "با افزودن پروفایل شروع کنید",
-        "noActiveProfileMsg": "یک پروفایل انتخاب کنید",
+        "emptyProfilesMsg": "لطفا وارد حساب کاربری خود شوید",
+        "noActiveProfileMsg": "ورود به حساب کاربری",
         "connection": {
             "tapToConnect": "برای اتصال ضربه بزنید",
             "connecting": "در حال اتصال",
@@ -60,7 +60,7 @@
             "name": "براساس نام"
         },
         "add": {
-            "buttonText": "افزودن پروفایل جدید",
+            "buttonText": "ورود به حساب کاربری",
             "shortBtnTxt": "افزودن",
             "fromClipboard": "افزودن از کلیپ‌بورد",
             "scanQr": "اسکن QR کد",

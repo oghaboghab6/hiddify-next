@@ -25,8 +25,8 @@
     },
     "home": {
         "pageTitle": "Home",
-        "emptyProfilesMsg": "Begin by adding a subscription profile",
-        "noActiveProfileMsg": "Choose a profile",
+        "emptyProfilesMsg": "Please log in to your account",
+        "noActiveProfileMsg": "Login",
         "connection": {
             "tapToConnect": "Tap to Connect",
             "connecting": "Connecting",
