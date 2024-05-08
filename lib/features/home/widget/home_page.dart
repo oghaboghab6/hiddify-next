@@ -1,5 +1,6 @@
 import 'package:dartx/dartx.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'package:dio/dio.dart';
@@ -90,7 +91,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
       // var params =
       //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
       // //  loggy.warning('oghab @@@ params: ${params}');
-      // print("oghab @@@ params: ${params}");
       var formData = FormData.fromMap({
         'token': globals.globalToken,
         'unique_id': deviceID,
@@ -100,30 +100,35 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // 'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
       });
+      print("oghab @@@ deviceID: ${deviceID}");
+
       final response = await client.post(
         // 'https://shop.hologate.pro/api/accounts' + params, formData);
           globals.global_url + '/api/accounts/log_out',
           formData);
       final jsonData = response.data!;
+      print("oghab @@@ response: ${response}");
 
       if (response.statusCode == 200) {
         if (jsonData['success'] == true) {
+          CustomToast.success(
+              jsonData['message']?.toString() ?? "باموفقیت انجام شد!")
+              .show(context);
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('token', '');
+          prefs.setString('subscription', '');
+          globals.globalToken = "";
+          deleteProfileMutation.setFuture(
+            ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
+          );
 
-          // final prefs = await SharedPreferences.getInstance();
-          // prefs.setString('token', '');
-          // prefs.setString('subscription', '');
-          // globals.globalToken = "";
-          // deleteProfileMutation.setFuture(
-          //   ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
-          // );
-          //
-          // const LoginRoute().push(context).then((data) {
-          //   // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
-          //   if (globals.globalCheckGetListServer)
-          //     GetListAccountServer(
-          //         context, ref, addProfileProvider, deleteProfileMutation);
-          //   // then will return value when the loginscreen's pop is called.
-          // });
+          const LoginRoute().push(context).then((data) {
+            // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
+            if (globals.globalCheckGetListServer)
+              GetListAccountServer(
+                  context, ref, addProfileProvider, deleteProfileMutation);
+            // then will return value when the loginscreen's pop is called.
+          });
 
         } else {
           // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
@@ -156,21 +161,21 @@ class HomePage extends HookConsumerWidget with PresLogger {
       loggy.warning('Could not get the local country code from ip');
     }
 
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', '');
-    prefs.setString('subscription', '');
-    globals.globalToken = "";
-    deleteProfileMutation.setFuture(
-      ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
-    );
-
-    const LoginRoute().push(context).then((data) {
-      // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
-      if (globals.globalCheckGetListServer)
-        GetListAccountServer(
-            context, ref, addProfileProvider, deleteProfileMutation);
-      // then will return value when the loginscreen's pop is called.
-    });
+    // final prefs = await SharedPreferences.getInstance();
+    // prefs.setString('token', '');
+    // prefs.setString('subscription', '');
+    // globals.globalToken = "";
+    // deleteProfileMutation.setFuture(
+    //   ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
+    // );
+    //
+    // const LoginRoute().push(context).then((data) {
+    //   // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
+    //   if (globals.globalCheckGetListServer)
+    //     GetListAccountServer(
+    //         context, ref, addProfileProvider, deleteProfileMutation);
+    //   // then will return value when the loginscreen's pop is called.
+    // });
 
 
 
@@ -203,6 +208,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
   // }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLoadingSubscription = useState(false);
+
     final token = '';
     final t = ref.watch(translationsProvider);
     final deleteProfileMutation = useMutation(
@@ -266,7 +273,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   ),
                 ),
                 actions: [
-                  IconButton(
+                if(1!=1)  IconButton(
                     onPressed: () =>
                         const AddProfileRoute().push(context),
                     icon: const Icon(FluentIcons.add_circle_24_filled),
@@ -319,10 +326,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
                             CustomToast.error(
                                 "در حال ساختن  اکانت لطفا صبر نمایید")
                                 .show(context);
+                            isLoadingSubscription.value = true;
+
                             Future.delayed(
                               const Duration(seconds: 30),
                                   () => 100,
                             ).then((value) {
+                              isLoadingSubscription.value = false;
+
                               GetListAccountServer(
                                   context,
                                   ref,
@@ -582,7 +593,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final prefs = await SharedPreferences.getInstance();
     var id_device = prefs.getString('id_device') ?? '';
     var subscription = prefs.getString('subscription') ?? '';
+
+    // Clipboard.setData(new ClipboardData(text: subscription));
+
     print("oghab @@@@ subscription  " +
+
         subscription +
         "  ----   " +
         id_device +

@@ -89,6 +89,12 @@ RouteBase get $mobileWrapperRoute => ShellRouteData.$route(
               factory: $LoginRouteExtension._fromState,
             ),
             GoRouteData.$route(
+              path: 'ConfigLocation',
+              name: 'ConfigLocation',
+              parentNavigatorKey: ConfigLocationRoute.$parentNavigatorKey,
+              factory: $ConfigLocationRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
               path: 'ConfigDevice',
               name: 'ConfigDevice',
               parentNavigatorKey: ConfigDeviceRoute.$parentNavigatorKey,
@@ -338,6 +344,22 @@ extension $LoginRouteExtension on LoginRoute {
 
   void replace(BuildContext context) => context.replace(location);
 }
+extension $ConfigLocationRouteExtension on ConfigLocationRoute {
+  static ConfigLocationRoute _fromState(GoRouterState state) => const ConfigLocationRoute();
+
+  String get location => GoRouteData.$location(
+        '/ConfigLocation',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
 extension $ConfigDeviceRouteExtension on ConfigDeviceRoute {
   static ConfigDeviceRoute _fromState(GoRouterState state) => const ConfigDeviceRoute();
 
@@ -493,6 +515,12 @@ RouteBase get $desktopWrapperRoute => ShellRouteData.$route(
           name: 'ConfigDevice2',
           parentNavigatorKey: ConfigDeviceRoute2.$parentNavigatorKey,
           factory: $ConfigDeviceRouteExtension2._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/ConfigLocation',
+          name: 'ConfigLocation',
+          parentNavigatorKey: ConfigLocationRoute.$parentNavigatorKey,
+          factory: $ConfigLocationRouteExtension._fromState,
         ),
         GoRouteData.$route(
           path: '/webview',
