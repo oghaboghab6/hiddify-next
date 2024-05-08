@@ -20,6 +20,8 @@ import 'package:hiddify/features/settings/overview/settings_overview_page.dart';
 import 'package:hiddify/features/webview/widget/webview_page.dart';
 import 'package:hiddify/utils/utils.dart';
 
+import '../../features/config_device/widget/config_location_page.dart';
+
 part 'routes.g.dart';
 
 GlobalKey<NavigatorState>? _dynamicRootKey =
@@ -422,6 +424,25 @@ class LoginRoute extends GoRouteData {
       );
     }
     return const NoTransitionPage(name: name, child: LoginPage());
+  }
+}
+class ConfigLocationRoute extends GoRouteData {
+  const ConfigLocationRoute();
+  static const name = "ConfigLocation";
+
+  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    if (useMobileRouter) {
+      return const MaterialPage(
+        name: name,
+        child: ConfigLocationPage(),
+      );
+    }
+    return const NoTransitionPage(name: name, child: ConfigLocationPage());
   }
 }
 class ConfigDeviceRoute extends GoRouteData {

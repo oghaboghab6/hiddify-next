@@ -297,7 +297,13 @@ class LoginPage extends HookConsumerWidget with PresLogger {
               if ((jsonData['state'].toString()) == "accounts") {
                 const ConfigDeviceRoute().push(context);
               } else if ((jsonData['state'].toString()) == "get-devices") {
-                const ConfigDeviceRoute2().push(context);
+                globals.globalCheckDevice=true;
+                const ConfigDeviceRoute2().push(context );
+
+              }   else if ((jsonData['state'].toString()) == "get_mc_group") {
+                globals.global_subscription_id=jsonData['subscription_id'].toString();
+                const ConfigLocationRoute().push(context );
+
               } else if ((jsonData['state'].toString()) == "get-subscription") {
                 // const ConfigDeviceRoute2().push(context);
                 SetRequestServer_subScription(context);
@@ -315,6 +321,8 @@ class LoginPage extends HookConsumerWidget with PresLogger {
             //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
             // );
           } else {
+            loggy.warning('Request failed with status111: ${response.statusCode}');
+
             // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
             //         ? jsonData['message'].toString()
             //         : "سرور با خطا مواجه شد!!")
@@ -438,11 +446,12 @@ class LoginPage extends HookConsumerWidget with PresLogger {
                               ),
                               onPressed: () async {
                                 // const ConfigDeviceRoute().push(context);
+                                const ConfigDeviceRoute2().push(context );
 
-                                await UriUtils.tryLaunch(
-                                  Uri.parse(
-                                      "https://shop.hologate.pro/register?type=android"),
-                                );
+                                // await UriUtils.tryLaunch(
+                                //   Uri.parse(
+                                //       "https://shop.hologate.pro/register?type=android"),
+                                // );
                               },
                             )
                           ],

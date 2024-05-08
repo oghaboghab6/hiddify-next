@@ -9,15 +9,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:hiddify/utils/link_parsers.dart';
 
-import '../../../core/router/routes.dart';
 /*class MyHomePage extends StatefulWidget {
   @override
-  ConfigDevicePage createState() => ConfigDevicePage();
+  ConfigLocationPage createState() => ConfigLocationPage();
 }
-class ConfigDevicePage extends State<MyHomePage>  with PresLogger {
+class ConfigLocationPage extends State<MyHomePage>  with PresLogger {
   // late final List<String,dynamic> products=[{"id":1,"name":""}];
   late final List<Map<String, dynamic>> products = [{"id":1,"name":"ahmad"}];
-  // const ConfigDevicePage({super.key});
+  // const ConfigLocationPage({super.key});
   @override
   void initState() {
     super.initState();
@@ -136,9 +135,9 @@ class ConfigDevicePage extends State<MyHomePage>  with PresLogger {
 
 }*/
 
-class ConfigDevicePage extends StatefulHookConsumerWidget {
-  //const ConfigDevicePage(this.child, {super.key});
-  const ConfigDevicePage({super.key});
+class ConfigLocationPage extends StatefulHookConsumerWidget {
+  //const ConfigLocationPage(this.child, {super.key});
+  const ConfigLocationPage({super.key});
 
   //final Widget child;
 
@@ -147,23 +146,24 @@ class ConfigDevicePage extends StatefulHookConsumerWidget {
       _ConnectionWrapperState();
 }
 
-class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
+class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
     with AppLogger {
-  late List products = [
+  // late final List<Map<String, dynamic>> products = [
+  //   // {"id": 1, "name": "hologate256997"},
+  //   // {"id": 2, "name": "hologate005781"}
+  // ];
+  late List products2 = [
     // {"id": 1, "name": "hologate256997"},
     // {"id": 2, "name": "hologate005781"}
   ];
 
-  // late  List<Map<String, dynamic>> products = [
-  //   // {"id": 1, "name": "hologate256997"},
-  //   // {"id": 2, "name": "hologate005781"}
+  // late final List<Map<String, dynamic>> products2 = [
+  //   // {"id": 1, "name": "g1.hologate.pro", "type": "ssh"},
+  //   // {"id": 2, "name": "g25.hologate.com", "type": "v2ray"}
   // ];
-  late final List<Map<String, dynamic>> products2 = [
-    // {"id": 1, "name": "g1.hologate.pro", "type": "ssh"},
-    // {"id": 2, "name": "g25.hologate.com", "type": "v2ray"}
-  ];
   int _check = 1;
-  String account_id = "0";
+  bool _checkFrom = false;
+  String mc_group_id = "0";
 
   @override
   // Widget build(BuildContext context) {
@@ -179,7 +179,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
-        child: ListView(
+        child: Column(
           children: [
             Container(
               alignment: Alignment.center,
@@ -187,7 +187,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
               child: const Column(
                 children: <Widget>[
                   Text(
-                    'شما اکانت فعال در هلوگیت دارید. کدام اشتراک را در پلاس استفاده می کنید ؟',
+                    'لوکیشن مورد نظر خود را انتخاب نمایید',
                     style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.w500,
@@ -198,34 +198,39 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
               ),
             ),
             ListView.builder(
-              itemCount: products.length,
+              itemCount: products2.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return SingleChildScrollView(
+                return Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                   child: Card(
                     child: ListTile(
-                        //  tileColor: Colors.black12,
+                        //tileColor: Colors.black12,
                         dense: true,
                         contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
                         title: Text(
-                          products[index]['username'].toString() +
-                              " - " +
-                              products[index]['name'].toString(),
+                          products2[index]['name']!.toString(),
                           style: const TextStyle(
-                            // color: Colors.black,
+                           // color: Colors.black,
                             fontSize: 16,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        onTap: () {
-                          setState(() {
-                            account_id = products[index]['id'].toString();
-                            print("oghab @@@ account_id  " + account_id);
+                        onTap: () async{
+
+
+
+                          final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setString('location_id', products2[index]['id'].toString());
+                          setState(()  {
+                            mc_group_id = products2[index]['id'].toString();
+
                           });
                           SetRequestServer(context);
+
                         }
                         // title:  Text(products[index]['name']),
                         ),
@@ -233,7 +238,6 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
                 );
               },
             ),
-
             /*           if(products.isNotEmpty)  ListView.builder(
               itemCount: products.length,
               itemBuilder: (context, index) {
@@ -267,15 +271,6 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
               child: FilledButton.icon(
                 onPressed: () {
                   SetRequestServer(context);
-                  //  const ConfigDeviceRoute2().push(context);
-                  // setState(() {
-                  //   // This call to setState tells the Flutter framework that something has
-                  //   // changed in this State, which causes it to rerun the build method below
-                  //   // so that the display can reflect the updated values. If we changed
-                  //   // _counter without calling setState(), then the build method would not be
-                  //   // called again, and so nothing would appear to happen.
-                  //   _check=2;
-                  // });
                 },
                 icon: const Icon(FluentIcons.send_16_filled),
                 label: const Text(
@@ -294,12 +289,16 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
   @override
   void initState() {
     super.initState();
+    _checkFrom=globals.globalCheckDevice;
+    globals.globalCheckDevice=false;
     GetRequestServer(context);
-    //   RequestServer(context);
+    //  RequestServer(context);
   }
 
   Future<void> GetRequestServer(BuildContext context) async {
     try {
+      var deviceID = await get_unique_identifier();
+
       final DioHttpClient client = DioHttpClient(
           timeout: const Duration(seconds: 10),
           userAgent:
@@ -308,17 +307,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
           Authorization: globals.globalToken);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
-
-      var deviceID = await get_unique_identifier();
-
-      var device_model = await get_info_device();
-      var device_code = await get_info_device();
-      //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
-      // var params =
-      //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
-      // //  loggy.warning('oghab @@@ params: ${params}');
-      // print("oghab @@@ params: ${params}");
       var formData = FormData.fromMap({
+        'account_id': globals.global_account_id,
+        'subscription_id': globals.global_subscription_id,
         'unique_id': deviceID,
         'is_plus_device': true,
 
@@ -326,153 +317,35 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
         // 'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
       });
+
+      var device_model = await get_info_device();
+      var device_code = await get_info_device();
+      //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+      // var params =
+      //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+      //  loggy.warning('oghab @@@ params: ${params}');
+
       final response = await client.post(
-          // 'https://shop.hologate.pro/api/accounts' + params, formData);
-          globals.global_url + '/api/accounts',
+          // 'https://shop.hologate.pro/api/accounts/get-devices' , formData);
+          globals.global_url+'/api/accounts/get-mc-group',
           formData);
-      final jsonData = response.data!;
+      print("oghab @@@ params: ${response}");
 
       if (response.statusCode == 200) {
+        final jsonData = response.data!;
+
         if (jsonData['success'] == true) {
-          var access_token = jsonData['access_token']?.toString() ?? "";
+          // globals.globalCheckGetListServer = true;
+
           setState(() {
-            products = jsonData['accounts'] as List;
+            products2 = jsonData['mc-group'] as List;
             // products=[
             //   {"id": 1, "name": "hologate256997"},
             //   {"id": 2, "name": "hologate005781"}
             // ];
           });
-        } else {
-          // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
-          //         ? jsonData['message'].toString()
-          //         : "سرور با خطا مواجه شد!!")
-          //     .show(context);
-          CustomToast.error(
-                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
-              .show(context);
-        }
-
-        // Navigator.of(context).pop();
-        // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-        // final regionLocale =
-        // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
-        //
-        // loggy.debug(
-        //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
-        // );
-      } else {
-        CustomToast.error(
-            "سرور با خطا مواجه شد!!")
-            .show(context);
-        loggy.warning('Request failed with status: ${response.statusCode}');
-      }
-    } catch (e) {
-      CustomToast.error(
-          "سرور با خطا مواجه شد!!")
-          .show(context);
-      loggy.warning('Could not get the local country code from ip');
-    }
-  }
-
-  Future<void> SetRequestServer(BuildContext context) async {
-    try {
-      var deviceID = await get_unique_identifier();
-      print("oghab @@@ globalToken " +
-          globals.globalToken +
-          "  -   " +
-          account_id);
-      final DioHttpClient client = DioHttpClient(
-          timeout: const Duration(seconds: 10),
-          userAgent:
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
-          debug: true,
-          Authorization: globals.globalToken);
-      // final response =
-      // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
-      var formData = FormData.fromMap({
-        'account_id': account_id,
-        'is_plus_device': true,
-        'unique_id': deviceID,
-
-        // 'password': pass,
-        // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
-      });
-
-      // var device_model = await get_info_device();
-      // var device_code = await get_info_device();
-      //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
-      // var params =
-      //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
-      // //  loggy.warning('oghab @@@ params: ${params}');
-      // print("oghab @@@ params: ${params}");
-      print("oghab @@@ account_id: ${account_id}");
-
-      final response = await client.post(
-          // 'https://shop.hologate.pro/api/login' + params, formData);
-          globals.global_url + '/api/accounts/get-devices',
-          formData);
-      print("oghab @@@ response" + response.toString());
-      final jsonData = response.data!;
-
-      if (response.statusCode == 200) {
-        if (jsonData['success'] == true) {
-          // globals.globalCheckGetListServer = true;
-          //
-          globals.global_account_id = account_id;
-          // var access_token = jsonData['access_token']?.toString() ?? "";
-          // var token_type = jsonData['token_type']?.toString() ?? "";
-          // var loginUrl = jsonData['login_url']?.toString() ?? "";
-          //
-          // // loggy.debug(
-          // //   'oghab @@@: ${access_token}   ${token_type} ',
-          // // );
-          // final SharedPreferences prefs = await SharedPreferences.getInstance();
-          // var token = token_type + " " + access_token;
-          // globals.globalToken = token;
-          // await prefs.setString('token', token);
-          // await prefs.setString('url_login', loginUrl);
-          // Navigator.of(context).pop();
-
-          if ((jsonData['subscription'].toString()) != "null") {
-            final SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString(
-                'subscription', jsonData['subscription'].toString());
-            // Navigator.of(context).pop();
-            //Navigator.of(context).popUntil((route) => route.isFirst);
-            Navigator.of(context)
-              ..pop()
-              ..pop();
-          } else if ((jsonData['connections'].toString()) != "null") {
-            const ConfigDeviceRoute2().push(context);
-          } else if ((jsonData['state'].toString()) != 'null') {
-            if (jsonData['state'].toString() == "get-devices") {
-              const ConfigDeviceRoute2().push(context);
-            }
-            else if ((jsonData['state'].toString()) == "get_mc_group") {
-              globals.global_subscription_id=jsonData['subscription_id'].toString();
-              const ConfigLocationRoute().push(context );
-
-            }
-            else if ((jsonData['state'].toString()) == "get_subscription") {
-              SetRequestServer_subScription(context);
-
-              // Navigator.of(context).popUntil((route) => false);
-              //  Navigator.of(context).pop();
-            } else {
-              CustomToast.error(
-                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
-                  .show(context);
-            }
-          } else {
-            //  Navigator.of(context).popUntil((route) => false);
-            // Navigator.of(context).pop();
-            // Navigator.of(context).popUntil((route) => route.isFirst);
-            // Navigator.of(context)
-            //   ..pop()
-            //   ..pop();
-            Navigator.of(context).popUntil((route) => route.isFirst);
-
-          }
+          //   Navigator.of(context).popUntil((route) => false);
+          //    Navigator.of(context).pop();
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =
           // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
@@ -490,21 +363,21 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
               .show(context);
         }
 
-
       } else {
-        CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
-
+        CustomToast.error(
+           "سرور با خطا مواجه شد!!")
+            .show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      CustomToast.error("سرور با خطا مواجه شد!").show(context);
-
-      loggy.warning(
-          'Could not get the local country code from ip 6666' + e.toString());
+      CustomToast.error(
+         "سرور با خطا مواجه شد!!")
+          .show(context);
+      loggy.warning('Could not get the local country code from ip');
     }
   }
 
-  Future<void> SetRequestServer_subScription(BuildContext context) async {
+  Future<void> SetRequestServer(BuildContext context) async {
     try {
       var deviceID = await get_unique_identifier();
 
@@ -517,8 +390,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
-        'device_id': null,
-        'unique_id': deviceID,
+        'mc_group_id': mc_group_id,
+        'subscription_id': globals.global_subscription_id,
+       'unique_id': deviceID,
         'is_plus_device': true,
 
         // 'username': user,
@@ -532,38 +406,34 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
       // var params =
       //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
       //  loggy.warning('oghab @@@ params: ${params}');
-      // print("oghab @@@ params: ${params}");
+      print("oghab @@@ params: ${formData}");
 
       final response = await client.post(
-          globals.global_url + '/api/accounts/get-subscription', formData);
+          globals.global_url+'/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
-
-
         final jsonData = response.data!;
 
         if (jsonData['success'] == true) {
           globals.globalCheckGetListServer = true;
           globals.globalWaitingGetListServer = true;
-          if (jsonData['subscription'].toString() != 'null') {
-            print(
-                "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
+
+          if ((jsonData['subscription'].toString()) != 'null') {
+            print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
             final SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString(
-                'subscription', jsonData['subscription'].toString());
+            await prefs.setString('subscription', jsonData['subscription'].toString());
             // Navigator.of(context).pop();
-            // Navigator.of(context).popUntil((route) => route.isFirst);
-            // Navigator.of(context)
-            //   ..pop()
-            //   ..pop();
+            //  Navigator.of(context).popUntil((route) => route.isFirst);
+            // if(_checkFrom==true)
+            // Navigator.of(context)..pop()..pop();
+            // else
+            // Navigator.of(context)..pop()..pop()..pop();
             Navigator.of(context).popUntil((route) => route.isFirst);
 
           } else
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            // Navigator.of(context).popUntil((route) => route.isFirst);
-            // Navigator.of(context)
-            //   ..pop()
-            //   ..pop();
+            //   Navigator.of(context).popUntil((route) => route.isFirst);
+            // Navigator.of(context)..pop()..pop()..pop();
           Navigator.of(context).popUntil((route) => route.isFirst);
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
@@ -584,13 +454,15 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
         }
 
       } else {
-        CustomToast.error("سرور با خطا مواجه شد!").show(context);
-
+        CustomToast.error(
+  "سرور با خطا مواجه شد!!")
+            .show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      CustomToast.error("سرور با خطا مواجه شد!").show(context);
-
+      CustomToast.error(
+          "سرور با خطا مواجه شد!!")
+          .show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }
