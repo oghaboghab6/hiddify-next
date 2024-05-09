@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartx/dartx.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -42,10 +44,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
   @override
   // Method to load the shared preference data
-  Future<String> _loadPreferences(BuildContext context,
+  Future<String> _loadPreferences(
+      BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-      addProfileProvider,
+          addProfileProvider,
       dynamic deleteProfileMutation) async {
     final prefs = await SharedPreferences.getInstance();
     globals.urlLink = prefs.getString('url_login') ?? globals.global_url;
@@ -68,16 +71,17 @@ class HomePage extends HookConsumerWidget with PresLogger {
     return globals.globalToken;
   }
 
-  void exit(BuildContext context,
+  void exit(
+      BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-      addProfileProvider,
+          addProfileProvider,
       deleteProfileMutation) async {
     try {
       final DioHttpClient client = DioHttpClient(
           timeout: const Duration(seconds: 10),
           userAgent:
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
           Authorization: globals.globalToken);
       // final response =
@@ -103,7 +107,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       print("oghab @@@ deviceID: ${deviceID}");
 
       final response = await client.post(
-        // 'https://shop.hologate.pro/api/accounts' + params, formData);
+          // 'https://shop.hologate.pro/api/accounts' + params, formData);
           globals.global_url + '/api/accounts/log_out',
           formData);
       final jsonData = response.data!;
@@ -112,14 +116,16 @@ class HomePage extends HookConsumerWidget with PresLogger {
       if (response.statusCode == 200) {
         if (jsonData['success'] == true) {
           CustomToast.success(
-              jsonData['message']?.toString() ?? "باموفقیت انجام شد!")
+                  jsonData['message']?.toString() ?? "باموفقیت انجام شد!")
               .show(context);
           final prefs = await SharedPreferences.getInstance();
           prefs.setString('token', '');
           prefs.setString('subscription', '');
           globals.globalToken = "";
           deleteProfileMutation.setFuture(
-            ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
+            ref
+                .read(profilesOverviewNotifierProvider.notifier)
+                .deleteAllProfile(),
           );
 
           const LoginRoute().push(context).then((data) {
@@ -129,14 +135,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   context, ref, addProfileProvider, deleteProfileMutation);
             // then will return value when the loginscreen's pop is called.
           });
-
         } else {
           // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
           //         ? jsonData['message'].toString()
           //         : "سرور با خطا مواجه شد!!")
           //     .show(context);
           CustomToast.error(
-              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
               .show(context);
         }
 
@@ -149,15 +154,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
         //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
         // );
       } else {
-        CustomToast.error(
-            "سرور با خطا مواجه شد!!")
-            .show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      CustomToast.error(
-          "سرور با خطا مواجه شد!!")
-          .show(context);
+      CustomToast.error("سرور با خطا مواجه شد!!").show(context);
       loggy.warning('Could not get the local country code from ip');
     }
 
@@ -176,8 +177,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //         context, ref, addProfileProvider, deleteProfileMutation);
     //   // then will return value when the loginscreen's pop is called.
     // });
-
-
 
     // final t = ref.watch(translationsProvider);
     // final deleteProfileMutation = useMutation(
@@ -256,7 +255,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
-        children:  [
+        children: [
           CustomScrollView(
             slivers: [
               NestedAppBar(
@@ -273,33 +272,29 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   ),
                 ),
                 actions: [
-                if(1!=1)  IconButton(
-                    onPressed: () =>
-                        const AddProfileRoute().push(context),
-                    icon: const Icon(FluentIcons.add_circle_24_filled),
-                    tooltip: t.profile.add.buttonText,
-                  ),
-                  if(globals.globalToken != "")  IconButton(
-                    onPressed: () =>
-                        GetListAccountServer(context, ref,
-                            addProfileProvider, deleteProfileMutation),
-                    icon: const Icon(FluentIcons.arrow_sync_24_regular),
-                    tooltip: t.profile.add.buttonText,
-                  ),
+                  if (1 != 1)
+                    IconButton(
+                      onPressed: () => const AddProfileRoute().push(context),
+                      icon: const Icon(FluentIcons.add_circle_24_filled),
+                      tooltip: t.profile.add.buttonText,
+                    ),
+                  if (globals.globalToken != "")
+                    IconButton(
+                      onPressed: () => GetListAccountServer(context, ref,
+                          addProfileProvider, deleteProfileMutation),
+                      icon: const Icon(FluentIcons.arrow_sync_24_regular),
+                      tooltip: t.profile.add.buttonText,
+                    ),
                   IconButton(
-                    onPressed: () =>
-                    {
+                    onPressed: () => {
                       if (globals.globalToken != "")
                         const WebViewRoute().push(context)
                       else
                         const LoginRoute().push(context).then((data) {
                           //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
                           if (globals.globalCheckGetListServer) {
-                            GetListAccountServer(
-                                context,
-                                ref,
-                                addProfileProvider,
-                                deleteProfileMutation);
+                            GetListAccountServer(context, ref,
+                                addProfileProvider, deleteProfileMutation);
                           }
                           // then will return value when the loginscreen's pop is called.
                         }),
@@ -308,15 +303,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     tooltip: t.profile.add.buttonText,
                   ),
                   IconButton(
-                    onPressed: () =>
-                    {
+                    onPressed: () => {
                       if (globals.globalToken != "")
                         exit(context, ref, addProfileProvider,
                             deleteProfileMutation)
                       else
                         const LoginRoute().push(context).then((data) {
                           //print("oghab @@@@ ppppppp2 ${globals.globalToken}");
-                          if (globals.globalCheckGetListServer==true) {
+                          if (globals.globalCheckGetListServer == true) {
                             GetListAccountServer(
                               context,
                               ref,
@@ -324,24 +318,20 @@ class HomePage extends HookConsumerWidget with PresLogger {
                               deleteProfileMutation,
                             );
                             CustomToast.error(
-                                "در حال ساختن  اکانت لطفا صبر نمایید")
+                                    "در حال ساختن  اکانت لطفا صبر نمایید")
                                 .show(context);
                             isLoadingSubscription.value = true;
 
                             Future.delayed(
                               const Duration(seconds: 30),
-                                  () => 100,
+                              () => 100,
                             ).then((value) {
                               isLoadingSubscription.value = false;
 
-                              GetListAccountServer(
-                                  context,
-                                  ref,
-                                  addProfileProvider,
-                                  deleteProfileMutation);
+                              GetListAccountServer(context, ref,
+                                  addProfileProvider, deleteProfileMutation);
                               print(
                                   'The value is $value.'); // Prints later, after 3 seconds.
-
                             });
                             /*
 
@@ -379,8 +369,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                           horizontal: 28.0, vertical: 6.0),
                       child: FilledButton.icon(
                         onPressed: () {},
-                        icon:
-                        const Icon(FluentIcons.arrow_sync_24_filled),
+                        icon: const Icon(FluentIcons.arrow_sync_24_filled),
                         label: const Text("بروزرسانی اپلیکیسشن"),
                         // style: ButtonStyle( ),
                       ),
@@ -388,52 +377,46 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   ],
                 ),
               switch (activeProfile) {
-                AsyncData(value: final profile?) =>
-                    MultiSliver(
-                      children: [
-                        ProfileTile(profile: profile, isMain: true),
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              // const Text(
-                              //   "profile.name",
-                              //   maxLines: 2,
-                              //   overflow: TextOverflow.ellipsis,
-                              //   // style: theme.textTheme.titleMedium,
-                              //   semanticsLabel: "aaaa",
-                              // ),
+                AsyncData(value: final profile?) => MultiSliver(
+                    children: [
+                      ProfileTile(profile: profile, isMain: true),
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // const Text(
+                            //   "profile.name",
+                            //   maxLines: 2,
+                            //   overflow: TextOverflow.ellipsis,
+                            //   // style: theme.textTheme.titleMedium,
+                            //   semanticsLabel: "aaaa",
+                            // ),
 
-                              const Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  children: [
-                                    ConnectionButton(),
-                                    ActiveProxyDelayIndicator(),
-                                  ],
-                                ),
+                            const Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ConnectionButton(),
+                                  ActiveProxyDelayIndicator(),
+                                ],
                               ),
-                              if (MediaQuery
-                                  .sizeOf(context)
-                                  .width < 840)
-                                const ActiveProxyFooter(),
-                            ],
-                          ),
+                            ),
+                            if (MediaQuery.sizeOf(context).width < 840)
+                              const ActiveProxyFooter(),
+                          ],
                         ),
-                      ],
-                    ),
-                AsyncData() =>
-                switch (hasAnyProfile) {
-                  AsyncData(value: true) =>
-                  const EmptyActiveProfileHomeBody(),
-                  _ => const EmptyProfilesHomeBody(),
-                },
+                      ),
+                    ],
+                  ),
+                AsyncData() => switch (hasAnyProfile) {
+                    AsyncData(value: true) =>
+                      const EmptyActiveProfileHomeBody(),
+                    _ => const EmptyProfilesHomeBody(),
+                  },
                 AsyncError(:final error) =>
-                    SliverErrorBodyPlaceholder(t.presentShortError(error)),
+                  SliverErrorBodyPlaceholder(t.presentShortError(error)),
                 _ => const SliverToBoxAdapter(),
               },
             ],
@@ -443,10 +426,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
     );
   }
 
-  Future<void> GetListAccountServer2233(BuildContext context,
+  Future<void> GetListAccountServer2233(
+      BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-      addProfileProvider,
+          addProfileProvider,
       dynamic deleteProfileMutation) async {
     final prefs = await SharedPreferences.getInstance();
     var id_device = prefs.getString('id_device') ?? '';
@@ -491,7 +475,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       final DioHttpClient client = DioHttpClient(
           timeout: const Duration(seconds: 10),
           userAgent:
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
           Authorization: globals.globalToken);
       // final response =
@@ -504,7 +488,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
       });
       final response =
-      await client.post('https://shop.hologate.pro/api/accounts', formData);
+          await client.post('https://shop.hologate.pro/api/accounts', formData);
       // await client.post('https://shop.hologate.pro/api/get-subscription', formData);
       // await client.post(globals.global_url+'/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
@@ -585,19 +569,25 @@ class HomePage extends HookConsumerWidget with PresLogger {
     }
   }
 
-  Future<void> GetListAccountServer(BuildContext context,
+  Future<void> GetListAccountServer(
+      BuildContext context,
       WidgetRef ref,
       AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-      addProfileProvider,
+          addProfileProvider,
       dynamic deleteProfileMutation) async {
+    var deviceID = await get_unique_identifier();
+
     final prefs = await SharedPreferences.getInstance();
     var id_device = prefs.getString('id_device') ?? '';
-    var subscription = prefs.getString('subscription') ?? '';
+    final String stringifiedString = jsonEncode(deviceID);
+//   var subscription = prefs.getString('subscription')! + "?unique_id=" + stringifiedString! ??'';
+   var subscription = prefs.getString('subscription')! + "?unique_id=" + deviceID! ??'';
+   //  var subscription = "https://hologate6.com:83/sub/c259f0a0afeadeaae48c9ecb33f9154a?unique_id=%22a6lte%20-%20SM-A600F%20-%20QP1A.190711.020%22";
+    // var subscription = prefs.getString('subscription') ?? '';
 
     // Clipboard.setData(new ClipboardData(text: subscription));
 
     print("oghab @@@@ subscription  " +
-
         subscription +
         "  ----   " +
         id_device +
@@ -654,7 +644,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       final DioHttpClient client = DioHttpClient(
           timeout: const Duration(seconds: 10),
           userAgent:
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
           Authorization: globals.globalToken);
       // final response =
@@ -668,10 +658,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
       });
       final response =
-      // await client.post('https://shop.hologate.pro/api/accounts', formData);
-      // await client.post('https://shop.hologate.pro/api/get-subscription', formData);
-      await client.post(
-          globals.global_url + '/api/accounts/get-subscription', formData);
+          // await client.post('https://shop.hologate.pro/api/accounts', formData);
+          // await client.post('https://shop.hologate.pro/api/get-subscription', formData);
+          await client.post(
+              globals.global_url + '/api/accounts/get-subscription', formData);
       loggy.warning('oghab @@@ response: home' + response.toString());
       if (response.statusCode == 200) {
         final jsonData = response.data!;
@@ -723,10 +713,7 @@ class AppVersionLabel extends HookConsumerWidget {
     final t = ref.watch(translationsProvider);
     final theme = Theme.of(context);
 
-    final version = ref
-        .watch(appInfoProvider)
-        .requireValue
-        .presentVersion;
+    final version = ref.watch(appInfoProvider).requireValue.presentVersion;
     if (version.isBlank) return const SizedBox();
 
     return Semantics(
