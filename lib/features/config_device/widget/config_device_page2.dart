@@ -9,6 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:hiddify/utils/link_parsers.dart';
+final TextEditingController nameController = TextEditingController();
 
 /*class MyHomePage extends StatefulWidget {
   @override
@@ -230,7 +231,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                             device_id = products2[index]['id'].toString();
 
                           });
-                          SetRequestServer(context);
+                          nameController.text=products2[index]['name'].toString();
+                          //SetRequestServer(context);
 
                         }
                         // title:  Text(products[index]['name']),
@@ -266,7 +268,17 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             //     )
             //   ],
             // ),
-            Padding(
+            if(device_id!="0")  Container(
+              padding: const EdgeInsets.all(10),
+              child: TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'نام دستگاه',
+                ),
+              ),
+            ),
+            if(device_id!="0")  Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 28.0, vertical: 6.0),
               child: FilledButton.icon(
@@ -391,6 +403,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
+        'name':  nameController.text,
         'subscription_id': device_id,
         'unique_id': deviceID,
         'is_plus_device': true,
@@ -439,7 +452,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             await prefs.setString(
                 'subscription', jsonData['subscription'].toString());
             // Navigator.of(context).pop();
-            //Navigator.of(context).popUntil((route) => route.isFirst);
+            //Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
             Navigator.of(context)
               ..pop()
               ..pop();
@@ -464,7 +477,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           } else {
             //  Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
             // Navigator.of(context)
             //   ..pop()
             //   ..pop();
@@ -512,6 +525,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
+      'name':  nameController.text,
         'subscription_id': device_id,
        'unique_id': deviceID,
         'is_plus_device': true,
@@ -543,12 +557,12 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('subscription', jsonData['subscription'].toString());
             // Navigator.of(context).pop();
-            //  Navigator.of(context).popUntil((route) => route.isFirst);
+            //  Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
             // if(_checkFrom==true)
             // Navigator.of(context)..pop()..pop();
             // else
             // Navigator.of(context)..pop()..pop()..pop();
-            Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
 
 
           }
@@ -556,9 +570,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           else
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            //   Navigator.of(context).popUntil((route) => route.isFirst);
+            //   Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
             // Navigator.of(context)..pop()..pop()..pop();
-          Navigator.of(context).popUntil((route) => route.isFirst);
+          Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =

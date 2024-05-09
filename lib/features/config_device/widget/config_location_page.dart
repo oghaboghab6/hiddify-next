@@ -422,19 +422,19 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('subscription', jsonData['subscription'].toString());
             // Navigator.of(context).pop();
-            //  Navigator.of(context).popUntil((route) => route.isFirst);
+            //  Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
             // if(_checkFrom==true)
             // Navigator.of(context)..pop()..pop();
             // else
             // Navigator.of(context)..pop()..pop()..pop();
-            Navigator.of(context).popUntil((route) => route.isFirst);
+            Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
 
           } else
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            //   Navigator.of(context).popUntil((route) => route.isFirst);
+            //   Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
             // Navigator.of(context)..pop()..pop()..pop();
-          Navigator.of(context).popUntil((route) => route.isFirst);
+          Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =
