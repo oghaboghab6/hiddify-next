@@ -186,20 +186,23 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
-              child: const Column(
-                children: <Widget>[
-                  Text(
-                    'این اشتراک شما چند اتصال همزمان دارد کدام اتصال را قطع و در پلاس استفاده می نمایید؟',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20),
-                    textAlign: TextAlign.center,
-                  )
-                ],
+              child: (device_id!="0")?Text(
+              'لطفا یک نام دلخواه برای این دستگاه انتخاب کنید',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
+                textAlign: TextAlign.center,
+              ):Text(
+               'این اشتراک شما چند اتصال همزمان دارد کدام اتصال را قطع و در پلاس استفاده می نمایید؟',
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
+                textAlign: TextAlign.center,
               ),
             ),
-            ListView.builder(
+            if(device_id=="0")    ListView.builder(
               itemCount: products2.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -281,17 +284,33 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             if(device_id!="0")  Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 28.0, vertical: 6.0),
-              child: FilledButton.icon(
+              child: FilledButton(
                 onPressed: () {
                   SetRequestServer(context);
                 },
-                icon: const Icon(FluentIcons.send_16_filled),
-                label: const Text(
-                  "ارسال",
+                child: const Text(
+                  "تایید",
                   style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+                style: FilledButton.styleFrom(
+                  backgroundColor:   Color(0xffea5555), // This is what you need!
                 ),
                 // style: ButtonStyle( ),
               ),
+              // child: FilledButton.icon(
+              //   onPressed: () {
+              //     SetRequestServer(context);
+              //   },
+              //   icon: const Icon(FluentIcons.send_16_filled),
+              //   label: const Text(
+              //     "تایید",
+              //     style: TextStyle(color: Colors.white, fontSize: 18),
+              //   ),
+              //   style: FilledButton.styleFrom(
+              //     backgroundColor:   Color(0xffea5555), // This is what you need!
+              //   ),
+              //   // style: ButtonStyle( ),
+              // ),
             ),
           ],
         ),
@@ -317,7 +336,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalToken);
+          Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -346,7 +365,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
         final jsonData = response.data!;
 
         if (jsonData['success'] == true) {
-          globals.globalCheckGetListServer = true;
+        //  globals.globalCheckGetListServer = true;
 
           setState(() {
             products2 = jsonData['connections'] as List;
@@ -399,7 +418,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           userAgent:
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalToken);
+          Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -448,14 +467,15 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           // Navigator.of(context).pop();
 
           if ((jsonData['subscription'].toString()) != "null") {
-            final SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString(
-                'subscription', jsonData['subscription'].toString());
-            // Navigator.of(context).pop();
-            //Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
-            Navigator.of(context)
-              ..pop()
-              ..pop();
+            SetRequestServer_subScription(context);
+            // final SharedPreferences prefs = await SharedPreferences.getInstance();
+            // await prefs.setString(
+            //     'subscription', jsonData['subscription'].toString());
+            // // Navigator.of(context).pop();
+            // //Navigator.of(context).popUntil((route) => route.isFirst);
+            // Navigator.of(context)
+            //   ..pop()
+            //   ..pop();
           } else if ((jsonData['connections'].toString()) != "null") {
             const ConfigDeviceRoute2().push(context);
           } else if ((jsonData['state'].toString()) != 'null') {
@@ -477,7 +497,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           } else {
             //  Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context)
             //   ..pop()
             //   ..pop();
@@ -521,7 +541,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalToken);
+          Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -549,20 +569,22 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
         final jsonData = response.data!;
 
         if (jsonData['success'] == true) {
-          globals.globalCheckGetListServer = true;
-          globals.globalWaitingGetListServer = true;
 
           if ((jsonData['subscription'].toString()) != 'null') {
-            print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
+            globals.globalCheckGetListServer = true;
+            globals.globalWaitingGetListServer = true;
             final SharedPreferences prefs = await SharedPreferences.getInstance();
+            globals.globalToken = globals.globalTokenTemporary;
+            await prefs.setString('token', globals.globalTokenTemporary);
+            print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
             await prefs.setString('subscription', jsonData['subscription'].toString());
             // Navigator.of(context).pop();
-            //  Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            //  Navigator.of(context).popUntil((route) => route.isFirst);
             // if(_checkFrom==true)
             // Navigator.of(context)..pop()..pop();
             // else
             // Navigator.of(context)..pop()..pop()..pop();
-            Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            Navigator.of(context).popUntil((route) => route.isFirst);
 
 
           }
@@ -570,9 +592,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           else
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            //   Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            //   Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context)..pop()..pop()..pop();
-          Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+          Navigator.of(context).popUntil((route) => route.isFirst);
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =

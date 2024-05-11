@@ -148,7 +148,7 @@ class ConfigDevicePage extends StatefulHookConsumerWidget {
 }
 
 class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
-    with AppLogger {
+    with PresLogger {
   late List products = [
     // {"id": 1, "name": "hologate256997"},
     // {"id": 2, "name": "hologate005781"}
@@ -261,7 +261,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
             //     )
             //   ],
             // ),
-            Padding(
+      /*      Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 28.0, vertical: 6.0),
               child: FilledButton.icon(
@@ -284,7 +284,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
                 ),
                 // style: ButtonStyle( ),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -305,7 +305,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalToken);
+          Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
 
@@ -386,7 +386,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalToken);
+          Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -434,14 +434,15 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
           // Navigator.of(context).pop();
 
           if ((jsonData['subscription'].toString()) != "null") {
-            final SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString(
-                'subscription', jsonData['subscription'].toString());
-            // Navigator.of(context).pop();
-            //Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
-            Navigator.of(context)
-              ..pop()
-              ..pop();
+            SetRequestServer_subScription(context);
+            // final SharedPreferences prefs = await SharedPreferences.getInstance();
+            // await prefs.setString(
+            //     'subscription', jsonData['subscription'].toString());
+            // // Navigator.of(context).pop();
+            // //Navigator.of(context).popUntil((route) => route.isFirst);
+            // Navigator.of(context)
+            //   ..pop()
+            //   ..pop();
           } else if ((jsonData['connections'].toString()) != "null") {
             const ConfigDeviceRoute2().push(context);
           } else if ((jsonData['state'].toString()) != 'null') {
@@ -466,11 +467,11 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
           } else {
             //  Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            // Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            // Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context)
             //   ..pop()
             //   ..pop();
-            Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            Navigator.of(context).popUntil((route) => route.isFirst);
             
 
           }
@@ -514,7 +515,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalToken);
+          Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -543,6 +544,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
         final jsonData = response.data!;
 
         if (jsonData['success'] == true) {
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          globals.globalToken = globals.globalTokenTemporary;
+          await prefs.setString('token', globals.globalTokenTemporary);
           globals.globalCheckGetListServer = true;
           globals.globalWaitingGetListServer = true;
           if (jsonData['subscription'].toString() != 'null') {
@@ -552,20 +556,20 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
             await prefs.setString(
                 'subscription', jsonData['subscription'].toString());
             // Navigator.of(context).pop();
-            // Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            // Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context)
             //   ..pop()
             //   ..pop();
-            Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            Navigator.of(context).popUntil((route) => route.isFirst);
 
           } else
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            // Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            // Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context)
             //   ..pop()
             //   ..pop();
-          Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+          Navigator.of(context).popUntil((route) => route.isFirst);
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =
