@@ -76,6 +76,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
 
   void initHook(BuildContext context) {
+
     // WidgetsBinding.instance.addObserver(this);
   }
 
@@ -90,8 +91,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
   // }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoadingSubscription = useState(false);
-
     final token = '';
     final t = ref.watch(translationsProvider);
     final deleteProfileMutation = useMutation(
@@ -135,6 +134,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //   AsyncLoading() =>var dd=3,
     // }
     // print("oghab @@@@" + asyncProfiles.length);
+    final isLoadingSubscription = useState(false);
 
     void goScreenLogin(){
       const LoginRoute().push(context).then((data) {
@@ -185,7 +185,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // then will return value when the loginscreen's pop is called.
       });
     }
-    void exit(
+    void exitApp(
         BuildContext context,
         WidgetRef ref,
         AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
@@ -305,6 +305,80 @@ class HomePage extends HookConsumerWidget with PresLogger {
       //
       // deleteProfileMutation.setFuture(ref.read(profilesOverviewNotifierProvider.notifier).deleteProfile(profile));
     }
+    Future<void> AuthenticationServer(BuildContext context) async {
+      try {
+        var deviceID = await get_unique_identifier();
+
+        final DioHttpClient client = DioHttpClient(
+            timeout: const Duration(seconds: 10),
+            userAgent:
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+            debug: true,
+            Authorization: globals.globalToken);
+        // final response =
+        // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
+        var formData = FormData.fromMap({
+
+          'unique_id': deviceID,
+          'is_plus_device': true,
+
+          // 'username': user,
+          // 'password': pass,
+          // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
+        });
+
+        var device_model = await get_info_device();
+        var device_code = await get_info_device();
+        //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+        // var params =
+        //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+        //  loggy.warning('oghab @@@ params: ${params}');
+        print("oghab @@@ params: ${formData}");
+
+        final response = await client.post(
+            globals.global_url+'/api/device-permission', formData);
+        if (response.statusCode == 200) {
+          final jsonData = response.data!;
+
+          if (jsonData['success'] == true) {
+
+
+          } else {
+            exitApp(context, ref, addProfileProvider,
+                deleteProfileMutation);
+            // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
+            //         ? jsonData['message'].toString()
+            //         : "سرور با خطا مواجه شد!!")
+            //     .show(context);
+            CustomToast.error(
+                jsonData['message']?.toString() ?? "***سرور با خطا مواجه شد!!")
+                .show(context);
+          }
+
+        } else {
+          // CustomToast.error(
+          //     "سرور با خطا مواجه شد!!*")
+          //     .show(context);
+          loggy.warning('Request failed with status: ${response.statusCode}');
+        }
+      } catch (e) {
+        // CustomToast.error(
+        //     "**سرور با خطا مواجه شد!!")
+        //     .show(context);
+        loggy.warning('Could not get the local country code from ip');
+      }
+    }
+    useOnAppLifecycleStateChange((pref, state) {
+      if (state == AppLifecycleState.resumed) {
+        AuthenticationServer(context);
+        //make a request
+      }
+
+    });
+
+
+
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -359,7 +433,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   IconButton(
                     onPressed: () => {
                       if (globals.globalToken != "")
-                        exit(context, ref, addProfileProvider,
+                        exitApp(context, ref, addProfileProvider,
                             deleteProfileMutation)
                       else
                         goScreenLogin()
@@ -527,6 +601,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     );
 
   }
+
 
   Future<void> GetListAccountServer2233(
       BuildContext context,
@@ -808,6 +883,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       loggy.warning('Could not get the local country code from ip');
     }
   }
+
 }
 
 class AppVersionLabel extends HookConsumerWidget {
