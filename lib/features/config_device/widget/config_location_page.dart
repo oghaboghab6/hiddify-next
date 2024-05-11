@@ -265,7 +265,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
             //     )
             //   ],
             // ),
-            Padding(
+       /*     Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 28.0, vertical: 6.0),
               child: FilledButton.icon(
@@ -279,7 +279,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
                 ),
                 // style: ButtonStyle( ),
               ),
-            ),
+            ),*/
           ],
         ),
       ),
@@ -304,7 +304,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalToken);
+          Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -386,7 +386,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalToken);
+          Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -414,27 +414,31 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
         final jsonData = response.data!;
 
         if (jsonData['success'] == true) {
-          globals.globalCheckGetListServer = true;
-          globals.globalWaitingGetListServer = true;
 
           if ((jsonData['subscription'].toString()) != 'null') {
+            // SetRequestServer_subScription(context);
             print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
             final SharedPreferences prefs = await SharedPreferences.getInstance();
             await prefs.setString('subscription', jsonData['subscription'].toString());
+
+            globals.globalCheckGetListServer = true;
+            globals.globalWaitingGetListServer = true;
+            globals.globalToken = globals.globalTokenTemporary;
+            await prefs.setString('token', globals.globalTokenTemporary);
             // Navigator.of(context).pop();
-            //  Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            //  Navigator.of(context).popUntil((route) => route.isFirst);
             // if(_checkFrom==true)
             // Navigator.of(context)..pop()..pop();
             // else
             // Navigator.of(context)..pop()..pop()..pop();
-            Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            Navigator.of(context).popUntil((route) => route.isFirst);
 
           } else
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
-            //   Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+            //   Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context)..pop()..pop()..pop();
-          Navigator.of(context).popUntil((route) => route.isFirst); Navigator.of(context).pop();
+          Navigator.of(context).popUntil((route) => route.isFirst);
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =

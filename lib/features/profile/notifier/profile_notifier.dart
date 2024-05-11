@@ -16,6 +16,7 @@ import 'package:hiddify/features/profile/notifier/active_profile_notifier.dart';
 import 'package:hiddify/utils/riverpod_utils.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:hiddify/utils/globals.dart' as globals;
 
 part 'profile_notifier.g.dart';
 
@@ -37,6 +38,7 @@ class AddProfile extends _$AddProfile with AppLogger {
           case AsyncData(value: final _?):
           //  var ggg="";
           if(showMessageState) {
+            globals.globalCheckGetListServer=false;
             notification.showSuccessToast(t.profile.save.successMsg);
           }
           case AsyncError(:final error):

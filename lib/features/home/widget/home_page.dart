@@ -53,6 +53,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final prefs = await SharedPreferences.getInstance();
     globals.urlLink = prefs.getString('url_login') ?? globals.global_url;
     globals.globalToken = prefs.getString('token') ?? '';
+    globals.globalUsername = prefs.getString('username') ?? '';
+    globals.globalPassword = prefs.getString('password') ?? '';
     // print("oghab @@@@ 0 token " + globals.globalToken.toString());
     // print("oghab @@@@ 0 globalCheckGetListServer " +
     //     globals.globalCheckGetListServer.toString());
@@ -71,126 +73,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     return globals.globalToken;
   }
 
-  void exit(
-      BuildContext context,
-      WidgetRef ref,
-      AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-          addProfileProvider,
-      deleteProfileMutation) async {
-    try {
-      final DioHttpClient client = DioHttpClient(
-          timeout: const Duration(seconds: 10),
-          userAgent:
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
-          debug: true,
-          Authorization: globals.globalToken);
-      // final response =
-      // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
 
-      var deviceID = await get_unique_identifier();
-
-      var device_model = await get_info_device();
-      var device_code = await get_info_device();
-      //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
-      // var params =
-      //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
-      // //  loggy.warning('oghab @@@ params: ${params}');
-      var formData = FormData.fromMap({
-        'token': globals.globalToken,
-        'unique_id': deviceID,
-        'is_plus_device': true,
-
-        // 'username': user,
-        // 'password': pass,
-        // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
-      });
-      print("oghab @@@ deviceID: ${deviceID}");
-
-      final response = await client.post(
-          // 'https://shop.hologate.pro/api/accounts' + params, formData);
-          globals.global_url + '/api/accounts/log_out',
-          formData);
-      final jsonData = response.data!;
-      print("oghab @@@ response: ${response}");
-
-      if (response.statusCode == 200) {
-        if (jsonData['success'] == true) {
-          CustomToast.success(
-                  jsonData['message']?.toString() ?? "باموفقیت انجام شد!")
-              .show(context);
-          final prefs = await SharedPreferences.getInstance();
-          prefs.setString('token', '');
-          prefs.setString('subscription', '');
-          globals.globalToken = "";
-          deleteProfileMutation.setFuture(
-            ref
-                .read(profilesOverviewNotifierProvider.notifier)
-                .deleteAllProfile(),
-          );
-
-          const LoginRoute().push(context).then((data) {
-            // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
-            if (globals.globalCheckGetListServer)
-              GetListAccountServer(
-                  context, ref, addProfileProvider, deleteProfileMutation);
-            // then will return value when the loginscreen's pop is called.
-          });
-        } else {
-          // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
-          //         ? jsonData['message'].toString()
-          //         : "سرور با خطا مواجه شد!!")
-          //     .show(context);
-          CustomToast.error(
-                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
-              .show(context);
-        }
-
-        // Navigator.of(context).pop();
-        // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-        // final regionLocale =
-        // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
-        //
-        // loggy.debug(
-        //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
-        // );
-      } else {
-        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
-        loggy.warning('Request failed with status: ${response.statusCode}');
-      }
-    } catch (e) {
-      CustomToast.error("سرور با خطا مواجه شد!!").show(context);
-      loggy.warning('Could not get the local country code from ip');
-    }
-
-    // final prefs = await SharedPreferences.getInstance();
-    // prefs.setString('token', '');
-    // prefs.setString('subscription', '');
-    // globals.globalToken = "";
-    // deleteProfileMutation.setFuture(
-    //   ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
-    // );
-    //
-    // const LoginRoute().push(context).then((data) {
-    //   // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
-    //   if (globals.globalCheckGetListServer)
-    //     GetListAccountServer(
-    //         context, ref, addProfileProvider, deleteProfileMutation);
-    //   // then will return value when the loginscreen's pop is called.
-    // });
-
-    // final t = ref.watch(translationsProvider);
-    // final deleteProfileMutation = useMutation(
-    //   initialOnFailure: (err) {
-    //     CustomAlertDialog.fromErr(t.presentError(err)).show(context);
-    //   },
-    // );
-    // if (deleteProfileMutation.state.isInProgress) {
-    //   return;
-    // }
-    //
-    //
-    // deleteProfileMutation.setFuture(ref.read(profilesOverviewNotifierProvider.notifier).deleteProfile(profile));
-  }
 
   void initHook(BuildContext context) {
     // WidgetsBinding.instance.addObserver(this);
@@ -252,6 +135,176 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //   AsyncLoading() =>var dd=3,
     // }
     // print("oghab @@@@" + asyncProfiles.length);
+
+    void goScreenLogin(){
+      const LoginRoute().push(context).then((data) {
+        print("oghab @@@@ ppppppp2 ${globals.globalToken } ${globals.globalCheckGetListServer }");
+        if (globals.globalCheckGetListServer == true) {
+          GetListAccountServer(
+            context,
+            ref,
+            addProfileProvider,
+            deleteProfileMutation,
+          );
+          CustomToast.error(
+              "در حال ساختن  اکانت لطفا صبر نمایید")
+              .show(context);
+          isLoadingSubscription.value = true;
+
+          Future.delayed(
+            const Duration(seconds: 30),
+                () => 100,
+          ).then((value) {
+            isLoadingSubscription.value = false;
+            if(globals.globalCheckGetListServer==true){
+              GetListAccountServer(context, ref,
+                  addProfileProvider, deleteProfileMutation);
+            }
+
+            print(
+                'The value is $value.'); // Prints later, after 3 seconds.
+          });
+          /*
+
+
+                                  Future.delayed(
+                                    const Duration(seconds: 30),
+                                        () => 100,
+                                  ).then((value) {
+                                    GetListAccountServer(
+                                        context,
+                                        ref,
+                                        addProfileProvider,
+                                        deleteProfileMutation)
+                                    print(
+                                        'The value is $value.'); // Prints later, after 3 seconds.
+
+                                  })
+                                  */
+        }
+        // then will return value when the loginscreen's pop is called.
+      });
+    }
+    void exit(
+        BuildContext context,
+        WidgetRef ref,
+        AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
+        addProfileProvider,
+        deleteProfileMutation) async {
+      try {
+        final DioHttpClient client = DioHttpClient(
+            timeout: const Duration(seconds: 10),
+            userAgent:
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+            debug: true,
+            Authorization: globals.globalToken);
+        // final response =
+        // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
+
+        var deviceID = await get_unique_identifier();
+
+        var device_model = await get_info_device();
+        var device_code = await get_info_device();
+        //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+        // var params =
+        //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+        // //  loggy.warning('oghab @@@ params: ${params}');
+        var formData = FormData.fromMap({
+          'token': globals.globalToken,
+          'unique_id': deviceID,
+          'is_plus_device': true,
+
+          // 'username': user,
+          // 'password': pass,
+          // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
+        });
+        print("oghab @@@ deviceID: ${deviceID}");
+
+        final response = await client.post(
+          // 'https://shop.hologate.pro/api/accounts' + params, formData);
+            globals.global_url + '/api/accounts/log_out',
+            formData);
+        final jsonData = response.data!;
+        print("oghab @@@ response: ${response}");
+
+        if (response.statusCode == 200) {
+          if (jsonData['success'] == true) {
+            CustomToast.success(
+                jsonData['message']?.toString() ?? "باموفقیت انجام شد!")
+                .show(context);
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setString('token', '');
+            prefs.setString('subscription', '');
+            globals.globalToken = "";
+            deleteProfileMutation.setFuture(
+              ref
+                  .read(profilesOverviewNotifierProvider.notifier)
+                  .deleteAllProfile(),
+            );
+            goScreenLogin();
+            // const LoginRoute().push(context).then((data) {
+            //   // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
+            //   if (globals.globalCheckGetListServer)
+            //     GetListAccountServer(
+            //         context, ref, addProfileProvider, deleteProfileMutation);
+            //   // then will return value when the loginscreen's pop is called.
+            // });
+          } else {
+            // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
+            //         ? jsonData['message'].toString()
+            //         : "سرور با خطا مواجه شد!!")
+            //     .show(context);
+            CustomToast.error(
+                jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                .show(context);
+          }
+
+          // Navigator.of(context).pop();
+          // Navigator.of(context).popUntil(ModalRoute.withName('/'));
+          // final regionLocale =
+          // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
+          //
+          // loggy.debug(
+          //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
+          // );
+        } else {
+          CustomToast.error("سرور با خطا مواجه شد!!").show(context);
+          loggy.warning('Request failed with status: ${response.statusCode}');
+        }
+      } catch (e) {
+        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
+        loggy.warning('Could not get the local country code from ip');
+      }
+
+      // final prefs = await SharedPreferences.getInstance();
+      // prefs.setString('token', '');
+      // prefs.setString('subscription', '');
+      // globals.globalToken = "";
+      // deleteProfileMutation.setFuture(
+      //   ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
+      // );
+      //
+      // const LoginRoute().push(context).then((data) {
+      //   // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
+      //   if (globals.globalCheckGetListServer)
+      //     GetListAccountServer(
+      //         context, ref, addProfileProvider, deleteProfileMutation);
+      //   // then will return value when the loginscreen's pop is called.
+      // });
+
+      // final t = ref.watch(translationsProvider);
+      // final deleteProfileMutation = useMutation(
+      //   initialOnFailure: (err) {
+      //     CustomAlertDialog.fromErr(t.presentError(err)).show(context);
+      //   },
+      // );
+      // if (deleteProfileMutation.state.isInProgress) {
+      //   return;
+      // }
+      //
+      //
+      // deleteProfileMutation.setFuture(ref.read(profilesOverviewNotifierProvider.notifier).deleteProfile(profile));
+    }
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -290,14 +343,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       if (globals.globalToken != "")
                         const WebViewRoute().push(context)
                       else
-                        const LoginRoute().push(context).then((data) {
-                          //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
-                          if (globals.globalCheckGetListServer) {
-                            GetListAccountServer(context, ref,
-                                addProfileProvider, deleteProfileMutation);
-                          }
-                          // then will return value when the loginscreen's pop is called.
-                        }),
+                        goScreenLogin()
+                        // const LoginRoute().push(context).then((data) {
+                        //   //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
+                        //   if (globals.globalCheckGetListServer) {
+                        //     GetListAccountServer(context, ref,
+                        //         addProfileProvider, deleteProfileMutation);
+                        //   }
+                        //   // then will return value when the loginscreen's pop is called.
+                        // }),
                     },
                     icon: const Icon(FluentIcons.cart_16_filled),
                     tooltip: t.profile.add.buttonText,
@@ -308,51 +362,52 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         exit(context, ref, addProfileProvider,
                             deleteProfileMutation)
                       else
-                        const LoginRoute().push(context).then((data) {
-                          //print("oghab @@@@ ppppppp2 ${globals.globalToken}");
-                          if (globals.globalCheckGetListServer == true) {
-                            GetListAccountServer(
-                              context,
-                              ref,
-                              addProfileProvider,
-                              deleteProfileMutation,
-                            );
-                            CustomToast.error(
-                                    "در حال ساختن  اکانت لطفا صبر نمایید")
-                                .show(context);
-                            isLoadingSubscription.value = true;
-
-                            Future.delayed(
-                              const Duration(seconds: 30),
-                              () => 100,
-                            ).then((value) {
-                              isLoadingSubscription.value = false;
-
-                              GetListAccountServer(context, ref,
-                                  addProfileProvider, deleteProfileMutation);
-                              print(
-                                  'The value is $value.'); // Prints later, after 3 seconds.
-                            });
-                            /*
-
-
-                                  Future.delayed(
-                                    const Duration(seconds: 30),
-                                        () => 100,
-                                  ).then((value) {
-                                    GetListAccountServer(
-                                        context,
-                                        ref,
-                                        addProfileProvider,
-                                        deleteProfileMutation)
-                                    print(
-                                        'The value is $value.'); // Prints later, after 3 seconds.
-
-                                  })
-                                  */
-                          }
-                          // then will return value when the loginscreen's pop is called.
-                        }),
+                        goScreenLogin()
+                        // const LoginRoute().push(context).then((data) {
+                        //   // print("oghab @@@@ ppppppp2 ${globals.globalToken } ${globals.globalCheckGetListServer }");
+                        //   if (globals.globalCheckGetListServer == true) {
+                        //     GetListAccountServer(
+                        //       context,
+                        //       ref,
+                        //       addProfileProvider,
+                        //       deleteProfileMutation,
+                        //     );
+                        //     CustomToast.error(
+                        //             "در حال ساختن  اکانت لطفا صبر نمایید")
+                        //         .show(context);
+                        //     isLoadingSubscription.value = true;
+                        //
+                        //     Future.delayed(
+                        //       const Duration(seconds: 30),
+                        //       () => 100,
+                        //     ).then((value) {
+                        //       isLoadingSubscription.value = false;
+                        //
+                        //       GetListAccountServer(context, ref,
+                        //           addProfileProvider, deleteProfileMutation);
+                        //       print(
+                        //           'The value is $value.'); // Prints later, after 3 seconds.
+                        //     });
+                        //     /*
+                        //
+                        //
+                        //           Future.delayed(
+                        //             const Duration(seconds: 30),
+                        //                 () => 100,
+                        //           ).then((value) {
+                        //             GetListAccountServer(
+                        //                 context,
+                        //                 ref,
+                        //                 addProfileProvider,
+                        //                 deleteProfileMutation)
+                        //             print(
+                        //                 'The value is $value.'); // Prints later, after 3 seconds.
+                        //
+                        //           })
+                        //           */
+                        //   }
+                        //   // then will return value when the loginscreen's pop is called.
+                        // }),
                     },
                     icon: (globals.globalToken != "")
                         ? const Icon(FluentIcons.arrow_exit_20_filled)
@@ -376,54 +431,101 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   ],
                 ),
-              switch (activeProfile) {
-                AsyncData(value: final profile?) => MultiSliver(
-                    children: [
-                      ProfileTile(profile: profile, isMain: true),
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // const Text(
-                            //   "profile.name",
-                            //   maxLines: 2,
-                            //   overflow: TextOverflow.ellipsis,
-                            //   // style: theme.textTheme.titleMedium,
-                            //   semanticsLabel: "aaaa",
-                            // ),
 
-                            const Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ConnectionButton(),
-                                  ActiveProxyDelayIndicator(),
-                                ],
+                switch (activeProfile) {
+                  AsyncData(value: final profile?) => MultiSliver(
+                      children: [
+                        ProfileTile(profile: profile, isMain: true),
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // const Text(
+                              //   "profile.name",
+                              //   maxLines: 2,
+                              //   overflow: TextOverflow.ellipsis,
+                              //   // style: theme.textTheme.titleMedium,
+                              //   semanticsLabel: "aaaa",
+                              // ),
+
+                              const Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ConnectionButton(),
+                                    ActiveProxyDelayIndicator(),
+                                  ],
+                                ),
                               ),
-                            ),
-                            if (MediaQuery.sizeOf(context).width < 840)
-                              const ActiveProxyFooter(),
-                          ],
+                              if (MediaQuery.sizeOf(context).width < 840)
+                                const ActiveProxyFooter(),
+                            ],
+                          ),
                         ),
+                      ],
+                    ),
+                  AsyncData() => switch (hasAnyProfile) {
+                      AsyncData(value: true) =>
+                        const EmptyActiveProfileHomeBody(),
+                       _ =>  EmptyProfilesHomeBody(  key:  ValueKey("add_from_clipboard_button"), onTap: ()  {goScreenLogin();}),
+                     // _ => const EmptyProfilesHomeBody(),
+                    },
+                  AsyncError(:final error) =>
+                    SliverErrorBodyPlaceholder(t.presentShortError(error)),
+                  _ => const SliverToBoxAdapter(),
+                },
+            if(isLoadingSubscription.value )  MultiSliver(children: [
+                Positioned(
+                    left: 0.0,
+                    right: 0.0,
+                    bottom: 0.0,
+                    top: 0.0,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      color: Colors.black.withOpacity(0.6),
+                      //  color: Colors.pink,
+                      padding: const EdgeInsets.all(10),
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text('در حال ساختن اکانت. لطفا صیر نمایید ...')),
+                          CircularProgressIndicator()
+                        ],
                       ),
-                    ],
-                  ),
-                AsyncData() => switch (hasAnyProfile) {
-                    AsyncData(value: true) =>
-                      const EmptyActiveProfileHomeBody(),
-                    _ => const EmptyProfilesHomeBody(),
-                  },
-                AsyncError(:final error) =>
-                  SliverErrorBodyPlaceholder(t.presentShortError(error)),
-                _ => const SliverToBoxAdapter(),
-              },
+                    ))
+
+              ])
+              // else
+              // if (isLoadingSubscription.value)  Positioned(
+              //       left: 0.0,
+              //       right: 0.0,
+              //       bottom: 0.0,
+              //       top: 0.0,
+              //       child: Container(
+              //         width: MediaQuery.of(context).size.width,
+              //         color: Colors.black.withOpacity(0.6),
+              //         //  color: Colors.pink,
+              //         padding: const EdgeInsets.all(10),
+              //         child: const Column(
+              //           mainAxisAlignment: MainAxisAlignment.center,
+              //           children: <Widget>[
+              //             Padding(
+              //                 padding: EdgeInsets.all(10.0),
+              //                 child: Text('درحال ساختن لطفا صیر نمایید ...')),
+              //             CircularProgressIndicator()
+              //           ],
+              //         ),
+              //       ))
             ],
           ),
         ],
       ),
     );
+
   }
 
   Future<void> GetListAccountServer2233(
@@ -581,8 +683,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
     var id_device = prefs.getString('id_device') ?? '';
     final String stringifiedString = jsonEncode(deviceID);
 //   var subscription = prefs.getString('subscription')! + "?unique_id=" + stringifiedString! ??'';
-   var subscription = prefs.getString('subscription')! + "?unique_id=" + deviceID! ??'';
-   //  var subscription = "https://hologate6.com:83/sub/c259f0a0afeadeaae48c9ecb33f9154a?unique_id=%22a6lte%20-%20SM-A600F%20-%20QP1A.190711.020%22";
+    var subscription =
+        prefs.getString('subscription')! + "?unique_id=" + deviceID! ?? '';
+    //  var subscription = "https://hologate6.com:83/sub/c259f0a0afeadeaae48c9ecb33f9154a?unique_id=%22a6lte%20-%20SM-A600F%20-%20QP1A.190711.020%22";
     // var subscription = prefs.getString('subscription') ?? '';
 
     // Clipboard.setData(new ClipboardData(text: subscription));
@@ -593,6 +696,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
         id_device +
         "  ----   ");
     // print("oghab @@@@ subscription 2222  " + activeProfile.toString());
+
+
     globals.globalCheckGetListServer = false;
     //await ref.read(addProfileProvider.notifier).ge(subscription);
     deleteProfileMutation.setFuture(
