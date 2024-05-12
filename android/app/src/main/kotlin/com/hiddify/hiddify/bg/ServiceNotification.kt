@@ -51,7 +51,7 @@ class ServiceNotification(private val status: MutableLiveData<Status>, private v
         NotificationCompat.Builder(service, notificationChannel)
                 .setShowWhen(false)
                 .setOngoing(true)
-                .setContentTitle("Hologate2")
+                .setContentTitle("Hologate Plus")
                 .setOnlyAlertOnce(true)
                 .setSmallIcon(R.drawable.ic_stat_logo)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
@@ -90,7 +90,7 @@ class ServiceNotification(private val status: MutableLiveData<Status>, private v
         }
         service.startForeground(
             notificationId, notificationBuilder
-                .setContentTitle(profileName.takeIf { it.isNotBlank() } ?: "Hologate2")
+                .setContentTitle(profileName.takeIf { it.isNotBlank() } ?: "Hologate Plus")
                 .setContentText(service.getString(contentTextId)).build()
         )
     }

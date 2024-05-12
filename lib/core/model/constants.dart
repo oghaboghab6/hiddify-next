@@ -1,5 +1,5 @@
 abstract class Constants {
-  static const appName = "Hologate2";
+  static const appName = "Hologate Plus";
   static const githubUrl = "https://github.com/hiddify/hiddify-next";
   static const githubReleasesApiUrl =
       "https://api.github.com/repos/hiddify/hiddify-next/releases";
