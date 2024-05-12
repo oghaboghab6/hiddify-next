@@ -182,7 +182,13 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
     print("@@@@@"+isLoading.toString());
     // final TextEditingController nameController = TextEditingController();
     // final TextEditingController passwordController = TextEditingController();
+    useOnAppLifecycleStateChange((pref, state) {
+      if (state == AppLifecycleState.resumed) {
+        isLoading=false;
+        //make a request
+      }
 
+    });
     return Scaffold(
         body: Stack(
       children: <Widget>[
