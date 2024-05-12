@@ -455,7 +455,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           margin: const EdgeInsets.all(20),
                           child: ElevatedButton(
-                            child: const Text('ورود'),
+                            child: const Text('ورود',style: TextStyle(color: Colors.white, fontSize: 18),),
+
                             onPressed: () async {
                               print(nameController.text);
                               print(passwordController.text);
@@ -481,8 +482,10 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+
+                          // mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            SizedBox(width: 20),
                             const Text('آیا حساب کاربری ندارید؟'),
                             TextButton(
                               child: Text(
@@ -492,14 +495,40 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                               ),
                               onPressed: () async {
                                 // const ConfigDeviceRoute().push(context);
-                                const ConfigDeviceRoute2().push(context);
+                                // const ConfigDeviceRoute2().push(context);
 
-                                // await UriUtils.tryLaunch(
-                                //   Uri.parse(
-                                //       "https://shop.hologate.pro/register?type=android"),
-                                // );
+                                await UriUtils.tryLaunch(
+                                  Uri.parse(
+                                      "https://shop.hologate.pro/register?type=android"),
+                                );
                               },
-                            )
+                            ),
+                            SizedBox(width: 20),
+                          ],
+                        ),
+                        Row(
+                          //mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(width: 20),
+                            const Text('رمز عبور خودرا فراموش کرده‌اید؟'),
+                            TextButton(
+                              child: Text(
+                                'کلیک نمایید',
+                                //t.settings.general.locale,
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              onPressed: () async {
+                                // const ConfigDeviceRoute().push(context);
+                                // const ConfigDeviceRoute2().push(context);
+
+                                await UriUtils.tryLaunch(
+                                  Uri.parse(
+                                      "https://hologate6.com/forget-password"),
+                                );
+                              },
+                            ),
+                            SizedBox(width: 20),
+
                           ],
                         ),
                         /*             Align(
@@ -538,7 +567,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                             children: <Widget>[
                               Padding(
                                   padding: EdgeInsets.all(10.0),
-                                  child: Text('لطفا صیر نمایید ...')),
+                                  child: Text('لطفا صبر نمایید ...')),
                               CircularProgressIndicator()
                             ],
                           ),
@@ -1056,7 +1085,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                             children: <Widget>[
                               Padding(
                                   padding: EdgeInsets.all(10.0),
-                                  child: Text('لطفا صیر نمایید ...')),
+                                  child: Text('لطفا صبر نمایید ...')),
                               CircularProgressIndicator()
                             ],
                           ),

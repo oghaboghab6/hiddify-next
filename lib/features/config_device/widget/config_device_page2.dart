@@ -2,6 +2,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hiddify/core/http_client/dio_http_client.dart';
 import 'package:hiddify/core/router/router.dart';
 import 'package:hiddify/utils/utils.dart';
@@ -9,6 +10,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:hiddify/utils/link_parsers.dart';
+
 final TextEditingController nameController = TextEditingController();
 
 /*class MyHomePage extends StatefulWidget {
@@ -166,6 +168,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
   int _check = 1;
   bool _checkFrom = false;
   String device_id = "0";
+  // final isLoading = useState(false);
+  bool isLoading = false;
 
   @override
   // Widget build(BuildContext context) {
@@ -175,76 +179,82 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
   // }
   @override
   Widget build(BuildContext context) {
+    print("@@@@@"+isLoading.toString());
     // final TextEditingController nameController = TextEditingController();
     // final TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
-              child: (device_id!="0")?Text(
-              'لطفا یک نام دلخواه برای این دستگاه انتخاب کنید',
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20),
-                textAlign: TextAlign.center,
-              ):Text(
-               'این اشتراک شما چند اتصال همزمان دارد کدام اتصال را قطع و در پلاس استفاده می نمایید؟',
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20),
-                textAlign: TextAlign.center,
+        body: Stack(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+                child: (device_id != "0")
+                    ? Text(
+                        'لطفا یک نام دلخواه برای این دستگاه انتخاب کنید',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20),
+                        textAlign: TextAlign.center,
+                      )
+                    : Text(
+                        'این اشتراک شما چند اتصال همزمان دارد کدام اتصال را قطع و در پلاس استفاده می نمایید؟',
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
               ),
-            ),
-            if(device_id=="0")    ListView.builder(
-              itemCount: products2.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                  child: Card(
-                    child: ListTile(
-                        //tileColor: Colors.black12,
-                        dense: true,
-                        contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
-                        title: Text(
-                          products2[index]['name']!.toString()+ products2[index]['server']!.toString(),
-                          style: const TextStyle(
-                           // color: Colors.black,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        onTap: () async{
-
-
-
-                          final SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.setString('device_id', products2[index]['id'].toString());
-                          setState(()  {
-                            device_id = products2[index]['id'].toString();
-
-                          });
-                          nameController.text=products2[index]['name'].toString();
-                          //SetRequestServer(context);
-
-                        }
-                        // title:  Text(products[index]['name']),
-                        ),
-                  ),
-                );
-              },
-            ),
-            /*           if(products.isNotEmpty)  ListView.builder(
+              if (device_id == "0")
+                ListView.builder(
+                  itemCount: products2.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 4),
+                      child: Card(
+                        child: ListTile(
+                            //tileColor: Colors.black12,
+                            dense: true,
+                            contentPadding:
+                                EdgeInsets.only(left: 0.0, right: 0.0),
+                            title: Text(
+                              products2[index]['name']!.toString() +
+                                  products2[index]['server']!.toString(),
+                              style: const TextStyle(
+                                // color: Colors.black,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            onTap: () async {
+                              final SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setString('device_id',
+                                  products2[index]['id'].toString());
+                              setState(() {
+                                device_id = products2[index]['id'].toString();
+                              });
+                              nameController.text =
+                                  products2[index]['name'].toString();
+                              //SetRequestServer(context);
+                            }
+                            // title:  Text(products[index]['name']),
+                            ),
+                      ),
+                    );
+                  },
+                ),
+              /*           if(products.isNotEmpty)  ListView.builder(
               itemCount: products.length,
               itemBuilder: (context, index) {
                 return const ListTile(
@@ -254,80 +264,107 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                 );
               },
             ),*/
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: <Widget>[
-            //     const Text('Does not have account?'),
-            //     TextButton(
-            //       child: const Text(
-            //         'send',
-            //         style: TextStyle(fontSize: 20),
-            //       ),
-            //       onPressed: () async {
-            //         await UriUtils.tryLaunch(
-            //           Uri.parse("https://shop.hologate.pro/register?type=android"),
-            //         );
-            //       },
-            //     )
-            //   ],
-            // ),
-            if(device_id!="0")  Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'نام دستگاه',
-                ),
-              ),
-            ),
-            if(device_id!="0")  Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 28.0, vertical: 6.0),
-              child: FilledButton(
-                onPressed: () {
-                  SetRequestServer(context);
-                },
-                child: const Text(
-                  "تایید",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-                style: FilledButton.styleFrom(
-                  backgroundColor:   Color(0xffea5555), // This is what you need!
-                ),
-                // style: ButtonStyle( ),
-              ),
-              // child: FilledButton.icon(
-              //   onPressed: () {
-              //     SetRequestServer(context);
-              //   },
-              //   icon: const Icon(FluentIcons.send_16_filled),
-              //   label: const Text(
-              //     "تایید",
-              //     style: TextStyle(color: Colors.white, fontSize: 18),
-              //   ),
-              //   style: FilledButton.styleFrom(
-              //     backgroundColor:   Color(0xffea5555), // This is what you need!
-              //   ),
-              //   // style: ButtonStyle( ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: <Widget>[
+              //     const Text('Does not have account?'),
+              //     TextButton(
+              //       child: const Text(
+              //         'send',
+              //         style: TextStyle(fontSize: 20),
+              //       ),
+              //       onPressed: () async {
+              //         await UriUtils.tryLaunch(
+              //           Uri.parse("https://shop.hologate.pro/register?type=android"),
+              //         );
+              //       },
+              //     )
+              //   ],
               // ),
-            ),
-          ],
+              if (device_id != "0")
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'نام دستگاه',
+                    ),
+                  ),
+                ),
+              if (device_id != "0")
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 28.0, vertical: 6.0),
+                  child: FilledButton(
+                    onPressed: () {
+                      SetRequestServer(context);
+                    },
+                    child: const Text(
+                      "تایید",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    style: FilledButton.styleFrom(
+                      backgroundColor:
+                          Color(0xffea5555), // This is what you need!
+                    ),
+                    // style: ButtonStyle( ),
+                  ),
+                  // child: FilledButton.icon(
+                  //   onPressed: () {
+                  //     SetRequestServer(context);
+                  //   },
+                  //   icon: const Icon(FluentIcons.send_16_filled),
+                  //   label: const Text(
+                  //     "تایید",
+                  //     style: TextStyle(color: Colors.white, fontSize: 18),
+                  //   ),
+                  //   style: FilledButton.styleFrom(
+                  //     backgroundColor:   Color(0xffea5555), // This is what you need!
+                  //   ),
+                  //   // style: ButtonStyle( ),
+                  // ),
+                ),
+            ],
+          ),
         ),
-      ),
-    );
+        if (isLoading)
+          Positioned(
+              left: 0.0,
+              right: 0.0,
+              bottom: 0.0,
+              top: 0.0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.black.withOpacity(0.6),
+                //  color: Colors.pink,
+                padding: const EdgeInsets.all(10),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text('لطفا صبر نمایید ...')),
+                    CircularProgressIndicator()
+                  ],
+                ),
+              ))
+      ],
+    ));
   }
 
   @override
   void initState() {
     super.initState();
-    _checkFrom=globals.globalCheckDevice;
-    globals.globalCheckDevice=false;
+    _checkFrom = globals.globalCheckDevice;
+    globals.globalCheckDevice = false;
     GetRequestServer(context);
     //  RequestServer(context);
   }
 
   Future<void> GetRequestServer(BuildContext context) async {
+    isLoading = true;
+
     try {
       var deviceID = await get_unique_identifier();
 
@@ -359,13 +396,15 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
 
       final response = await client.post(
           // 'https://shop.hologate.pro/api/accounts/get-devices' , formData);
-          globals.global_url+'/api/accounts/get-devices',
+          globals.global_url + '/api/accounts/get-devices',
           formData);
+      isLoading =false;
+
       if (response.statusCode == 200) {
         final jsonData = response.data!;
 
         if (jsonData['success'] == true) {
-        //  globals.globalCheckGetListServer = true;
+          //  globals.globalCheckGetListServer = true;
 
           setState(() {
             products2 = jsonData['connections'] as List;
@@ -389,24 +428,24 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           //         : "سرور با خطا مواجه شد!!")
           //     .show(context);
           CustomToast.error(
-              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
               .show(context);
         }
-
       } else {
-        CustomToast.error(
-           "سرور با خطا مواجه شد!!")
-            .show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      CustomToast.error(
-         "سرور با خطا مواجه شد!!")
-          .show(context);
+      isLoading =false;
+
+      CustomToast.error("سرور با خطا مواجه شد!!").show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }
+
   Future<void> SetRequestServer(BuildContext context) async {
+    isLoading = true;
+    // return;
     try {
       var deviceID = await get_unique_identifier();
       print("oghab @@@ globalToken " +
@@ -416,13 +455,13 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       final DioHttpClient client = DioHttpClient(
           timeout: const Duration(seconds: 10),
           userAgent:
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
           Authorization: globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
-        'name':  nameController.text,
+        'name': nameController.text,
         'subscription_id': device_id,
         'unique_id': deviceID,
         'is_plus_device': true,
@@ -441,11 +480,12 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       print("oghab @@@ account_id: ${device_id}");
 
       final response = await client.post(
-        // 'https://shop.hologate.pro/api/login' + params, formData);
+          // 'https://shop.hologate.pro/api/login' + params, formData);
           globals.global_url + '/api/accounts/get-mc-group',
           formData);
       print("oghab @@@ response" + response.toString());
       final jsonData = response.data!;
+      isLoading =false;
 
       if (response.statusCode == 200) {
         if (jsonData['success'] == true) {
@@ -479,19 +519,18 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           } else if ((jsonData['connections'].toString()) != "null") {
             const ConfigDeviceRoute2().push(context);
           } else if ((jsonData['state'].toString()) != 'null') {
-           if ((jsonData['state'].toString()) == "get_mc_group") {
-              globals.global_subscription_id=jsonData['subscription_id'].toString();
-              const ConfigLocationRoute().push(context );
-
-            }
-            else if ((jsonData['state'].toString()) == "get_subscription") {
+            if ((jsonData['state'].toString()) == "get_mc_group") {
+              globals.global_subscription_id =
+                  jsonData['subscription_id'].toString();
+              const ConfigLocationRoute().push(context);
+            } else if ((jsonData['state'].toString()) == "get_subscription") {
               SetRequestServer_subScription(context);
 
               // Navigator.of(context).popUntil((route) => false);
               //  Navigator.of(context).pop();
             } else {
-              CustomToast.error(
-                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+              CustomToast.error(jsonData['message']?.toString() ??
+                      "سرور با خطا مواجه شد!!")
                   .show(context);
             }
           } else {
@@ -515,24 +554,27 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           //         : "سرور با خطا مواجه شد!!")
           //     .show(context);
           CustomToast.error(
-              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
               .show(context);
         }
-
-
       } else {
         CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
 
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
+      isLoading =false;
+
       CustomToast.error("سرور با خطا مواجه شد!").show(context);
 
       loggy.warning(
           'Could not get the local country code from ip 6666' + e.toString());
     }
   }
+
   Future<void> SetRequestServer_subScription(BuildContext context) async {
+    isLoading = true;
+
     try {
       var deviceID = await get_unique_identifier();
 
@@ -545,9 +587,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
-      'name':  nameController.text,
+        'name': nameController.text,
         'subscription_id': device_id,
-       'unique_id': deviceID,
+        'unique_id': deviceID,
         'is_plus_device': true,
 
         // 'username': user,
@@ -564,20 +606,23 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       // print("oghab @@@ params: ${params}");
 
       final response = await client.post(
-          globals.global_url+'/api/accounts/get-subscription', formData);
+          globals.global_url + '/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
         final jsonData = response.data!;
+        isLoading =false;
 
         if (jsonData['success'] == true) {
-
           if ((jsonData['subscription'].toString()) != 'null') {
             globals.globalCheckGetListServer = true;
             globals.globalWaitingGetListServer = true;
-            final SharedPreferences prefs = await SharedPreferences.getInstance();
+            final SharedPreferences prefs =
+                await SharedPreferences.getInstance();
             globals.globalToken = globals.globalTokenTemporary;
             await prefs.setString('token', globals.globalTokenTemporary);
-            print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
-            await prefs.setString('subscription', jsonData['subscription'].toString());
+            print(
+                "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
+            await prefs.setString(
+                'subscription', jsonData['subscription'].toString());
             // Navigator.of(context).pop();
             //  Navigator.of(context).popUntil((route) => route.isFirst);
             // if(_checkFrom==true)
@@ -585,16 +630,15 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             // else
             // Navigator.of(context)..pop()..pop()..pop();
             Navigator.of(context).popUntil((route) => route.isFirst);
-
-
-          }
-
-          else
+          } else
+            CustomToast.error(
+                jsonData['message']?.toString() ?? "سروری موجود نیست مجداد تلاش نمایید ")
+                .show(context);
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
             //   Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context)..pop()..pop()..pop();
-          Navigator.of(context).popUntil((route) => route.isFirst);
+            // Navigator.of(context).popUntil((route) => route.isFirst);
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =
@@ -609,20 +653,17 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           //         : "سرور با خطا مواجه شد!!")
           //     .show(context);
           CustomToast.error(
-              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
               .show(context);
         }
-
       } else {
-        CustomToast.error(
-  "سرور با خطا مواجه شد!!")
-            .show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      CustomToast.error(
-          "سرور با خطا مواجه شد!!")
-          .show(context);
+      isLoading =false;
+
+      CustomToast.error("سرور با خطا مواجه شد!!").show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }

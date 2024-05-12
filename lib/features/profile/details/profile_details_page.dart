@@ -31,6 +31,8 @@ class ProfileDetailsPage extends HookConsumerWidget with PresLogger {
       (_, next) async {
         switch (await next) {
           case AsyncData():
+           // globals.globalCheckGetListServer=false;
+
             CustomToast.success(t.profile.save.successMsg).show(context);
             WidgetsBinding.instance.addPostFrameCallback(
               (_) {
