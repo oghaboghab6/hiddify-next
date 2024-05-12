@@ -37,7 +37,21 @@ class EmptyProfilesHomeBody extends HookConsumerWidget {
           ),
         ]
         :
-            []
+            [
+              Text("ساخت اکانت با مشکل مواجه شد به پشتیبانی پیام بدهید"),
+              // const Gap(16),
+              // OutlinedButton.icon(
+              //   // onPressed: () => const AddProfileRoute().push(context),
+              //   // onPressed: () =>{const LoginRoute().push(context)} ,
+              //   onPressed: onTap ,
+              //   icon: const Icon(FluentIcons.person_board_20_regular),
+              //   label: Text(t.profile.add.buttonText),
+              //   // style: OutlinedButton.styleFrom(
+              //   //   side: BorderSide(width: 1.0, color: Color(0xffea5555)),
+              //   // ),
+              // ),
+            ]
+
         ,
 
       ),

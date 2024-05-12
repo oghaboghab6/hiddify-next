@@ -28,6 +28,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'dart:async';
 import '../../profile/overview/profiles_overview_notifier.dart';
@@ -74,10 +75,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
   }
 
 
-
   void initHook(BuildContext context) {
     // WidgetsBinding.instance.addObserver(this);
   }
+
 
   // @override
   // void dispose() {
@@ -90,6 +91,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
   // }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final isLoadingSubscription = useState(false);
 
     final token = '';
@@ -135,7 +137,33 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //   AsyncLoading() =>var dd=3,
     // }
     // print("oghab @@@@" + asyncProfiles.length);
+/*
+    void _requestPermission(BuildContext context) async {
+      final FirebaseMessaging messaging = FirebaseMessaging.instance;
+      CustomToast.error(
+          "dfgdfgdf")
+          .show(context);
+      final NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
 
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        print('User granted permission');
+        print(await FirebaseMessaging.instance.getToken());
+      } else if (settings.authorizationStatus ==
+          AuthorizationStatus.provisional) {
+        print('User granted provisional permission');
+      } else {
+        print('User declined or has not accepted permission');
+      }
+    }
+*/
     void goScreenLogin(){
       const LoginRoute().push(context).then((data) {
         print("oghab @@@@ ppppppp2 ${globals.globalToken } ${globals.globalCheckGetListServer }");
@@ -305,6 +333,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
       //
       // deleteProfileMutation.setFuture(ref.read(profilesOverviewNotifierProvider.notifier).deleteProfile(profile));
     }
+   // _requestPermission(context);
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -432,6 +462,25 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   ],
                 ),
 
+              if(isLoadingSubscription.value==true && globals.globalCheckGetListServer==true)  MultiSliver(children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                 // color: Colors.blue.withOpacity(0.6),
+                  //  color: Colors.pink,
+                  padding: const EdgeInsets.all(10),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text('در حال ساختن اکانت. لطفا صبر نمایید ...')),
+                      CircularProgressIndicator()
+                    ],
+                  ),
+                )
+
+              ]),
                 switch (activeProfile) {
                   AsyncData(value: final profile?) => MultiSliver(
                       children: [
@@ -476,29 +525,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     SliverErrorBodyPlaceholder(t.presentShortError(error)),
                   _ => const SliverToBoxAdapter(),
                 },
-            if(isLoadingSubscription.value )  MultiSliver(children: [
-                Positioned(
-                    left: 0.0,
-                    right: 0.0,
-                    bottom: 0.0,
-                    top: 0.0,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: Colors.black.withOpacity(0.6),
-                      //  color: Colors.pink,
-                      padding: const EdgeInsets.all(10),
-                      child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Text('در حال ساختن اکانت. لطفا صیر نمایید ...')),
-                          CircularProgressIndicator()
-                        ],
-                      ),
-                    ))
 
-              ])
               // else
               // if (isLoadingSubscription.value)  Positioned(
               //       left: 0.0,
@@ -515,7 +542,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
               //           children: <Widget>[
               //             Padding(
               //                 padding: EdgeInsets.all(10.0),
-              //                 child: Text('درحال ساختن لطفا صیر نمایید ...')),
+              //                 child: Text('درحال ساختن لطفا صبر نمایید ...')),
               //             CircularProgressIndicator()
               //           ],
               //         ),
@@ -704,6 +731,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
     );
     await ref.read(addProfileProvider.notifier).add(subscription);
+   // await ref.read(addProfileProvider.notifier).add(subscription,onTap: ()  {            isLoadingSubscription.value = false;});
     return;
 
     final addProfileState = ref.watch(addProfileProvider);

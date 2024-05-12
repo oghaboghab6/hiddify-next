@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:hiddify/core/haptic/haptic_service.dart';
@@ -39,7 +38,8 @@ class AddProfile extends _$AddProfile with AppLogger {
           //  var ggg="";
           if(showMessageState) {
             globals.globalCheckGetListServer=false;
-            notification.showSuccessToast(t.profile.save.successMsg);
+
+           notification.showSuccessToast(t.profile.save.successMsg);
           }
           case AsyncError(:final error):
             if (error case ProfileInvalidUrlFailure()) {
@@ -59,6 +59,7 @@ class AddProfile extends _$AddProfile with AppLogger {
       ref.read(profileRepositoryProvider).requireValue;
   CancelToken? _cancelToken;
 
+  //Future<void> add(String rawInput, {bool showMessageState1=true,required VoidCallback onTap}) async {
   Future<void> add(String rawInput, {bool showMessageState1=true}) async {
     showMessageState =showMessageState1;
     if (state.isLoading) return;

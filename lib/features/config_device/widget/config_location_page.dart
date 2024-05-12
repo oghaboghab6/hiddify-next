@@ -2,6 +2,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hiddify/core/http_client/dio_http_client.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -164,6 +165,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
   int _check = 1;
   bool _checkFrom = false;
   String mc_group_id = "0";
+  //final isLoading = useState(false);
+  bool isLoading = false;
 
   @override
   // Widget build(BuildContext context) {
@@ -177,68 +180,68 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
     // final TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
-              child: const Column(
-                children: <Widget>[
-                  Text(
-                    'لوکیشن مورد نظر خود را انتخاب نمایید',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20),
-                    textAlign: TextAlign.center,
-                  )
-                ],
+        body: Stack(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+                child: const Column(
+                  children: <Widget>[
+                    Text(
+                      'لوکیشن مورد نظر خود را انتخاب نمایید',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
               ),
-            ),
-            ListView.builder(
-              itemCount: products2.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                  child: Card(
-                    child: ListTile(
-                        //tileColor: Colors.black12,
-                        dense: true,
-                        contentPadding: EdgeInsets.only(left: 0.0, right: 0.0),
-                        title: Text(
-                          products2[index]['name']!.toString(),
-                          style: const TextStyle(
-                           // color: Colors.black,
-                            fontSize: 16,
+              ListView.builder(
+                itemCount: products2.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                    child: Card(
+                      child: ListTile(
+                          //tileColor: Colors.black12,
+                          dense: true,
+                          contentPadding:
+                              EdgeInsets.only(left: 0.0, right: 0.0),
+                          title: Text(
+                            products2[index]['name']!.toString(),
+                            style: const TextStyle(
+                              // color: Colors.black,
+                              fontSize: 16,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        onTap: () async{
-
-
-
-                          final SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.setString('location_id', products2[index]['id'].toString());
-                          setState(()  {
-                            mc_group_id = products2[index]['id'].toString();
-
-                          });
-                          SetRequestServer(context);
-
-                        }
-                        // title:  Text(products[index]['name']),
-                        ),
-                  ),
-                );
-              },
-            ),
-            /*           if(products.isNotEmpty)  ListView.builder(
+                          onTap: () async {
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.setString('location_id',
+                                products2[index]['id'].toString());
+                            setState(() {
+                              mc_group_id = products2[index]['id'].toString();
+                            });
+                            SetRequestServer(context);
+                          }
+                          // title:  Text(products[index]['name']),
+                          ),
+                    ),
+                  );
+                },
+              ),
+              /*           if(products.isNotEmpty)  ListView.builder(
               itemCount: products.length,
               itemBuilder: (context, index) {
                 return const ListTile(
@@ -248,24 +251,24 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
                 );
               },
             ),*/
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: <Widget>[
-            //     const Text('Does not have account?'),
-            //     TextButton(
-            //       child: const Text(
-            //         'send',
-            //         style: TextStyle(fontSize: 20),
-            //       ),
-            //       onPressed: () async {
-            //         await UriUtils.tryLaunch(
-            //           Uri.parse("https://shop.hologate.pro/register?type=android"),
-            //         );
-            //       },
-            //     )
-            //   ],
-            // ),
-       /*     Padding(
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: <Widget>[
+              //     const Text('Does not have account?'),
+              //     TextButton(
+              //       child: const Text(
+              //         'send',
+              //         style: TextStyle(fontSize: 20),
+              //       ),
+              //       onPressed: () async {
+              //         await UriUtils.tryLaunch(
+              //           Uri.parse("https://shop.hologate.pro/register?type=android"),
+              //         );
+              //       },
+              //     )
+              //   ],
+              // ),
+              /*     Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 28.0, vertical: 6.0),
               child: FilledButton.icon(
@@ -280,22 +283,45 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
                 // style: ButtonStyle( ),
               ),
             ),*/
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+        if (isLoading)
+          Positioned(
+              left: 0.0,
+              right: 0.0,
+              bottom: 0.0,
+              top: 0.0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                color: Colors.black.withOpacity(0.6),
+                //  color: Colors.pink,
+                padding: const EdgeInsets.all(10),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text('لطفا صبر نمایید ...')),
+                    CircularProgressIndicator()
+                  ],
+                ),
+              ))
+      ],
+    ));
   }
 
   @override
   void initState() {
     super.initState();
-    _checkFrom=globals.globalCheckDevice;
-    globals.globalCheckDevice=false;
+    _checkFrom = globals.globalCheckDevice;
+    globals.globalCheckDevice = false;
     GetRequestServer(context);
     //  RequestServer(context);
   }
 
   Future<void> GetRequestServer(BuildContext context) async {
+    isLoading = true;
     try {
       var deviceID = await get_unique_identifier();
 
@@ -327,9 +353,10 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
 
       final response = await client.post(
           // 'https://shop.hologate.pro/api/accounts/get-devices' , formData);
-          globals.global_url+'/api/accounts/get-mc-group',
+          globals.global_url + '/api/accounts/get-mc-group',
           formData);
       print("oghab @@@ params: ${response}");
+      isLoading =false;
 
       if (response.statusCode == 200) {
         final jsonData = response.data!;
@@ -359,25 +386,24 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
           //         : "سرور با خطا مواجه شد!!")
           //     .show(context);
           CustomToast.error(
-              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
               .show(context);
         }
-
       } else {
-        CustomToast.error(
-           "سرور با خطا مواجه شد!!")
-            .show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      CustomToast.error(
-         "سرور با خطا مواجه شد!!")
-          .show(context);
+      isLoading =false;
+
+      CustomToast.error("سرور با خطا مواجه شد!!").show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }
 
   Future<void> SetRequestServer(BuildContext context) async {
+    isLoading = true;
+
     try {
       var deviceID = await get_unique_identifier();
 
@@ -392,7 +418,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
       var formData = FormData.fromMap({
         'mc_group_id': mc_group_id,
         'subscription_id': globals.global_subscription_id,
-       'unique_id': deviceID,
+        'unique_id': deviceID,
         'is_plus_device': true,
 
         // 'username': user,
@@ -409,17 +435,19 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
       print("oghab @@@ params: ${formData}");
 
       final response = await client.post(
-          globals.global_url+'/api/accounts/get-subscription', formData);
+          globals.global_url + '/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
         final jsonData = response.data!;
 
         if (jsonData['success'] == true) {
-
           if ((jsonData['subscription'].toString()) != 'null') {
             // SetRequestServer_subScription(context);
-            print("oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
-            final SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.setString('subscription', jsonData['subscription'].toString());
+            print(
+                "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
+            final SharedPreferences prefs =
+                await SharedPreferences.getInstance();
+            await prefs.setString(
+                'subscription', jsonData['subscription'].toString());
 
             globals.globalCheckGetListServer = true;
             globals.globalWaitingGetListServer = true;
@@ -432,13 +460,15 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
             // else
             // Navigator.of(context)..pop()..pop()..pop();
             Navigator.of(context).popUntil((route) => route.isFirst);
-
           } else
+            CustomToast.error(
+                jsonData['message']?.toString() ?? "سروری موجود نیست مجداد تلاش نمایید ")
+                .show(context);
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
             //   Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context)..pop()..pop()..pop();
-          Navigator.of(context).popUntil((route) => route.isFirst);
+            // Navigator.of(context).popUntil((route) => route.isFirst);
 
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =
@@ -453,20 +483,15 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
           //         : "سرور با خطا مواجه شد!!")
           //     .show(context);
           CustomToast.error(
-              jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
               .show(context);
         }
-
       } else {
-        CustomToast.error(
-  "سرور با خطا مواجه شد!!")
-            .show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      CustomToast.error(
-          "سرور با خطا مواجه شد!!")
-          .show(context);
+      CustomToast.error("سرور با خطا مواجه شد!!").show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }

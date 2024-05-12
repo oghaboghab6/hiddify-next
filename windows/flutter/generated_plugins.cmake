@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  firebase_core
   protocol_handler_windows
   screen_retriever
   sentry_flutter
