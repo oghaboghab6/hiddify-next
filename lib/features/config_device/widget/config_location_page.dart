@@ -178,7 +178,13 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
   Widget build(BuildContext context) {
     // final TextEditingController nameController = TextEditingController();
     // final TextEditingController passwordController = TextEditingController();
+    useOnAppLifecycleStateChange((pref, state) {
+      if (state == AppLifecycleState.resumed) {
+        isLoading=false;
+        //make a request
+      }
 
+    });
     return Scaffold(
         body: Stack(
       children: <Widget>[
