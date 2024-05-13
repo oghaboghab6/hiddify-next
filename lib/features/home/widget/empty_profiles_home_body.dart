@@ -38,7 +38,7 @@ class EmptyProfilesHomeBody extends HookConsumerWidget {
         ]
         :
             [
-              Text("ساخت اکانت با مشکل مواجه شد به پشتیبانی پیام بدهید"),
+              Text("لیست خالی شد منتظر بمانید"),
               // const Gap(16),
               // OutlinedButton.icon(
               //   // onPressed: () => const AddProfileRoute().push(context),
