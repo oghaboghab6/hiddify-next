@@ -56,7 +56,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     globals.globalToken = prefs.getString('token') ?? '';
     globals.globalUsername = prefs.getString('username') ?? '';
     globals.globalPassword = prefs.getString('password') ?? '';
-    // print("oghab @@@@ 0 token " + globals.globalToken.toString());
+    print("oghab @@@@ 0 token " + globals.globalToken.toString());
     // print("oghab @@@@ 0 globalCheckGetListServer " +
     //     globals.globalCheckGetListServer.toString());
     if (globals.globalToken == '') {
@@ -361,10 +361,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // var params =
         //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
         //  loggy.warning('oghab @@@ params: ${params}');
-        print("oghab @@@ params: ${formData}");
+        print("oghab @@@ params: ${deviceID} ${globals.globalToken}");
 
         final response = await client.post(
-            globals.global_url+'/api/device-permission', formData);
+            globals.global_url+'/api/accounts/device-permission', formData);
         if (response.statusCode == 200) {
           final jsonData = response.data!;
 
