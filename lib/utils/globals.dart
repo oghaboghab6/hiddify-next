@@ -4,6 +4,7 @@ int globalInt = 0;
 bool globalBoolean = true;
 String globalString = "";
 String globalToken = "";
+String globalTokenFB = "";
 String globalTokenTemporary = "";
 String globalUsername = "";
 String globalPassword = "";

@@ -11,7 +11,7 @@ import 'package:hiddify/utils/validators.dart';
 typedef ProfileLink = ({String url, String name});
 
 // TODO: test and improve
-abstract class LinkParser {
+abstract class LinkParser  {
   static String generateSubShareLink(String url, [String? name]) {
     final uri = Uri.tryParse(url);
     if (uri == null) return '';
@@ -67,6 +67,8 @@ abstract class LinkParser {
       };
     }
     final headers = ProfileRepositoryImpl.parseHeadersFromContent(content);
+    print("@@@@ headers: [${headers}]");
+
     final subinfo = ProfileParser.parse("", headers);
 
     if (subinfo.name.isNotNullOrEmpty && subinfo.name != "Remote Profile") {

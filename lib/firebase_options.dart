@@ -50,10 +50,18 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBiZRZKSzkja8-FMjNWxPtdwjsUBxHylog',
-    appId: '1:598766034472:android:5a00e6e75d37a005941f1d',
-    messagingSenderId: '598766034472',
-    projectId: 'flutter-push-notificatio-3c02a',
-    storageBucket: 'flutter-push-notificatio-3c02a.appspot.com',
+    apiKey: "AIzaSyAxo4iD9Hb4QcpdQsw6Nxrx8mycAQYVsLc",
+    authDomain: "hologate2-486df.firebaseapp.com",
+    projectId: "hologate2-486df",
+    storageBucket: "hologate2-486df.appspot.com",
+    messagingSenderId: "509343941472",
+    appId: "1:509343941472:web:2973202f3b7268dbbc9405",
+    measurementId: "G-BBE2X6MXE2"
+
+    // apiKey: 'AIzaSyBiZRZKSzkja8-FMjNWxPtdwjsUBxHylog',
+    // appId: '1:598766034472:android:5a00e6e75d37a005941f1d',
+    // messagingSenderId: '598766034472',
+    // projectId: 'flutter-push-notificatio-3c02a',
+    // storageBucket: 'flutter-push-notificatio-3c02a.appspot.com',
   );
 }
