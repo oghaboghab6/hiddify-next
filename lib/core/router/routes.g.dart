@@ -112,6 +112,12 @@ RouteBase get $mobileWrapperRoute => ShellRouteData.$route(
               parentNavigatorKey: WebViewRoute.$parentNavigatorKey,
               factory: $WebViewRouteExtension._fromState,
             ),
+            GoRouteData.$route(
+              path: 'webview_about',
+              name: 'WebViewAbout',
+              parentNavigatorKey: WebViewAboutRoute.$parentNavigatorKey,
+              factory: $WebViewAboutRouteExtension._fromState,
+            ),
           ],
         ),
         GoRouteData.$route(
@@ -393,6 +399,23 @@ extension $ConfigDeviceRouteExtension2 on ConfigDeviceRoute2 {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $WebViewAboutRouteExtension on WebViewAboutRoute {
+  static WebViewAboutRoute _fromState(GoRouterState state) => const WebViewAboutRoute();
+
+  String get location => GoRouteData.$location(
+        '/webview_about',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $WebViewRouteExtension on WebViewRoute {
   static WebViewRoute _fromState(GoRouterState state) => const WebViewRoute();
 
@@ -527,6 +550,12 @@ RouteBase get $desktopWrapperRoute => ShellRouteData.$route(
           name: 'WebView',
           parentNavigatorKey: WebViewRoute.$parentNavigatorKey,
           factory: $WebViewRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/webview_about',
+          name: 'WebViewAbout',
+          parentNavigatorKey: WebViewAboutRoute.$parentNavigatorKey,
+          factory: $WebViewAboutRouteExtension._fromState,
         ),
       ],
     );

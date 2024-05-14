@@ -10,6 +10,7 @@ String globalPassword = "";
 bool globalCheckDevice = false;
 String global_subscription_id = "";
 String urlLink = "";
+String urlLinkWebView = "";
 bool globalCheckGetListServer = false;
 bool globalWaitingGetListServer = false;
 double globalDouble= 10.0;
