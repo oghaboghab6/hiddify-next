@@ -60,6 +60,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     // print("oghab @@@@ 0 globalCheckGetListServer " +
     //     globals.globalCheckGetListServer.toString());
     if (globals.globalToken == '') {
+
       // const LoginRoute().push(context).then((data){
       //   print("oghab @@@@ ppppppp1 " + globals.globalToken.toString());
       //   if (globals.globalCheckGetListServer)
@@ -74,24 +75,50 @@ class HomePage extends HookConsumerWidget with PresLogger {
     return globals.globalToken;
   }
 
+  void _requestPermission(BuildContext context) async {
+    final FirebaseMessaging messaging = FirebaseMessaging.instance;
+    CustomToast.error("dfgdfgdf").show(context);
+    final NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
-  void initHook(BuildContext context) {
-    // WidgetsBinding.instance.addObserver(this);
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+      print(await FirebaseMessaging.instance.getToken());
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
   }
 
+  void initHook(BuildContext context) {
+    // super.initHook();
+
+    // CustomToast.error(
+    //     "rrrrrrr")
+    //     .show(context);
+    // _requestPermission(context);
+    // WidgetsBinding.instance.addObserver(this);
+  }
 
   // @override
   // void dispose() {
   //   WidgetsBinding.instance.removeObserver(this);
   // }
   //
-  // @override
   // void didChangeAppLifecycleState(AppLifecycleState state) {
   //   print("app state now is $state");
   // }
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final isLoadingSubscription = useState(false);
 
     final token = '';
@@ -137,36 +164,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //   AsyncLoading() =>var dd=3,
     // }
     // print("oghab @@@@" + asyncProfiles.length);
-/*
-    void _requestPermission(BuildContext context) async {
-      final FirebaseMessaging messaging = FirebaseMessaging.instance;
-      CustomToast.error(
-          "dfgdfgdf")
-          .show(context);
-      final NotificationSettings settings = await messaging.requestPermission(
-        alert: true,
-        announcement: false,
-        badge: true,
-        carPlay: false,
-        criticalAlert: false,
-        provisional: false,
-        sound: true,
-      );
 
-      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-        print('User granted permission');
-        print(await FirebaseMessaging.instance.getToken());
-      } else if (settings.authorizationStatus ==
-          AuthorizationStatus.provisional) {
-        print('User granted provisional permission');
-      } else {
-        print('User declined or has not accepted permission');
-      }
-    }
-*/
-    void goScreenLogin(){
+    void goScreenLogin() {
       const LoginRoute().push(context).then((data) {
-        print("oghab @@@@ ppppppp2 ${globals.globalToken } ${globals.globalCheckGetListServer }");
+        print(
+            "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
         if (globals.globalCheckGetListServer == true) {
           GetListAccountServer(
             context,
@@ -174,23 +176,21 @@ class HomePage extends HookConsumerWidget with PresLogger {
             addProfileProvider,
             deleteProfileMutation,
           );
-          CustomToast.error(
-              "در حال ساختن  اکانت لطفا صبر نمایید")
+          CustomToast.error("در حال ساختن  اکانت لطفا صبر نمایید")
               .show(context);
           isLoadingSubscription.value = true;
 
           Future.delayed(
             const Duration(seconds: 30),
-                () => 100,
+            () => 100,
           ).then((value) {
             isLoadingSubscription.value = false;
-            if(globals.globalCheckGetListServer==true){
-              GetListAccountServer(context, ref,
-                  addProfileProvider, deleteProfileMutation);
+            if (globals.globalCheckGetListServer == true) {
+              GetListAccountServer(
+                  context, ref, addProfileProvider, deleteProfileMutation);
             }
 
-            print(
-                'The value is $value.'); // Prints later, after 3 seconds.
+            print('The value is $value.'); // Prints later, after 3 seconds.
           });
           /*
 
@@ -213,17 +213,18 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // then will return value when the loginscreen's pop is called.
       });
     }
+
     void exitApp(
         BuildContext context,
         WidgetRef ref,
         AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
-        addProfileProvider,
+            addProfileProvider,
         deleteProfileMutation) async {
       try {
         final DioHttpClient client = DioHttpClient(
             timeout: const Duration(seconds: 10),
             userAgent:
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
             Authorization: globals.globalToken);
         // final response =
@@ -249,7 +250,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         print("oghab @@@ deviceID: ${deviceID}");
 
         final response = await client.post(
-          // 'https://shop.hologate.pro/api/accounts' + params, formData);
+            // 'https://shop.hologate.pro/api/accounts' + params, formData);
             globals.global_url + '/api/accounts/log_out',
             formData);
         final jsonData = response.data!;
@@ -258,7 +259,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         if (response.statusCode == 200) {
           if (jsonData['success'] == true) {
             CustomToast.success(
-                jsonData['message']?.toString() ?? "باموفقیت انجام شد!")
+                    jsonData['message']?.toString() ?? "باموفقیت انجام شد!")
                 .show(context);
             final prefs = await SharedPreferences.getInstance();
             prefs.setString('token', '');
@@ -283,7 +284,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
             //         : "سرور با خطا مواجه شد!!")
             //     .show(context);
             CustomToast.error(
-                jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                    jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
                 .show(context);
           }
 
@@ -333,6 +334,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       //
       // deleteProfileMutation.setFuture(ref.read(profilesOverviewNotifierProvider.notifier).deleteProfile(profile));
     }
+
     Future<void> AuthenticationServer(BuildContext context) async {
       try {
         var deviceID = await get_unique_identifier();
@@ -340,15 +342,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
         final DioHttpClient client = DioHttpClient(
             timeout: const Duration(seconds: 10),
             userAgent:
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
             Authorization: globals.globalToken);
         // final response =
         // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
         var formData = FormData.fromMap({
-
           'unique_id': deviceID,
           'is_plus_device': true,
+          'token_fb': globals.globalTokenFB,
 
           // 'username': user,
           // 'password': pass,
@@ -361,28 +363,25 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // var params =
         //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
         //  loggy.warning('oghab @@@ params: ${params}');
-        print("oghab @@@ params: ${deviceID} ${globals.globalToken}");
+        print(
+            "oghab @@@ params: ${deviceID} ${globals.globalToken} ${globals.globalTokenFB}");
 
         final response = await client.post(
-            globals.global_url+'/api/accounts/device-permission', formData);
+            globals.global_url + '/api/accounts/device-permission', formData);
         if (response.statusCode == 200) {
           final jsonData = response.data!;
 
           if (jsonData['success'] == true) {
-
-
           } else {
-            exitApp(context, ref, addProfileProvider,
-                deleteProfileMutation);
+            exitApp(context, ref, addProfileProvider, deleteProfileMutation);
             // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
             //         ? jsonData['message'].toString()
             //         : "سرور با خطا مواجه شد!!")
             //     .show(context);
-            CustomToast.error(
-                jsonData['message']?.toString() ?? "***سرور با خطا مواجه شد!!")
+            CustomToast.error(jsonData['message']?.toString() ??
+                    "***سرور با خطا مواجه شد!!")
                 .show(context);
           }
-
         } else {
           // CustomToast.error(
           //     "سرور با خطا مواجه شد!!*")
@@ -396,16 +395,31 @@ class HomePage extends HookConsumerWidget with PresLogger {
         loggy.warning('Could not get the local country code from ip');
       }
     }
+
     useOnAppLifecycleStateChange((pref, state) {
       if (state == AppLifecycleState.resumed) {
         AuthenticationServer(context);
         //make a request
       }
-
     });
 
+    FirebaseMessaging.onMessage.listen((remoteMessage) {
+      debugPrint('Got a message in the foreground');
+      debugPrint('message data: ${remoteMessage.data}');
 
+      if (remoteMessage.data['exit'] == "true") {
+        CustomToast.success(
+            remoteMessage.data['message']?.toString() ?? "شما توسط شخص دیگری بیرون انداخته شدید")
+            .show(context);
+        exitApp(context, ref, addProfileProvider, deleteProfileMutation);
 
+      }
+      if (remoteMessage.notification != null) {
+        debugPrint('message is a notification' );
+        // On Android, foreground notifications are not shown, only when the app
+        // is backgrounded.
+      }
+    });
 
     return Scaffold(
       body: Stack(
@@ -446,14 +460,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         const WebViewRoute().push(context)
                       else
                         goScreenLogin()
-                        // const LoginRoute().push(context).then((data) {
-                        //   //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
-                        //   if (globals.globalCheckGetListServer) {
-                        //     GetListAccountServer(context, ref,
-                        //         addProfileProvider, deleteProfileMutation);
-                        //   }
-                        //   // then will return value when the loginscreen's pop is called.
-                        // }),
+                      // const LoginRoute().push(context).then((data) {
+                      //   //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
+                      //   if (globals.globalCheckGetListServer) {
+                      //     GetListAccountServer(context, ref,
+                      //         addProfileProvider, deleteProfileMutation);
+                      //   }
+                      //   // then will return value when the loginscreen's pop is called.
+                      // }),
                     },
                     icon: const Icon(FluentIcons.cart_16_filled),
                     tooltip: t.profile.add.buttonText,
@@ -465,51 +479,51 @@ class HomePage extends HookConsumerWidget with PresLogger {
                             deleteProfileMutation)
                       else
                         goScreenLogin()
-                        // const LoginRoute().push(context).then((data) {
-                        //   // print("oghab @@@@ ppppppp2 ${globals.globalToken } ${globals.globalCheckGetListServer }");
-                        //   if (globals.globalCheckGetListServer == true) {
-                        //     GetListAccountServer(
-                        //       context,
-                        //       ref,
-                        //       addProfileProvider,
-                        //       deleteProfileMutation,
-                        //     );
-                        //     CustomToast.error(
-                        //             "در حال ساختن  اکانت لطفا صبر نمایید")
-                        //         .show(context);
-                        //     isLoadingSubscription.value = true;
-                        //
-                        //     Future.delayed(
-                        //       const Duration(seconds: 30),
-                        //       () => 100,
-                        //     ).then((value) {
-                        //       isLoadingSubscription.value = false;
-                        //
-                        //       GetListAccountServer(context, ref,
-                        //           addProfileProvider, deleteProfileMutation);
-                        //       print(
-                        //           'The value is $value.'); // Prints later, after 3 seconds.
-                        //     });
-                        //     /*
-                        //
-                        //
-                        //           Future.delayed(
-                        //             const Duration(seconds: 30),
-                        //                 () => 100,
-                        //           ).then((value) {
-                        //             GetListAccountServer(
-                        //                 context,
-                        //                 ref,
-                        //                 addProfileProvider,
-                        //                 deleteProfileMutation)
-                        //             print(
-                        //                 'The value is $value.'); // Prints later, after 3 seconds.
-                        //
-                        //           })
-                        //           */
-                        //   }
-                        //   // then will return value when the loginscreen's pop is called.
-                        // }),
+                      // const LoginRoute().push(context).then((data) {
+                      //   // print("oghab @@@@ ppppppp2 ${globals.globalToken } ${globals.globalCheckGetListServer }");
+                      //   if (globals.globalCheckGetListServer == true) {
+                      //     GetListAccountServer(
+                      //       context,
+                      //       ref,
+                      //       addProfileProvider,
+                      //       deleteProfileMutation,
+                      //     );
+                      //     CustomToast.error(
+                      //             "در حال ساختن  اکانت لطفا صبر نمایید")
+                      //         .show(context);
+                      //     isLoadingSubscription.value = true;
+                      //
+                      //     Future.delayed(
+                      //       const Duration(seconds: 30),
+                      //       () => 100,
+                      //     ).then((value) {
+                      //       isLoadingSubscription.value = false;
+                      //
+                      //       GetListAccountServer(context, ref,
+                      //           addProfileProvider, deleteProfileMutation);
+                      //       print(
+                      //           'The value is $value.'); // Prints later, after 3 seconds.
+                      //     });
+                      //     /*
+                      //
+                      //
+                      //           Future.delayed(
+                      //             const Duration(seconds: 30),
+                      //                 () => 100,
+                      //           ).then((value) {
+                      //             GetListAccountServer(
+                      //                 context,
+                      //                 ref,
+                      //                 addProfileProvider,
+                      //                 deleteProfileMutation)
+                      //             print(
+                      //                 'The value is $value.'); // Prints later, after 3 seconds.
+                      //
+                      //           })
+                      //           */
+                      //   }
+                      //   // then will return value when the loginscreen's pop is called.
+                      // }),
                     },
                     icon: (globals.globalToken != "")
                         ? const Icon(FluentIcons.arrow_exit_20_filled)
@@ -534,69 +548,75 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   ],
                 ),
 
-              if(isLoadingSubscription.value==true && globals.globalCheckGetListServer==true)  MultiSliver(children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                 // color: Colors.blue.withOpacity(0.6),
-                  //  color: Colors.pink,
-                  padding: const EdgeInsets.all(10),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Text('در حال ساختن اکانت. لطفا صبر نمایید ...')),
-                      CircularProgressIndicator()
-                    ],
-                  ),
-                )
-
-              ]),
-                switch (activeProfile) {
-                  AsyncData(value: final profile?) => MultiSliver(
-                      children: [
-                        ProfileTile(profile: profile, isMain: true),
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // const Text(
-                              //   "profile.name",
-                              //   maxLines: 2,
-                              //   overflow: TextOverflow.ellipsis,
-                              //   // style: theme.textTheme.titleMedium,
-                              //   semanticsLabel: "aaaa",
-                              // ),
-
-                              const Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ConnectionButton(),
-                                    ActiveProxyDelayIndicator(),
-                                  ],
-                                ),
-                              ),
-                              if (MediaQuery.sizeOf(context).width < 840)
-                                const ActiveProxyFooter(),
-                            ],
-                          ),
-                        ),
+              if (isLoadingSubscription.value == true &&
+                  globals.globalCheckGetListServer == true)
+                MultiSliver(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    // color: Colors.blue.withOpacity(0.6),
+                    //  color: Colors.pink,
+                    padding: const EdgeInsets.all(10),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                                'در حال ساختن اکانت. لطفا صبر نمایید ...')),
+                        CircularProgressIndicator()
                       ],
                     ),
-                  AsyncData() => switch (hasAnyProfile) {
-                      AsyncData(value: true) =>
-                        const EmptyActiveProfileHomeBody(),
-                       _ =>  EmptyProfilesHomeBody(  key:  ValueKey("add_from_clipboard_button"), onTap: ()  {goScreenLogin();}),
-                     // _ => const EmptyProfilesHomeBody(),
-                    },
-                  AsyncError(:final error) =>
-                    SliverErrorBodyPlaceholder(t.presentShortError(error)),
-                  _ => const SliverToBoxAdapter(),
-                },
+                  )
+                ]),
+              switch (activeProfile) {
+                AsyncData(value: final profile?) => MultiSliver(
+                    children: [
+                      ProfileTile(profile: profile, isMain: true),
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // const Text(
+                            //   "profile.name",
+                            //   maxLines: 2,
+                            //   overflow: TextOverflow.ellipsis,
+                            //   // style: theme.textTheme.titleMedium,
+                            //   semanticsLabel: "aaaa",
+                            // ),
+
+                            const Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ConnectionButton(),
+                                  ActiveProxyDelayIndicator(),
+                                ],
+                              ),
+                            ),
+                            if (MediaQuery.sizeOf(context).width < 840)
+                              const ActiveProxyFooter(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                AsyncData() => switch (hasAnyProfile) {
+                    AsyncData(value: true) =>
+                      const EmptyActiveProfileHomeBody(),
+                    _ => EmptyProfilesHomeBody(
+                        key: ValueKey("add_from_clipboard_button"),
+                        onTap: () {
+                          goScreenLogin();
+                        }),
+                    // _ => const EmptyProfilesHomeBody(),
+                  },
+                AsyncError(:final error) =>
+                  SliverErrorBodyPlaceholder(t.presentShortError(error)),
+                _ => const SliverToBoxAdapter(),
+              },
 
               // else
               // if (isLoadingSubscription.value)  Positioned(
@@ -624,7 +644,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
         ],
       ),
     );
-
   }
 
   Future<void> GetListAccountServer2233(
@@ -796,14 +815,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
         "  ----   ");
     // print("oghab @@@@ subscription 2222  " + activeProfile.toString());
 
-
     globals.globalCheckGetListServer = false;
     //await ref.read(addProfileProvider.notifier).ge(subscription);
     deleteProfileMutation.setFuture(
       ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
     );
     await ref.read(addProfileProvider.notifier).add(subscription);
-   // await ref.read(addProfileProvider.notifier).add(subscription,onTap: ()  {            isLoadingSubscription.value = false;});
+    // await ref.read(addProfileProvider.notifier).add(subscription,onTap: ()  {            isLoadingSubscription.value = false;});
     return;
 
     final addProfileState = ref.watch(addProfileProvider);

@@ -160,6 +160,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
           'device_id': null,
           'unique_id': deviceID,
           'is_plus_device': true,
+          'token_fb': globals.globalTokenFB,
 
           // 'username': user,
           // 'password': pass,
