@@ -447,7 +447,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       icon: const Icon(FluentIcons.add_circle_24_filled),
                       tooltip: t.profile.add.buttonText,
                     ),
-                  //if (globals.globalToken != "")
+                  if (globals.globalToken != "")
                     IconButton(
                       onPressed: () => GetListAccountServer(context, ref,
                           addProfileProvider, deleteProfileMutation),
