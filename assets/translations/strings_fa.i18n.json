@@ -118,7 +118,7 @@
         }
     },
     "proxies": {
-        "pageTitle": "پراکسی‌ها",
+        "pageTitle": "سرور‌ها",
         "emptyProxiesMsg": "پراکسی وجود ندارد",
         "delayTestTooltip": "تست تاخیر",
         "sortTooltip": "مرتب‌سازی پراکسی‌ها",

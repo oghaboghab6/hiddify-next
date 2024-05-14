@@ -129,11 +129,15 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: FloatingActionButton.extended(
             onPressed: () async => notifier.urlTest(group.tag),
             tooltip: t.proxies.delayTestTooltip,
-            child: const Icon(FluentIcons.flash_24_filled),
+          //  child: const Icon(FluentIcons.flash_24_filled),
+            label: Text("تست پینگ سرورها"),
+
+         //   child: const Text("تست پینگ سرورها"),
           ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         );
 
       case AsyncError(:final error):

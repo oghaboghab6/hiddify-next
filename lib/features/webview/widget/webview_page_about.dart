@@ -10,8 +10,8 @@ import '../../../core/localization/translations.dart';
 import '../../common/nested_app_bar.dart';
 import '../../home/widget/home_page.dart';
 
-class WebViewPage extends HookConsumerWidget {
-  const WebViewPage({super.key});
+class WebViewAboutPage extends HookConsumerWidget {
+  const WebViewAboutPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,7 +19,6 @@ class WebViewPage extends HookConsumerWidget {
 
     var token = "";
     token = globals.globalToken.replaceAll("Bearer ", "");
-    print("oghab @@@@ url" + 'https://shop.hologate.pro/login/' + token);
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
@@ -39,7 +38,7 @@ class WebViewPage extends HookConsumerWidget {
         ),
       )
       // ..loadRequest(Uri.parse('https://shop.hologate.pro/login/' + token));
-      ..loadRequest(Uri.parse(globals.urlLink));
+      ..loadRequest(Uri.parse("https://hologate6.com/hologate-plus"));
     final t = ref.watch(translationsProvider);
 
 /*    return Scaffold(

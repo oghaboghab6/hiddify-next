@@ -37,6 +37,14 @@ class AdaptiveRootScaffold extends HookConsumerWidget {
         label: t.proxies.pageTitle,
       ),
       NavigationDestination(
+        icon: const Icon(FluentIcons.cart_20_filled),
+        label: "فروشگاه",
+      ),
+      NavigationDestination(
+        icon: const Icon(FluentIcons.chat_help_24_filled),
+        label: "راهنما",
+      ),
+      NavigationDestination(
         icon: const Icon(FluentIcons.box_edit_20_filled),
         label: t.settings.config.pageTitle,
       ),
@@ -72,8 +80,8 @@ class AdaptiveRootScaffold extends HookConsumerWidget {
         switchTab(index, context);
       },
       destinations: destinations,
-      drawerDestinationRange: useMobileRouter ? (2, null) : (0, null),
-      bottomDestinationRange: (0, 2),
+      drawerDestinationRange: useMobileRouter ? (4, null) : (0, null),
+      bottomDestinationRange: (0, 4),
       useBottomSheet: useMobileRouter,
       sidebarTrailing: const Expanded(
         child: Align(
@@ -211,7 +219,7 @@ class _CustomAdaptiveScaffold extends HookConsumerWidget {
         ),
       ),
       // AdaptiveLayout bottom sheet has accessibility issues
-      bottomNavigationBar: useBottomSheet && Breakpoints.small.isActive(context)
+      bottomNavigationBar: (useBottomSheet && Breakpoints.small.isActive(context))
           ? NavigationBar(
               selectedIndex: selectedWithOffset(bottomDestinationRange) ?? 0,
               destinations: destinationsSlice(bottomDestinationRange),

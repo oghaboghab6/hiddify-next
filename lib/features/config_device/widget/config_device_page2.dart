@@ -168,6 +168,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
   int _check = 1;
   bool _checkFrom = false;
   String device_id = "0";
+
   // final isLoading.value = useState(false);
   bool isLoading = false;
   bool checkLoading = true;
@@ -182,8 +183,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
   Widget build(BuildContext context) {
     final isLoading = useState(false);
     Future<void> GetRequestServer(BuildContext context) async {
-
-      if(   checkLoading ==true) {
+      if (checkLoading == true) {
         checkLoading = false;
         isLoading.value = true;
 
@@ -193,7 +193,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           final DioHttpClient client = DioHttpClient(
               timeout: const Duration(seconds: 10),
               userAgent:
-              "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+                  "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
               debug: true,
               Authorization: globals.globalTokenTemporary);
           // final response =
@@ -217,7 +217,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           // print("oghab @@@ params: ${params}");
 
           final response = await client.post(
-            // 'https://shop.hologate.pro/api/accounts/get-devices' , formData);
+              // 'https://shop.hologate.pro/api/accounts/get-devices' , formData);
               globals.global_url + '/api/accounts/get-devices',
               formData);
           isLoading.value = false;
@@ -249,8 +249,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
               //         ? jsonData['message'].toString()
               //         : "سرور با خطا مواجه شد!!")
               //     .show(context);
-              CustomToast.error(
-                  jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+              CustomToast.error(jsonData['message']?.toString() ??
+                      "سرور با خطا مواجه شد!!")
                   .show(context);
             }
           } else {
@@ -265,6 +265,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
         }
       }
     }
+
     Future<void> SetRequestServer_subScription(BuildContext context) async {
       isLoading.value = true;
 
@@ -274,7 +275,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
         final DioHttpClient client = DioHttpClient(
             timeout: const Duration(seconds: 10),
             userAgent:
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
             Authorization: globals.globalTokenTemporary);
         // final response =
@@ -302,14 +303,14 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             globals.global_url + '/api/accounts/get-subscription', formData);
         if (response.statusCode == 200) {
           final jsonData = response.data!;
-          isLoading.value =false;
+          isLoading.value = false;
 
           if (jsonData['success'] == true) {
             if ((jsonData['subscription'].toString()) != 'null') {
               globals.globalCheckGetListServer = true;
               globals.globalWaitingGetListServer = true;
               final SharedPreferences prefs =
-              await SharedPreferences.getInstance();
+                  await SharedPreferences.getInstance();
               globals.globalToken = globals.globalTokenTemporary;
               await prefs.setString('token', globals.globalTokenTemporary);
               print(
@@ -324,8 +325,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
               // Navigator.of(context)..pop()..pop()..pop();
               Navigator.of(context).popUntil((route) => route.isFirst);
             } else
-              CustomToast.error(
-                  jsonData['message']?.toString() ?? "سروری موجود نیست مجداد تلاش نمایید ")
+              CustomToast.error(jsonData['message']?.toString() ??
+                      "سروری موجود نیست مجداد تلاش نمایید ")
                   .show(context);
             //   Navigator.of(context).popUntil((route) => false);
             // Navigator.of(context).pop();
@@ -346,7 +347,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             //         : "سرور با خطا مواجه شد!!")
             //     .show(context);
             CustomToast.error(
-                jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                    jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
                 .show(context);
           }
         } else {
@@ -354,7 +355,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           loggy.warning('Request failed with status: ${response.statusCode}');
         }
       } catch (e) {
-        isLoading.value =false;
+        isLoading.value = false;
 
         CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Could not get the local country code from ip');
@@ -373,7 +374,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
         final DioHttpClient client = DioHttpClient(
             timeout: const Duration(seconds: 10),
             userAgent:
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
             Authorization: globals.globalTokenTemporary);
         // final response =
@@ -398,12 +399,12 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
         print("oghab @@@ account_id: ${device_id}");
 
         final response = await client.post(
-          // 'https://shop.hologate.pro/api/login' + params, formData);
+            // 'https://shop.hologate.pro/api/login' + params, formData);
             globals.global_url + '/api/accounts/get-mc-group',
             formData);
         print("oghab @@@ response" + response.toString());
         final jsonData = response.data!;
-        isLoading.value =false;
+        isLoading.value = false;
 
         if (response.statusCode == 200) {
           if (jsonData['success'] == true) {
@@ -452,7 +453,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                 //  Navigator.of(context).pop();
               } else {
                 CustomToast.error(jsonData['message']?.toString() ??
-                    "سرور با خطا مواجه شد!!")
+                        "سرور با خطا مواجه شد!!")
                     .show(context);
               }
             } else {
@@ -476,7 +477,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             //         : "سرور با خطا مواجه شد!!")
             //     .show(context);
             CustomToast.error(
-                jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                    jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
                 .show(context);
           }
         } else {
@@ -485,7 +486,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           loggy.warning('Request failed with status: ${response.statusCode}');
         }
       } catch (e) {
-        isLoading.value =false;
+        isLoading.value = false;
 
         CustomToast.error("سرور با خطا مواجه شد!").show(context);
 
@@ -494,7 +495,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       }
     }
 
-    print("@@@@@"+isLoading.toString());
+    print("@@@@@" + isLoading.toString());
     // final TextEditingController nameController = TextEditingController();
     // final TextEditingController passwordController = TextEditingController();
 /*    useOnAppLifecycleStateChange((pref, state) {
@@ -551,14 +552,81 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                             dense: true,
                             contentPadding:
                                 EdgeInsets.only(left: 0.0, right: 0.0),
-                            title: Text(
-                              // products2[index]['name']!.toString() +" "+
-                                  products2[index]['server']!.toString(),
-                              style: const TextStyle(
-                                // color: Colors.black,
-                                fontSize: 16,
+                            title: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 6.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    // products2[index]['name']!.toString() +" "+
+                                    products2[index]['static_name']!.toString(),
+                                    style: const TextStyle(
+                                      // color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+
+                                    children: [
+                                      Text(
+                                        // products2[index]['name']!.toString() +" "+
+                                        " نام دستگاه : " +
+                                            products2[index]['subscription_name']!
+                                                .toString(),
+                                        style: const TextStyle(
+                                          // color: Colors.black,
+                                          fontSize: 14,
+                                        ),
+                                      //  textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        // products2[index]['name']!.toString() +" "+
+                                        "نوع اتصال : " +
+                                            products2[index]['server']!
+                                                .toString(),
+                                        style: const TextStyle(
+                                          // color: Colors.black,
+                                          fontSize: 16,
+                                        ),
+                                        //textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        // products2[index]['name']!.toString() +" "+
+                                   "",
+                                        style: const TextStyle(
+                                          // color: Colors.black,
+                                          fontSize: 16,
+                                        ),
+                                        //textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        // products2[index]['name']!.toString() +" "+
+                                        "سرور : " +
+                                            products2[index]['server']!
+                                                .toString(),
+                                        style: const TextStyle(
+                                          // color: Colors.black,
+                                          fontSize: 16,
+                                        ),
+                                        //textAlign: TextAlign.center,
+                                      ),
+
+                                    ],
+                                  ),
+
+                                ],
                               ),
-                              textAlign: TextAlign.center,
                             ),
                             onTap: () async {
                               final SharedPreferences prefs =
@@ -684,6 +752,4 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
     globals.globalCheckDevice = false;
     //  RequestServer(context);
   }
-
-
 }

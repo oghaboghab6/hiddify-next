@@ -67,7 +67,7 @@ class ProfilesOverviewModal extends HookConsumerWidget {
               const SliverGap(48),
             ],
           ),
-          Positioned.fill(
+    /*      Positioned.fill(
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -110,7 +110,7 @@ class ProfilesOverviewModal extends HookConsumerWidget {
                 ),
               ),
             ),
-          ),
+          ),*/
         ],
       ),
     );
