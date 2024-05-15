@@ -6,12 +6,33 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
+  debugPrint("Handling a background message: ${message.data}");
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // String? userCourseValue = prefs.getString('userCourse');
+  // print(message.data['userCourse']);
+  // print(userCourseValue);
+  //  if(userCourseValue==message.data['userCourse']){
+  // /*   AwesomeNotifications().createNotification(
+  //        content: NotificationContent(
+  //            id: 1,
+  //            channelKey: message.notification!.android!.channelId ?? 'basic',
+  //            title: message.notification!.title,
+  //            body: message.notification!.body,
+  //            bigPicture: message.notification!.android!.imageUrl,
+  //            notificationLayout: NotificationLayout.BigPicture
+  //        )
+  //    );*/
+  //  }
+}
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   // final prefs = await SharedPreferences.getInstance();
   //
   // await prefs.setString("ipv6-mode", "prefer_ipv6");
