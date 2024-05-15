@@ -29,11 +29,11 @@ class AdaptiveRootScaffold extends HookConsumerWidget {
 
     final destinations = [
       NavigationDestination(
-        icon: const Icon(FluentIcons.power_20_filled),
+        icon: const Icon(FluentIcons.home_20_filled),
         label: t.home.pageTitle,
       ),
       NavigationDestination(
-        icon: const Icon(FluentIcons.filter_20_filled),
+        icon: const Icon(FluentIcons.server_surface_multiple_16_filled),
         label: t.proxies.pageTitle,
       ),
       NavigationDestination(

@@ -264,6 +264,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
           'device_code': device_code,
           'unique_id': deviceID,
           'is_plus_device': true,
+          'token_fb': globals.globalTokenFB,
 
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
         });
