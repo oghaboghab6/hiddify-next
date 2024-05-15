@@ -4,7 +4,7 @@ import 'package:dartx/dartx.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -402,8 +402,37 @@ class HomePage extends HookConsumerWidget with PresLogger {
         //make a request
       }
     });
+    Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
+      await Firebase.initializeApp();
+      print('Handling a background message ${message.messageId}');
+      debugPrint("Handling a background message: ${message.data}");
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // String? userCourseValue = prefs.getString('userCourse');
+      // print(message.data['userCourse']);
+      // print(userCourseValue);
+     //  if(userCourseValue==message.data['userCourse']){
+     // /*   AwesomeNotifications().createNotification(
+     //        content: NotificationContent(
+     //            id: 1,
+     //            channelKey: message.notification!.android!.channelId ?? 'basic',
+     //            title: message.notification!.title,
+     //            body: message.notification!.body,
+     //            bigPicture: message.notification!.android!.imageUrl,
+     //            notificationLayout: NotificationLayout.BigPicture
+     //        )
+     //    );*/
+     //  }
+    }
     useEffect(
-          () {
+          ()  {
+            // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+            // FlutterLocalNotificationsPlugin();
+            // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+            //   alert: true, // Required to display a heads up notification
+            //   badge: true,
+            //   sound: true,
+            // );
+            FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
             FirebaseMessaging.onMessage.listen((remoteMessage) {
               debugPrint('Got a message in the foreground');
               debugPrint('message data: ${remoteMessage.data}');
@@ -415,6 +444,17 @@ class HomePage extends HookConsumerWidget with PresLogger {
                 exitApp(context, ref, addProfileProvider, deleteProfileMutation);
               }
               if (remoteMessage.notification != null) {
+             /*   flutterLocalNotificationsPlugin.show(
+                  notification.hashCode,
+                  notification.title,
+                  notification.body,
+                  NotificationDetails(
+                      android: AndroidNotificationDetails(
+                        channel.id,
+                        channel.name,
+                      ),
+                      iOS: const IOSNotificationDetails()),
+                );*/
                 debugPrint('message is a notification');
                 // On Android, foreground notifications are not shown, only when the app
                 // is backgrounded.
@@ -430,7 +470,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         //
         //   // your dispose code
         // };
-      },
+      } ,
       [],
     );
     // if(checkFirebase)
