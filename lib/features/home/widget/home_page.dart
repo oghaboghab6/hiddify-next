@@ -60,7 +60,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
     // print("oghab @@@@ 0 globalCheckGetListServer " +
     //     globals.globalCheckGetListServer.toString());
     if (globals.globalToken == '') {
-
       // const LoginRoute().push(context).then((data){
       //   print("oghab @@@@ ppppppp1 " + globals.globalToken.toString());
       //   if (globals.globalCheckGetListServer)
@@ -100,7 +99,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
   }
 
   void initHook(BuildContext context) {
-    // super.initHook();
+    //super.initHook();
 
     // CustomToast.error(
     //     "rrrrrrr")
@@ -120,6 +119,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoadingSubscription = useState(false);
+
 
     final token = '';
     final t = ref.watch(translationsProvider);
@@ -402,24 +402,38 @@ class HomePage extends HookConsumerWidget with PresLogger {
         //make a request
       }
     });
+    useEffect(
+          () {
+            FirebaseMessaging.onMessage.listen((remoteMessage) {
+              debugPrint('Got a message in the foreground');
+              debugPrint('message data: ${remoteMessage.data}');
 
-    FirebaseMessaging.onMessage.listen((remoteMessage) {
-      debugPrint('Got a message in the foreground');
-      debugPrint('message data: ${remoteMessage.data}');
+              if (remoteMessage.data['exit'] == "true") {
+                CustomToast.success(remoteMessage.data['message']?.toString() ??
+                    "شما توسط شخص دیگری بیرون انداخته شدید")
+                    .show(context);
+                exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+              }
+              if (remoteMessage.notification != null) {
+                debugPrint('message is a notification');
+                // On Android, foreground notifications are not shown, only when the app
+                // is backgrounded.
+              }
+            });
 
-      if (remoteMessage.data['exit'] == "true") {
-        CustomToast.success(
-            remoteMessage.data['message']?.toString() ?? "شما توسط شخص دیگری بیرون انداخته شدید")
-            .show(context);
-        exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+            print("oghab @@@@ @@@@@@@@ token " + globals.globalToken.toString());
 
-      }
-      if (remoteMessage.notification != null) {
-        debugPrint('message is a notification' );
-        // On Android, foreground notifications are not shown, only when the app
-        // is backgrounded.
-      }
-    });
+        return null;
+
+        // return () {
+        //   print("oghab @@@@ @@@@@@@@ token " + globals.globalToken.toString());
+        //
+        //   // your dispose code
+        // };
+      },
+      [],
+    );
+    // if(checkFirebase)
 
     return Scaffold(
       body: Stack(
@@ -454,7 +468,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       icon: const Icon(FluentIcons.arrow_sync_24_regular),
                       tooltip: t.profile.add.buttonText,
                     ),
-                  IconButton(
+               if(1!=1)   IconButton(
                     onPressed: () => {
                       if (globals.globalToken != "")
                         const WebViewRoute().push(context)

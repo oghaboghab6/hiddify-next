@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hiddify/bootstrap.dart';
 import 'package:hiddify/core/model/environment.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
@@ -11,6 +12,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // final prefs = await SharedPreferences.getInstance();
+  //
+  // await prefs.setString("ipv6-mode", "prefer_ipv6");
   final FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   final NotificationSettings settings = await messaging.requestPermission(
