@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dartx/dartx.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gap/gap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:dio/dio.dart';
@@ -31,12 +32,27 @@ import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'dart:async';
+import '../../../messaging_service.dart';
+import '../../config_option/notifier/config_option_notifier.dart';
+import '../../connection/data/connection_data_providers.dart';
+import '../../connection/data/connection_repository.dart';
+import '../../connection/notifier/connection_notifier.dart';
+import '../../connection/widget/experimental_feature_notice.dart';
 import '../../profile/overview/profiles_overview_notifier.dart';
 
+// import 'io.flutter.plugin.common.PluginRegistry';
+// import 'io.flutter.plugin.common.PluginRegistry.PluginRegistrantCallback';
+// import 'io.flutter.plugins.GeneratedPluginRegistrant';
+// import 'io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService';
 class HomePage extends HookConsumerWidget with PresLogger {
   // bool checkGetListServer = true;
 
   const HomePage({super.key});
+
+  // main() {
+  //   print('@@@@@ mainnnnn');
+  //
+  // }
 
   void funnc() {
     // print("oghab @@@@ yyyyyyyyyyyyyy ");
@@ -119,8 +135,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoadingSubscription = useState(false);
-
-
+    final ConnectionRepository _connectionRepo =
+        ref.read(connectionRepositoryProvider);
     final token = '';
     final t = ref.watch(translationsProvider);
     final deleteProfileMutation = useMutation(
@@ -148,6 +164,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //
     //   },
     // );
+    print("oghab @@@@ ###### token " + globals.globalToken.toString());
+
     final token1 = _loadPreferences(
         context, ref, addProfileProvider, deleteProfileMutation);
     // print("oghab @@@@ 1 " + token.toString());
@@ -214,13 +232,42 @@ class HomePage extends HookConsumerWidget with PresLogger {
       });
     }
 
+    void testtt() {
+      print('Handling a exitApp message22222');
+    }
+
+    clear_app() async {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', '');
+      prefs.setString('subscription', '');
+      globals.globalToken = "";
+      deleteProfileMutation.setFuture(
+        ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
+      );
+
+      goScreenLogin();
+    }
+
     void exitApp(
         BuildContext context,
         WidgetRef ref,
         AutoDisposeNotifierProvider<AddProfile, AsyncValue<Unit?>>
             addProfileProvider,
         deleteProfileMutation) async {
+      print('Handling a exitApp message');
+
       try {
+        ///////////////////////////
+
+        final hasExperimental =
+            await ref.read(configOptionNotifierProvider.future).then(
+                  (value) => value.hasExperimentalOptions(),
+                  onError: (_) => false,
+                );
+        final canShowNotice =
+            !ref.read(disableExperimentalFeatureNoticeProvider);
+
+        ///////////////////////////
         final DioHttpClient client = DioHttpClient(
             timeout: const Duration(seconds: 10),
             userAgent:
@@ -247,7 +294,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
         });
-        print("oghab @@@ deviceID: ${deviceID}");
+        print("oghab @@@ deviceID exitttt: ${deviceID} ${globals.globalToken} ${globals.global_url}");
 
         final response = await client.post(
             // 'https://shop.hologate.pro/api/accounts' + params, formData);
@@ -261,16 +308,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
             CustomToast.success(
                     jsonData['message']?.toString() ?? "باموفقیت انجام شد!")
                 .show(context);
-            final prefs = await SharedPreferences.getInstance();
-            prefs.setString('token', '');
-            prefs.setString('subscription', '');
-            globals.globalToken = "";
-            deleteProfileMutation.setFuture(
-              ref
-                  .read(profilesOverviewNotifierProvider.notifier)
-                  .deleteAllProfile(),
-            );
-            goScreenLogin();
+
             // const LoginRoute().push(context).then((data) {
             //   // print("oghab @@@@ ppppppp2 " + globals.globalToken.toString());
             //   if (globals.globalCheckGetListServer)
@@ -287,7 +325,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
                 .show(context);
           }
-
+          clear_app();
           // Navigator.of(context).pop();
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =
@@ -297,10 +335,12 @@ class HomePage extends HookConsumerWidget with PresLogger {
           //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
           // );
         } else {
+          clear_app();
           CustomToast.error("سرور با خطا مواجه شد!!").show(context);
           loggy.warning('Request failed with status: ${response.statusCode}');
         }
       } catch (e) {
+        clear_app();
         CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Could not get the local country code from ip');
       }
@@ -336,6 +376,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
     }
 
     Future<void> AuthenticationServer(BuildContext context) async {
+      final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+      // String? fcmToken = await _fcm.getToken();
+      // log('fcmToken222: $fcmToken');
+
       try {
         var deviceID = await get_unique_identifier();
 
@@ -402,49 +446,68 @@ class HomePage extends HookConsumerWidget with PresLogger {
         //make a request
       }
     });
-    Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message)async{
-      await Firebase.initializeApp();
-      print('Handling a background message ${message.messageId}');
-      debugPrint("Handling a background message: ${message.data}");
-      // SharedPreferences prefs = await SharedPreferences.getInstance();
-      // String? userCourseValue = prefs.getString('userCourse');
-      // print(message.data['userCourse']);
-      // print(userCourseValue);
-     //  if(userCourseValue==message.data['userCourse']){
-     // /*   AwesomeNotifications().createNotification(
-     //        content: NotificationContent(
-     //            id: 1,
-     //            channelKey: message.notification!.android!.channelId ?? 'basic',
-     //            title: message.notification!.title,
-     //            body: message.notification!.body,
-     //            bigPicture: message.notification!.android!.imageUrl,
-     //            notificationLayout: NotificationLayout.BigPicture
-     //        )
-     //    );*/
-     //  }
-    }
-    useEffect(
-          ()  {
-            // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-            // FlutterLocalNotificationsPlugin();
-            // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-            //   alert: true, // Required to display a heads up notification
-            //   badge: true,
-            //   sound: true,
-            // );
-            FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-            FirebaseMessaging.onMessage.listen((remoteMessage) {
-              debugPrint('Got a message in the foreground');
-              debugPrint('message data: ${remoteMessage.data}');
+    // Future<void> _firebaseMessagingBackgroundHandler(
+    //     RemoteMessage message) async {
+    //   // await Firebase.initializeApp();
+    //   print('Handling a background message111 ${message.messageId}');
+    //   testtt();
+    //   exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+    //   debugPrint("Handling a background message1111111: ${message.data}");
+    //
+    //   // SharedPreferences prefs = await SharedPreferences.getInstance();
+    //   // String? userCourseValue = prefs.getString('userCourse');
+    //   // print(message.data['userCourse']);
+    //   // print(userCourseValue);
+    //   //  if(userCourseValue==message.data['userCourse']){
+    //   // /*   AwesomeNotifications().createNotification(
+    //   //        content: NotificationContent(
+    //   //            id: 1,
+    //   //            channelKey: message.notification!.android!.channelId ?? 'basic',
+    //   //            title: message.notification!.title,
+    //   //            body: message.notification!.body,
+    //   //            bigPicture: message.notification!.android!.imageUrl,
+    //   //            notificationLayout: NotificationLayout.BigPicture
+    //   //        )
+    //   //    );*/
+    //   //  }
+    // }
 
-              if (remoteMessage.data['exit'] == "true") {
-                CustomToast.success(remoteMessage.data['message']?.toString() ??
+    useEffect(
+      () {
+        // globals.global_ref=ref;
+        // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        // FlutterLocalNotificationsPlugin();
+        // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+        //   alert: true, // Required to display a heads up notification
+        //   badge: true,
+        //   sound: true,
+        // );
+
+        AuthenticationServer(context);
+        // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+        final _messagingService = MessagingService();
+        _messagingService.init(context, ref);
+        // _messagingService.init(context);
+        //     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+        FirebaseMessaging.onMessage.listen((remoteMessage) async {
+          debugPrint('Got a message in the foreground');
+          debugPrint('message data00000: ${remoteMessage.data}');
+          // final ConnectionRepository _connectionRepo =
+          //     ref.read(connectionRepositoryProvider);
+
+          await _connectionRepo.disconnect().mapLeft((err) {
+            // loggy.warning("error disconnecting", err);
+            // state = AsyncError(err, StackTrace.current);
+          }).run();
+          if (remoteMessage.data['exit'] == "true") {
+            CustomToast.success(remoteMessage.data['message']?.toString() ??
                     "شما توسط شخص دیگری بیرون انداخته شدید")
-                    .show(context);
-                exitApp(context, ref, addProfileProvider, deleteProfileMutation);
-              }
-              if (remoteMessage.notification != null) {
-             /*   flutterLocalNotificationsPlugin.show(
+                .show(context);
+            exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+          }
+          /*   if (remoteMessage.notification != null) {
+               flutterLocalNotificationsPlugin.show(
                   notification.hashCode,
                   notification.title,
                   notification.body,
@@ -454,14 +517,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         channel.name,
                       ),
                       iOS: const IOSNotificationDetails()),
-                );*/
-                debugPrint('message is a notification');
-                // On Android, foreground notifications are not shown, only when the app
-                // is backgrounded.
-              }
-            });
+                );
+            debugPrint('message is a notification');
+            // On Android, foreground notifications are not shown, only when the app
+            // is backgrounded.
+          }*/
+        });
 
-            print("oghab @@@@ @@@@@@@@ token " + globals.globalToken.toString());
+        print("oghab @@@@ @@@@@@@@ token " + globals.globalToken.toString());
 
         return null;
 
@@ -470,7 +533,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         //
         //   // your dispose code
         // };
-      } ,
+      },
       [],
     );
     // if(checkFirebase)
@@ -503,29 +566,39 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   if (globals.globalToken != "")
                     IconButton(
-                      onPressed: () => GetListAccountServer(context, ref,
-                          addProfileProvider, deleteProfileMutation),
+                      onPressed: () async {
+                        // await _connectionRepo.disconnect().mapLeft((err) {
+                        //   // loggy.warning("error disconnecting", err);
+                        //   // state = AsyncError(err, StackTrace.current);
+                        // }).run();
+                        GetListAccountServer(context, ref, addProfileProvider,
+                            deleteProfileMutation);
+                        // ref.read(connectionNotifierProvider.notifier).toggleConnection();
+                        //   globals.global_ref.read(connectionNotifierProvider.notifier).toggleConnection();
+                        //   globals.global_container.read(connectionNotifierProvider.notifier).toggleConnection();
+                      },
                       icon: const Icon(FluentIcons.arrow_sync_24_regular),
                       tooltip: t.profile.add.buttonText,
                     ),
-               if(1!=1)   IconButton(
-                    onPressed: () => {
-                      if (globals.globalToken != "")
-                        const WebViewRoute().push(context)
-                      else
-                        goScreenLogin()
-                      // const LoginRoute().push(context).then((data) {
-                      //   //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
-                      //   if (globals.globalCheckGetListServer) {
-                      //     GetListAccountServer(context, ref,
-                      //         addProfileProvider, deleteProfileMutation);
-                      //   }
-                      //   // then will return value when the loginscreen's pop is called.
-                      // }),
-                    },
-                    icon: const Icon(FluentIcons.cart_16_filled),
-                    tooltip: t.profile.add.buttonText,
-                  ),
+                  if (1 != 1)
+                    IconButton(
+                      onPressed: () => {
+                        if (globals.globalToken != "")
+                          const WebViewRoute().push(context)
+                        else
+                          goScreenLogin()
+                        // const LoginRoute().push(context).then((data) {
+                        //   //  print("oghab @@@@ ppppppp2 ${globals.globalToken}");
+                        //   if (globals.globalCheckGetListServer) {
+                        //     GetListAccountServer(context, ref,
+                        //         addProfileProvider, deleteProfileMutation);
+                        //   }
+                        //   // then will return value when the loginscreen's pop is called.
+                        // }),
+                      },
+                      icon: const Icon(FluentIcons.cart_16_filled),
+                      tooltip: t.profile.add.buttonText,
+                    ),
                   IconButton(
                     onPressed: () => {
                       if (globals.globalToken != "")
@@ -623,54 +696,74 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   )
                 ]),
-              switch (activeProfile) {
-                AsyncData(value: final profile?) => MultiSliver(
-                    children: [
-                      ProfileTile(profile: profile, isMain: true),
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // const Text(
-                            //   "profile.name",
-                            //   maxLines: 2,
-                            //   overflow: TextOverflow.ellipsis,
-                            //   // style: theme.textTheme.titleMedium,
-                            //   semanticsLabel: "aaaa",
-                            // ),
+              if (globals.globalToken != "")
+                switch (activeProfile) {
+                  AsyncData(value: final profile?) => MultiSliver(
+                      children: [
+                        ProfileTile(profile: profile, isMain: true),
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // const Text(
+                              //   "profile.name",
+                              //   maxLines: 2,
+                              //   overflow: TextOverflow.ellipsis,
+                              //   // style: theme.textTheme.titleMedium,
+                              //   semanticsLabel: "aaaa",
+                              // ),
 
-                            const Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ConnectionButton(),
-                                  ActiveProxyDelayIndicator(),
-                                ],
+                              const Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ConnectionButton(),
+                                    ActiveProxyDelayIndicator(),
+                                  ],
+                                ),
                               ),
-                            ),
-                            if (MediaQuery.sizeOf(context).width < 840)
-                              const ActiveProxyFooter(),
-                          ],
+                              if (MediaQuery.sizeOf(context).width < 840)
+                                const ActiveProxyFooter(),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                AsyncData() => switch (hasAnyProfile) {
-                    AsyncData(value: true) =>
-                      const EmptyActiveProfileHomeBody(),
-                    _ => EmptyProfilesHomeBody(
-                        key: ValueKey("add_from_clipboard_button"),
-                        onTap: () {
-                          goScreenLogin();
-                        }),
-                    // _ => const EmptyProfilesHomeBody(),
-                  },
-                AsyncError(:final error) =>
-                  SliverErrorBodyPlaceholder(t.presentShortError(error)),
-                _ => const SliverToBoxAdapter(),
-              },
+                      ],
+                    ),
+                  AsyncData() => switch (hasAnyProfile) {
+                      AsyncData(value: true) =>
+                        const EmptyActiveProfileHomeBody(),
+                      _ => EmptyProfilesHomeBody(
+                          key: ValueKey("add_from_clipboard_button"),
+                          onTap: () {
+                            goScreenLogin();
+                          }),
+                      // _ => const EmptyProfilesHomeBody(),
+                    },
+                  AsyncError(:final error) =>
+                    SliverErrorBodyPlaceholder(t.presentShortError(error)),
+                  _ => const SliverToBoxAdapter(),
+                },
+              if (globals.globalToken == "")
+                SliverFillRemaining(child:
+                  Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(t.home.emptyProfilesMsg),
+                        const Gap(16),
+                        OutlinedButton.icon(
+                          // onPressed: () => const AddProfileRoute().push(context),
+                          // onPressed: () =>{const LoginRoute().push(context)} ,
+                          onPressed: () => goScreenLogin(),
+                          icon: const Icon(FluentIcons.person_board_20_regular),
+                          label: Text(t.profile.add.buttonText),
+                          // style: OutlinedButton.styleFrom(
+                          //   side: BorderSide(width: 1.0, color: Color(0xffea5555)),
+                          // ),
+                        ),
+                      ])
+                ),
 
               // else
               // if (isLoadingSubscription.value)  Positioned(

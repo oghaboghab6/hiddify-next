@@ -255,7 +255,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
         var params =
             "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
         //  loggy.warning('oghab @@@ params: ${params}');
-        print("oghab @@@ params: ${params}");
+        print("oghab @@@ params: ${params} ${globals.globalTokenFB}");
         var formData = FormData.fromMap({
           'username': user,
           'password': pass,
@@ -323,6 +323,9 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                 globals.global_subscription_id =
                     jsonData['subscription_id'].toString();
                 const ConfigLocationRoute().push(context);
+              } else if ((jsonData['state'].toString()) == "no_account") {
+
+                const ConfigNoAccountRoute().push(context);
               } else if ((jsonData['state'].toString()) == "get-subscription") {
                 // const ConfigDeviceRoute2().push(context);
                 SetRequestServer_subScription(context);

@@ -10,14 +10,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:hiddify/utils/link_parsers.dart';
 
+import '../../../utils/globals.dart';
+
 /*class MyHomePage extends StatefulWidget {
   @override
-  ConfigLocationPage createState() => ConfigLocationPage();
+  ConfigNoAccountPage createState() => ConfigNoAccountPage();
 }
-class ConfigLocationPage extends State<MyHomePage>  with PresLogger {
+class ConfigNoAccountPage extends State<MyHomePage>  with PresLogger {
   // late final List<String,dynamic> products=[{"id":1,"name":""}];
   late final List<Map<String, dynamic>> products = [{"id":1,"name":"ahmad"}];
-  // const ConfigLocationPage({super.key});
+  // const ConfigNoAccountPage({super.key});
   @override
   void initState() {
     super.initState();
@@ -136,9 +138,9 @@ class ConfigLocationPage extends State<MyHomePage>  with PresLogger {
 
 }*/
 
-class ConfigLocationPage extends StatefulHookConsumerWidget {
-  //const ConfigLocationPage(this.child, {super.key});
-  const ConfigLocationPage({super.key});
+class ConfigNoAccountPage extends StatefulHookConsumerWidget {
+  //const ConfigNoAccountPage(this.child, {super.key});
+  const ConfigNoAccountPage({super.key});
 
   //final Widget child;
 
@@ -147,7 +149,7 @@ class ConfigLocationPage extends StatefulHookConsumerWidget {
       _ConnectionWrapperState();
 }
 
-class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
+class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
     with AppLogger {
   // late final List<Map<String, dynamic>> products = [
   //   // {"id": 1, "name": "hologate256997"},
@@ -222,7 +224,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
                           //tileColor: Colors.black12,
                           dense: true,
                           contentPadding:
-                              EdgeInsets.only(left: 0.0, right: 0.0),
+                              EdgeInsets.only(left: 4.0, right: 4.0, top: 16.0, bottom: 16.0),
                           title: Text(
                             products2[index]['name']!.toString(),
                             style: const TextStyle(
@@ -232,14 +234,20 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
                             textAlign: TextAlign.center,
                           ),
                           onTap: () async {
-                            final SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                            await prefs.setString('location_id',
-                                products2[index]['id'].toString());
-                            setState(() {
-                              mc_group_id = products2[index]['id'].toString();
-                            });
-                            SetRequestServer(context);
+                            if(products2[index]['active']==0){
+                              CustomToast.error("این آیتم غیر فعال می باشد")
+                                  .show(context);
+                            }else if(products2[index]['url_type'].toString()=="link"){
+                              await UriUtils.tryLaunch(
+                                Uri.parse(  global_url+ products2[index]['url'].toString()),
+
+                              );
+                            }
+                            else{
+                              CustomToast.error("نیاز به بروزرسانی می باشد")
+                                  .show(context);
+                            }
+
                           }
                           // title:  Text(products[index]['name']),
                           ),
@@ -340,7 +348,6 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
-        'name':  globals.global_account_name,
         'account_id': globals.global_account_id,
         'subscription_id': globals.global_subscription_id,
         'unique_id': deviceID,
@@ -360,7 +367,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
 
       final response = await client.post(
           // 'https://shop.hologate.pro/api/accounts/get-devices' , formData);
-          globals.global_url + '/api/accounts/get-mc-group',
+          globals.global_url + '/api/accounts/no-account',
           formData);
       print("oghab @@@ params: ${response}");
       isLoading =false;
@@ -372,7 +379,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
           // globals.globalCheckGetListServer = true;
 
           setState(() {
-            products2 = jsonData['mc-group'] as List;
+            products2 = jsonData['buttons'] as List;
             // products=[
             //   {"id": 1, "name": "hologate256997"},
             //   {"id": 2, "name": "hologate005781"}
@@ -445,7 +452,6 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
           globals.global_url + '/api/accounts/get-subscription', formData);
       if (response.statusCode == 200) {
         final jsonData = response.data!;
-        isLoading = false;
 
         if (jsonData['success'] == true) {
           if ((jsonData['subscription'].toString()) != 'null') {
@@ -495,14 +501,10 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
               .show(context);
         }
       } else {
-        isLoading = false;
-
         CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      isLoading = false;
-
       CustomToast.error("سرور با خطا مواجه شد!!").show(context);
       loggy.warning('Could not get the local country code from ip');
     }

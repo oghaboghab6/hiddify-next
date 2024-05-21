@@ -27,6 +27,7 @@ import 'package:hiddify/singbox/service/singbox_service_provider.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:hiddify/utils/globals.dart' as globals;
 
 Future<void> lazyBootstrap(
   WidgetsBinding widgetsBinding,
@@ -46,7 +47,7 @@ Future<void> lazyBootstrap(
       environmentProvider.overrideWithValue(env),
     ],
   );
-
+  // globals.global_container=container;
   await _init(
     "directories",
     () => container.read(appDirectoriesProvider.future),

@@ -17,5 +17,6 @@ bool globalWaitingGetListServer = false;
 double globalDouble= 10.0;
 int globalVersionApp= 1;
 String global_account_id= "";
+String global_account_name= "";
 String global_device_id= "";
 String global_url= "https://hologate6.com:83";
