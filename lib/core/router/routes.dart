@@ -21,6 +21,7 @@ import 'package:hiddify/features/webview/widget/webview_page.dart';
 import 'package:hiddify/utils/utils.dart';
 
 import '../../features/config_device/widget/config_location_page.dart';
+import '../../features/config_device/widget/config_no_account_page.dart';
 import '../../features/webview/widget/webview_page_about.dart';
 
 part 'routes.g.dart';
@@ -452,6 +453,25 @@ class ConfigLocationRoute extends GoRouteData {
       );
     }
     return const NoTransitionPage(name: name, child: ConfigLocationPage());
+  }
+}
+class ConfigNoAccountRoute extends GoRouteData {
+  const ConfigNoAccountRoute();
+  static const name = "ConfigNoAccount";
+
+  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    if (useMobileRouter) {
+      return const MaterialPage(
+        name: name,
+        child: ConfigNoAccountPage(),
+      );
+    }
+    return const NoTransitionPage(name: name, child: ConfigNoAccountPage());
   }
 }
 class ConfigDeviceRoute extends GoRouteData {

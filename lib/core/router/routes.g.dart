@@ -89,6 +89,12 @@ RouteBase get $mobileWrapperRoute => ShellRouteData.$route(
               factory: $LoginRouteExtension._fromState,
             ),
             GoRouteData.$route(
+              path: 'ConfigNoAccount',
+              name: 'ConfigNoAccount',
+              parentNavigatorKey: ConfigNoAccountRoute.$parentNavigatorKey,
+              factory: $ConfigNoAccountRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
               path: 'ConfigLocation',
               name: 'ConfigLocation',
               parentNavigatorKey: ConfigLocationRoute.$parentNavigatorKey,
@@ -366,6 +372,22 @@ extension $ConfigLocationRouteExtension on ConfigLocationRoute {
 
   void replace(BuildContext context) => context.replace(location);
 }
+extension $ConfigNoAccountRouteExtension on ConfigNoAccountRoute {
+  static ConfigNoAccountRoute _fromState(GoRouterState state) => const ConfigNoAccountRoute();
+
+  String get location => GoRouteData.$location(
+        '/ConfigNoAccount',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
 extension $ConfigDeviceRouteExtension on ConfigDeviceRoute {
   static ConfigDeviceRoute _fromState(GoRouterState state) => const ConfigDeviceRoute();
 
@@ -538,6 +560,12 @@ RouteBase get $desktopWrapperRoute => ShellRouteData.$route(
           name: 'ConfigDevice2',
           parentNavigatorKey: ConfigDeviceRoute2.$parentNavigatorKey,
           factory: $ConfigDeviceRouteExtension2._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/ConfigNoAccount',
+          name: 'ConfigNoAccount',
+          parentNavigatorKey: ConfigNoAccountRoute.$parentNavigatorKey,
+          factory: $ConfigNoAccountRouteExtension._fromState,
         ),
         GoRouteData.$route(
           path: '/ConfigLocation',

@@ -388,7 +388,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
         });
-
+        globals.global_account_name=nameController.text;
         // var device_model = await get_info_device();
         // var device_code = await get_info_device();
         //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
@@ -556,6 +556,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0, vertical: 6.0),
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+
                                 children: [
                                   Text(
                                     // products2[index]['name']!.toString() +" "+
@@ -567,7 +569,30 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                                     textAlign: TextAlign.center,
                                   ),
                                   SizedBox(height: 10),
-                                  Row(
+                                  Text(
+                                    // products2[index]['name']!.toString() +" "+
+                                    " نام دستگاه : " +
+                                        products2[index]['subscription_name']!
+                                            .toString(),
+                                    style: const TextStyle(
+                                      // color: Colors.black,
+                                      fontSize: 14,
+                                    ),
+                                    //  textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    // products2[index]['name']!.toString() +" "+
+                                    "نوع اتصال : " +
+                                        products2[index]['type']!
+                                            .toString(),
+                                    style: const TextStyle(
+                                      // color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                    //textAlign: TextAlign.center,
+                                  ),
+                              /*    Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
 
@@ -586,7 +611,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                                       Text(
                                         // products2[index]['name']!.toString() +" "+
                                         "نوع اتصال : " +
-                                            products2[index]['server']!
+                                            products2[index]['type']!
                                                 .toString(),
                                         style: const TextStyle(
                                           // color: Colors.black,
@@ -595,7 +620,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                                         //textAlign: TextAlign.center,
                                       ),
                                     ],
-                                  ),
+                                  ),*/
                                   SizedBox(height: 10),
                                   Row(
                                     mainAxisAlignment:

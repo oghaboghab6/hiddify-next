@@ -83,6 +83,9 @@ class ConnectionNotifier extends _$ConnectionNotifier with AppLogger {
           loggy.warning("switching status, debounce");
       }
     }
+    else{
+      loggy.warning("switching status, debounce");
+    }
   }
 
   Future<void> reconnect(ProfileEntity? profile) async {
@@ -113,6 +116,8 @@ class ConnectionNotifier extends _$ConnectionNotifier with AppLogger {
           loggy.debug("aborting connection");
           await _disconnect();
         default:
+          loggy.debug("!!!!!!");
+
       }
     }
   }
@@ -142,6 +147,12 @@ class ConnectionNotifier extends _$ConnectionNotifier with AppLogger {
   }
 
   Future<void> _disconnect() async {
+    await _connectionRepo.disconnect().mapLeft((err) {
+      loggy.warning("error disconnecting", err);
+      state = AsyncError(err, StackTrace.current);
+    }).run();
+  }
+  Future<void> disconnectVpn() async {
     await _connectionRepo.disconnect().mapLeft((err) {
       loggy.warning("error disconnecting", err);
       state = AsyncError(err, StackTrace.current);
