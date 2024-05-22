@@ -410,7 +410,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           if (jsonData['success'] == true) {
             // globals.globalCheckGetListServer = true;
             //
-            globals.global_account_id = device_id;
+           // globals.global_account_id = device_id;
             // var access_token = jsonData['access_token']?.toString() ?? "";
             // var token_type = jsonData['token_type']?.toString() ?? "";
             // var loginUrl = jsonData['login_url']?.toString() ?? "";

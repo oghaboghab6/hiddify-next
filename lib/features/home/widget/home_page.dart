@@ -33,6 +33,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'dart:async';
 import '../../../messaging_service.dart';
+import '../../../singbox/model/singbox_config_enum.dart';
+import '../../config_option/model/config_option_entity.dart';
 import '../../config_option/notifier/config_option_notifier.dart';
 import '../../connection/data/connection_data_providers.dart';
 import '../../connection/data/connection_repository.dart';
@@ -135,6 +137,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoadingSubscription = useState(false);
+    final device_name = useState("");
+    final count_device = useState("");
+    final date_account = useState("");
+    final volume_account = useState("");
     final ConnectionRepository _connectionRepo =
         ref.read(connectionRepositoryProvider);
     final token = '';
@@ -294,7 +300,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
         });
-        print("oghab @@@ deviceID exitttt: ${deviceID} ${globals.globalToken} ${globals.global_url}");
+        print(
+            "oghab @@@ deviceID exitttt: ${deviceID} ${globals.globalToken} ${globals.global_url}");
 
         final response = await client.post(
             // 'https://shop.hologate.pro/api/accounts' + params, formData);
@@ -376,6 +383,18 @@ class HomePage extends HookConsumerWidget with PresLogger {
     }
 
     Future<void> AuthenticationServer(BuildContext context) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var ipv6 = prefs.getString("ipv6-mode");
+      //prefer_ipv6
+      print("oghab @@@@ 0 options.ipv6Mode " + ipv6!);
+      if (ipv6 != "prefer_ipv6") {
+        print("oghab @@@@ 0 options.ipv6Mode ok" + ipv6);
+
+        await ref
+            .read(configOptionNotifierProvider.notifier)
+            .updateOption(const ConfigOptionPatch(ipv6Mode: IPv6Mode.prefer));
+      }
+
       final FirebaseMessaging _fcm = FirebaseMessaging.instance;
       // String? fcmToken = await _fcm.getToken();
       // log('fcmToken222: $fcmToken');
@@ -416,6 +435,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
           final jsonData = response.data!;
 
           if (jsonData['success'] == true) {
+            device_name.value    = jsonData['username'].toString()??'';
+            count_device.value   = jsonData['number_of_devices'].toString()??'';
+            date_account.value   = jsonData['expiration_date'].toString()??'';
+            volume_account.value = jsonData['traffic'].toString()??'';
           } else {
             exitApp(context, ref, addProfileProvider, deleteProfileMutation);
             // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
@@ -550,10 +573,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     children: [
                       TextSpan(text: t.general.appTitle),
                       const TextSpan(text: " "),
-                      const WidgetSpan(
-                        child: AppVersionLabel(),
-                        alignment: PlaceholderAlignment.middle,
-                      ),
+                      // const WidgetSpan(
+                      //   child: AppVersionLabel(),
+                      //   alignment: PlaceholderAlignment.middle,
+                      // ),
                     ],
                   ),
                 ),
@@ -573,6 +596,12 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         // }).run();
                         GetListAccountServer(context, ref, addProfileProvider,
                             deleteProfileMutation);
+                        // SharedPreferences prefs =
+                        //     await SharedPreferences.getInstance();
+                        // var ssss = prefs.getString("ipv6-mode");
+                        // //prefer_ipv6
+                        // print("oghab @@@@ 0 options.ipv6Mode " + ssss!);
+
                         // ref.read(connectionNotifierProvider.notifier).toggleConnection();
                         //   globals.global_ref.read(connectionNotifierProvider.notifier).toggleConnection();
                         //   globals.global_container.read(connectionNotifierProvider.notifier).toggleConnection();
@@ -674,6 +703,119 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   ],
                 ),
+              MultiSliver(children: [
+                Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 12.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      // products2[index]['name']!.toString() +" "+
+                                      "نام : ",
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                     Text(
+                                      // products2[index]['name']!.toString() +" "+
+                                      device_name.value,
+                                      style: TextStyle(
+                                        // color: Colors.black,
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      // products2[index]['name']!.toString() +" "+
+                                      "تعداد : ",
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                     Text(
+                                      // products2[index]['name']!.toString() +" "+
+                                      count_device.value,
+                                      style: TextStyle(
+                                        // color: Colors.black,
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const Gap(8),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      // products2[index]['name']!.toString() +" "+
+                                      "تاریخ انتقضا : ",
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                     Text(
+                                      // products2[index]['name']!.toString() +" "+
+                                      date_account.value,
+                                      style: TextStyle(
+                                        // color: Colors.black,
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+
+                                  children: [
+                                    Text(
+                                      // products2[index]['name']!.toString() +" "+
+                                      "حجم: ",
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                     Text(
+                                      // products2[index]['name']!.toString() +" "+
+                                      volume_account.value,
+                                      style: TextStyle(
+                                        // color: Colors.black,
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        )))
+              ]),
 
               if (isLoadingSubscription.value == true &&
                   globals.globalCheckGetListServer == true)
@@ -700,7 +842,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                 switch (activeProfile) {
                   AsyncData(value: final profile?) => MultiSliver(
                       children: [
-                        ProfileTile(profile: profile, isMain: true),
+                     //   ProfileTile(profile: profile, isMain: true),
                         SliverFillRemaining(
                           hasScrollBody: false,
                           child: Column(
@@ -746,24 +888,23 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   _ => const SliverToBoxAdapter(),
                 },
               if (globals.globalToken == "")
-                SliverFillRemaining(child:
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(t.home.emptyProfilesMsg),
-                        const Gap(16),
-                        OutlinedButton.icon(
-                          // onPressed: () => const AddProfileRoute().push(context),
-                          // onPressed: () =>{const LoginRoute().push(context)} ,
-                          onPressed: () => goScreenLogin(),
-                          icon: const Icon(FluentIcons.person_board_20_regular),
-                          label: Text(t.profile.add.buttonText),
-                          // style: OutlinedButton.styleFrom(
-                          //   side: BorderSide(width: 1.0, color: Color(0xffea5555)),
-                          // ),
-                        ),
-                      ])
-                ),
+                SliverFillRemaining(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                      Text(t.home.emptyProfilesMsg),
+                      const Gap(16),
+                      OutlinedButton.icon(
+                        // onPressed: () => const AddProfileRoute().push(context),
+                        // onPressed: () =>{const LoginRoute().push(context)} ,
+                        onPressed: () => goScreenLogin(),
+                        icon: const Icon(FluentIcons.person_board_20_regular),
+                        label: Text(t.profile.add.buttonText),
+                        // style: OutlinedButton.styleFrom(
+                        //   side: BorderSide(width: 1.0, color: Color(0xffea5555)),
+                        // ),
+                      ),
+                    ])),
 
               // else
               // if (isLoadingSubscription.value)  Positioned(

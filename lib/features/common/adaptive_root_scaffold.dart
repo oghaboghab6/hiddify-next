@@ -6,6 +6,7 @@ import 'package:hiddify/core/router/router.dart';
 import 'package:hiddify/features/stats/widget/side_bar_stats_overview.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../core/app_info/app_info_provider.dart';
 import '../../gen/assets.gen.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 
@@ -130,33 +131,57 @@ class _CustomAdaptiveScaffold extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
 
+    final version = ref.watch(appInfoProvider).requireValue.presentVersion;
     return Scaffold(
       key: RootScaffold.stateKey,
       drawer: Breakpoints.small.isActive(context)
           ? Drawer(
               width: (MediaQuery.sizeOf(context).width * 0.88).clamp(1, 304),
               child: ListView(children: [
-                if (globals.globalToken != '')   SizedBox(
-                  height: 150,
-                  child: DrawerHeader(
-                    // padding: EdgeInsets.zero,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      // fit: StackFit.passthrough,
-                      children: [
-                        Opacity(
-                          opacity: 1,
-                          child: Assets.images.logo.svg(width: 64, height: 64),
-                        ),
-                         Text(globals.globalUsername)
-                      ],
+                if (globals.globalToken != '')
+                  SizedBox(
+                    height: 180,
+                    child: DrawerHeader(
+                      // padding: EdgeInsets.zero,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        // fit: StackFit.passthrough,
+                        children: [
+                          Opacity(
+                            opacity: 1,
+                            child:
+                                Assets.images.logo.svg(width: 64, height: 64),
+                          ),
+                          Text(globals.globalUsername),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.secondaryContainer,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 4,
+                              vertical: 1,
+                            ),
+                            child: Text(
+                              version,
+                              textDirection: TextDirection.ltr,
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onSecondaryContainer,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height,
-                  child:    NavigationRail(
+                  child: NavigationRail(
                     extended: true,
                     selectedIndex: selectedWithOffset(drawerDestinationRange),
                     destinations: destinationsSlice(drawerDestinationRange)
@@ -166,7 +191,6 @@ class _CustomAdaptiveScaffold extends HookConsumerWidget {
                         selectWithOffset(index, drawerDestinationRange),
                   ),
                 )
-
               ])
 
               /*    child: NavigationRail(
@@ -219,7 +243,8 @@ class _CustomAdaptiveScaffold extends HookConsumerWidget {
         ),
       ),
       // AdaptiveLayout bottom sheet has accessibility issues
-      bottomNavigationBar: (useBottomSheet && Breakpoints.small.isActive(context))
+      bottomNavigationBar: (useBottomSheet &&
+              Breakpoints.small.isActive(context))
           ? NavigationBar(
               selectedIndex: selectedWithOffset(bottomDestinationRange) ?? 0,
               destinations: destinationsSlice(bottomDestinationRange),
