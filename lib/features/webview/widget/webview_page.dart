@@ -91,8 +91,11 @@ class WebViewPage extends HookConsumerWidget {
     final size = MediaQuery.of(context).size;
     final deviceRatio = size.width / size.height;
     return Scaffold(
-     // appBar: AppBar(title: const Text('Flutter Simple Example')),
-      body: WebViewWidget(controller: controller),
+      // appBar: AppBar(title: const Text('Flutter Simple Example')),
+      body:  Container(
+        margin: const EdgeInsets.only(top: 30.0,),
+        child: WebViewWidget(controller: controller),
+      ),
     );
    /* return Scaffold(
       body:  Transform.scale(

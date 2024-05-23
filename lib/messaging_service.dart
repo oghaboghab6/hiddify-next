@@ -246,53 +246,56 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     final prefs = await SharedPreferences.getInstance();
 
     String token = await prefs.getString('token')??'';
-    var deviceID = await get_unique_identifier();
-    final DioHttpClient client = DioHttpClient(
-        timeout: const Duration(seconds: 10),
-        userAgent:
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
-        debug: true,
-        Authorization: token);
-    // final response =
-    // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
+    if(token!=''){
+      var deviceID = await get_unique_identifier();
+      final DioHttpClient client = DioHttpClient(
+          timeout: const Duration(seconds: 10),
+          userAgent:
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+          debug: true,
+          Authorization: token);
+      // final response =
+      // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
 
-    var formData = FormData.fromMap({
-      'token': token,
-      'unique_id': deviceID,
-      'is_plus_device': true,
-    });
-    print("oghab @@@ deviceID: ${deviceID} ${token} ${globals
-        .global_url}");
+      var formData = FormData.fromMap({
+        'token': token,
+        'unique_id': deviceID,
+        'is_plus_device': true,
+      });
+      print("oghab @@@ deviceID: ${deviceID} ${token} ${globals
+          .global_url}");
 
-    final response = await client.post(
-      // 'https://shop.hologate.pro/api/accounts' + params, formData);
-        globals.global_url + '/api/accounts/log_out',
-        formData);
-    // final prefs2 = await SharedPreferences.getInstance();
+      final response = await client.post(
+        // 'https://shop.hologate.pro/api/accounts' + params, formData);
+          globals.global_url + '/api/accounts/log_out',
+          formData);
+      // final prefs2 = await SharedPreferences.getInstance();
 
-    prefs.setString('token', '');
-    prefs.setString('subscription', '');
-    // globals.globalToken = "";
-    print("oghab @@@ response bacccck: ${response}");
+      prefs.setString('token', '');
+      prefs.setString('subscription', '');
+      // globals.globalToken = "";
+      print("oghab @@@ response bacccck: ${response}");
 
-    Future.delayed(const Duration(milliseconds: 100), () {
-      exit(0);
-    });
-    // context.read(connectionNotifierProvider.notifier).toggleConnection();
-    // Provider.of<CarsProvider>(context, listen: false).yourFunction();
-    // await singbox.stop().mapLeft(UnexpectedConnectionFailure.new);
-    //  Future.delayed(const Duration(milliseconds: 100), () {
-    //    final prefs = await SharedPreferences.getInstance();
-    //    prefs.setString('token', '');
-    //    prefs.setString('subscription', '');
-    //    globals.globalToken = "";
-    //    exit(0);
-    //  });  //  const channelPrefix = "holo.gate.app2";
-    //
-    //  const methodChannel = MethodChannel("$channelPrefix/method");
-    // await methodChannel.invokeMethod("stop");
-    // If you're going to use other Firebase services in the background, such as Firestore,
-    // make sure you call `initializeApp` before using other Firebase services.
+      Future.delayed(const Duration(milliseconds: 100), () {
+        exit(0);
+      });
+      // context.read(connectionNotifierProvider.notifier).toggleConnection();
+      // Provider.of<CarsProvider>(context, listen: false).yourFunction();
+      // await singbox.stop().mapLeft(UnexpectedConnectionFailure.new);
+      //  Future.delayed(const Duration(milliseconds: 100), () {
+      //    final prefs = await SharedPreferences.getInstance();
+      //    prefs.setString('token', '');
+      //    prefs.setString('subscription', '');
+      //    globals.globalToken = "";
+      //    exit(0);
+      //  });  //  const channelPrefix = "holo.gate.app2";
+      //
+      //  const methodChannel = MethodChannel("$channelPrefix/method");
+      // await methodChannel.invokeMethod("stop");
+      // If you're going to use other Firebase services in the background, such as Firestore,
+      // make sure you call `initializeApp` before using other Firebase services.
+    }
+
     debugPrint('Handling a background message: ${message.notification!.title}');
     //ref.read(connectionNotifierProvider.notifier).func();
   }

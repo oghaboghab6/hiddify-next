@@ -260,7 +260,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
         } catch (e) {
           isLoading.value = false;
 
-          CustomToast.error("سرور با خطا مواجه شد!!").show(context);
+          CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
           loggy.warning('Could not get the local country code from ip');
         }
       }
@@ -360,7 +360,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
       } catch (e) {
         isLoading.value = false;
 
-        CustomToast.error("سرور با خطا مواجه شد!").show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
 
         loggy.warning('Could not get the local country code from ip');
       }
@@ -496,7 +496,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
       } catch (e) {
         isLoading.value = false;
 
-        CustomToast.error("سرور با خطا مواجه شد!").show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
 
         loggy.warning(
             'Could not get the local country code from ip 6666' + e.toString());
