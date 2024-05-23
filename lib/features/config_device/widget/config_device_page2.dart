@@ -571,7 +571,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
                                   SizedBox(height: 10),
                                   Text(
                                     // products2[index]['name']!.toString() +" "+
-                                    " نام دستگاه : " +
+                                    "دستگاه متصل : " +
                                         products2[index]['subscription_name']!
                                             .toString(),
                                     style: const TextStyle(
