@@ -72,13 +72,13 @@ class CustomToast extends StatelessWidget {
 
   const CustomToast.error(
     this.message, {
-    this.duration = const Duration(seconds: 5),
+    this.duration = const Duration(seconds: 10),
   })  : type = AlertType.error,
         icon = FluentIcons.error_circle_24_regular;
 
   const CustomToast.success(
     this.message, {
-    this.duration = const Duration(seconds: 3),
+    this.duration = const Duration(seconds: 10),
   })  : type = AlertType.success,
         icon = FluentIcons.checkmark_24_regular;
 

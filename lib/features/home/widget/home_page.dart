@@ -32,6 +32,7 @@ import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 // import 'dart:async';
+import '../../../core/analytics/analytics_controller.dart';
 import '../../../messaging_service.dart';
 import '../../../singbox/model/singbox_config_enum.dart';
 import '../../config_option/model/config_option_entity.dart';
@@ -137,10 +138,25 @@ class HomePage extends HookConsumerWidget with PresLogger {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoadingSubscription = useState(false);
+    final isLoadingExit = useState(false);
     final device_name = useState("");
     final count_device = useState("");
     final date_account = useState("");
     final volume_account = useState("");
+    // useEffect(
+    //       () {
+    //
+    //
+    //         final device_name = useState("");
+    //         final count_device = useState("");
+    //         final date_account = useState("");
+    //         final volume_account = useState("");
+    //     return null;
+    //
+    //   },
+    //   [],
+    // );
+
     final ConnectionRepository _connectionRepo =
         ref.read(connectionRepositoryProvider);
     final token = '';
@@ -188,7 +204,45 @@ class HomePage extends HookConsumerWidget with PresLogger {
     //   AsyncLoading() =>var dd=3,
     // }
     // print("oghab @@@@" + asyncProfiles.length);
+    Future<void> getInformationServer(BuildContext context) async {
+      try {
+        var deviceID = await get_unique_identifier();
 
+        final DioHttpClient client = DioHttpClient(
+            timeout: const Duration(seconds: 10),
+            userAgent:
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+            debug: true,
+            Authorization: globals.globalToken);
+
+        var formData = FormData.fromMap({
+          'unique_id': deviceID,
+          'is_plus_device': true,
+          'token_fb': globals.globalTokenFB,
+        });
+
+        final response = await client.post(
+            globals.global_url + '/api/accounts/device-permission', formData);
+        if (response.statusCode == 200) {
+          final jsonData = response.data!;
+
+          if (jsonData['success'] == true) {
+            device_name.value    = jsonData['username'].toString()??'';
+            count_device.value   = jsonData['number_of_devices'].toString()??'';
+            date_account.value   = jsonData['expiration_date'].toString()??'';
+            volume_account.value = jsonData['traffic'].toString()??'';
+          } else {
+            loggy.warning('Request failed with status2: ${response.statusCode}');
+          }
+        } else {
+
+          loggy.warning('Request failed with status: ${response.statusCode}');
+        }
+      } catch (e) {
+
+        loggy.warning('Could not get the local country code from ip');
+      }
+    }
     void goScreenLogin() {
       const LoginRoute().push(context).then((data) {
         print(
@@ -200,7 +254,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
             addProfileProvider,
             deleteProfileMutation,
           );
-          CustomToast.error("در حال ساختن  اکانت لطفا صبر نمایید")
+          getInformationServer(context);
+
+          CustomToast.success("در حال ساختن  اکانت لطفا صبر نمایید")
               .show(context);
           isLoadingSubscription.value = true;
 
@@ -213,7 +269,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
               GetListAccountServer(
                   context, ref, addProfileProvider, deleteProfileMutation);
             }
-
             print('The value is $value.'); // Prints later, after 3 seconds.
           });
           /*
@@ -261,7 +316,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
             addProfileProvider,
         deleteProfileMutation) async {
       print('Handling a exitApp message');
-
+      isLoadingExit.value=true;
       try {
         ///////////////////////////
 
@@ -309,6 +364,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
             formData);
         final jsonData = response.data!;
         print("oghab @@@ response: ${response}");
+        isLoadingExit.value=false;
 
         if (response.statusCode == 200) {
           if (jsonData['success'] == true) {
@@ -347,6 +403,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
           loggy.warning('Request failed with status: ${response.statusCode}');
         }
       } catch (e) {
+        isLoadingExit.value=false;
+
         clear_app();
         CustomToast.error("سرور با خطا مواجه شد!!").show(context);
         loggy.warning('Could not get the local country code from ip');
@@ -383,21 +441,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
     }
 
     Future<void> AuthenticationServer(BuildContext context) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var ipv6 = prefs.getString("ipv6-mode");
-      //prefer_ipv6
-      print("oghab @@@@ 0 options.ipv6Mode " + ipv6!);
-      if (ipv6 != "prefer_ipv6") {
-        print("oghab @@@@ 0 options.ipv6Mode ok" + ipv6);
 
-        await ref
-            .read(configOptionNotifierProvider.notifier)
-            .updateOption(const ConfigOptionPatch(ipv6Mode: IPv6Mode.prefer));
-      }
 
-      final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-      // String? fcmToken = await _fcm.getToken();
-      // log('fcmToken222: $fcmToken');
+
 
       try {
         var deviceID = await get_unique_identifier();
@@ -461,8 +507,23 @@ class HomePage extends HookConsumerWidget with PresLogger {
         //     .show(context);
         loggy.warning('Could not get the local country code from ip');
       }
-    }
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var ipv6 = prefs.getString("ipv6-mode");
+      //prefer_ipv6
+      if (ipv6!=null && ipv6 != "prefer_ipv6") {
 
+        await ref
+            .read(configOptionNotifierProvider.notifier)
+            .updateOption(const ConfigOptionPatch(ipv6Mode: IPv6Mode.prefer));
+        await ref
+            .read(analyticsControllerProvider.notifier)
+            .disableAnalytics();
+      }
+    }
+    // @override
+    // void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
+    // print(" @@@@@@@@ ");
+    // }
     useOnAppLifecycleStateChange((pref, state) {
       if (state == AppLifecycleState.resumed) {
         AuthenticationServer(context);
@@ -703,7 +764,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   ],
                 ),
-              MultiSliver(children: [
+              if (globals.globalToken != "")        MultiSliver(children: [
                 Card(
                   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Padding(
@@ -712,6 +773,51 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         child: Column(
                           children: [
                             Row(
+                              children: [
+                                Text(
+                                  // products2[index]['name']!.toString() +" "+
+                                  "نام اشتراک : ",
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  // products2[index]['name']!.toString() +" "+
+                                  device_name.value,
+                                  style: TextStyle(
+                                    // color: Colors.black,
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                            const Gap(8),
+                            Row(
+                              children: [
+                                Text(
+                                  // products2[index]['name']!.toString() +" "+
+                                  "تعداد دستگاه : ",
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  // products2[index]['name']!.toString() +" "+
+                                  count_device.value,
+                                  style: TextStyle(
+                                    // color: Colors.black,
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                         /*   Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -719,7 +825,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                                   children: [
                                     Text(
                                       // products2[index]['name']!.toString() +" "+
-                                      "نام : ",
+                                      "نام اشتراک : ",
                                       style: TextStyle(
                                         color: Colors.grey[600],
                                         fontSize: 16,
@@ -741,7 +847,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                                   children: [
                                     Text(
                                       // products2[index]['name']!.toString() +" "+
-                                      "تعداد : ",
+                                      "تعداد دستگاه : ",
                                       style: TextStyle(
                                         color: Colors.grey[600],
                                         fontSize: 16,
@@ -760,7 +866,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                                   ],
                                 ),
                               ],
-                            ),
+                            ),*/
                             const Gap(8),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -770,7 +876,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                                   children: [
                                     Text(
                                       // products2[index]['name']!.toString() +" "+
-                                      "تاریخ انتقضا : ",
+                                      "تاریخ انقضا : ",
                                       style: TextStyle(
                                         color: Colors.grey[600],
                                         fontSize: 16,
@@ -929,6 +1035,27 @@ class HomePage extends HookConsumerWidget with PresLogger {
               //       ))
             ],
           ),
+          if (isLoadingExit.value)
+            Positioned(
+                left: 0.0,
+                right: 0.0,
+                bottom: 0.0,
+                top: 0.0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.black.withOpacity(0.6),
+                  //  color: Colors.pink,
+                  padding: const EdgeInsets.all(10),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text('لطفا صبر نمایید ...')),
+                      CircularProgressIndicator()
+                    ],
+                  ),
+                ))
         ],
       ),
     );
