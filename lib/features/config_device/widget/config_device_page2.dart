@@ -357,7 +357,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       } catch (e) {
         isLoading.value = false;
 
-        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
         loggy.warning('Could not get the local country code from ip');
       }
     }

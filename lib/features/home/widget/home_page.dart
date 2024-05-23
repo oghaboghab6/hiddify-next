@@ -526,6 +526,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     // }
     useOnAppLifecycleStateChange((pref, state) {
       if (state == AppLifecycleState.resumed) {
+        if (globals.globalToken != "")
         AuthenticationServer(context);
         //make a request
       }
@@ -588,6 +589,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
             CustomToast.success(remoteMessage.data['message']?.toString() ??
                     "شما توسط شخص دیگری بیرون انداخته شدید")
                 .show(context);
+            if (globals.globalToken != "")
             exitApp(context, ref, addProfileProvider, deleteProfileMutation);
           }
           /*   if (remoteMessage.notification != null) {
@@ -799,7 +801,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                               children: [
                                 Text(
                                   // products2[index]['name']!.toString() +" "+
-                                  "تعداد دستگاه : ",
+                                  "تعداد اتصال : ",
                                   style: TextStyle(
                                     color: Colors.grey[600],
                                     fontSize: 16,

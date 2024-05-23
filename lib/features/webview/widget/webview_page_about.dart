@@ -91,7 +91,10 @@ class WebViewAboutPage extends HookConsumerWidget {
     final deviceRatio = size.width / size.height;
     return Scaffold(
      // appBar: AppBar(title: const Text('Flutter Simple Example')),
-      body: WebViewWidget(controller: controller),
+      body:  Container(
+        margin: const EdgeInsets.only(top: 30.0,),
+        child: WebViewWidget(controller: controller),
+      ),
     );
    /* return Scaffold(
       body:  Transform.scale(

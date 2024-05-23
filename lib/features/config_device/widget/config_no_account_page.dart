@@ -410,7 +410,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
     } catch (e) {
       isLoading =false;
 
-      CustomToast.error("سرور با خطا مواجه شد!!").show(context);
+      CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }
@@ -505,7 +505,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
     } catch (e) {
-      CustomToast.error("سرور با خطا مواجه شد!!").show(context);
+      CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
       loggy.warning('Could not get the local country code from ip');
     }
   }
