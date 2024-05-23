@@ -38,7 +38,7 @@ class WebViewAboutPage extends HookConsumerWidget {
         ),
       )
       // ..loadRequest(Uri.parse('https://shop.hologate.pro/login/' + token));
-      ..loadRequest(Uri.parse("https://hologate6.com/hologate-plus"));
+      ..loadRequest(Uri.parse(globals.global_url+"/hologate-plus"));
     final t = ref.watch(translationsProvider);
 
 /*    return Scaffold(

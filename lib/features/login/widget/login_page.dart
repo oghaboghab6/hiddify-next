@@ -401,7 +401,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                             alignment: Alignment.center,
                             padding: const EdgeInsets.all(10),
                             child: Text(
-                              'HoloGate 2  ',
+                              t.general.appTitle,
                               style: TextStyle(
                                   color:  Color(0xffea5555),
                                   fontWeight: FontWeight.w500,
