@@ -385,10 +385,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
             //         : "سرور با خطا مواجه شد!!")
             //     .show(context);
             CustomToast.error(
-                    jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!!")
+                    jsonData['message']?.toString() ?? "سرور با خطا مواجه شد!")
                 .show(context);
           }
-          clear_app();
           // Navigator.of(context).pop();
           // Navigator.of(context).popUntil(ModalRoute.withName('/'));
           // final regionLocale =
@@ -398,17 +397,17 @@ class HomePage extends HookConsumerWidget with PresLogger {
           //   'Region: ${regionLocale.region} Locale: ${regionLocale.locale}',
           // );
         } else {
-          clear_app();
           CustomToast.error("سرور با خطا مواجه شد!!").show(context);
           loggy.warning('Request failed with status: ${response.statusCode}');
+
         }
       } catch (e) {
         isLoadingExit.value=false;
-
-        clear_app();
-        CustomToast.error("سرور با خطا مواجه شد!!").show(context);
+        CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
         loggy.warning('Could not get the local country code from ip');
+
       }
+      clear_app();
 
       // final prefs = await SharedPreferences.getInstance();
       // prefs.setString('token', '');
