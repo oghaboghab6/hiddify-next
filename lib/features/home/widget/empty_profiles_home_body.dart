@@ -39,6 +39,7 @@ class EmptyProfilesHomeBody extends HookConsumerWidget {
         :
             [
               Text("لیست خالی شد منتظر بمانید"),
+              CircularProgressIndicator(),
               // const Gap(16),
               // OutlinedButton.icon(
               //   // onPressed: () => const AddProfileRoute().push(context),

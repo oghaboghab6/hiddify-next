@@ -148,7 +148,7 @@ class ConfigLocationPage extends StatefulHookConsumerWidget {
 }
 
 class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
-    with AppLogger {
+    with PresLogger {
   // late final List<Map<String, dynamic>> products = [
   //   // {"id": 1, "name": "hologate256997"},
   //   // {"id": 2, "name": "hologate005781"}
@@ -328,6 +328,10 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
 
   Future<void> GetRequestServer(BuildContext context) async {
     isLoading = true;
+     print("oghab @@@@@@2 global_account_id  "+globals.global_account_id );
+     print("oghab @@@@@@2  global_account_name  "+globals.global_account_name +"  " );
+     print("oghab @@@@@@2 global_subscription_id  "+globals.global_subscription_id);
+     print("oghab @@@@@@2 token  "+(globals.globalTokenTemporary==''?globals.globalToken:globals.globalTokenTemporary));
     try {
       var deviceID = await get_unique_identifier();
 
@@ -336,7 +340,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalTokenTemporary);
+          Authorization: globals.globalTokenTemporary==''?globals.globalToken:globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -345,6 +349,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
         'subscription_id': globals.global_subscription_id,
         'unique_id': deviceID,
         'is_plus_device': true,
+        'is_change_mc': globals.globalCheckMcGroup,
 
         // 'username': user,
         // 'password': pass,
@@ -419,7 +424,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
-          Authorization: globals.globalTokenTemporary);
+          Authorization: globals.globalTokenTemporary==''?globals.globalToken:globals.globalTokenTemporary);
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
@@ -449,6 +454,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
 
         if (jsonData['success'] == true) {
           if ((jsonData['subscription'].toString()) != 'null') {
+            // globals.globalCheckMcGroup=true;
             // SetRequestServer_subScription(context);
             print(
                 "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
@@ -459,8 +465,11 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
 
             globals.globalCheckGetListServer = true;
             globals.globalWaitingGetListServer = true;
-            globals.globalToken = globals.globalTokenTemporary;
-            await prefs.setString('token', globals.globalTokenTemporary);
+            if(globals.globalCheckMcGroup==false){
+              globals.globalToken = globals.globalTokenTemporary;
+              await prefs.setString('token', globals.globalTokenTemporary);
+            }
+
             // Navigator.of(context).pop();
             //  Navigator.of(context).popUntil((route) => route.isFirst);
             // if(_checkFrom==true)
