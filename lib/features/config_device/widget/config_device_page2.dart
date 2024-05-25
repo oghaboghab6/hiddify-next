@@ -151,7 +151,7 @@ class ConfigDevicePage2 extends StatefulHookConsumerWidget {
 }
 
 class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
-    with AppLogger {
+    with PresLogger {
   // late final List<Map<String, dynamic>> products = [
   //   // {"id": 1, "name": "hologate256997"},
   //   // {"id": 2, "name": "hologate005781"}
@@ -379,6 +379,11 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             Authorization: globals.globalTokenTemporary);
         // final response =
         // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setString('account_id', globals.global_account_id);
+        prefs.setString('device_name', nameController.text);
+        prefs.setString('subscription_id',device_id);
+
         var formData = FormData.fromMap({
           'name': nameController.text,
           'subscription_id': device_id,

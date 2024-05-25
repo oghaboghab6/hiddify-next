@@ -150,7 +150,7 @@ class ConfigNoAccountPage extends StatefulHookConsumerWidget {
 }
 
 class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
-    with AppLogger {
+    with PresLogger {
   // late final List<Map<String, dynamic>> products = [
   //   // {"id": 1, "name": "hologate256997"},
   //   // {"id": 2, "name": "hologate005781"}

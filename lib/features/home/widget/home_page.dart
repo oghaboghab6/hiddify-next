@@ -923,7 +923,66 @@ class HomePage extends HookConsumerWidget with PresLogger {
                           ],
                         )))
               ]),
+              if (globals.globalToken != "")
+                MultiSliver(children: [
+                  SizedBox(
+                    width: 200,
+                    child: FilledButton(
+                      onPressed: () async {
+                        globals.globalCheckMcGroup=true;
+                        final prefs = await SharedPreferences.getInstance();
+                        var account_id = prefs.getString('account_id') ?? '';
+                        globals.global_account_id = account_id;
 
+                        var device_name = prefs.getString('device_name') ?? '';
+                        globals.global_account_name = device_name;
+                        var subscription_id =
+                            prefs.getString('subscription_id') ?? '';
+                        globals.global_subscription_id = subscription_id;
+
+                        const ConfigLocationRoute().push(context).then((data) {
+                          print("oghab @@@@ globals.globalCheckMcGroup ${globals.globalCheckMcGroup}");
+                          if( globals.globalCheckMcGroup==true){
+                            globals.globalCheckMcGroup=false;
+                            print(
+                                "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
+                            // GetListAccountServer(context, ref, addProfileProvider,
+                            //     deleteProfileMutation);
+                            globals.globalCheckGetListServer = false;
+                            //await ref.read(addProfileProvider.notifier).ge(subscription);
+                            deleteProfileMutation.setFuture(
+                              ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
+                            );
+                            isLoadingSubscription.value = true;
+
+                            Future.delayed(
+                              const Duration(seconds: 20),
+                                  () => 100,
+                            ).then((value) {
+                              isLoadingSubscription.value = false;
+
+                              GetListAccountServer(
+                                  context, ref, addProfileProvider, deleteProfileMutation);
+
+                              print('The value is $value.'); // Prints later, after 3 seconds.
+                            });
+                          }
+
+                          // then will return value when the loginscreen's pop is called.
+                        });
+                      },
+                      child: const Text(
+                        "تغییر گروه سرور",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      style: FilledButton.styleFrom(
+                        backgroundColor:
+                        Color(0xffea5555), // This is what you need!
+                      ),
+                      // style: ButtonStyle( ),
+                    ),
+                  ),
+                ]),
               if (isLoadingSubscription.value == true &&
                   globals.globalCheckGetListServer == true)
                 MultiSliver(children: [

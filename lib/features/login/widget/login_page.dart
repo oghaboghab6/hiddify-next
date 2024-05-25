@@ -295,6 +295,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
             globals.globalTokenTemporary = token;
             // globals.globalToken = token;
             // await prefs.setString('token', token);
+
             await prefs.setString('url_login', loginUrl);
             // switch(jsonData['accounts'].toString()){
             //   case "buy_account":
