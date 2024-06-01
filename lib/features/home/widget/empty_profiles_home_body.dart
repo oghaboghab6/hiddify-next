@@ -38,7 +38,10 @@ class EmptyProfilesHomeBody extends HookConsumerWidget {
         ]
         :
             [
-              Text("لیست خالی شد منتظر بمانید"),
+              Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text("لیست سرور خالی شد، لطفا حدود 30 ثانیه منتظر بمانید و اگر علامت هلوگیت را مشاهده نکردید علامت بروزرسانی  (🔄) را در بالا بزنید"),
+              ),
               CircularProgressIndicator(),
               // const Gap(16),
               // OutlinedButton.icon(

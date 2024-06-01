@@ -505,7 +505,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
 
                                 await UriUtils.tryLaunch(
                                   Uri.parse(
-                                      "https://shop.hologate.pro/register?type=android"),
+                                      globals.global_url+"/register?type=android"),
                                 );
                               },
                             ),
@@ -529,7 +529,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
 
                                 await UriUtils.tryLaunch(
                                   Uri.parse(
-                                      "https://hologate6.com/forget-password"),
+                                      globals.global_url+"/forget-password"),
                                 );
                               },
                             ),
