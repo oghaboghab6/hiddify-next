@@ -86,7 +86,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       //   // then will return value when the loginscreen's pop is called.
       // });
     } else {
-      if (globals.globalCheckGetListServer)
+   //   if (globals.globalCheckGetListServer)
         GetListAccountServer(
             context, ref, addProfileProvider, deleteProfileMutation);
     }
@@ -190,8 +190,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
     // );
     print("oghab @@@@ ###### token " + globals.globalToken.toString());
 
-    final token1 = _loadPreferences(
-        context, ref, addProfileProvider, deleteProfileMutation);
+    String token1 ="";
+    // final token1 = _loadPreferences(
+    //     context, ref, addProfileProvider, deleteProfileMutation);
     // print("oghab @@@@ 1 " + token.toString());
     //final eeeeee = ref.watch(funnc() as ProviderListenable);
     final hasAnyProfile = ref.watch(hasAnyProfileProvider);
@@ -262,7 +263,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     }
 
     void goScreenLogin() {
-      const LoginRoute().push(context).then((data) {
+      const LoginRoute().push(context).then((data) async{
         print(
             "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
         if (globals.globalCheckGetListServer == true) {
@@ -278,19 +279,51 @@ class HomePage extends HookConsumerWidget with PresLogger {
               .show(context);
           isLoadingSubscription.value = true;
 
-          Future.delayed(
+       await   Future.delayed(
             const Duration(seconds: 30),
             () => 100,
           ).then((value) {
             isLoadingSubscription.value = false;
             globals.globalWaitingGetListServer = false;
+            var statusVpn = "";
 
+            if (connectionStatus case AsyncData(:final value)) {
+              if (value.isConnected) {
+                statusVpn = "connect";
+              } else {
+                statusVpn = "disconnect";
+              }
+              //  status_vpn=value as String;
+            }
+            print('The globals.globalCheckGetListServer is ${statusVpn}   ${globals.globalCheckGetListServer}.');
+
+           // if (statusVpn == "disconnect") {
             if (globals.globalCheckGetListServer == true) {
+              globals.globalCheckGetListServer = false;
               GetListAccountServer(
                   context, ref, addProfileProvider, deleteProfileMutation);
             }
             print('The value is $value.'); // Prints later, after 3 seconds.
           });
+          // isLoadingSubscription.value = false;
+          // globals.globalWaitingGetListServer = false;
+          // var statusVpn = "";
+          //
+          // if (connectionStatus case AsyncData(:final value)) {
+          //   if (value.isConnected) {
+          //     statusVpn = "connect";
+          //   } else {
+          //     statusVpn = "disconnect";
+          //   }
+          //   //  status_vpn=value as String;
+          // }
+          // print('The globals.globalCheckGetListServer is ${statusVpn}   ${globals.globalCheckGetListServer}.');
+          //
+          // if (statusVpn == "disconnect") {
+          //   GetListAccountServer(
+          //       context, ref, addProfileProvider, deleteProfileMutation);
+          // }
+          // print('The vaerfsefsdlue is 12132123.'); // Prints later, after 3 seconds.
           /*
 
 
@@ -592,6 +625,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
     useEffect(
       () {
+       _loadPreferences(
+            context, ref, addProfileProvider, deleteProfileMutation)  ;
         // globals.global_ref=ref;
         // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         // FlutterLocalNotificationsPlugin();
@@ -624,6 +659,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
                 .show(context);
             if (globals.globalToken != "")
               exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+          }
+         else if (remoteMessage.data['refresh'] == "true") {
+            GetListAccountServer(context, ref, addProfileProvider,
+                deleteProfileMutation);
+            CustomToast.success(remoteMessage.data['message']?.toString() ??
+                    "سرورهای شما در حال بروزرسانی است شکیبا باشید")
+                .show(context);
+
+
           }
           /*   if (remoteMessage.notification != null) {
                flutterLocalNotificationsPlugin.show(
@@ -979,9 +1023,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         const ConfigLocationRoute().push(context).then((data) {
                           print(
                               "oghab @@@@ globals.globalCheckMcGroup ${globals.globalCheckMcGroup}");
+                          globals.globalCheckMcGroup = false;
                           if (globals.globalWaitingGetListServer == true) {
-                            if (globals.globalCheckMcGroup == true) {
-                              globals.globalCheckMcGroup = false;
+
                               print(
                                   "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
                               // GetListAccountServer(context, ref, addProfileProvider,
@@ -1009,7 +1053,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                                 print(
                                     'The value is $value.'); // Prints later, after 3 seconds.
                               });
-                            }
+
                           }
 
                           // then will return value when the loginscreen's pop is called.
@@ -1027,7 +1071,58 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   ),
                 ]),
+              if (globals.globalToken != "" &&
+                  globals.global_status_Connection =="success")
+                switch (activeProfile) {
+                  AsyncData(value: final profile?) => MultiSliver(
+                    children: [
+                      //   ProfileTile(profile: profile, isMain: true),
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // const Text(
+                            //   "profile.name",
+                            //   maxLines: 2,
+                            //   overflow: TextOverflow.ellipsis,
+                            //   // style: theme.textTheme.titleMedium,
+                            //   semanticsLabel: "aaaa",
+                            // ),
+
+                            const Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ConnectionButton(),
+                                  ActiveProxyDelayIndicator(),
+                                ],
+                              ),
+                            ),
+                            if (MediaQuery.sizeOf(context).width < 840)
+                              const ActiveProxyFooter(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  AsyncData() => switch (hasAnyProfile) {
+                    AsyncData(value: true) =>
+                    const EmptyActiveProfileHomeBody(),
+                    _ => EmptyProfilesHomeBody(
+                        key: ValueKey("add_from_clipboard_button"),
+                        onTap: () {
+                          goScreenLogin();
+                        }),
+                  // _ => const EmptyProfilesHomeBody(),
+                  },
+                  AsyncError(:final error) =>
+                      SliverErrorBodyPlaceholder(t.presentShortError(error)),
+                  _ => const SliverToBoxAdapter(),
+                },
               if (isLoadingSubscription.value == true &&
+                 // globals.global_status_Connection =="success")
                   globals.globalCheckGetListServer == true)
                 MultiSliver(children: [
                   Container(
@@ -1048,55 +1143,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   )
                 ]),
-              if (globals.globalToken != "")
-                switch (activeProfile) {
-                  AsyncData(value: final profile?) => MultiSliver(
-                      children: [
-                        //   ProfileTile(profile: profile, isMain: true),
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // const Text(
-                              //   "profile.name",
-                              //   maxLines: 2,
-                              //   overflow: TextOverflow.ellipsis,
-                              //   // style: theme.textTheme.titleMedium,
-                              //   semanticsLabel: "aaaa",
-                              // ),
 
-                              const Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ConnectionButton(),
-                                    ActiveProxyDelayIndicator(),
-                                  ],
-                                ),
-                              ),
-                              if (MediaQuery.sizeOf(context).width < 840)
-                                const ActiveProxyFooter(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  AsyncData() => switch (hasAnyProfile) {
-                      AsyncData(value: true) =>
-                        const EmptyActiveProfileHomeBody(),
-                      _ => EmptyProfilesHomeBody(
-                          key: ValueKey("add_from_clipboard_button"),
-                          onTap: () {
-                            goScreenLogin();
-                          }),
-                      // _ => const EmptyProfilesHomeBody(),
-                    },
-                  AsyncError(:final error) =>
-                    SliverErrorBodyPlaceholder(t.presentShortError(error)),
-                  _ => const SliverToBoxAdapter(),
-                },
               if (globals.globalToken == "")
                 SliverFillRemaining(
                     child: Column(
@@ -1334,7 +1381,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         "  ----   ");
     // print("oghab @@@@ subscription 2222  " + activeProfile.toString());
 
-    globals.globalCheckGetListServer = false;
+  //  globals.globalCheckGetListServer = false;
     //await ref.read(addProfileProvider.notifier).ge(subscription);
     deleteProfileMutation.setFuture(
       ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),

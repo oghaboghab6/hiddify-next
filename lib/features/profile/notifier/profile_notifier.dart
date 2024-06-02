@@ -37,11 +37,16 @@ class AddProfile extends _$AddProfile with AppLogger {
           case AsyncData(value: final _?):
           //  var ggg="";
           if(showMessageState) {
-            globals.globalCheckGetListServer=false;
+            //globals.globalCheckGetListServer=false;
+            globals.global_status_Connection ="success";
 
            notification.showSuccessToast(t.profile.save.successMsg);
           }
           case AsyncError(:final error):
+            globals.global_status_Connection ="fail";
+
+            //  globals.globalCheckGetListServer=true;
+
             if (error case ProfileInvalidUrlFailure()) {
               notification.showErrorToast(t.failure.profiles.invalidUrl);
             } else {

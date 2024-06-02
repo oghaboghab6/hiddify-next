@@ -22,3 +22,4 @@ String global_account_name= "";
 String global_device_id= "";
 // String global_url= "https://hologate6.com:83";
 String global_url= "https://hologate6.com";
+String global_status_Connection= "";
