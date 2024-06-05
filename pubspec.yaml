@@ -113,6 +113,9 @@ flutter:
     - family: Shabnam
       fonts:
         - asset: assets/fonts/Shabnam.ttf
+    - family: IRANSansMobile
+      fonts:
+        - asset: assets/fonts/IRANSansMobile(FaNum).ttf
 
 flutter_gen:
   output: lib/gen/
