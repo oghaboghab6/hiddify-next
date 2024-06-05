@@ -11,6 +11,7 @@ import 'package:hiddify/features/connection/widget/experimental_feature_notice.d
 import 'package:hiddify/gen/assets.gen.dart';
 import 'package:hiddify/utils/alerts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hiddify/utils/globals.dart' as globals;
 
 // TODO: rewrite
 class ConnectionButton extends HookConsumerWidget {
@@ -31,6 +32,12 @@ class ConnectionButton extends HookConsumerWidget {
             case AsyncData(value: Disconnected(:final connectionFailure?))) {
           CustomAlertDialog.fromErr(t.presentError(connectionFailure))
               .show(context);
+        }
+        if (next case AsyncData(value: Connected())) {
+          globals.globalCheckGetListServer = false;
+          print("oghab @@@@ wwwwwwwwwwww ");
+          // CustomAlertDialog.fromErr(t.presentError(connected))
+          //     .show(context);
         }
       },
     );

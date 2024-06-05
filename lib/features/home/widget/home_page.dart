@@ -86,7 +86,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       //   // then will return value when the loginscreen's pop is called.
       // });
     } else {
-   //   if (globals.globalCheckGetListServer)
+     if (globals.globalCheckGetListServer)
         GetListAccountServer(
             context, ref, addProfileProvider, deleteProfileMutation);
     }
