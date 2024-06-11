@@ -49,20 +49,20 @@ class App extends HookConsumerWidget with PresLogger {
               theme: theme.light(),
               darkTheme: theme.dark(),
               title: Constants.appName,
-              builder: (context, child) {
-                child = UpgradeAlert(
-                  upgrader: upgrader,
-                  navigatorKey: router.routerDelegate.navigatorKey,
-                  child: child ?? const SizedBox(),
-                );
-                if (kDebugMode && _debugAccessibility) {
-                  return AccessibilityTools(
-                    checkFontOverflows: true,
-                    child: child,
-                  );
-                }
-                return child;
-              },
+             // builder: (context, child) {
+                // child = UpgradeAlert(
+                //   upgrader: upgrader,
+                //   navigatorKey: router.routerDelegate.navigatorKey,
+                //   child: child ?? const SizedBox(),
+                // );
+                // if (kDebugMode && _debugAccessibility) {
+                //   return AccessibilityTools(
+                //     checkFontOverflows: true,
+                //     child: child,
+                //   );
+                // }
+                // return child;
+              //},
             ),
           ),
         ),
