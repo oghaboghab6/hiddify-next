@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,9 +18,9 @@ import 'package:hiddify/core/router/router.dart';
 final TextEditingController nameController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
-class LoginPage extends StatefulHookConsumerWidget {
-  //const LoginPage(this.child, {super.key});
-  const LoginPage({super.key});
+class LoginConfigPage extends StatefulHookConsumerWidget {
+  //const LoginConfigPage(this.child, {super.key});
+  const LoginConfigPage({super.key});
 
   //final Widget child;
 
@@ -30,10 +29,10 @@ class LoginPage extends StatefulHookConsumerWidget {
       _ConnectionWrapperState();
 }
 
-class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
+class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLogger {
   bool checked = true;
 
-  // const LoginPage({super.key});
+  // const LoginConfigPage({super.key});
 
 /*  void initHook() {
     // WidgetsBinding.instance.addObserver(this);
@@ -192,15 +191,17 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                   "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
+              globals.globalCheckGetListServer = true;
+              globals.globalWaitingGetListServer = true;
               await prefs.setString(
                   'subscription', jsonData['subscription'].toString());
-              Navigator.of(context).pop();
+              Navigator.of(context).popUntil((route) => route.isFirst);
             } else
               CustomToast.error(
                   jsonData['message']?.toString() ?? "هیچ اطلاعاتی از سرور دریافت نشد!!")
                   .show(context);
               //   Navigator.of(context).popUntil((route) => false);
-              // Navigator.of(context).pop();
+            //  Navigator.of(context).popUntil((route) => route.isFirst);
             // Navigator.of(context).popUntil(ModalRoute.withName('/'));
             // final regionLocale =
             // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
@@ -260,6 +261,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
         //  loggy.warning('oghab @@@ params: ${params}');
         print("oghab @@@ params: ${params} ${globals.globalTokenFB}");
         var formData = FormData.fromMap({
+          'login_token': user,
           'username': user,
           'password': pass,
           'platform': Platform,
@@ -275,7 +277,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
         final response = await client.post(
             //    'https://shop.hologate.pro/api/login' + params, formData
             //'https://shop.hologate.pro/api/login' , formData
-            globals.global_url + '/api/login',
+            globals.global_url + '/api/subscription-login',
             formData);
         loggy.warning('oghab @@@ response:' + response.toString());
         final jsonData = response.data!;
@@ -299,6 +301,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
             // globals.globalToken = token;
             // await prefs.setString('token', token);
             globals.urlLink=loginUrl;
+
             await prefs.setString('url_login', loginUrl);
             // switch(jsonData['accounts'].toString()){
             //   case "buy_account":
@@ -415,8 +418,9 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                             alignment: Alignment.center,
                             padding: const EdgeInsets.all(10),
                             child: const Text(
-                              'ورود',
+                              'لطفا کانفیگ خود را کپی کنید و دکمه چسباندن را بزنید',
                               style: TextStyle(fontSize: 20),
+                              textAlign: TextAlign.center,
                             )),
                         Container(
                           padding: const EdgeInsets.all(10),
@@ -424,11 +428,11 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                             controller: nameController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: 'نام کاربری',
+                              labelText: 'کد کانفیگ',
                             ),
                           ),
                         ),
-                        Container(
+                 /*       Container(
                           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                           child: TextField(
                             obscureText: true,
@@ -438,8 +442,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                               labelText: 'رمز عبور',
                             ),
                           ),
-                        ),
-                        Container(
+                        ),*/
+                  /*      Container(
                             child: Row(
                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -452,7 +456,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                                 }),
                             const Text("مرا بخاطر بسپار"),
                           ],
-                        )),
+                        )),*/
                         // TextButton(
                         //   onPressed: () {
                         //     //forgot password screen
@@ -468,17 +472,13 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
 
                             onPressed: () async {
                               print(nameController.text);
-                              print(passwordController.text);
+                             // print(passwordController.text);
                               final SharedPreferences prefs =
                               await SharedPreferences.getInstance();
                               await prefs.setString(
-                                  'username', nameController.text);
-                              globals.globalUsername = nameController.text;
+                                  'config', nameController.text);
+                             // globals.globalUsername = nameController.text;
 
-                              if (checked) {
-                                await prefs.setString(
-                                    'password', passwordController.text);
-                              }
 
                               RequestServer(context, ref, nameController.text,
                                       passwordController.text)
@@ -490,23 +490,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                             ),
                           ),
                         ),
-
-                        Container(
-                          height: 50,
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          margin: const EdgeInsets.only(right: 20,left: 20),
-                          child: ElevatedButton(
-                            child: const Text('ورود از طریق کانفیگ پلاس',style: TextStyle(color: Colors.white, fontSize: 18),),
-
-                            onPressed: () async {
-                              const LoginConfigRoute().push(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:  Color(0xffea5555), // This is what you need!
-                            ),
-                          ),
-                        ),
-                        Row(
+        /*                Row(
 
                           // mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -550,31 +534,6 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                                   Uri.parse(
                                       globals.global_url+"/forget-password"),
                                 );
-                              },
-                            ),
-                            SizedBox(width: 20),
-
-                          ],
-                        ),
-               /*         Row(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(width: 20),
-                            const Text('ورود از طریق مشخصات کانفیگ'),
-                            TextButton(
-                              child: Text(
-                                'کلیک نمایید',
-                                //t.settings.general.locale,
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                              onPressed: () async {
-                                const LoginConfigRoute().push(context);
-                                // const ConfigDeviceRoute2().push(context);
-
-                                // await UriUtils.tryLaunch(
-                                //   Uri.parse(
-                                //       globals.global_url+"/forget-password"),
-                                // );
                               },
                             ),
                             SizedBox(width: 20),
@@ -635,13 +594,13 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
   }
   Future<void> doSomeAsyncStuff() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    nameController.text = (await prefs.getString('username'))!;
-    passwordController.text = (await prefs.getString('password'))!;
+    nameController.text = (await prefs.getString('config'))!;
+    //passwordController.text = (await prefs.getString('password'))!;
   }
 }
 
-/*class LoginPage extends HookConsumerWidget with PresLogger {
-  const LoginPage({super.key});
+/*class LoginConfigPage extends HookConsumerWidget with PresLogger {
+  const LoginConfigPage({super.key});
 
 */ /*  void initHook() {
     // WidgetsBinding.instance.addObserver(this);

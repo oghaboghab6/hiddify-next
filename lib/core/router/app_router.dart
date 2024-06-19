@@ -61,6 +61,8 @@ final tabLocations = [
   const LogsOverviewRoute().location,
   const AboutRoute().location,
   const LoginRoute().location,
+  const LoginConfigRoute().location,
+  const SelectWayLoginRoute().location,
   const WebViewRoute().location,
 
   // exit11(),

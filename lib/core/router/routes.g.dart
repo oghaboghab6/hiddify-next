@@ -88,11 +88,18 @@ RouteBase get $mobileWrapperRoute => ShellRouteData.$route(
               parentNavigatorKey: LoginRoute.$parentNavigatorKey,
               factory: $LoginRouteExtension._fromState,
             ),
+
             GoRouteData.$route(
-              path: 'ConfigNoAccount',
-              name: 'ConfigNoAccount',
-              parentNavigatorKey: ConfigNoAccountRoute.$parentNavigatorKey,
-              factory: $ConfigNoAccountRouteExtension._fromState,
+              path: 'loginConfig',
+              name: 'LoginConfig',
+              parentNavigatorKey: LoginConfigRoute.$parentNavigatorKey,
+              factory: $LoginConfigRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
+              path: 'SelectWayLogin',
+              name: 'SelectWayLogin',
+              parentNavigatorKey: SelectWayLoginRoute.$parentNavigatorKey,
+              factory: $SelectWayLoginRouteExtension._fromState,
             ),
             GoRouteData.$route(
               path: 'ConfigLocation',
@@ -356,6 +363,38 @@ extension $LoginRouteExtension on LoginRoute {
 
   void replace(BuildContext context) => context.replace(location);
 }
+extension $LoginConfigRouteExtension on LoginConfigRoute {
+  static LoginConfigRoute _fromState(GoRouterState state) => const LoginConfigRoute();
+
+  String get location => GoRouteData.$location(
+        '/loginConfig',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+extension $SelectWayLoginRouteExtension on SelectWayLoginRoute {
+  static SelectWayLoginRoute _fromState(GoRouterState state) => const SelectWayLoginRoute();
+
+  String get location => GoRouteData.$location(
+        '/SelectWayLogin',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
 extension $ConfigLocationRouteExtension on ConfigLocationRoute {
   static ConfigLocationRoute _fromState(GoRouterState state) => const ConfigLocationRoute();
 
@@ -548,6 +587,18 @@ RouteBase get $desktopWrapperRoute => ShellRouteData.$route(
           name: 'Login',
           parentNavigatorKey: LoginRoute.$parentNavigatorKey,
           factory: $LoginRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/SelectWayLogin',
+          name: 'SelectWayLogin',
+          parentNavigatorKey: SelectWayLoginRoute.$parentNavigatorKey,
+          factory: $SelectWayLoginRouteExtension._fromState,
+        ),
+        GoRouteData.$route(
+          path: '/loginConfig',
+          name: 'LoginConfig',
+          parentNavigatorKey: LoginConfigRoute.$parentNavigatorKey,
+          factory: $LoginConfigRouteExtension._fromState,
         ),
         GoRouteData.$route(
           path: '/ConfigDevice',

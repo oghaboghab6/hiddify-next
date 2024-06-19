@@ -37,7 +37,7 @@ class EmptyProfilesHomeBody extends HookConsumerWidget {
           ),
         ]
         :
-            [
+        globals.globalIsLoadingSubscription == true?  [
               Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text("لیست سرور خالی شد، لطفا حدود 30 ثانیه منتظر بمانید و اگر علامت هلوگیت را مشاهده نکردید علامت بروزرسانی  (🔄) را در بالا بزنید"),
@@ -55,6 +55,7 @@ class EmptyProfilesHomeBody extends HookConsumerWidget {
               //   // ),
               // ),
             ]
+        :[]
 
         ,
 

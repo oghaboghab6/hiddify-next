@@ -47,6 +47,7 @@ import '../../profile/overview/profiles_overview_notifier.dart';
 // import 'io.flutter.plugin.common.PluginRegistry.PluginRegistrantCallback';
 // import 'io.flutter.plugins.GeneratedPluginRegistrant';
 // import 'io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService';
+
 class HomePage extends HookConsumerWidget with PresLogger {
   // bool checkGetListServer = true;
 
@@ -135,6 +136,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
   // void didChangeAppLifecycleState(AppLifecycleState state) {
   //   print("app state now is $state");
   // }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoadingSubscription = useState(false);
@@ -198,6 +200,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final hasAnyProfile = ref.watch(hasAnyProfileProvider);
     final activeProfile = ref.watch(activeProfileProvider);
     final asyncProfiles = ref.watch(profilesOverviewNotifierProvider);
+    final addProfileState = ref.watch(addProfileProvider);
     if (asyncProfiles case AsyncData(value: final links)) {
       // print("oghab @@@@ count ******" + links.length.toString());
     }
@@ -278,12 +281,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
           CustomToast.success("در حال ساختن  اکانت لطفا صبر نمایید")
               .show(context);
           isLoadingSubscription.value = true;
-
+          globals.globalIsLoadingSubscription = true;
        await   Future.delayed(
             const Duration(seconds: 30),
             () => 100,
           ).then((value) {
             isLoadingSubscription.value = false;
+            globals.globalIsLoadingSubscription = false;
             globals.globalWaitingGetListServer = false;
             var statusVpn = "";
 
@@ -730,10 +734,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   if (globals.globalToken != "")
                     IconButton(
                       onPressed: () async {
+                    //    print("@!@@@@"+addProfileState.hasError.toString());
                         // await _connectionRepo.disconnect().mapLeft((err) {
                         //   // loggy.warning("error disconnecting", err);
                         //   // state = AsyncError(err, StackTrace.current);
                         // }).run();
+                        isLoadingSubscription.value=true;
+                        globals.globalIsLoadingSubscription = true;
+
+                        globals.globalCheckGetListServer = true;
                         GetListAccountServer(context, ref, addProfileProvider,
                             deleteProfileMutation);
                         // SharedPreferences prefs =
@@ -1003,6 +1012,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
                             ],
                           )))
                 ]),
+
+
               if (globals.globalToken != "")
                 MultiSliver(children: [
                   SizedBox(
@@ -1039,12 +1050,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
                                     .deleteAllProfile(),
                               );
                               isLoadingSubscription.value = true;
+                              globals.globalIsLoadingSubscription = true;
 
                               Future.delayed(
                                 const Duration(seconds: 20),
                                 () => 100,
                               ).then((value) {
                                 isLoadingSubscription.value = false;
+                                globals.globalIsLoadingSubscription = false;
 
                                 globals.globalWaitingGetListServer = false;
                                 GetListAccountServer(context, ref,
@@ -1070,6 +1083,26 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       // style: ButtonStyle( ),
                     ),
                   ),
+                ]),
+              if(globals.globalToken != ""   &&  addProfileState.isLoading == false &&  addProfileState.hasError==true)
+                MultiSliver(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height/2,
+                    // color: Colors.blue.withOpacity(0.6),
+                    //  color: Colors.pink,
+                    padding: const EdgeInsets.all(10),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                                'در ساخت اکانت با مشکل مواجه شد علامت بروزرسانی  (🔄) را در بالا بزنید')),
+                        //  CircularProgressIndicator()
+                      ],
+                    ),
+                  )
                 ]),
               if (globals.globalToken != "" &&
                   globals.global_status_Connection =="success")
@@ -1121,13 +1154,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       SliverErrorBodyPlaceholder(t.presentShortError(error)),
                   _ => const SliverToBoxAdapter(),
                 },
-              if (isLoadingSubscription.value == true &&
+              if (            addProfileState.isLoading == true&&
                  // globals.global_status_Connection =="success")
-                  globals.globalCheckGetListServer == true)
+                  globals.globalToken != "")
                 MultiSliver(children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height/2,
                     // color: Colors.blue.withOpacity(0.6),
                     //  color: Colors.pink,
                     padding: const EdgeInsets.all(10),
@@ -1137,7 +1170,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Text(
-                                'در حال ساختن اکانت. لطفا صبر نمایید ...')),
+                                'لیست سرور خالی شد، لطفا حدود 30 ثانیه منتظر بمانید و اگر علامت هلوگیت را مشاهده نکردید علامت بروزرسانی  (🔄) را در بالا بزنید!!')),
                         CircularProgressIndicator()
                       ],
                     ),
