@@ -19,9 +19,9 @@ import 'package:hiddify/core/router/router.dart';
 final TextEditingController nameController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
-class LoginPage extends StatefulHookConsumerWidget {
-  //const LoginPage(this.child, {super.key});
-  const LoginPage({super.key});
+class SelectWayLoginPage extends StatefulHookConsumerWidget {
+  //const SelectWayLoginPage(this.child, {super.key});
+  const SelectWayLoginPage({super.key});
 
   //final Widget child;
 
@@ -30,10 +30,10 @@ class LoginPage extends StatefulHookConsumerWidget {
       _ConnectionWrapperState();
 }
 
-class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
+class _ConnectionWrapperState extends ConsumerState<SelectWayLoginPage> with PresLogger {
   bool checked = true;
 
-  // const LoginPage({super.key});
+  // const SelectWayLoginPage({super.key});
 
 /*  void initHook() {
     // WidgetsBinding.instance.addObserver(this);
@@ -196,11 +196,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                   'subscription', jsonData['subscription'].toString());
               Navigator.of(context).pop();
             } else
-              CustomToast.error(
-                  jsonData['message']?.toString() ?? "هیچ اطلاعاتی از سرور دریافت نشد!!")
-                  .show(context);
               //   Navigator.of(context).popUntil((route) => false);
-              // Navigator.of(context).pop();
+              Navigator.of(context).pop();
             // Navigator.of(context).popUntil(ModalRoute.withName('/'));
             // final regionLocale =
             // _getRegionLocale(jsonData['country_code']?.toString() ?? "");
@@ -298,7 +295,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
             globals.globalTokenTemporary = token;
             // globals.globalToken = token;
             // await prefs.setString('token', token);
-            globals.urlLink=loginUrl;
+
             await prefs.setString('url_login', loginUrl);
             // switch(jsonData['accounts'].toString()){
             //   case "buy_account":
@@ -490,22 +487,6 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                             ),
                           ),
                         ),
-
-                        Container(
-                          height: 50,
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          margin: const EdgeInsets.only(right: 20,left: 20),
-                          child: ElevatedButton(
-                            child: const Text('ورود از طریق کانفیگ پلاس',style: TextStyle(color: Colors.white, fontSize: 18),),
-
-                            onPressed: () async {
-                              const LoginConfigRoute().push(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:  Color(0xffea5555), // This is what you need!
-                            ),
-                          ),
-                        ),
                         Row(
 
                           // mainAxisAlignment: MainAxisAlignment.center,
@@ -556,31 +537,6 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
 
                           ],
                         ),
-               /*         Row(
-                          //mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(width: 20),
-                            const Text('ورود از طریق مشخصات کانفیگ'),
-                            TextButton(
-                              child: Text(
-                                'کلیک نمایید',
-                                //t.settings.general.locale,
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                              onPressed: () async {
-                                const LoginConfigRoute().push(context);
-                                // const ConfigDeviceRoute2().push(context);
-
-                                // await UriUtils.tryLaunch(
-                                //   Uri.parse(
-                                //       globals.global_url+"/forget-password"),
-                                // );
-                              },
-                            ),
-                            SizedBox(width: 20),
-
-                          ],
-                        ),*/
                         /*             Align(
                       alignment: Alignment.center,
                       child: Container(
@@ -640,8 +596,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
   }
 }
 
-/*class LoginPage extends HookConsumerWidget with PresLogger {
-  const LoginPage({super.key});
+/*class SelectWayLoginPage extends HookConsumerWidget with PresLogger {
+  const SelectWayLoginPage({super.key});
 
 */ /*  void initHook() {
     // WidgetsBinding.instance.addObserver(this);

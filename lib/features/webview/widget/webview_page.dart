@@ -20,6 +20,7 @@ class WebViewPage extends HookConsumerWidget {
     var token = "";
     token = globals.globalToken.replaceAll("Bearer ", "");
     print("oghab @@@@ url" + 'https://shop.hologate.pro/login/' + token);
+    print("oghab @@@@ globals.urlLink" + globals.urlLink);
     controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(

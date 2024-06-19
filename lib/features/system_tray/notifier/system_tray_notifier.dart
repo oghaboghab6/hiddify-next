@@ -48,6 +48,8 @@ class SystemTrayNotifier extends _$SystemTrayNotifier with AppLogger {
       (t.settings.pageTitle, const SettingsRoute().location),
       (t.about.pageTitle, const AboutRoute().location),
       ("login", const LoginRoute().location),
+      ("SelectWayLogin", const SelectWayLoginRoute().location),
+      ("loginConfig", const LoginConfigRoute().location),
     ];
 
     loggy.debug('updating system tray');
