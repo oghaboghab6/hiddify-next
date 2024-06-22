@@ -15,6 +15,8 @@ import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:hiddify/utils/link_parsers.dart';
 import 'package:hiddify/core/router/router.dart';
 
+import '../../common/qr_code_scanner_screen.dart';
+
 final TextEditingController nameController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
@@ -477,10 +479,43 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
                               await SharedPreferences.getInstance();
                               await prefs.setString(
                                   'config', nameController.text);
-                             // globals.globalUsername = nameController.text;
+                              globals.globalUsername = "";
 
 
                               RequestServer(context, ref, nameController.text,
+                                  passwordController.text)
+                                  .then((value) => loggy.debug(
+                                  "Auto Region selection finished!"));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:  Color(0xffea5555), // This is what you need!
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 50,
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          margin: const EdgeInsets.all(20),
+                          child: ElevatedButton(
+                            child: const Text('اسکن',style: TextStyle(color: Colors.white, fontSize: 18),),
+
+                            onPressed: () async {
+                              final captureResult =
+                              await const QRCodeScannerScreen()
+                                  .open(context);
+                              if (captureResult == null) return;
+
+                              nameController.text=captureResult;
+                              print(captureResult);
+                             // print(passwordController.text);
+                              final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                              await prefs.setString(
+                                  'config', captureResult);
+                             globals.globalUsername = "";
+
+
+                              RequestServer(context, ref, captureResult,
                                       passwordController.text)
                                   .then((value) => loggy.debug(
                                       "Auto Region selection finished!"));
@@ -490,6 +525,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
                             ),
                           ),
                         ),
+
         /*                Row(
 
                           // mainAxisAlignment: MainAxisAlignment.center,

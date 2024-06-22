@@ -74,7 +74,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final prefs = await SharedPreferences.getInstance();
     globals.urlLink = prefs.getString('url_login') ?? globals.global_url;
     globals.globalToken = prefs.getString('token') ?? '';
-    globals.globalUsername = prefs.getString('username') ?? '';
+    globals.globalUsername = prefs.getString('config') != null? '': prefs.getString('username') ?? '';
     globals.globalPassword = prefs.getString('password') ?? '';
     print("oghab @@@@ 0 token " + globals.globalToken.toString());
     // print("oghab @@@@ 0 globalCheckGetListServer " +
@@ -357,6 +357,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
     clear_app() async {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', '');
+      prefs.setString('config', '');
+
       prefs.setString('subscription', '');
       globals.globalToken = "";
       deleteProfileMutation.setFuture(
@@ -1398,10 +1400,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
     final prefs = await SharedPreferences.getInstance();
     var id_device = prefs.getString('id_device') ?? '';
+    var token = prefs.getString('token') ?? '';
     final String stringifiedString = jsonEncode(deviceID);
+    token = token.replaceAll("Bearer ", "");
+
 //   var subscription = prefs.getString('subscription')! + "?unique_id=" + stringifiedString! ??'';
     var subscription =
-        prefs.getString('subscription')! + "?unique_id=" + deviceID! ?? '';
+        prefs.getString('subscription')! + "?unique_id=" + deviceID!+"&token="+token ?? '';
     //  var subscription = "https://hologate6.com:83/sub/c259f0a0afeadeaae48c9ecb33f9154a?unique_id=%22a6lte%20-%20SM-A600F%20-%20QP1A.190711.020%22";
     // var subscription = prefs.getString('subscription') ?? '';
 

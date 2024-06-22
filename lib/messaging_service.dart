@@ -271,6 +271,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
           formData);
       // final prefs2 = await SharedPreferences.getInstance();
 
+      prefs.setString('config', '');
       prefs.setString('token', '');
       prefs.setString('subscription', '');
       // globals.globalToken = "";
