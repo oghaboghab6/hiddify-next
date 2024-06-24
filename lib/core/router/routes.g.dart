@@ -108,6 +108,12 @@ RouteBase get $mobileWrapperRoute => ShellRouteData.$route(
               factory: $ConfigLocationRouteExtension._fromState,
             ),
             GoRouteData.$route(
+              path: 'ConfigNoAccount',
+              name: 'ConfigNoAccount',
+              parentNavigatorKey: ConfigNoAccountRoute.$parentNavigatorKey,
+              factory: $ConfigNoAccountRouteExtension._fromState,
+            ),
+            GoRouteData.$route(
               path: 'ConfigDevice',
               name: 'ConfigDevice',
               parentNavigatorKey: ConfigDeviceRoute.$parentNavigatorKey,

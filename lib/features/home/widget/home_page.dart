@@ -358,7 +358,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', '');
       prefs.setString('config', '');
-
+      prefs.setString('url_login', 'https://shop.hologate.pro/login/teuyrtye');
+      globals.urlLink=  "https://shop.hologate.pro/login/teuyrtye";
       prefs.setString('subscription', '');
       globals.globalToken = "";
       deleteProfileMutation.setFuture(
