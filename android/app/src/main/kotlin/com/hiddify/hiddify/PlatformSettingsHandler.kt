@@ -33,7 +33,7 @@ class PlatformSettingsHandler : FlutterPlugin, MethodChannel.MethodCallHandler, 
     private lateinit var ignoreRequestResult: MethodChannel.Result
 
     companion object {
-        const val channelName = "holo.gate.app2/platform"
+        const val channelName = "holo.gate.appplus90/platform"
 
         const val REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = 44
         val gson = Gson()

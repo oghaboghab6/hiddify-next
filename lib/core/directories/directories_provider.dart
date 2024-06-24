@@ -10,7 +10,7 @@ part 'directories_provider.g.dart';
 
 @Riverpod(keepAlive: true)
 class AppDirectories extends _$AppDirectories with InfraLogger {
-  final _methodChannel = const MethodChannel("holo.gate.app2/platform");
+  final _methodChannel = const MethodChannel("holo.gate.appplus90/platform");
 
   @override
   Future<Directories> build() async {

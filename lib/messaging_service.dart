@@ -230,7 +230,7 @@ Future<void> handleMessage(RemoteMessage message, WidgetRef ref) async {
 //  //    prefs.setString('subscription', '');
 //  //    globals.globalToken = "";
 //  //    exit(0);
-//  //  });  //  const channelPrefix = "holo.gate.app2";
+//  //  });  //  const channelPrefix = "holo.gate.appplus90";
 //   //
 //   //  const methodChannel = MethodChannel("$channelPrefix/method");
 //   // await methodChannel.invokeMethod("stop");
@@ -289,7 +289,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       //    prefs.setString('subscription', '');
       //    globals.globalToken = "";
       //    exit(0);
-      //  });  //  const channelPrefix = "holo.gate.app2";
+      //  });  //  const channelPrefix = "holo.gate.appplus90";
       //
       //  const methodChannel = MethodChannel("$channelPrefix/method");
       // await methodChannel.invokeMethod("stop");

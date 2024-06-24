@@ -62,7 +62,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "holo.gate.app2"
+        applicationId "holo.gate.appplus90"
         minSdkVersion 21
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()

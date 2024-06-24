@@ -13,7 +13,7 @@ abstract interface class PerAppProxyRepository {
 class PerAppProxyRepositoryImpl
     with InfraLogger
     implements PerAppProxyRepository {
-  final _methodChannel = const MethodChannel("holo.gate.app2/platform");
+  final _methodChannel = const MethodChannel("holo.gate.appplus90/platform");
 
   @override
   TaskEither<String, List<InstalledPackageInfo>> getInstalledPackages() {

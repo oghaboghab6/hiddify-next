@@ -12,8 +12,8 @@ class EventHandler : FlutterPlugin {
 
     companion object {
         const val TAG = "A/EventHandler"
-        const val SERVICE_STATUS = "holo.gate.app2/service.status"
-        const val SERVICE_ALERTS = "holo.gate.app2/service.alerts"
+        const val SERVICE_STATUS = "holo.gate.appplus90/service.status"
+        const val SERVICE_ALERTS = "holo.gate.appplus90/service.alerts"
     }
 
     private var statusChannel: EventChannel? = null

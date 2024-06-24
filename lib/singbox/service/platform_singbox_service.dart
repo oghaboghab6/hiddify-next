@@ -14,7 +14,7 @@ import 'package:hiddify/utils/custom_loggers.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PlatformSingboxService with InfraLogger implements SingboxService {
-  static const channelPrefix = "holo.gate.app2";
+  static const channelPrefix = "holo.gate.appplus90";
 
   static const methodChannel = MethodChannel("$channelPrefix/method");
   static const statusChannel =

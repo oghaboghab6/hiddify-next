@@ -24,7 +24,7 @@
         android:name=".Application"
         android:banner="@mipmap/ic_banner"
         android:icon="@mipmap/ic_launcher"
-        android:label="Hologate Plus"
+        android:label="Hologate Plus90"
         android:roundIcon="@mipmap/ic_launcher_round"
         tools:targetApi="31"
         android:fullBackupContent="false"
@@ -73,9 +73,9 @@
                 <data android:scheme="clash" />
                 <data android:host="install-config" />
                 <data android:scheme="clashmeta" />
-                <data android:scheme="Hologate Plus" />
+                <data android:scheme="Hologate Plus90" />
                 <data android:host="install-sub" />
-                <data android:scheme="Hologate Plus" />
+                <data android:scheme="Hologate Plus90" />
                 <data android:host="import" />
             </intent-filter>
 

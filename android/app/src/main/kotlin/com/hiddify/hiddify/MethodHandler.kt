@@ -19,7 +19,7 @@ class MethodHandler(private val scope: CoroutineScope) : FlutterPlugin,
 
     companion object {
         const val TAG = "A/MethodHandler"
-        const val channelName = "holo.gate.app2/method"
+        const val channelName = "holo.gate.appplus90/method"
 
         enum class Trigger(val method: String) {
             ParseConfig("parse_config"),

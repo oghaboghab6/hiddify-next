@@ -14,7 +14,7 @@ class ActiveGroupsChannel(private val scope: CoroutineScope) : FlutterPlugin,
     CommandClient.Handler {
     companion object {
         const val TAG = "A/ActiveGroupsChannel"
-        const val CHANNEL = "holo.gate.app2/active-groups"
+        const val CHANNEL = "holo.gate.appplus90/active-groups"
         val gson = Gson()
     }
 

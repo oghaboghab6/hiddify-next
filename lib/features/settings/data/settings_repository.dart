@@ -12,7 +12,7 @@ abstract interface class SettingsRepository {
 class SettingsRepositoryImpl
     with ExceptionHandler, InfraLogger
     implements SettingsRepository {
-  final _methodChannel = const MethodChannel("holo.gate.app2/platform");
+  final _methodChannel = const MethodChannel("holo.gate.appplus90/platform");
 
   @override
   TaskEither<SettingsFailure, bool> isIgnoringBatteryOptimizations() {

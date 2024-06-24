@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 class GroupsChannel(private val scope: CoroutineScope) : FlutterPlugin, CommandClient.Handler {
     companion object {
         const val TAG = "A/GroupsChannel"
-        const val CHANNEL = "holo.gate.app2/groups"
+        const val CHANNEL = "holo.gate.appplus90/groups"
         val gson = Gson()
     }
 
