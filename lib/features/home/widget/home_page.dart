@@ -47,6 +47,7 @@ import '../../profile/overview/profiles_overview_notifier.dart';
 // import 'io.flutter.plugin.common.PluginRegistry.PluginRegistrantCallback';
 // import 'io.flutter.plugins.GeneratedPluginRegistrant';
 // import 'io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService';
+
 class HomePage extends HookConsumerWidget with PresLogger {
   // bool checkGetListServer = true;
 
@@ -73,7 +74,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final prefs = await SharedPreferences.getInstance();
     globals.urlLink = prefs.getString('url_login') ?? globals.global_url;
     globals.globalToken = prefs.getString('token') ?? '';
-    globals.globalUsername = prefs.getString('username') ?? '';
+    globals.globalUsername = prefs.getString('config') != null? '': prefs.getString('username') ?? '';
     globals.globalPassword = prefs.getString('password') ?? '';
     print("oghab @@@@ 0 token " + globals.globalToken.toString());
     // print("oghab @@@@ 0 globalCheckGetListServer " +
@@ -86,7 +87,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       //   // then will return value when the loginscreen's pop is called.
       // });
     } else {
-      if (globals.globalCheckGetListServer)
+     if (globals.globalCheckGetListServer)
         GetListAccountServer(
             context, ref, addProfileProvider, deleteProfileMutation);
     }
@@ -135,6 +136,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
   // void didChangeAppLifecycleState(AppLifecycleState state) {
   //   print("app state now is $state");
   // }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoadingSubscription = useState(false);
@@ -143,6 +145,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final count_device = useState("");
     final date_account = useState("");
     final volume_account = useState("");
+    final connectionStatus = ref.watch(connectionNotifierProvider);
+
     // useEffect(
     //       () {
     //
@@ -188,13 +192,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
     // );
     print("oghab @@@@ ###### token " + globals.globalToken.toString());
 
-    final token1 = _loadPreferences(
-        context, ref, addProfileProvider, deleteProfileMutation);
+    String token1 ="";
+    // final token1 = _loadPreferences(
+    //     context, ref, addProfileProvider, deleteProfileMutation);
     // print("oghab @@@@ 1 " + token.toString());
     //final eeeeee = ref.watch(funnc() as ProviderListenable);
     final hasAnyProfile = ref.watch(hasAnyProfileProvider);
     final activeProfile = ref.watch(activeProfileProvider);
     final asyncProfiles = ref.watch(profilesOverviewNotifierProvider);
+    final addProfileState = ref.watch(addProfileProvider);
     if (asyncProfiles case AsyncData(value: final links)) {
       // print("oghab @@@@ count ******" + links.length.toString());
     }
@@ -205,19 +211,35 @@ class HomePage extends HookConsumerWidget with PresLogger {
     // }
     // print("oghab @@@@" + asyncProfiles.length);
     Future<void> getInformationServer(BuildContext context) async {
+      var statusVpn = "";
+
+      if (connectionStatus case AsyncData(:final value)) {
+        if (value.isConnected) {
+          statusVpn = "connect";
+        } else {
+          statusVpn = "disconnect";
+        }
+        //  status_vpn=value as String;
+      }
+
+      // switch (connectionStatus) {
+      //   case AsyncData(value: final status):
+      //     status_vpn=status as String;
+      // }
       try {
         var deviceID = await get_unique_identifier();
 
         final DioHttpClient client = DioHttpClient(
             timeout: const Duration(seconds: 10),
             userAgent:
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
             Authorization: globals.globalToken);
 
         var formData = FormData.fromMap({
           'unique_id': deviceID,
           'is_plus_device': true,
+          'connectionStatus': statusVpn,
           'token_fb': globals.globalTokenFB,
         });
 
@@ -227,24 +249,24 @@ class HomePage extends HookConsumerWidget with PresLogger {
           final jsonData = response.data!;
 
           if (jsonData['success'] == true) {
-            device_name.value    = jsonData['username'].toString()??'';
-            count_device.value   = jsonData['number_of_devices'].toString()??'';
-            date_account.value   = jsonData['expiration_date'].toString()??'';
-            volume_account.value = jsonData['traffic'].toString()??'';
+            device_name.value = jsonData['username'].toString() ?? '';
+            count_device.value = jsonData['number_of_devices'].toString() ?? '';
+            date_account.value = jsonData['expiration_date'].toString() ?? '';
+            volume_account.value = jsonData['traffic'].toString() ?? '';
           } else {
-            loggy.warning('Request failed with status2: ${response.statusCode}');
+            loggy
+                .warning('Request failed with status2: ${response.statusCode}');
           }
         } else {
-
           loggy.warning('Request failed with status: ${response.statusCode}');
         }
       } catch (e) {
-
         loggy.warning('Could not get the local country code from ip');
       }
     }
+
     void goScreenLogin() {
-      const LoginRoute().push(context).then((data) {
+      const LoginRoute().push(context).then((data) async{
         print(
             "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
         if (globals.globalCheckGetListServer == true) {
@@ -259,18 +281,53 @@ class HomePage extends HookConsumerWidget with PresLogger {
           CustomToast.success("در حال ساختن  اکانت لطفا صبر نمایید")
               .show(context);
           isLoadingSubscription.value = true;
-
-          Future.delayed(
+          globals.globalIsLoadingSubscription = true;
+       await   Future.delayed(
             const Duration(seconds: 30),
             () => 100,
           ).then((value) {
             isLoadingSubscription.value = false;
+            globals.globalIsLoadingSubscription = false;
+            globals.globalWaitingGetListServer = false;
+            var statusVpn = "";
+
+            if (connectionStatus case AsyncData(:final value)) {
+              if (value.isConnected) {
+                statusVpn = "connect";
+              } else {
+                statusVpn = "disconnect";
+              }
+              //  status_vpn=value as String;
+            }
+            print('The globals.globalCheckGetListServer is ${statusVpn}   ${globals.globalCheckGetListServer}.');
+
+           // if (statusVpn == "disconnect") {
             if (globals.globalCheckGetListServer == true) {
+              globals.globalCheckGetListServer = false;
               GetListAccountServer(
                   context, ref, addProfileProvider, deleteProfileMutation);
             }
             print('The value is $value.'); // Prints later, after 3 seconds.
           });
+          // isLoadingSubscription.value = false;
+          // globals.globalWaitingGetListServer = false;
+          // var statusVpn = "";
+          //
+          // if (connectionStatus case AsyncData(:final value)) {
+          //   if (value.isConnected) {
+          //     statusVpn = "connect";
+          //   } else {
+          //     statusVpn = "disconnect";
+          //   }
+          //   //  status_vpn=value as String;
+          // }
+          // print('The globals.globalCheckGetListServer is ${statusVpn}   ${globals.globalCheckGetListServer}.');
+          //
+          // if (statusVpn == "disconnect") {
+          //   GetListAccountServer(
+          //       context, ref, addProfileProvider, deleteProfileMutation);
+          // }
+          // print('The vaerfsefsdlue is 12132123.'); // Prints later, after 3 seconds.
           /*
 
 
@@ -300,6 +357,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
     clear_app() async {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', '');
+      prefs.setString('config', '');
+      prefs.setString('url_login', 'https://shop.hologate.pro/login/teuyrtye');
+      globals.urlLink=  "https://shop.hologate.pro/login/teuyrtye";
       prefs.setString('subscription', '');
       globals.globalToken = "";
       deleteProfileMutation.setFuture(
@@ -316,7 +376,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
             addProfileProvider,
         deleteProfileMutation) async {
       print('Handling a exitApp message');
-      isLoadingExit.value=true;
+      isLoadingExit.value = true;
       try {
         ///////////////////////////
 
@@ -364,7 +424,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
             formData);
         final jsonData = response.data!;
         print("oghab @@@ response: ${response}");
-        isLoadingExit.value=false;
+        isLoadingExit.value = false;
 
         if (response.statusCode == 200) {
           if (jsonData['success'] == true) {
@@ -399,13 +459,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
         } else {
           CustomToast.error("سرور با خطا مواجه شد!!").show(context);
           loggy.warning('Request failed with status: ${response.statusCode}');
-
         }
       } catch (e) {
-        isLoadingExit.value=false;
+        isLoadingExit.value = false;
         CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
         loggy.warning('Could not get the local country code from ip');
-
       }
       clear_app();
 
@@ -440,11 +498,28 @@ class HomePage extends HookConsumerWidget with PresLogger {
     }
 
     Future<void> AuthenticationServer(BuildContext context) async {
-
-
-
-
       try {
+        var statusVpn = "";
+        // String status_vpn = connectionStatus as String;
+        //AsyncData<ConnectionStatus>(value: ConnectionStatus.disconnected(connectionFailure: null))
+        //AsyncData<ConnectionStatus>(value: ConnectionStatus.connected())
+        // if(status_vpn=="AsyncData<ConnectionStatus>(value: ConnectionStatus.connected())")
+        //   status_vpn="hjghj";
+        // status_vpn= AsyncData(connectionStatus) as String;
+        if (connectionStatus case AsyncData(:final value)) {
+          if (value.isConnected) {
+            statusVpn = "connect";
+          } else {
+            statusVpn = "disconnect";
+          }
+          //  status_vpn=value as String;
+        }
+        //   status_vpn= AsyncData(connectionStatus) as String;
+        // switch (connectionStatus) {
+        //   case AsyncData(value: final status):
+        //     status_vpn=status as String;
+        //     // return;
+        // }
         var deviceID = await get_unique_identifier();
 
         final DioHttpClient client = DioHttpClient(
@@ -459,6 +534,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           'unique_id': deviceID,
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
+          'connectionStatus': statusVpn,
 
           // 'username': user,
           // 'password': pass,
@@ -471,8 +547,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
         // var params =
         //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
         //  loggy.warning('oghab @@@ params: ${params}');
+
         print(
-            "oghab @@@ params: ${deviceID} ${globals.globalToken} ${globals.globalTokenFB}");
+            "oghab @@@ params: ${statusVpn}  ${deviceID} ${globals.globalToken} ${globals.globalTokenFB}");
 
         final response = await client.post(
             globals.global_url + '/api/accounts/device-permission', formData);
@@ -480,10 +557,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
           final jsonData = response.data!;
 
           if (jsonData['success'] == true) {
-            device_name.value    = jsonData['username'].toString()??'';
-            count_device.value   = jsonData['number_of_devices'].toString()??'';
-            date_account.value   = jsonData['expiration_date'].toString()??'';
-            volume_account.value = jsonData['traffic'].toString()??'';
+            device_name.value = jsonData['username'].toString() ?? '';
+            count_device.value = jsonData['number_of_devices'].toString() ?? '';
+            date_account.value = jsonData['expiration_date'].toString() ?? '';
+            volume_account.value = jsonData['traffic'].toString() ?? '';
           } else {
             exitApp(context, ref, addProfileProvider, deleteProfileMutation);
             // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
@@ -509,24 +586,21 @@ class HomePage extends HookConsumerWidget with PresLogger {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var ipv6 = prefs.getString("ipv6-mode");
       //prefer_ipv6
-      if (ipv6!=null && ipv6 != "prefer_ipv6") {
-
+      if (ipv6 != null && ipv6 != "prefer_ipv6") {
         await ref
             .read(configOptionNotifierProvider.notifier)
             .updateOption(const ConfigOptionPatch(ipv6Mode: IPv6Mode.prefer));
-        await ref
-            .read(analyticsControllerProvider.notifier)
-            .disableAnalytics();
+        await ref.read(analyticsControllerProvider.notifier).disableAnalytics();
       }
     }
+
     // @override
     // void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     // print(" @@@@@@@@ ");
     // }
     useOnAppLifecycleStateChange((pref, state) {
       if (state == AppLifecycleState.resumed) {
-        if (globals.globalToken != "")
-        AuthenticationServer(context);
+        if (globals.globalToken != "") AuthenticationServer(context);
         //make a request
       }
     });
@@ -558,6 +632,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
     useEffect(
       () {
+       _loadPreferences(
+            context, ref, addProfileProvider, deleteProfileMutation)  ;
         // globals.global_ref=ref;
         // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         // FlutterLocalNotificationsPlugin();
@@ -589,7 +665,16 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     "شما توسط شخص دیگری بیرون انداخته شدید")
                 .show(context);
             if (globals.globalToken != "")
-            exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+              exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+          }
+         else if (remoteMessage.data['refresh'] == "true") {
+            GetListAccountServer(context, ref, addProfileProvider,
+                deleteProfileMutation);
+            CustomToast.success(remoteMessage.data['message']?.toString() ??
+                    "سرورهای شما در حال بروزرسانی است شکیبا باشید")
+                .show(context);
+
+
           }
           /*   if (remoteMessage.notification != null) {
                flutterLocalNotificationsPlugin.show(
@@ -652,10 +737,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   if (globals.globalToken != "")
                     IconButton(
                       onPressed: () async {
+                    //    print("@!@@@@"+addProfileState.hasError.toString());
                         // await _connectionRepo.disconnect().mapLeft((err) {
                         //   // loggy.warning("error disconnecting", err);
                         //   // state = AsyncError(err, StackTrace.current);
                         // }).run();
+                        isLoadingSubscription.value=true;
+                        globals.globalIsLoadingSubscription = true;
+
+                        globals.globalCheckGetListServer = true;
                         GetListAccountServer(context, ref, addProfileProvider,
                             deleteProfileMutation);
                         // SharedPreferences prefs =
@@ -765,60 +855,62 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   ],
                 ),
-              if (globals.globalToken != "")        MultiSliver(children: [
-                Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 12.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  // products2[index]['name']!.toString() +" "+
-                                  "نام اشتراک : ",
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontSize: 16,
+              if (globals.globalToken != "")
+                MultiSliver(children: [
+                  Card(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 12.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    // products2[index]['name']!.toString() +" "+
+                                    "نام اشتراک : ",
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  // products2[index]['name']!.toString() +" "+
-                                  device_name.value,
-                                  style: TextStyle(
-                                    // color: Colors.black,
-                                    fontSize: 16,
+                                  Text(
+                                    // products2[index]['name']!.toString() +" "+
+                                    device_name.value,
+                                    style: TextStyle(
+                                      // color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                            const Gap(8),
-                            Row(
-                              children: [
-                                Text(
-                                  // products2[index]['name']!.toString() +" "+
-                                  "تعداد اتصال : ",
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontSize: 16,
+                                ],
+                              ),
+                              const Gap(8),
+                              Row(
+                                children: [
+                                  Text(
+                                    // products2[index]['name']!.toString() +" "+
+                                    "تعداد اتصال : ",
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  // products2[index]['name']!.toString() +" "+
-                                  count_device.value,
-                                  style: TextStyle(
-                                    // color: Colors.black,
-                                    fontSize: 16,
+                                  Text(
+                                    // products2[index]['name']!.toString() +" "+
+                                    count_device.value,
+                                    style: TextStyle(
+                                      // color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                         /*   Row(
+                                ],
+                              ),
+                              /*   Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -868,68 +960,70 @@ class HomePage extends HookConsumerWidget with PresLogger {
                                 ),
                               ],
                             ),*/
-                            const Gap(8),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      // products2[index]['name']!.toString() +" "+
-                                      "تاریخ انقضا : ",
-                                      style: TextStyle(
-                                        color: Colors.grey[600],
-                                        fontSize: 16,
+                              const Gap(8),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        // products2[index]['name']!.toString() +" "+
+                                        "تاریخ انقضا : ",
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontSize: 16,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                     Text(
-                                      // products2[index]['name']!.toString() +" "+
-                                      date_account.value,
-                                      style: TextStyle(
-                                        // color: Colors.black,
-                                        fontSize: 16,
+                                      Text(
+                                        // products2[index]['name']!.toString() +" "+
+                                        date_account.value,
+                                        style: TextStyle(
+                                          // color: Colors.black,
+                                          fontSize: 16,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                                Row(
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        // products2[index]['name']!.toString() +" "+
+                                        "حجم: ",
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontSize: 16,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        // products2[index]['name']!.toString() +" "+
+                                        volume_account.value,
+                                        style: TextStyle(
+                                          // color: Colors.black,
+                                          fontSize: 16,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )))
+                ]),
 
-                                  children: [
-                                    Text(
-                                      // products2[index]['name']!.toString() +" "+
-                                      "حجم: ",
-                                      style: TextStyle(
-                                        color: Colors.grey[600],
-                                        fontSize: 16,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                     Text(
-                                      // products2[index]['name']!.toString() +" "+
-                                      volume_account.value,
-                                      style: TextStyle(
-                                        // color: Colors.black,
-                                        fontSize: 16,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        )))
-              ]),
+
               if (globals.globalToken != "")
                 MultiSliver(children: [
                   SizedBox(
                     width: 200,
                     child: FilledButton(
                       onPressed: () async {
-                        globals.globalCheckMcGroup=true;
+                        globals.globalCheckMcGroup = true;
                         final prefs = await SharedPreferences.getInstance();
                         var account_id = prefs.getString('account_id') ?? '';
                         globals.global_account_id = account_id;
@@ -941,31 +1035,41 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         globals.global_subscription_id = subscription_id;
 
                         const ConfigLocationRoute().push(context).then((data) {
-                          print("oghab @@@@ globals.globalCheckMcGroup ${globals.globalCheckMcGroup}");
-                          if( globals.globalCheckMcGroup==true){
-                            globals.globalCheckMcGroup=false;
-                            print(
-                                "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
-                            // GetListAccountServer(context, ref, addProfileProvider,
-                            //     deleteProfileMutation);
-                            globals.globalCheckGetListServer = false;
-                            //await ref.read(addProfileProvider.notifier).ge(subscription);
-                            deleteProfileMutation.setFuture(
-                              ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
-                            );
-                            isLoadingSubscription.value = true;
+                          print(
+                              "oghab @@@@ globals.globalCheckMcGroup ${globals.globalCheckMcGroup}");
+                          globals.globalCheckMcGroup = false;
+                          if (globals.globalWaitingGetListServer == true) {
 
-                            Future.delayed(
-                              const Duration(seconds: 20),
-                                  () => 100,
-                            ).then((value) {
-                              isLoadingSubscription.value = false;
+                              print(
+                                  "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
+                              // GetListAccountServer(context, ref, addProfileProvider,
+                              //     deleteProfileMutation);
+                              globals.globalCheckGetListServer = false;
+                              //await ref.read(addProfileProvider.notifier).ge(subscription);
+                              deleteProfileMutation.setFuture(
+                                ref
+                                    .read(profilesOverviewNotifierProvider
+                                        .notifier)
+                                    .deleteAllProfile(),
+                              );
+                              isLoadingSubscription.value = true;
+                              globals.globalIsLoadingSubscription = true;
 
-                              GetListAccountServer(
-                                  context, ref, addProfileProvider, deleteProfileMutation);
+                              Future.delayed(
+                                const Duration(seconds: 20),
+                                () => 100,
+                              ).then((value) {
+                                isLoadingSubscription.value = false;
+                                globals.globalIsLoadingSubscription = false;
 
-                              print('The value is $value.'); // Prints later, after 3 seconds.
-                            });
+                                globals.globalWaitingGetListServer = false;
+                                GetListAccountServer(context, ref,
+                                    addProfileProvider, deleteProfileMutation);
+
+                                print(
+                                    'The value is $value.'); // Prints later, after 3 seconds.
+                              });
+
                           }
 
                           // then will return value when the loginscreen's pop is called.
@@ -977,18 +1081,17 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       ),
                       style: FilledButton.styleFrom(
                         backgroundColor:
-                        Color(0xffea5555), // This is what you need!
+                            Color(0xffea5555), // This is what you need!
                       ),
                       // style: ButtonStyle( ),
                     ),
                   ),
                 ]),
-              if (isLoadingSubscription.value == true &&
-                  globals.globalCheckGetListServer == true)
+              if(globals.globalToken != ""   &&  addProfileState.isLoading == false &&  addProfileState.hasError==true)
                 MultiSliver(children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height/2,
                     // color: Colors.blue.withOpacity(0.6),
                     //  color: Colors.pink,
                     padding: const EdgeInsets.all(10),
@@ -998,61 +1101,85 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         Padding(
                             padding: EdgeInsets.all(10.0),
                             child: Text(
-                                'در حال ساختن اکانت. لطفا صبر نمایید ...')),
+                                'در ساخت اکانت با مشکل مواجه شد علامت بروزرسانی  (🔄) را در بالا بزنید')),
+                        //  CircularProgressIndicator()
+                      ],
+                    ),
+                  )
+                ]),
+              if (globals.globalToken != "" &&
+                  globals.global_status_Connection =="success")
+                switch (activeProfile) {
+                  AsyncData(value: final profile?) => MultiSliver(
+                    children: [
+                      //   ProfileTile(profile: profile, isMain: true),
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // const Text(
+                            //   "profile.name",
+                            //   maxLines: 2,
+                            //   overflow: TextOverflow.ellipsis,
+                            //   // style: theme.textTheme.titleMedium,
+                            //   semanticsLabel: "aaaa",
+                            // ),
+
+                            const Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ConnectionButton(),
+                                  ActiveProxyDelayIndicator(),
+                                ],
+                              ),
+                            ),
+                            if (MediaQuery.sizeOf(context).width < 840)
+                              const ActiveProxyFooter(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  AsyncData() => switch (hasAnyProfile) {
+                    AsyncData(value: true) =>
+                    const EmptyActiveProfileHomeBody(),
+                    _ => EmptyProfilesHomeBody(
+                        key: ValueKey("add_from_clipboard_button"),
+                        onTap: () {
+                          goScreenLogin();
+                        }),
+                  // _ => const EmptyProfilesHomeBody(),
+                  },
+                  AsyncError(:final error) =>
+                      SliverErrorBodyPlaceholder(t.presentShortError(error)),
+                  _ => const SliverToBoxAdapter(),
+                },
+              if (            addProfileState.isLoading == true&&
+                 // globals.global_status_Connection =="success")
+                  globals.globalToken != "")
+                MultiSliver(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height/2,
+                    // color: Colors.blue.withOpacity(0.6),
+                    //  color: Colors.pink,
+                    padding: const EdgeInsets.all(10),
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Text(
+                                'لیست سرور خالی شد، لطفا حدود 30 ثانیه منتظر بمانید و اگر علامت هلوگیت را مشاهده نکردید علامت بروزرسانی  (🔄) را در بالا بزنید!!')),
                         CircularProgressIndicator()
                       ],
                     ),
                   )
                 ]),
-              if (globals.globalToken != "")
-                switch (activeProfile) {
-                  AsyncData(value: final profile?) => MultiSliver(
-                      children: [
-                     //   ProfileTile(profile: profile, isMain: true),
-                        SliverFillRemaining(
-                          hasScrollBody: false,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // const Text(
-                              //   "profile.name",
-                              //   maxLines: 2,
-                              //   overflow: TextOverflow.ellipsis,
-                              //   // style: theme.textTheme.titleMedium,
-                              //   semanticsLabel: "aaaa",
-                              // ),
 
-                              const Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ConnectionButton(),
-                                    ActiveProxyDelayIndicator(),
-                                  ],
-                                ),
-                              ),
-                              if (MediaQuery.sizeOf(context).width < 840)
-                                const ActiveProxyFooter(),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  AsyncData() => switch (hasAnyProfile) {
-                      AsyncData(value: true) =>
-                        const EmptyActiveProfileHomeBody(),
-                      _ => EmptyProfilesHomeBody(
-                          key: ValueKey("add_from_clipboard_button"),
-                          onTap: () {
-                            goScreenLogin();
-                          }),
-                      // _ => const EmptyProfilesHomeBody(),
-                    },
-                  AsyncError(:final error) =>
-                    SliverErrorBodyPlaceholder(t.presentShortError(error)),
-                  _ => const SliverToBoxAdapter(),
-                },
               if (globals.globalToken == "")
                 SliverFillRemaining(
                     child: Column(
@@ -1274,10 +1401,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
     final prefs = await SharedPreferences.getInstance();
     var id_device = prefs.getString('id_device') ?? '';
+    var token = prefs.getString('token') ?? '';
     final String stringifiedString = jsonEncode(deviceID);
+    token = token.replaceAll("Bearer ", "");
+
 //   var subscription = prefs.getString('subscription')! + "?unique_id=" + stringifiedString! ??'';
     var subscription =
-        prefs.getString('subscription')! + "?unique_id=" + deviceID! ?? '';
+        prefs.getString('subscription')! + "?unique_id=" + deviceID!+"&token="+token ?? '';
     //  var subscription = "https://hologate6.com:83/sub/c259f0a0afeadeaae48c9ecb33f9154a?unique_id=%22a6lte%20-%20SM-A600F%20-%20QP1A.190711.020%22";
     // var subscription = prefs.getString('subscription') ?? '';
 
@@ -1290,7 +1420,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         "  ----   ");
     // print("oghab @@@@ subscription 2222  " + activeProfile.toString());
 
-    globals.globalCheckGetListServer = false;
+  //  globals.globalCheckGetListServer = false;
     //await ref.read(addProfileProvider.notifier).ge(subscription);
     deleteProfileMutation.setFuture(
       ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),

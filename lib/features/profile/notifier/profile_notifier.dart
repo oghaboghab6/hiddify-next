@@ -36,12 +36,18 @@ class AddProfile extends _$AddProfile with AppLogger {
         switch (next) {
           case AsyncData(value: final _?):
           //  var ggg="";
+            globals.globalIsLoadingSubscription = false;
           if(showMessageState) {
-            globals.globalCheckGetListServer=false;
+            //globals.globalCheckGetListServer=false;
+            globals.global_status_Connection ="success";
 
            notification.showSuccessToast(t.profile.save.successMsg);
           }
           case AsyncError(:final error):
+            globals.global_status_Connection ="fail";
+
+            //  globals.globalCheckGetListServer=true;
+
             if (error case ProfileInvalidUrlFailure()) {
               notification.showErrorToast(t.failure.profiles.invalidUrl);
             } else {
@@ -49,6 +55,8 @@ class AddProfile extends _$AddProfile with AppLogger {
               //   t.presentError(error, action: t.profile.add.failureMsg),
               // );
             }
+
+
         }
       },
     );
@@ -102,7 +110,9 @@ class AddProfile extends _$AddProfile with AppLogger {
         }
         return task.match(
           (err) {
-            loggy.warning("failed to add profile", err);
+            globals.globalIsLoadingSubscription = false;
+            globals.global_status_Connection ="fail";
+            loggy.warning("failed to add profile!", err);
             throw err;
           },
           (_) {

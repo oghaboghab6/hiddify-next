@@ -242,6 +242,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
                                 Uri.parse(  global_url+ products2[index]['url'].toString()),
 
                               );
+                            }else if(products2[index]['url_type'].toString()=="api"){
+                              SetRequestServer(context);
                             }
                             else{
                               CustomToast.error("نیاز به بروزرسانی می باشد")
@@ -417,6 +419,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
 
   Future<void> SetRequestServer(BuildContext context) async {
     isLoading = true;
+    var deviceID = await get_unique_identifier();
 
     try {
       var deviceID = await get_unique_identifier();
@@ -430,10 +433,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
       // final response =
       // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
       var formData = FormData.fromMap({
-        'mc_group_id': mc_group_id,
-        'subscription_id': globals.global_subscription_id,
-        'unique_id': deviceID,
         'is_plus_device': true,
+        'account_test': true,
+        'unique_id': deviceID,
 
         // 'username': user,
         // 'password': pass,
@@ -455,18 +457,16 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
 
         if (jsonData['success'] == true) {
           if ((jsonData['subscription'].toString()) != 'null') {
-            // SetRequestServer_subScription(context);
-            print(
-                "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
-            final SharedPreferences prefs =
-                await SharedPreferences.getInstance();
-            await prefs.setString(
-                'subscription', jsonData['subscription'].toString());
-
             globals.globalCheckGetListServer = true;
             globals.globalWaitingGetListServer = true;
+            final SharedPreferences prefs =
+            await SharedPreferences.getInstance();
             globals.globalToken = globals.globalTokenTemporary;
             await prefs.setString('token', globals.globalTokenTemporary);
+            print(
+                "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
+            await prefs.setString(
+                'subscription', jsonData['subscription'].toString());
             // Navigator.of(context).pop();
             //  Navigator.of(context).popUntil((route) => route.isFirst);
             // if(_checkFrom==true)
@@ -474,6 +474,26 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
             // else
             // Navigator.of(context)..pop()..pop()..pop();
             Navigator.of(context).popUntil((route) => route.isFirst);
+
+            // // SetRequestServer_subScription(context);
+            // print(
+            //     "oghab @@@ subscriptionrrrrr: ${jsonData['subscription'].toString()}");
+            // final SharedPreferences prefs =
+            //     await SharedPreferences.getInstance();
+            // await prefs.setString(
+            //     'subscription', jsonData['subscription'].toString());
+            //
+            // globals.globalCheckGetListServer = true;
+            // globals.globalWaitingGetListServer = true;
+            // globals.globalToken = globals.globalTokenTemporary;
+            // await prefs.setString('token', globals.globalTokenTemporary);
+            // // Navigator.of(context).pop();
+            // //  Navigator.of(context).popUntil((route) => route.isFirst);
+            // // if(_checkFrom==true)
+            // // Navigator.of(context)..pop()..pop();
+            // // else
+            // // Navigator.of(context)..pop()..pop()..pop();
+            // Navigator.of(context).popUntil((route) => route.isFirst);
           } else
             CustomToast.error(
                 jsonData['message']?.toString() ?? "سروری موجود نیست مجداد تلاش نمایید ")

@@ -21,7 +21,7 @@ class NewVersionDialog extends HookConsumerWidget with PresLogger {
   static final _dialogKey = GlobalKey(debugLabel: 'new version dialog');
 
   Future<void> show(BuildContext context) async {
-    if (_dialogKey.currentContext == null) {
+    if (_dialogKey.currentContext == null&&false) {
       return showDialog(
         context: context,
         useRootNavigator: true,

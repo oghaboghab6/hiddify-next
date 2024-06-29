@@ -271,6 +271,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
           formData);
       // final prefs2 = await SharedPreferences.getInstance();
 
+      prefs.setString('config', '');
       prefs.setString('token', '');
       prefs.setString('subscription', '');
       // globals.globalToken = "";
@@ -298,5 +299,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
     debugPrint('Handling a background message: ${message.notification!.title}');
     //ref.read(connectionNotifierProvider.notifier).func();
+  }
+  else if (message.data['refresh'] == "true") {
+    debugPrint('Handling a background message: ${message.notification!.title}');
+    Future.delayed(const Duration(milliseconds: 100), () {
+      exit(0);
+    });
   }
 }
