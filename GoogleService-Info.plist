@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAcKfkhbpBLZsjhoqVynab5-aShUjvfrtQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>509343941472</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>holo.gate.app2</string>
+	<key>PROJECT_ID</key>
+	<string>hologate2-486df</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hologate2-486df.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:509343941472:ios:d2ee83ebfe270c3abc9405</string>
+</dict>
+</plist>
