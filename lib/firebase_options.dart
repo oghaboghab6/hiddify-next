@@ -64,4 +64,18 @@ class DefaultFirebaseOptions {
     // projectId: 'flutter-push-notificatio-3c02a',
     // storageBucket: 'flutter-push-notificatio-3c02a.appspot.com',
   );
+  static const FirebaseOptions ios = FirebaseOptions(
+
+    appId: '1:509343941472:ios:d2ee83ebfe270c3abc9405',
+    apiKey: 'AIzaSyAcKfkhbpBLZsjhoqVynab5-aShUjvfrtQ',
+    projectId: 'hologate2-486df',
+    messagingSenderId: '509343941472',
+    iosBundleId: 'holo.gate.app2',
+
+    // apiKey: 'AIzaSyBiZRZKSzkja8-FMjNWxPtdwjsUBxHylog',
+    // appId: '1:598766034472:android:5a00e6e75d37a005941f1d',
+    // messagingSenderId: '598766034472',
+    // projectId: 'flutter-push-notificatio-3c02a',
+    // storageBucket: 'flutter-push-notificatio-3c02a.appspot.com',
+  );
 }
