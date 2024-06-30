@@ -33,7 +33,7 @@
 			<string>holo.gate.app2</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>hiddify</string>
+				<string>HologatePlus</string>
 			</array>
 		</dict>
 	</array>
