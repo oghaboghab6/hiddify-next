@@ -1,4 +1,4 @@
-import 'package:device_info_plus/device_info_plus.dart';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -350,7 +350,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
         'unique_id': deviceID,
         'is_plus_device': true,
         'is_change_mc': globals.globalCheckMcGroup,
-
+        'platform': Platform,
         // 'username': user,
         // 'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -432,7 +432,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
         'subscription_id': globals.global_subscription_id,
         'unique_id': deviceID,
         'is_plus_device': true,
-
+        'platform': Platform,
         // 'username': user,
         // 'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
