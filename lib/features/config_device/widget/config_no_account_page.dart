@@ -354,7 +354,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
         'subscription_id': globals.global_subscription_id,
         'unique_id': deviceID,
         'is_plus_device': true,
-        'platform': Platform,
+        'platform': Platform.operatingSystem,
         // 'username': user,
         // 'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -436,7 +436,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
         'is_plus_device': true,
         'account_test': true,
         'unique_id': deviceID,
-        'platform': Platform,
+        'platform': Platform.operatingSystem,
         // 'username': user,
         // 'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')

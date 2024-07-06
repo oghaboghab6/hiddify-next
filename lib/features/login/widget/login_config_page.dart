@@ -162,7 +162,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
           'unique_id': deviceID,
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           // 'username': user,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -266,7 +266,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
           'login_token': user,
           'username': user,
           'password': pass,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           'device_model': device_model,
           'device_code': device_code,
           'unique_id': deviceID,
@@ -289,7 +289,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
           if (jsonData['success'] == true) {
             var access_token = jsonData['access_token']?.toString() ?? "";
             var token_type = jsonData['token_type']?.toString() ?? "";
-            var loginUrl = jsonData['login_url']?.toString() ?? "";
+           // var loginUrl = jsonData['login_url']?.toString() ?? "";
+            var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             // globals.globalCheckGetListServer = true;
 
             // loggy.debug(
@@ -861,7 +862,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
         var formData = FormData.fromMap({
           'username': user,
           'password': pass,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           'device_model': device_model,
           'device_code': device_code,
           'unique_id': deviceID,
