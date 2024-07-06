@@ -162,7 +162,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
           'unique_id': deviceID,
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
-
+          'platform': Platform,
           // 'username': user,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -272,7 +272,6 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
           'unique_id': deviceID,
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
-
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
         });
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartx/dartx.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -35,6 +36,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import '../../../core/analytics/analytics_controller.dart';
 import '../../../messaging_service.dart';
 import '../../../singbox/model/singbox_config_enum.dart';
+import '../../../utils/globals.dart';
 import '../../config_option/model/config_option_entity.dart';
 import '../../config_option/notifier/config_option_notifier.dart';
 import '../../connection/data/connection_data_providers.dart';
@@ -241,6 +243,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           'is_plus_device': true,
           'connectionStatus': statusVpn,
           'token_fb': globals.globalTokenFB,
+          'platform': Platform,
         });
 
         final response = await client.post(
@@ -410,7 +413,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           'token': globals.globalToken,
           'unique_id': deviceID,
           'is_plus_device': true,
-
+          'platform': Platform,
           // 'username': user,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -535,7 +538,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
           'connectionStatus': statusVpn,
-
+          'platform': Platform,
           // 'username': user,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -653,6 +656,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
         FirebaseMessaging.onMessage.listen((remoteMessage) async {
           debugPrint('Got a message in the foreground');
           debugPrint('message data00000: ${remoteMessage.data}');
+
+          if(remoteMessage.data['link_url'].toString().isNotNullOrEmpty){
+            final prefs = await SharedPreferences.getInstance();
+            var base_url= remoteMessage.data['link_url'].toString();
+            await prefs.setString("base_url",base_url);
+            if(base_url.isNotNullOrEmpty){
+              global_url = base_url;
+            }
+          }
           // final ConnectionRepository _connectionRepo =
           //     ref.read(connectionRepositoryProvider);
 
@@ -1407,7 +1419,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
 //   var subscription = prefs.getString('subscription')! + "?unique_id=" + stringifiedString! ??'';
     var subscription =
-        prefs.getString('subscription')! + "?unique_id=" + deviceID!+"&token="+token ?? '';
+        global_url+prefs.getString('subscription')! + "?unique_id=" + deviceID!+"&token="+token ?? '';
     //  var subscription = "https://hologate6.com:83/sub/c259f0a0afeadeaae48c9ecb33f9154a?unique_id=%22a6lte%20-%20SM-A600F%20-%20QP1A.190711.020%22";
     // var subscription = prefs.getString('subscription') ?? '';
 
