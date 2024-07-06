@@ -6,10 +6,10 @@
 	<string>development</string>
 	<key>provisioningProfiles</key>
 	<dict>
-		<key>com.hiddify.ios</key>
-		<string>iOS Team Provisioning Profile: com.hiddify.ios</string>
+		<key>holo.gate.app2</key>
+		<string>iOS Team Provisioning Profile: holo.gate.app2</string>
 		<key>hiddify.SingBoxPacketTunnel</key>
-		<string>iOS Team Provisioning Profile: com.hiddify.ios.SingBoxPacketTunnel</string>
+		<string>iOS Team Provisioning Profile: holo.gate.app2.SingBoxPacketTunnel</string>
 	</dict>
 	<key>signingCertificate</key>
 	<string>Apple Development</string>
