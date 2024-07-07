@@ -76,7 +76,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final prefs = await SharedPreferences.getInstance();
     globals.urlLink = prefs.getString('url_login') ?? globals.global_url;
     globals.globalToken = prefs.getString('token') ?? '';
-    globals.globalUsername = prefs.getString('config') != null? '': prefs.getString('username') ?? '';
+    globals.globalUsername = prefs.getString('config') != null
+        ? ''
+        : prefs.getString('username') ?? '';
     globals.globalPassword = prefs.getString('password') ?? '';
     print("oghab @@@@ 0 token " + globals.globalToken.toString());
     // print("oghab @@@@ 0 globalCheckGetListServer " +
@@ -89,7 +91,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       //   // then will return value when the loginscreen's pop is called.
       // });
     } else {
-     if (globals.globalCheckGetListServer)
+      if (globals.globalCheckGetListServer)
         GetListAccountServer(
             context, ref, addProfileProvider, deleteProfileMutation);
     }
@@ -194,7 +196,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     // );
     print("oghab @@@@ ###### token " + globals.globalToken.toString());
 
-    String token1 ="";
+    String token1 = "";
     // final token1 = _loadPreferences(
     //     context, ref, addProfileProvider, deleteProfileMutation);
     // print("oghab @@@@ 1 " + token.toString());
@@ -243,7 +245,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           'is_plus_device': true,
           'connectionStatus': statusVpn,
           'token_fb': globals.globalTokenFB,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
         });
 
         final response = await client.post(
@@ -256,6 +258,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
             count_device.value = jsonData['number_of_devices'].toString() ?? '';
             date_account.value = jsonData['expiration_date'].toString() ?? '';
             volume_account.value = jsonData['traffic'].toString() ?? '';
+
+            var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
+            if (loginUrl.isNotNullOrEmpty) {
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              globals.urlLink = loginUrl;
+              await prefs.setString('url_login', loginUrl);
+            }
           } else {
             loggy
                 .warning('Request failed with status2: ${response.statusCode}');
@@ -269,7 +279,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     }
 
     void goScreenLogin() {
-      const LoginRoute().push(context).then((data) async{
+      const LoginRoute().push(context).then((data) async {
         print(
             "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
         if (globals.globalCheckGetListServer == true) {
@@ -285,7 +295,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
               .show(context);
           isLoadingSubscription.value = true;
           globals.globalIsLoadingSubscription = true;
-       await   Future.delayed(
+          await Future.delayed(
             const Duration(seconds: 30),
             () => 100,
           ).then((value) {
@@ -302,9 +312,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
               }
               //  status_vpn=value as String;
             }
-            print('The globals.globalCheckGetListServer is ${statusVpn}   ${globals.globalCheckGetListServer}.');
+            print(
+                'The globals.globalCheckGetListServer is ${statusVpn}   ${globals.globalCheckGetListServer}.');
 
-           // if (statusVpn == "disconnect") {
+            // if (statusVpn == "disconnect") {
             if (globals.globalCheckGetListServer == true) {
               globals.globalCheckGetListServer = false;
               GetListAccountServer(
@@ -362,7 +373,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       prefs.setString('token', '');
       prefs.setString('config', '');
       prefs.setString('url_login', 'https://shop.hologate.pro/login/teuyrtye');
-      globals.urlLink=  "https://shop.hologate.pro/login/teuyrtye";
+      globals.urlLink = global_url + "/login/teuyrtye";
       prefs.setString('subscription', '');
       globals.globalToken = "";
       deleteProfileMutation.setFuture(
@@ -413,7 +424,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           'token': globals.globalToken,
           'unique_id': deviceID,
           'is_plus_device': true,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           // 'username': user,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -538,7 +549,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
           'connectionStatus': statusVpn,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           // 'username': user,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -564,6 +575,15 @@ class HomePage extends HookConsumerWidget with PresLogger {
             count_device.value = jsonData['number_of_devices'].toString() ?? '';
             date_account.value = jsonData['expiration_date'].toString() ?? '';
             volume_account.value = jsonData['traffic'].toString() ?? '';
+
+
+            var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
+            if (loginUrl.isNotNullOrEmpty) {
+              final SharedPreferences prefs =
+              await SharedPreferences.getInstance();
+              globals.urlLink = loginUrl;
+              await prefs.setString('url_login', loginUrl);
+            }
           } else {
             exitApp(context, ref, addProfileProvider, deleteProfileMutation);
             // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
@@ -635,8 +655,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
     useEffect(
       () {
-       _loadPreferences(
-            context, ref, addProfileProvider, deleteProfileMutation)  ;
+        _loadPreferences(
+            context, ref, addProfileProvider, deleteProfileMutation);
         // globals.global_ref=ref;
         // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         // FlutterLocalNotificationsPlugin();
@@ -657,11 +677,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
           debugPrint('Got a message in the foreground');
           debugPrint('message data00000: ${remoteMessage.data}');
 
-          if(remoteMessage.data['link_url'].toString().isNotNullOrEmpty){
+          if (remoteMessage.data['link_url'].toString().isNotNullOrEmpty) {
             final prefs = await SharedPreferences.getInstance();
-            var base_url= remoteMessage.data['link_url'].toString();
-            await prefs.setString("base_url",base_url);
-            if(base_url.isNotNullOrEmpty){
+            var base_url = remoteMessage.data['link_url'].toString();
+            await prefs.setString("base_url", base_url);
+            if (base_url.isNotNullOrEmpty) {
               global_url = base_url;
             }
           }
@@ -678,15 +698,12 @@ class HomePage extends HookConsumerWidget with PresLogger {
                 .show(context);
             if (globals.globalToken != "")
               exitApp(context, ref, addProfileProvider, deleteProfileMutation);
-          }
-         else if (remoteMessage.data['refresh'] == "true") {
-            GetListAccountServer(context, ref, addProfileProvider,
-                deleteProfileMutation);
+          } else if (remoteMessage.data['refresh'] == "true") {
+            GetListAccountServer(
+                context, ref, addProfileProvider, deleteProfileMutation);
             CustomToast.success(remoteMessage.data['message']?.toString() ??
                     "سرورهای شما در حال بروزرسانی است شکیبا باشید")
                 .show(context);
-
-
           }
           /*   if (remoteMessage.notification != null) {
                flutterLocalNotificationsPlugin.show(
@@ -749,12 +766,12 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   if (globals.globalToken != "")
                     IconButton(
                       onPressed: () async {
-                    //    print("@!@@@@"+addProfileState.hasError.toString());
+                        //    print("@!@@@@"+addProfileState.hasError.toString());
                         // await _connectionRepo.disconnect().mapLeft((err) {
                         //   // loggy.warning("error disconnecting", err);
                         //   // state = AsyncError(err, StackTrace.current);
                         // }).run();
-                        isLoadingSubscription.value=true;
+                        isLoadingSubscription.value = true;
                         globals.globalIsLoadingSubscription = true;
 
                         globals.globalCheckGetListServer = true;
@@ -1028,7 +1045,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
                           )))
                 ]),
 
-
               if (globals.globalToken != "")
                 MultiSliver(children: [
                   SizedBox(
@@ -1051,37 +1067,35 @@ class HomePage extends HookConsumerWidget with PresLogger {
                               "oghab @@@@ globals.globalCheckMcGroup ${globals.globalCheckMcGroup}");
                           globals.globalCheckMcGroup = false;
                           if (globals.globalWaitingGetListServer == true) {
+                            print(
+                                "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
+                            // GetListAccountServer(context, ref, addProfileProvider,
+                            //     deleteProfileMutation);
+                            globals.globalCheckGetListServer = false;
+                            //await ref.read(addProfileProvider.notifier).ge(subscription);
+                            deleteProfileMutation.setFuture(
+                              ref
+                                  .read(
+                                      profilesOverviewNotifierProvider.notifier)
+                                  .deleteAllProfile(),
+                            );
+                            isLoadingSubscription.value = true;
+                            globals.globalIsLoadingSubscription = true;
+
+                            Future.delayed(
+                              const Duration(seconds: 20),
+                              () => 100,
+                            ).then((value) {
+                              isLoadingSubscription.value = false;
+                              globals.globalIsLoadingSubscription = false;
+
+                              globals.globalWaitingGetListServer = false;
+                              GetListAccountServer(context, ref,
+                                  addProfileProvider, deleteProfileMutation);
 
                               print(
-                                  "oghab @@@@ ppppppp2 ${globals.globalToken} ${globals.globalCheckGetListServer}");
-                              // GetListAccountServer(context, ref, addProfileProvider,
-                              //     deleteProfileMutation);
-                              globals.globalCheckGetListServer = false;
-                              //await ref.read(addProfileProvider.notifier).ge(subscription);
-                              deleteProfileMutation.setFuture(
-                                ref
-                                    .read(profilesOverviewNotifierProvider
-                                        .notifier)
-                                    .deleteAllProfile(),
-                              );
-                              isLoadingSubscription.value = true;
-                              globals.globalIsLoadingSubscription = true;
-
-                              Future.delayed(
-                                const Duration(seconds: 20),
-                                () => 100,
-                              ).then((value) {
-                                isLoadingSubscription.value = false;
-                                globals.globalIsLoadingSubscription = false;
-
-                                globals.globalWaitingGetListServer = false;
-                                GetListAccountServer(context, ref,
-                                    addProfileProvider, deleteProfileMutation);
-
-                                print(
-                                    'The value is $value.'); // Prints later, after 3 seconds.
-                              });
-
+                                  'The value is $value.'); // Prints later, after 3 seconds.
+                            });
                           }
 
                           // then will return value when the loginscreen's pop is called.
@@ -1099,11 +1113,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     ),
                   ),
                 ]),
-              if(globals.globalToken != ""   &&  addProfileState.isLoading == false &&  addProfileState.hasError==true)
+              if (globals.globalToken != "" &&
+                  addProfileState.isLoading == false &&
+                  addProfileState.hasError == true)
                 MultiSliver(children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height/2,
+                    height: MediaQuery.of(context).size.height / 2,
                     // color: Colors.blue.withOpacity(0.6),
                     //  color: Colors.pink,
                     padding: const EdgeInsets.all(10),
@@ -1120,62 +1136,62 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   )
                 ]),
               if (globals.globalToken != "" &&
-                  globals.global_status_Connection =="success")
+                  globals.global_status_Connection == "success")
                 switch (activeProfile) {
                   AsyncData(value: final profile?) => MultiSliver(
-                    children: [
-                      //   ProfileTile(profile: profile, isMain: true),
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // const Text(
-                            //   "profile.name",
-                            //   maxLines: 2,
-                            //   overflow: TextOverflow.ellipsis,
-                            //   // style: theme.textTheme.titleMedium,
-                            //   semanticsLabel: "aaaa",
-                            // ),
+                      children: [
+                        //   ProfileTile(profile: profile, isMain: true),
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // const Text(
+                              //   "profile.name",
+                              //   maxLines: 2,
+                              //   overflow: TextOverflow.ellipsis,
+                              //   // style: theme.textTheme.titleMedium,
+                              //   semanticsLabel: "aaaa",
+                              // ),
 
-                            const Expanded(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ConnectionButton(),
-                                  ActiveProxyDelayIndicator(),
-                                ],
+                              const Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ConnectionButton(),
+                                    ActiveProxyDelayIndicator(),
+                                  ],
+                                ),
                               ),
-                            ),
-                            if (MediaQuery.sizeOf(context).width < 840)
-                              const ActiveProxyFooter(),
-                          ],
+                              if (MediaQuery.sizeOf(context).width < 840)
+                                const ActiveProxyFooter(),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                   AsyncData() => switch (hasAnyProfile) {
-                    AsyncData(value: true) =>
-                    const EmptyActiveProfileHomeBody(),
-                    _ => EmptyProfilesHomeBody(
-                        key: ValueKey("add_from_clipboard_button"),
-                        onTap: () {
-                          goScreenLogin();
-                        }),
-                  // _ => const EmptyProfilesHomeBody(),
-                  },
+                      AsyncData(value: true) =>
+                        const EmptyActiveProfileHomeBody(),
+                      _ => EmptyProfilesHomeBody(
+                          key: ValueKey("add_from_clipboard_button"),
+                          onTap: () {
+                            goScreenLogin();
+                          }),
+                      // _ => const EmptyProfilesHomeBody(),
+                    },
                   AsyncError(:final error) =>
-                      SliverErrorBodyPlaceholder(t.presentShortError(error)),
+                    SliverErrorBodyPlaceholder(t.presentShortError(error)),
                   _ => const SliverToBoxAdapter(),
                 },
-              if (            addProfileState.isLoading == true&&
-                 // globals.global_status_Connection =="success")
+              if (addProfileState.isLoading == true &&
+                  // globals.global_status_Connection =="success")
                   globals.globalToken != "")
                 MultiSliver(children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height/2,
+                    height: MediaQuery.of(context).size.height / 2,
                     // color: Colors.blue.withOpacity(0.6),
                     //  color: Colors.pink,
                     padding: const EdgeInsets.all(10),
@@ -1418,8 +1434,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
     token = token.replaceAll("Bearer ", "");
 
 //   var subscription = prefs.getString('subscription')! + "?unique_id=" + stringifiedString! ??'';
-    var subscription =
-        global_url+prefs.getString('subscription')! + "?unique_id=" + deviceID!+"&token="+token ?? '';
+    var subscription = global_url +
+            prefs.getString('subscription')! +
+            "?unique_id=" +
+            deviceID! +
+            "&token=" +
+            token ??
+        '';
     //  var subscription = "https://hologate6.com:83/sub/c259f0a0afeadeaae48c9ecb33f9154a?unique_id=%22a6lte%20-%20SM-A600F%20-%20QP1A.190711.020%22";
     // var subscription = prefs.getString('subscription') ?? '';
 
@@ -1432,7 +1453,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         "  ----   ");
     // print("oghab @@@@ subscription 2222  " + activeProfile.toString());
 
-  //  globals.globalCheckGetListServer = false;
+    //  globals.globalCheckGetListServer = false;
     //await ref.read(addProfileProvider.notifier).ge(subscription);
     deleteProfileMutation.setFuture(
       ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),

@@ -272,7 +272,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         'token': token,
         'unique_id': deviceID,
         'is_plus_device': true,
-        'platform': Platform,
+        'platform': Platform.operatingSystem,
       });
       print("oghab @@@ deviceID: ${deviceID} ${token} ${globals
           .global_url}");

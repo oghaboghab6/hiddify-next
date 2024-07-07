@@ -350,7 +350,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
         'unique_id': deviceID,
         'is_plus_device': true,
         'is_change_mc': globals.globalCheckMcGroup,
-        'platform': Platform,
+        'platform': Platform.operatingSystem,
         // 'username': user,
         // 'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -432,7 +432,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
         'subscription_id': globals.global_subscription_id,
         'unique_id': deviceID,
         'is_plus_device': true,
-        'platform': Platform,
+        'platform': Platform.operatingSystem,
         // 'username': user,
         // 'password': pass,
         // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')

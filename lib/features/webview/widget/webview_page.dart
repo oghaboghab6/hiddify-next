@@ -7,6 +7,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 
 import '../../../core/localization/translations.dart';
+import '../../../utils/globals.dart';
 import '../../common/nested_app_bar.dart';
 import '../../home/widget/home_page.dart';
 
@@ -40,7 +41,8 @@ class WebViewPage extends HookConsumerWidget {
         ),
       )
       // ..loadRequest(Uri.parse('https://shop.hologate.pro/login/' + token));
-      ..loadRequest(Uri.parse(globals.urlLink));
+     // ..loadRequest(Uri.parse(globals.urlLink));
+      ..loadRequest(Uri.parse(global_url+globals.urlLink));
     final t = ref.watch(translationsProvider);
 
 /*    return Scaffold(
