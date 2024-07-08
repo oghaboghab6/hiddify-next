@@ -32,6 +32,7 @@ class IntroPage extends HookConsumerWidget with PresLogger {
           .then((value) => loggy.debug("Auto Region selection finished!"));
       locationInfoLoaded = true;
     }
+    disableAnalytics(ref);
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -191,6 +192,28 @@ class IntroPage extends HookConsumerWidget with PresLogger {
         return RegionLocale(Region.other, AppLocale.en);
     }
   }
+
+
+  Future<void>  disableAnalytics(WidgetRef ref) async{
+    if (!ref
+        .read(analyticsControllerProvider)
+        .requireValue) {
+      loggy.info("disabling analytics per user request");
+      try {
+        await ref
+            .read(analyticsControllerProvider.notifier)
+            .disableAnalytics();
+      } catch (error, stackTrace) {
+        loggy.error(
+          "could not disable analytics",
+          error,
+          stackTrace,
+        );
+      }
+    }
+
+  }
+
 }
 
 class RegionLocale {

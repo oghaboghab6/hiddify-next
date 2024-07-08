@@ -205,6 +205,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final activeProfile = ref.watch(activeProfileProvider);
     final asyncProfiles = ref.watch(profilesOverviewNotifierProvider);
     final addProfileState = ref.watch(addProfileProvider);
+    disableAnalytics(ref);
+
     if (asyncProfiles case AsyncData(value: final links)) {
       // print("oghab @@@@ count ******" + links.length.toString());
     }
@@ -1274,6 +1276,27 @@ class HomePage extends HookConsumerWidget with PresLogger {
         ],
       ),
     );
+
+
+  }
+  Future<void>  disableAnalytics(WidgetRef ref) async{
+    if (!ref
+        .read(analyticsControllerProvider)
+        .requireValue) {
+      loggy.info("disabling analytics per user request");
+      try {
+        await ref
+            .read(analyticsControllerProvider.notifier)
+            .disableAnalytics();
+      } catch (error, stackTrace) {
+        loggy.error(
+          "could not disable analytics",
+          error,
+          stackTrace,
+        );
+      }
+    }
+
   }
 
   Future<void> GetListAccountServer2233(
