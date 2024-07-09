@@ -245,13 +245,11 @@ Future<void> handleMessage(RemoteMessage message, WidgetRef ref) async {
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint('Handling a background message2222: ${message.notification!.title}');
 
-  if(message.data['link_url'].toString().isNotNullOrEmpty){
+  var base_url = message.data['link_url']?.toString()??"";
+  if (base_url.isNotNullOrEmpty) {
     final prefs = await SharedPreferences.getInstance();
-    var base_url= message.data['link_url'].toString();
-    await prefs.setString("base_url",base_url);
-    if(base_url.isNotNullOrEmpty){
-      global_url = base_url;
-    }
+    await prefs.setString("base_url", base_url);
+    global_url = base_url;
   }
   if (message.data['exit'] == "true") {
     final prefs = await SharedPreferences.getInstance();

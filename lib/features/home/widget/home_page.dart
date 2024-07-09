@@ -679,14 +679,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
           debugPrint('Got a message in the foreground');
           debugPrint('message data00000: ${remoteMessage.data}');
 
-          if (remoteMessage.data['link_url'].toString().isNotNullOrEmpty) {
-            final prefs = await SharedPreferences.getInstance();
-            var base_url = remoteMessage.data['link_url'].toString();
-            await prefs.setString("base_url", base_url);
+            var base_url = remoteMessage.data['link_url']?.toString()??"";
             if (base_url.isNotNullOrEmpty) {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setString("base_url", base_url);
+
               global_url = base_url;
             }
-          }
+
           // final ConnectionRepository _connectionRepo =
           //     ref.read(connectionRepositoryProvider);
 
