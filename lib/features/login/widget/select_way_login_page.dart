@@ -161,7 +161,7 @@ class _ConnectionWrapperState extends ConsumerState<SelectWayLoginPage> with Pre
           'unique_id': deviceID,
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
-
+          'platform': Platform.operatingSystem,
           // 'username': user,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -259,13 +259,12 @@ class _ConnectionWrapperState extends ConsumerState<SelectWayLoginPage> with Pre
         var formData = FormData.fromMap({
           'username': user,
           'password': pass,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           'device_model': device_model,
           'device_code': device_code,
           'unique_id': deviceID,
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
-
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
         });
 
@@ -823,7 +822,7 @@ class _ConnectionWrapperState extends ConsumerState<SelectWayLoginPage> with Pre
         var formData = FormData.fromMap({
           'username': user,
           'password': pass,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           'device_model': device_model,
           'device_code': device_code,
           'unique_id': deviceID,

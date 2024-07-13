@@ -161,6 +161,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
           'unique_id': deviceID,
           'is_plus_device': true,
           'token_fb': globals.globalTokenFB,
+          'platform': Platform.operatingSystem,
 
           // 'username': user,
           // 'password': pass,
@@ -258,11 +259,11 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
         var params =
             "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
         //  loggy.warning('oghab @@@ params: ${params}');
-        print("oghab @@@ params: ${params} ${globals.globalTokenFB}");
+        print("oghab @@@ params: ${Platform.operatingSystem}  ${params} ${globals.globalTokenFB}");
         var formData = FormData.fromMap({
           'username': user,
           'password': pass,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           'device_model': device_model,
           'device_code': device_code,
           'unique_id': deviceID,
@@ -286,7 +287,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
           if (jsonData['success'] == true) {
             var access_token = jsonData['access_token']?.toString() ?? "";
             var token_type = jsonData['token_type']?.toString() ?? "";
-            var loginUrl = jsonData['login_url']?.toString() ?? "";
+          //  var loginUrl = jsonData['login_url']?.toString() ?? "";
+            var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             // globals.globalCheckGetListServer = true;
 
             // loggy.debug(
@@ -867,7 +869,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
         var formData = FormData.fromMap({
           'username': user,
           'password': pass,
-          'platform': Platform,
+          'platform': Platform.operatingSystem,
           'device_model': device_model,
           'device_code': device_code,
           'unique_id': deviceID,

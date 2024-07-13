@@ -1,9 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:dartx/dartx.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:hiddify/singbox/service/singbox_service.dart';
+import 'package:hiddify/utils/globals.dart';
 import 'package:hiddify/utils/link_parsers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -242,6 +244,13 @@ Future<void> handleMessage(RemoteMessage message, WidgetRef ref) async {
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint('Handling a background message2222: ${message.notification!.title}');
+
+  var base_url = message.data['link_url']?.toString()??"";
+  if (base_url.isNotNullOrEmpty) {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("base_url", base_url);
+    global_url = base_url;
+  }
   if (message.data['exit'] == "true") {
     final prefs = await SharedPreferences.getInstance();
 
@@ -261,6 +270,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         'token': token,
         'unique_id': deviceID,
         'is_plus_device': true,
+        'platform': Platform.operatingSystem,
       });
       print("oghab @@@ deviceID: ${deviceID} ${token} ${globals
           .global_url}");

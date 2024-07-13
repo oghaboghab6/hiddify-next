@@ -50,12 +50,7 @@ translate:
 
 
 prepare:
-	@echo use the following commands to prepare the library for each platform:
-	@echo    make android-prepare
-	@echo    make windows-prepare
-	@echo    make linux-prepare 
-	@echo    make macos-prepare
-	@echo    make ios-prepare
+	   make ios-prepare
 
 windows-prepare: get-geo-assets get gen translate windows-libs
 ios-prepare: get-geo-assets get gen translate ios-libs
@@ -171,7 +166,7 @@ build-headers:
 	make -C libcore -f Makefile headers && mv $(BINDIR)/$(CORE_NAME)-headers.h $(BINDIR)/libcore.h
 
 build-android-libs:
-	make -C libcore -f Makefile android 
+	make -C libcore -f Makefile android
 	mv $(BINDIR)/$(LIB_NAME).aar $(ANDROID_OUT)/
 
 build-windows-libs:
@@ -185,8 +180,9 @@ build-macos-libs:
 	mv $(BINDIR)/$(SRV_NAME) $(DESKTOP_OUT)/
 
 build-ios-libs: 
-	rf -rf $(IOS_OUT)/Libcore.xcframework 
-	make -C libcore -f Makefile ios  
+	rm -rf $(IOS_OUT)/Libcore.xcframework
+	make -C libcore -f Makefile ios
+	#mv /Users/satia/Downloads/Libcore.xcframework $(IOS_OUT)/Libcore.xcframework
 	mv $(BINDIR)/Libcore.xcframework $(IOS_OUT)/Libcore.xcframework
 
 release: # Create a new tag for release.

@@ -1,4 +1,4 @@
-import 'package:device_info_plus/device_info_plus.dart';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -202,7 +202,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
             'account_id': globals.global_account_id,
             'unique_id': deviceID,
             'is_plus_device': true,
-
+            'platform': Platform.operatingSystem,
             // 'username': user,
             // 'password': pass,
             // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -285,7 +285,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           'subscription_id': device_id,
           'unique_id': deviceID,
           'is_plus_device': true,
-
+          'platform': Platform.operatingSystem,
           // 'username': user,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
@@ -389,7 +389,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           'subscription_id': device_id,
           'unique_id': deviceID,
           'is_plus_device': true,
-
+          'platform': Platform.operatingSystem,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
         });
