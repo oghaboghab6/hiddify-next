@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "509343941472",
+    "project_id": "hologate2-486df",
+    "storage_bucket": "hologate2-486df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509343941472:android:dd20c517433cf27abc9405",
+        "android_client_info": {
+          "package_name": "app.hiddify.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATqr3Tvnsg6w55vhXzeEuDAqln6fK2KhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509343941472:android:c7ee3d8bc2980ed3bc9405",
+        "android_client_info": {
+          "package_name": "holo.gate.app2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATqr3Tvnsg6w55vhXzeEuDAqln6fK2KhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509343941472:android:6c6917ba40a6e222bc9405",
+        "android_client_info": {
+          "package_name": "holo.gate.appplus90"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATqr3Tvnsg6w55vhXzeEuDAqln6fK2KhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
