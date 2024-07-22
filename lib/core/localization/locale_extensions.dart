@@ -4,7 +4,8 @@ import 'package:hiddify/gen/translations.g.dart';
 extension AppLocaleX on AppLocale {
   String get preferredFontFamily =>
       //this == AppLocale.fa ? FontFamily.shabnam : "";
-      //  FontFamily.shabnam ;
+
+        //FontFamily.shabnam ;
         FontFamily.iRANSansMobile ;
 
   String get localeName => switch (flutterLocale.toString()) {
