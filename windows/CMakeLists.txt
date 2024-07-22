@@ -9,7 +9,16 @@ set(BINARY_NAME "Hiddify")
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.
 cmake_policy(SET CMP0063 NEW)
-
+## Add Firebase libraries to the target using the function from the SDK.
+#add_subdirectory(${FIREBASE_CPP_SDK_DIR} bin/ EXCLUDE_FROM_ALL)
+#
+## The Firebase C++ library `firebase_app` is required,
+## and it must always be listed last.
+#
+## Add the Firebase SDKs for the products you want to use in your app
+## For example, to use Firebase Authentication and Firebase Realtime Database
+#set(firebase_libs firebase_auth firebase_database firebase_app)
+#target_link_libraries(${target_name} "${firebase_libs}")
 # Define build configuration option.
 get_property(IS_MULTICONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(IS_MULTICONFIG)
@@ -39,7 +48,8 @@ add_definitions(-DUNICODE -D_UNICODE)
 # of modifying this function.
 function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_features(${TARGET} PUBLIC cxx_std_17)
-  target_compile_options(${TARGET} PRIVATE /W4 /WX /wd"4100")
+  target_compile_options(${TARGET} PRIVATE /W3 /WX)
+ # target_compile_options(${TARGET} PRIVATE /W4 /WX /wd"4100")
   target_compile_options(${TARGET} PRIVATE /EHsc)
   target_compile_definitions(${TARGET} PRIVATE "_HAS_EXCEPTIONS=0")
   target_compile_definitions(${TARGET} PRIVATE "$<$<CONFIG:Debug>:_DEBUG>")
@@ -87,8 +97,8 @@ install(FILES "${FLUTTER_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
 install(FILES "../libcore/bin/libcore.dll" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
 COMPONENT Runtime RENAME libcore.dll)
 
-install(FILES "../libcore/bin/HiddifyService.exe" DESTINATION "${CMAKE_INSTALL_PREFIX}"
-COMPONENT Runtime RENAME HiddifyService.exe)
+install(FILES "../libcore/bin/HiddifyCli.exe" DESTINATION "${CMAKE_INSTALL_PREFIX}"
+COMPONENT Runtime RENAME HiddifyCli.exe)
 
 
 if(PLUGIN_BUNDLED_LIBRARIES)
