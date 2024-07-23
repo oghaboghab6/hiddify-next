@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hiddify/core/model/failures.dart';
 import 'package:hiddify/features/common/adaptive_root_scaffold.dart';
 import 'package:hiddify/utils/utils.dart';
@@ -21,13 +22,13 @@ enum NotificationType {
 }
 
 class InAppNotificationController with AppLogger {
-  void showToast(
+  ToastificationItem showToast(
     BuildContext context,
     String message, {
     NotificationType type = NotificationType.info,
     Duration duration = const Duration(seconds: 3),
   }) {
-    toastification.show(
+    return toastification.show(
       context: context,
       title: Text(message),
       type: type._toastificationType,
@@ -42,13 +43,13 @@ class InAppNotificationController with AppLogger {
     );
   }
 
-  void showErrorToast(String message) {
+  ToastificationItem? showErrorToast(String message) {
     final context = RootScaffold.stateKey.currentContext;
     if (context == null) {
       loggy.warning("context is null");
-      return;
+      return null;
     }
-    showToast(
+    return showToast(
       context,
       message,
       type: NotificationType.error,
@@ -56,26 +57,26 @@ class InAppNotificationController with AppLogger {
     );
   }
 
-  void showSuccessToast(String message) {
+  ToastificationItem? showSuccessToast(String message) {
     final context = RootScaffold.stateKey.currentContext;
     if (context == null) {
       loggy.warning("context is null");
-      return;
+      return null;
     }
-    showToast(
+    return showToast(
       context,
       message,
       type: NotificationType.success,
     );
   }
 
-  void showInfoToast(String message) {
+  ToastificationItem? showInfoToast(String message, {Duration duration = const Duration(seconds: 3)}) {
     final context = RootScaffold.stateKey.currentContext;
     if (context == null) {
       loggy.warning("context is null");
-      return;
+      return null;
     }
-    showToast(context, message);
+    return showToast(context, message, duration: duration);
   }
 
   Future<void> showErrorDialog(PresentableError error) async {
@@ -85,6 +86,51 @@ class InAppNotificationController with AppLogger {
       return;
     }
     CustomAlertDialog.fromErr(error).show(context);
+  }
+
+  void showActionToast(
+    String message, {
+    required String actionText,
+    required VoidCallback callback,
+    Duration duration = const Duration(seconds: 5),
+  }) {
+    final context = RootScaffold.stateKey.currentContext;
+    if (context == null) return;
+    toastification.dismissAll();
+
+    toastification.showCustom(
+      context: context,
+      autoCloseDuration: duration,
+      alignment: Alignment.bottomLeft,
+      builder: (context, holder) {
+        return GestureDetector(
+          onTap: () => toastification.dismiss(holder),
+          child: Card(
+            margin: const EdgeInsets.all(8),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              child: Row(
+                children: [
+                  Expanded(child: Text(message)),
+                  const Gap(8),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          toastification.dismiss(holder);
+                          callback();
+                        },
+                        child: Text(actionText),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 

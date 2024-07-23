@@ -18,33 +18,21 @@ class AdvancedSettingTiles extends HookConsumerWidget {
     final t = ref.watch(translationsProvider);
 
     final debug = ref.watch(debugModeNotifierProvider);
-    final perAppProxy = ref.watch(perAppProxyModeNotifierProvider).enabled;
-    final disableMemoryLimit = ref.watch(disableMemoryLimitProvider);
+    final perAppProxy = ref.watch(Preferences.perAppProxyMode).enabled;
+    final disableMemoryLimit = ref.watch(Preferences.disableMemoryLimit);
 
     return Column(
       children: [
-        const RegionPrefTile(),
-        ListTile(
-          title: Text(t.settings.geoAssets.pageTitle),
-          leading: const Icon(
-            FluentIcons.arrow_routing_rectangle_multiple_24_regular,
-          ),
-          onTap: () async {
-            // showDialog(
-            //   context: context,
-            //   builder: (BuildContext context) {
-            //     return const AlertDialog(
-            //       title: Text("My title"),
-            //       content: Text("This is my message."),
-            //       actions: [
-            //         // okButton,
-            //       ],
-            //     );
-            //   },
-            // );
-            await const GeoAssetsRoute().push(context);
-          },
-        ),
+        // const RegionPrefTile(),
+        // ListTile(
+        //   title: Text(t.settings.geoAssets.pageTitle),
+        //   leading: const Icon(
+        //     FluentIcons.arrow_routing_rectangle_multiple_24_regular,
+        //   ),
+        //   onTap: () async {
+        //     // await const GeoAssetsRoute().push(context);
+        //   },
+        // ),
         if (Platform.isAndroid) ...[
           ListTile(
             title: Text(t.settings.network.perAppProxyPageTitle),
@@ -52,11 +40,8 @@ class AdvancedSettingTiles extends HookConsumerWidget {
             trailing: Switch(
               value: perAppProxy,
               onChanged: (value) async {
-                final newMode =
-                    perAppProxy ? PerAppProxyMode.off : PerAppProxyMode.exclude;
-                await ref
-                    .read(perAppProxyModeNotifierProvider.notifier)
-                    .update(newMode);
+                final newMode = perAppProxy ? PerAppProxyMode.off : PerAppProxyMode.exclude;
+                await ref.read(Preferences.perAppProxyMode.notifier).update(newMode);
                 if (!perAppProxy && context.mounted) {
                   await const PerAppProxyRoute().push(context);
                 }
@@ -64,9 +49,7 @@ class AdvancedSettingTiles extends HookConsumerWidget {
             ),
             onTap: () async {
               if (!perAppProxy) {
-                await ref
-                    .read(perAppProxyModeNotifierProvider.notifier)
-                    .update(PerAppProxyMode.exclude);
+                await ref.read(Preferences.perAppProxyMode.notifier).update(PerAppProxyMode.exclude);
               }
               if (context.mounted) await const PerAppProxyRoute().push(context);
             },
@@ -78,7 +61,7 @@ class AdvancedSettingTiles extends HookConsumerWidget {
           value: !disableMemoryLimit,
           secondary: const Icon(FluentIcons.developer_board_24_regular),
           onChanged: (value) async {
-            await ref.read(disableMemoryLimitProvider.notifier).update(!value);
+            await ref.read(Preferences.disableMemoryLimit.notifier).update(!value);
           },
         ),
         if (Platform.isIOS)

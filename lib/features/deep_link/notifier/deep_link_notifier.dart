@@ -14,6 +14,7 @@ class DeepLinkNotifier extends _$DeepLinkNotifier
   @override
   Future<NewProfileLink?> build() async {
     if (Platform.isLinux) return null;
+
     for (final protocol in LinkParser.protocols) {
       await protocolHandler.register(protocol);
     }

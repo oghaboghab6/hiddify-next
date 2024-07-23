@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:combine/combine.dart';
 import 'package:dartx/dartx.dart';
+
 import 'package:hiddify/core/haptic/haptic_service.dart';
 import 'package:hiddify/core/localization/translations.dart';
 import 'package:hiddify/core/preferences/preferences_provider.dart';
+import 'package:hiddify/core/utils/preferences_utils.dart';
 import 'package:hiddify/features/connection/notifier/connection_notifier.dart';
 import 'package:hiddify/features/proxy/data/proxy_data_providers.dart';
 import 'package:hiddify/features/proxy/model/proxy_entity.dart';
 import 'package:hiddify/features/proxy/model/proxy_failure.dart';
-import 'package:hiddify/utils/pref_notifier.dart';
 import 'package:hiddify/utils/riverpod_utils.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -31,24 +31,24 @@ enum ProxiesSort {
 
 @Riverpod(keepAlive: true)
 class ProxiesSortNotifier extends _$ProxiesSortNotifier with AppLogger {
-  late final _pref = Pref(
-    ref.watch(sharedPreferencesProvider).requireValue,
-    "proxies_sort_mode",
-    ProxiesSort.delay,
+  late final _pref = PreferencesEntry(
+    preferences: ref.watch(sharedPreferencesProvider).requireValue,
+    key: "proxies_sort_mode",
+    defaultValue: ProxiesSort.delay,
     mapFrom: ProxiesSort.values.byName,
     mapTo: (value) => value.name,
   );
 
   @override
   ProxiesSort build() {
-    final sortBy = _pref.getValue();
+    final sortBy = _pref.read();
     loggy.info("sort proxies by: [${sortBy.name}]");
     return sortBy;
   }
 
   Future<void> update(ProxiesSort value) {
     state = value;
-    return _pref.update(value);
+    return _pref.write(value);
   }
 }
 
@@ -85,46 +85,41 @@ class ProxiesOverviewNotifier extends _$ProxiesOverviewNotifier with AppLogger {
     List<ProxyGroupEntity> proxies,
     ProxiesSort sortBy,
   ) async {
-    return CombineWorker().execute(
-      () {
-        final groupWithSelected = {
-          for (final o in proxies) o.tag: o.selected,
-        };
-        final sortedProxies = <ProxyGroupEntity>[];
-        for (final group in proxies) {
-          final sortedItems = switch (sortBy) {
-            ProxiesSort.name => group.items.sortedWith((a, b) {
-                if (a.type.isGroup && !b.type.isGroup) return -1;
-                if (!a.type.isGroup && b.type.isGroup) return 1;
-                return a.tag.compareTo(b.tag);
-              }),
-            ProxiesSort.delay => group.items.sortedWith((a, b) {
-                if (a.type.isGroup && !b.type.isGroup) return -1;
-                if (!a.type.isGroup && b.type.isGroup) return 1;
+    final groupWithSelected = {
+      for (final o in proxies) o.tag: o.selected,
+    };
+    final sortedProxies = <ProxyGroupEntity>[];
+    for (final group in proxies) {
+      final sortedItems = switch (sortBy) {
+        ProxiesSort.name => group.items.sortedWith((a, b) {
+            if (a.type.isGroup && !b.type.isGroup) return -1;
+            if (!a.type.isGroup && b.type.isGroup) return 1;
+            return a.tag.compareTo(b.tag);
+          }),
+        ProxiesSort.delay => group.items.sortedWith((a, b) {
+            if (a.type.isGroup && !b.type.isGroup) return -1;
+            if (!a.type.isGroup && b.type.isGroup) return 1;
 
-                final ai = a.urlTestDelay;
-                final bi = b.urlTestDelay;
-                if (ai == 0 && bi == 0) return -1;
-                if (ai == 0 && bi > 0) return 1;
-                if (ai > 0 && bi == 0) return -1;
-                return ai.compareTo(bi);
-              }),
-            ProxiesSort.unsorted => group.items,
-          };
-          final items = <ProxyItemEntity>[];
-          for (final item in sortedItems) {
-            if (groupWithSelected.keys.contains(item.tag)) {
-              items
-                  .add(item.copyWith(selectedTag: groupWithSelected[item.tag]));
-            } else {
-              items.add(item);
-            }
-          }
-          sortedProxies.add(group.copyWith(items: items));
+            final ai = a.urlTestDelay;
+            final bi = b.urlTestDelay;
+            if (ai == 0 && bi == 0) return -1;
+            if (ai == 0 && bi > 0) return 1;
+            if (ai > 0 && bi == 0) return -1;
+            return ai.compareTo(bi);
+          }),
+        ProxiesSort.unsorted => group.items,
+      };
+      final items = <ProxyItemEntity>[];
+      for (final item in sortedItems) {
+        if (groupWithSelected.keys.contains(item.tag)) {
+          items.add(item.copyWith(selectedTag: groupWithSelected[item.tag]));
+        } else {
+          items.add(item);
         }
-        return sortedProxies;
-      },
-    );
+      }
+      sortedProxies.add(group.copyWith(items: items));
+    }
+    return sortedProxies;
   }
 
   Future<void> changeProxy(String groupTag, String outboundTag) async {
@@ -133,10 +128,7 @@ class ProxiesOverviewNotifier extends _$ProxiesOverviewNotifier with AppLogger {
     );
     if (state case AsyncData(value: final outbounds)) {
       await ref.read(hapticServiceProvider.notifier).lightImpact();
-      await ref
-          .read(proxyRepositoryProvider)
-          .selectProxy(groupTag, outboundTag)
-          .getOrElse((err) {
+      await ref.read(proxyRepositoryProvider).selectProxy(groupTag, outboundTag).getOrElse((err) {
         loggy.warning("error selecting outbound", err);
         throw err;
       }).run();
@@ -154,10 +146,7 @@ class ProxiesOverviewNotifier extends _$ProxiesOverviewNotifier with AppLogger {
     loggy.debug("testing group: [$groupTag]");
     if (state case AsyncData()) {
       await ref.read(hapticServiceProvider.notifier).lightImpact();
-      await ref
-          .read(proxyRepositoryProvider)
-          .urlTest(groupTag)
-          .getOrElse((err) {
+      await ref.read(proxyRepositoryProvider).urlTest(groupTag).getOrElse((err) {
         loggy.error("error testing group", err);
         throw err;
       }).run();

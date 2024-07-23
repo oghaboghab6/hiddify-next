@@ -37,7 +37,7 @@ import '../../../core/analytics/analytics_controller.dart';
 import '../../../messaging_service.dart';
 import '../../../singbox/model/singbox_config_enum.dart';
 import '../../../utils/globals.dart';
-import '../../config_option/model/config_option_entity.dart';
+// import '../../config_option/model/config_option_entity.dart';
 import '../../config_option/notifier/config_option_notifier.dart';
 import '../../connection/data/connection_data_providers.dart';
 import '../../connection/data/connection_repository.dart';
@@ -396,13 +396,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
       try {
         ///////////////////////////
 
-        final hasExperimental =
-            await ref.read(configOptionNotifierProvider.future).then(
-                  (value) => value.hasExperimentalOptions(),
-                  onError: (_) => false,
-                );
-        final canShowNotice =
-            !ref.read(disableExperimentalFeatureNoticeProvider);
+        // final hasExperimental =
+        //     await ref.read(configOptionNotifierProvider.future).then(
+        //           (value) => value.hasExperimentalOptions(),
+        //           onError: (_) => false,
+        //         );
+        // final canShowNotice =
+        //     !ref.read(disableExperimentalFeatureNoticeProvider);
 
         ///////////////////////////
         final DioHttpClient client = DioHttpClient(
@@ -611,12 +611,12 @@ class HomePage extends HookConsumerWidget with PresLogger {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var ipv6 = prefs.getString("ipv6-mode");
       //prefer_ipv6
-      if (ipv6 != null && ipv6 != "prefer_ipv6") {
-        await ref
-            .read(configOptionNotifierProvider.notifier)
-            .updateOption(const ConfigOptionPatch(ipv6Mode: IPv6Mode.prefer));
-        await ref.read(analyticsControllerProvider.notifier).disableAnalytics();
-      }
+      // if (ipv6 != null && ipv6 != "prefer_ipv6") {
+      //   await ref
+      //       .read(configOptionNotifierProvider.notifier)
+      //       .updateOption(const ConfigOptionPatch(ipv6Mode: IPv6Mode.prefer));
+      //   await ref.read(analyticsControllerProvider.notifier).disableAnalytics();
+      // }
     }
 
     // @override
