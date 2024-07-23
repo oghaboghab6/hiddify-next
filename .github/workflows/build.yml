@@ -15,8 +15,8 @@ on:
 env:
   IS_GITHUB_ACTIONS: 1
   CHANNEL: "${{ inputs.channel }}"
-  FLUTTER_VERSION: '3.16.x'
-  NDK_VERSION: r26b
+  FLUTTER_VERSION: '3.22.2'
+  NDK_VERSION: r26d
   UPLOAD_ARTIFACT: "${{ inputs.upload-artifact }}"
   TAG_NAME: "${{ inputs.tag-name }}"
   TARGET_NAME_AppImage: "Hiddify-Linux-x64"
@@ -31,18 +31,26 @@ env:
 
 jobs:
   test:
+    outputs:
+      draftBuildCode: ${{ steps.draftBuildCode.outputs.datetime }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2.16.0 #issue with 2.13
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: 'stable'
           cache: true
+          
       - name: Prepare
         run: make linux-prepare
       - name: Test
         run: flutter test
+
+      - name: make draftBuildCode
+        id: draftBuildCode
+        run: echo "::set-output name=datetime::$(date +'%d.%H.%M')"
+
 
   build:
     needs: test
@@ -73,41 +81,66 @@ jobs:
             os: macos-13
             aarch: universal
             targets: dmg,pkg
-
+            
+          # - platform: ios
+          #   os: macos-13
+          #   aarch: universal
+          #   filename: hiddify-ios
+          #   targets: ipa
     runs-on: ${{ matrix.os }}
     steps:
       - name: checkout
         uses: actions/checkout@v3
+      - name: Import Apple Codesign Certificates
+        if: ${{ inputs.upload-artifact && startsWith(matrix.os,'macos') }}
+        uses: apple-actions/import-codesign-certs@v2
+        with: 
+            p12-file-base64: "${{ secrets.APPLE_CERTIFICATE_P12 }}"
+            p12-password: "${{ secrets.APPLE_CERTIFICATE_P12_PASSWORD }}"
+
+      - name: Import Apple Mobile Provisioning Profile
+        if: ${{ inputs.upload-artifact && startsWith(matrix.os,'macos') }}
+        run: |
+           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+           echo "${{secrets.APPLE_MOBILE_PROVISIONING_PROFILES_TARGZ_BASE64}}"|base64 --decode | tar xz -C ~/Library/MobileDevice/Provisioning\ Profiles
+        #   # echo "${{secrets.APPLE_DEVLOP_PROVISIONING_PROFILES_TARGZ_BASE64}}"|base64 --decode | tar xz -C ~/Library/MobileDevice/Provisioning\ Profiles
+          
+
+
+      
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v2.16.0 #issue with 2.13
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
+          # flutter-version-file: pubspec.yaml
           channel: 'stable'
           cache: true
+
+      
       - name: Setup Java
         if: startsWith(matrix.platform,'android')
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: 17
       - name: Setup NDK
         if: startsWith(matrix.platform,'android')
-        uses: nttld/setup-ndk@v1.4.1
+        uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
           ndk-version: ${{ env.NDK_VERSION }}
           add-to-path: true
           link-to-sdk: true
 
-
+      - name: Setup Gradle 8.1
+        if: startsWith(matrix.platform,'android')
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 7.5
       - name: Setup dependencies
         run: |
           make ${{ matrix.platform }}-install-dependencies
 
-      - name: Prepare for ${{ matrix.platform }}
-        run: |
-          make ${{ matrix.platform }}-prepare
-          tree
 
       - name: Setup Android Signing Properties
         if: ${{ inputs.upload-artifact && startsWith(matrix.platform,'android') }}
@@ -121,51 +154,49 @@ jobs:
       - name: Setup Windows Signing Properties
         if: ${{ inputs.upload-artifact && startsWith(matrix.platform,'windows') }}
         run: |
-            $decodedText = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("${{ secrets.WINDOWS_SIGNING_KEY }}"))
-            Set-Content -Path "windows\sign.pfx" -Value $decodedText
+            [IO.File]::WriteAllBytes("windows\sign.pfx", [Convert]::FromBase64String("${{ secrets.WINDOWS_SIGNING_KEY }}"))
             (Get-Content "windows\packaging\msix\make_config.yaml") -replace '^certificate_password:.*$', 'certificate_password: ${{ secrets.WINDOWS_SIGNING_PASSWORD }}' | Set-Content "windows\packaging\msix\make_config.yaml"
+        
+      # - name: Temporary disable Permission Handler for windows due to its issue in permission
+      #   if: ${{ startsWith(matrix.platform,'windows') }}
+      #   run: |
+      #     (Get-Content -Path "pubspec.yaml") -notmatch "permission_handler" | Set-Content -Path "pubspec.yaml"
+      #     (Get-Content -Path "lib\features\profile\add\add_profile_modal.dart") -notmatch "qr_code_scanner_screen" | Set-Content -Path "lib\features\profile\add\add_profile_modal.dart"
+      #     (Get-Content -Path lib\features\profile\add\add_profile_modal.dart) -replace 'await QRCodeScannerScreen\(\).open\(context\);', 'null;' | Set-Content -Path lib\features\profile\add\add_profile_modal.dart
+      #     Remove-Item -Path "lib\features\common\qr_code_scanner_screen.dart"
 
-  
-      - name: Setup Apple certificate and provisioning profile
-        if: ${{ inputs.upload-artifact && startsWith(matrix.os,'macos') }}
-        env:
-          BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_BUILD_CERTIFICATE_BASE64 }}
-          P12_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_P12_PASSWORD }}
-          BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.APPLE_BUILD_PROVISION_PROFILE_BASE64 }}
-          BUILD_PACKET_TUNNEL_PROVISION_PROFILE_BASE64: ${{ secrets.APPLE_BUILD_PACKET_TUNNEL_PROVISION_PROFILE_BASE64 }}
-          KEYCHAIN_PASSWORD: ${{ secrets.APPLE_KEYCHAIN_PASSWORD }}
+
+
+
+      - name: Prepare for ${{ matrix.platform }}
         run: |
-          # create variables
-          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
-          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
-          PP_PACKET_TUNNEL_PATH=$RUNNER_TEMP/build_pppt.mobileprovision
-          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
-
-          # import certificate and provisioning profile from secrets
-          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
-          echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
-          echo -n "$BUILD_PACKET_TUNNEL_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PACKET_TUNNEL_PATH
-
-          # create temporary keychain
-          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
-
-          # import certificate to keychain
-          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
-          security list-keychain -d user -s $KEYCHAIN_PATH
-
-          # apply provisioning profile
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-          cp $PP_PACKET_TUNNEL_PATH ~/Library/MobileDevice/Provisioning\ Profiles
-
+          make ${{ matrix.platform }}-prepare
+          tree
       - name: Build ${{ matrix.platform }}
         env:
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
         run: |
           make ${{ matrix.platform }}-release
 
+      - name: Code Sign
+        if: ${{ inputs.upload-artifact && startsWith(matrix.platform,'windows') }}
+        uses: hiddify/signtool-code-sign-sha256@main
+        with:
+          certificate: '${{ secrets.WINDOWS_SIGNING_KEY }}'
+          cert-password: '${{ secrets.WINDOWS_SIGNING_PASSWORD }}'
+          cert-sha1: '${{ secrets.WINDOWS_SIGNING_SHA1 }}'
+          folder: 'dist'
+          timestamp-server: 'http://timestamp.digicert.com'
+          recursive: true
+          description: 'Hiddify'
+
+      - name: Copy to out Windows
+        if: matrix.platform == 'windows'
+        run: |
+          tree
+          .\scripts\package_windows.ps1
+          
+          
       - name: Upload Debug Symbols
         if: ${{ inputs.upload-artifact && inputs.tag-name != 'draft' }}
         env:
@@ -174,14 +205,12 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
           SENTRY_DIST: ${{ matrix.platform == 'android-aab' && 'google-play' || 'general' }}
         run: |
-          flutter packages pub run sentry_dart_plugin
+          dart pub global activate sentry_dart_plugin
+          dart run sentry_dart_plugin 
+      
+      
 
-      - name: Copy to out Windows
-        if: matrix.platform == 'windows'
-        run: |
-          tree
-          .\scripts\package_windows.ps1
-
+              
       - name: Copy to out Android APK
         if: matrix.platform == 'android-apk'
         run: |
@@ -211,6 +240,7 @@ jobs:
             FILENAME=${!KEY}
             echo "For $EXT ($KEY) filename is ${FILENAME}"
             mv dist/*/*.$EXT tmp_out/${FILENAME}.$EXT
+            ls tmp_out
             chmod +x tmp_out/${FILENAME}.$EXT
             if [ "${{matrix.platform}}" == "linux" ];then
               cp ./.github/help/linux/* tmp_out/
@@ -218,7 +248,8 @@ jobs:
               cp ./.github/help/mac-windows/* tmp_out/
             fi
             if [[ "${{matrix.platform}}" == 'ios' ]];then
-              mv tmp_out/${FILENAME}.$EXT bin/${FILENAME}.$EXT
+              echo mv tmp_out/${FILENAME}.$EXT out/
+              mv tmp_out/${FILENAME}.$EXT out/
             else
               cd tmp_out
               # 7z a ${FILENAME}.zip ./
@@ -229,20 +260,19 @@ jobs:
             fi
           done
 
+      - name: Upload Artifact
+        if: env.UPLOAD_ARTIFACT == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{matrix.platform}}
+          path: ./out
+          retention-days: 1
+
       - name: Clean up keychain and provisioning profile
         if: ${{ always() && startsWith(matrix.os,'macos')}}
         run: |
           security delete-keychain $RUNNER_TEMP/app-signing.keychain-db ||echo ok
           rm ~/Library/MobileDevice/Provisioning\ Profiles/build_pp.mobileprovision ||echo ok
-
-      - name: Upload Artifact
-        if: env.UPLOAD_ARTIFACT == 'true'
-        uses: actions/upload-artifact@v3
-        with:
-          name: artifact
-          path: ./out
-          retention-days: 2
-
   update-draft:
     permissions: write-all
     if: ${{ inputs.upload-artifact }}
@@ -256,10 +286,12 @@ jobs:
           # this fetches all history so that we can read each commit
           fetch-depth: 0
       - name: Download Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: artifact
+          merge-multiple: true
+          pattern: "*"
           path: ./out/
+          
 
       - name: Display Files Structure
         run: ls -R
@@ -291,7 +323,6 @@ jobs:
           tag_name: 'draft'
           body_path: './release.md'
           prerelease: true
-
   upload-release:
     permissions: write-all
     if: ${{ inputs.upload-artifact && inputs.tag-name != 'draft' }}
@@ -301,9 +332,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - uses: actions/download-artifact@v3
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
         with:
-          name: artifact
+          merge-multiple: true
+          pattern: "*"
           path: ./out/
 
       - name: Display Files Structure
@@ -323,7 +356,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          prerelease: ${{ env.CHANNEL == 'dev' }}
+          # prerelease: ${{ env.CHANNEL == 'dev' }}
+          prerelease: true
           tag_name: ${{ env.TAG_NAME }}
           body_path: './release.md'
           files: ./out/*
@@ -339,3 +373,50 @@ jobs:
           releaseName: ${{ env.TAG_NAME }}
           releaseFiles: ./hiddify-android-market.aab
           track: 'beta'
+
+
+  upload-to-testflight:
+    needs: [build]
+    if: ${{ inputs.upload-artifact &&  inputs.tag-name != 'draft' }}
+    #if: ${{ inputs.upload-artifact }}
+    runs-on: macOS-latest
+    timeout-minutes: 30
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          pattern: "*ios*"
+          path: ./out/
+
+      - uses: Apple-Actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.APPLE_UPLOAD_CERTIFICATE_P12 }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_P12_PASSWORD }}
+
+      - uses: Apple-Actions/download-provisioning-profiles@v1
+        with:
+          bundle-id: app.hiddify.com
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+      - uses: Apple-Actions/download-provisioning-profiles@v1
+        with:
+          bundle-id: app.hiddify.com.SingBoxPacketTunnel
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+  
+
+
+      - name: Import Apple Mobile Provisioning Profile
+        run: |
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          echo "${{secrets.APPLE_DIST_PROVISIONING_PROFILES_TARGZ_BASE64}}"|base64 --decode | tar xz -C ~/Library/MobileDevice/Provisioning\ Profiles
+
+      - uses: Apple-Actions/upload-testflight-build@v1
+        with:
+          app-path: 'out/Hiddify-iOS.ipa' 
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
