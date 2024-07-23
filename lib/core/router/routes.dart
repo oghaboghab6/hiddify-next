@@ -88,7 +88,7 @@ GlobalKey<NavigatorState>? _dynamicRootKey = useMobileRouter ? rootNavigatorKey 
           name: SelectWayLoginRoute.name,
         ),
         TypedGoRoute<LoginConfigRoute>(
-          path: "loginConfig",
+          path: "LoginConfig",
           name: LoginConfigRoute.name,
         ),
         TypedGoRoute<ConfigDeviceRoute>(
@@ -151,7 +151,7 @@ class MobileWrapperRoute extends ShellRouteData {
           name: QuickSettingsRoute.name,
         ),
         TypedGoRoute<ConfigOptionsRoute>(
-          path: "/config-options",
+          path: "config-options",
           name: ConfigOptionsRoute.name,
         ),
         // TypedGoRoute<SettingsRoute>(
@@ -164,6 +164,16 @@ class MobileWrapperRoute extends ShellRouteData {
         //     ),
         //   ],
         // ),
+        TypedGoRoute<SettingsRoute>(
+          path: "settings",
+          name: SettingsRoute.name,
+          routes: [
+            TypedGoRoute<PerAppProxyRoute>(
+              path: "per-app-proxy",
+              name: PerAppProxyRoute.name,
+            ),
+          ],
+        ),
         TypedGoRoute<LogsOverviewRoute>(
           path: "/logs",
           name: LogsOverviewRoute.name,
@@ -177,11 +187,11 @@ class MobileWrapperRoute extends ShellRouteData {
           name: LoginRoute.name,
         ),
         TypedGoRoute<SelectWayLoginRoute>(
-          path: "SelectWayLogin",
+          path: "/SelectWayLogin",
           name: SelectWayLoginRoute.name,
         ),
         TypedGoRoute<LoginConfigRoute>(
-          path: "loginConfig",
+          path: "/LoginConfig",
           name: LoginConfigRoute.name,
         ),
         TypedGoRoute<ConfigDeviceRoute>(
@@ -461,7 +471,7 @@ class SelectWayLoginRoute extends GoRouteData {
 
   // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
   static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>('location');
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
@@ -480,7 +490,7 @@ class LoginConfigRoute extends GoRouteData {
 
   // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
   static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>('location');
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
