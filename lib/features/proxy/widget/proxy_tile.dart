@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hiddify/features/proxy/model/proxy_entity.dart';
+import 'package:hiddify/gen/fonts.gen.dart';
 import 'package:hiddify/utils/custom_loggers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -24,6 +25,7 @@ class ProxyTile extends HookConsumerWidget with PresLogger {
       title: Text(
         proxy.name,
         overflow: TextOverflow.ellipsis,
+        style: TextStyle(fontFamily: FontFamily.emoji),
       ),
       leading: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
@@ -77,16 +79,8 @@ class ProxyTile extends HookConsumerWidget with PresLogger {
 
   Color delayColor(BuildContext context, int delay) {
     if (Theme.of(context).brightness == Brightness.dark) {
-      return switch (delay) {
-        < 800 => Colors.lightGreen,
-        < 1500 => Colors.orange,
-        _ => Colors.redAccent
-      };
+      return switch (delay) { < 800 => Colors.lightGreen, < 1500 => Colors.orange, _ => Colors.redAccent };
     }
-    return switch (delay) {
-      < 800 => Colors.green,
-      < 1500 => Colors.deepOrangeAccent,
-      _ => Colors.red
-    };
+    return switch (delay) { < 800 => Colors.green, < 1500 => Colors.deepOrangeAccent, _ => Colors.red };
   }
 }

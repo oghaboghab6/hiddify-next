@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>destination</key>
+	<string>export</string>
+	<key>manageAppVersionAndBuildNumber</key>
+	<true/>
 	<key>method</key>
 	<string>development</string>
 	<key>provisioningProfiles</key>
@@ -12,10 +16,14 @@
 		<string>iOS Team Provisioning Profile: holo.gate.app2.SingBoxPacketTunnel</string>
 	</dict>
 	<key>signingCertificate</key>
-	<string>Apple Development</string>
+	<string>E2217AF6F3AD11BA09F9FD95E025D7E637F8B081</string>
 	<key>signingStyle</key>
-	<string>automatic</string>
+	<string>manual</string>
+	<key>stripSwiftSymbols</key>
+	<true/>
 	<key>teamID</key>
 	<string>3JFTY5BP58</string>
+	<key>uploadSymbols</key>
+	<true/>
 </dict>
 </plist>

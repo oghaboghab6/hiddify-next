@@ -43,7 +43,7 @@ get:
 	flutter pub get
 
 gen:
-	flutter pub run build_runner build --delete-conflicting-outputs
+	dart run build_runner build --delete-conflicting-outputs
 
 translate:
 	dart run slang
@@ -54,22 +54,20 @@ prepare:
 	@echo use the following commands to prepare the library for each platform:
 	@echo    make android-prepare
 	@echo    make windows-prepare
-	@echo    make linux-prepare
+	@echo    make linux-prepare 
 	@echo    make macos-prepare
 	@echo    make ios-prepare
 
-#windows-prepare: get-geo-assets get gen translate windows-libs
-windows-prepare: get-geo-assets  windows-libs
-
-
-ios-prepare: get-geo-assets get gen translate ios-libs
+windows-prepare: get gen translate windows-libs
+	
+ios-prepare: get-geo-assets get gen translate ios-libs 
 macos-prepare: get-geo-assets get gen translate macos-libs
 linux-prepare: get-geo-assets get gen translate linux-libs
 linux-appimage-prepare:linux-prepare
 linux-rpm-prepare:linux-prepare
 linux-deb-prepare:linux-prepare
 
-android-prepare: get-geo-assets get gen translate android-libs
+android-prepare: get-geo-assets get gen translate android-libs	
 android-apk-prepare:android-prepare
 android-aab-prepare:android-prepare
 
@@ -80,11 +78,11 @@ protos:
 	protoc --dart_out=grpc:lib/singbox/generated --proto_path=libcore/protos libcore/protos/*.proto
 
 macos-install-dependencies:
-	brew install create-dmg tree
+	brew install create-dmg tree 
 	npm install -g appdmg
 	dart pub global activate flutter_distributor
 
-ios-install-dependencies:
+ios-install-dependencies: 
 	if [ "$(flutter)" = "true" ]; then \
 		curl -L -o ~/Downloads/flutter_macos_3.19.3-stable.zip https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_3.19.3-stable.zip; \
 		mkdir -p ~/develop; \
@@ -101,13 +99,13 @@ ios-install-dependencies:
 		PKG_CONFIG_PATH=$(brew --prefix openssl@1.1)/lib/pkgconfig rvm install 2.7.5; \
 		sudo gem install cocoapods -V; \
 	fi
-	brew install create-dmg tree
+	brew install create-dmg tree 
 	npm install -g appdmg
-
+	
 	dart pub global activate flutter_distributor
+	
 
-
-android-install-dependencies:
+android-install-dependencies: 
 	echo "nothing yet"
 android-apk-install-dependencies: android-install-dependencies
 android-aab-install-dependencies: android-install-dependencies
@@ -125,9 +123,9 @@ linux-install-dependencies:
 	PATH="$$PATH":"$$HOME/.pub-cache/bin"
 	echo 'export PATH="$$PATH:$$HOME/.pub-cache/bin"' >>~/.bashrc
 	sudo apt-get update
-	sudo apt install -y clang ninja-build pkg-config cmake libgtk-3-dev locate ninja-build pkg-config libglib2.0-dev libgio2.0-cil-dev libayatana-appindicator3-dev fuse rpm patchelf file appstream
-
-
+	sudo apt install -y clang ninja-build pkg-config cmake libgtk-3-dev locate ninja-build pkg-config libglib2.0-dev libgio2.0-cil-dev libayatana-appindicator3-dev fuse rpm patchelf file appstream 
+	
+	
 	sudo modprobe fuse
 	wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
 	chmod +x appimagetool
@@ -145,7 +143,8 @@ gen_translations: #generating missing translations using google translate
 android-release: android-apk-release
 
 android-apk-release:
-	flutter build apk --target $(TARGET) $(BUILD_ARGS) --target-platform android-arm,android-arm64,android-x64 --split-per-abi --verbose
+	echo flutter build apk --target $(TARGET) $(BUILD_ARGS) --target-platform android-arm,android-arm64,android-x64 --split-per-abi --verbose  
+	flutter build apk --target $(TARGET) $(BUILD_ARGS) --target-platform android-arm,android-arm64,android-x64 --verbose  
 	ls -R build/app/outputs
 
 android-aab-release:
@@ -155,7 +154,7 @@ android-aab-release:
 windows-release:
 	flutter_distributor package --flutter-build-args=verbose --platform windows --targets exe,msix $(DISTRIBUTOR_ARGS)
 
-linux-release:
+linux-release: 
 	flutter_distributor package --flutter-build-args=verbose --platform linux --targets deb,rpm,appimage $(DISTRIBUTOR_ARGS)
 
 macos-release:
@@ -174,8 +173,8 @@ android-aab-libs: android-libs
 windows-libs:
 	$(MKDIR) $(DESKTOP_OUT) || echo Folder already exists. Skipping...
 	curl -L $(CORE_URL)/$(CORE_NAME)-windows-amd64.tar.gz | tar xz -C $(DESKTOP_OUT)$(SEP)
-	dir $(DESKTOP_OUT) || dir $(DESKTOP_OUT)$(SEP)
-
+	ls $(DESKTOP_OUT) || dir $(DESKTOP_OUT)$(SEP)
+	
 
 linux-libs:
 	mkdir -p $(DESKTOP_OUT)
@@ -183,7 +182,7 @@ linux-libs:
 
 
 macos-libs:
-	mkdir -p  $(DESKTOP_OUT)
+	mkdir -p  $(DESKTOP_OUT) 
 	curl -L $(CORE_URL)/$(CORE_NAME)-macos-universal.tar.gz | tar xz -C $(DESKTOP_OUT)
 
 ios-libs: #not tested
@@ -192,32 +191,33 @@ ios-libs: #not tested
 	curl -L $(CORE_URL)/$(CORE_NAME)-ios.tar.gz | tar xz -C "$(IOS_OUT)"
 
 get-geo-assets:
-	curl -L https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db -o $(GEO_ASSETS_DIR)/geoip.db
-	curl -L https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db -o $(GEO_ASSETS_DIR)/geosite.db
+	echo ""
+	# curl -L https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db -o $(GEO_ASSETS_DIR)/geoip.db
+	# curl -L https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db -o $(GEO_ASSETS_DIR)/geosite.db
 
 build-headers:
 	make -C libcore -f Makefile headers && mv $(BINDIR)/$(CORE_NAME)-headers.h $(BINDIR)/libcore.h
 
 build-android-libs:
-	make -C libcore -f Makefile android
+	make -C libcore -f Makefile android 
 	mv $(BINDIR)/$(LIB_NAME).aar $(ANDROID_OUT)/
 
 build-windows-libs:
 	make -C libcore -f Makefile windows-amd64
 
 build-linux-libs:
-	make -C libcore -f Makefile linux-amd64
+	make -C libcore -f Makefile linux-amd64 
 
 build-macos-libs:
 	make -C libcore -f Makefile macos-universal
 
-build-ios-libs:
-	rf -rf $(IOS_OUT)/Libcore.xcframework
-	make -C libcore -f Makefile ios
+build-ios-libs: 
+	rf -rf $(IOS_OUT)/Libcore.xcframework 
+	make -C libcore -f Makefile ios  
 	mv $(BINDIR)/Libcore.xcframework $(IOS_OUT)/Libcore.xcframework
 
 release: # Create a new tag for release.
-
+ 	
 	@echo "previous version was $$(git describe --tags $$(git rev-list --tags --max-count=1))"
 	@echo "WARNING: This operation will creates version tag and push to github"
 	@bash -c '\
@@ -247,8 +247,10 @@ release: # Create a new tag for release.
 
 
 
-ios-temp-prepare:
+ios-temp-prepare: 
 	make ios-prepare
 	flutter build ios-framework
 	cd ios
 	pod install
+	
+

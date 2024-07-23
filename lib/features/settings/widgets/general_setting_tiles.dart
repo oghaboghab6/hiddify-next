@@ -48,9 +48,7 @@ class GeneralSettingTiles extends HookConsumerWidget {
               },
             );
             if (selectedThemeMode != null) {
-              await ref
-                  .read(themePreferencesProvider.notifier)
-                  .changeThemeMode(selectedThemeMode);
+              await ref.read(themePreferencesProvider.notifier).changeThemeMode(selectedThemeMode);
             }
           },
         ),
@@ -58,26 +56,23 @@ class GeneralSettingTiles extends HookConsumerWidget {
         SwitchListTile(
           title: Text(t.settings.general.autoIpCheck),
           secondary: const Icon(FluentIcons.globe_search_24_regular),
-          value: ref.watch(autoCheckIpProvider),
-          onChanged: ref.read(autoCheckIpProvider.notifier).update,
+          value: ref.watch(Preferences.autoCheckIp),
+          onChanged: ref.read(Preferences.autoCheckIp.notifier).update,
         ),
         if (Platform.isAndroid) ...[
           SwitchListTile(
             title: Text(t.settings.general.dynamicNotification),
             secondary: const Icon(FluentIcons.top_speed_24_regular),
-            value: ref.watch(dynamicNotificationProvider),
+            value: ref.watch(Preferences.dynamicNotification),
             onChanged: (value) async {
-              await ref
-                  .read(dynamicNotificationProvider.notifier)
-                  .update(value);
+              await ref.read(Preferences.dynamicNotification.notifier).update(value);
             },
           ),
           SwitchListTile(
             title: Text(t.settings.general.hapticFeedback),
             secondary: const Icon(FluentIcons.phone_vibrate_24_regular),
             value: ref.watch(hapticServiceProvider),
-            onChanged:
-                ref.read(hapticServiceProvider.notifier).updatePreference,
+            onChanged: ref.read(hapticServiceProvider.notifier).updatePreference,
           ),
         ],
         if (PlatformUtils.isDesktop) ...[
@@ -94,11 +89,9 @@ class GeneralSettingTiles extends HookConsumerWidget {
           ),
           SwitchListTile(
             title: Text(t.settings.general.silentStart),
-            value: ref.watch(silentStartNotifierProvider),
+            value: ref.watch(Preferences.silentStart),
             onChanged: (value) async {
-              await ref
-                  .read(silentStartNotifierProvider.notifier)
-                  .update(value);
+              await ref.read(Preferences.silentStart.notifier).update(value);
             },
           ),
         ],

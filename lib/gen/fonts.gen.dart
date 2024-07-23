@@ -10,8 +10,8 @@
 class FontFamily {
   FontFamily._();
 
-  /// Font family: IRANSansMobile
-  static const String iRANSansMobile = 'IRANSansMobile';
+  /// Font family: Emoji
+  static const String emoji = 'Emoji';
 
   /// Font family: Shabnam
   static const String shabnam = 'Shabnam';

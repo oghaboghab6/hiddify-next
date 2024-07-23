@@ -14,6 +14,7 @@ import 'package:hiddify/features/common/qr_code_dialog.dart';
 import 'package:hiddify/features/profile/model/profile_entity.dart';
 import 'package:hiddify/features/profile/notifier/profile_notifier.dart';
 import 'package:hiddify/features/profile/overview/profiles_overview_notifier.dart';
+import 'package:hiddify/gen/fonts.gen.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -127,7 +128,10 @@ class ProfileTile extends HookConsumerWidget {
                                       profile.name,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style: theme.textTheme.titleMedium,
+                                      style:
+                                          theme.textTheme.titleMedium?.copyWith(
+                                        fontFamily: FontFamily.emoji,
+                                      ),
                                       semanticsLabel: t.profile
                                           .activeProfileNameSemanticLabel(
                                         name: profile.name,
@@ -329,6 +333,7 @@ class ProfileActionsMenu extends HookConsumerWidget {
             context,
             title: t.profile.delete.buttonTxt,
             message: t.profile.delete.confirmationMsg,
+            icon: FluentIcons.delete_24_regular,
           );
           if (deleteConfirmed) {
             deleteProfileMutation.setFuture(

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,6 +39,8 @@
 		5AEA2D2B2C29A282003ECDA0 /* Libcore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AEA2D2A2C29A282003ECDA0 /* Libcore.xcframework */; };
 		5AEA2D2C2C29A282003ECDA0 /* Libcore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AEA2D2A2C29A282003ECDA0 /* Libcore.xcframework */; };
 		68885DD72B4EF33400D214BA /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03E392B72ADDA00E000ADF15 /* NetworkExtension.framework */; };
+		68DCEB782BD7ECE90081FF65 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 68DCEB772BD7DA3F0081FF65 /* PrivacyInfo.xcprivacy */; };
+		68DCEB792BD7ECEE0081FF65 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 68DCEB762BD7D7590081FF65 /* PrivacyInfo.xcprivacy */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -155,6 +157,8 @@
 		5AEA2D2A2C29A282003ECDA0 /* Libcore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Libcore.xcframework; sourceTree = "<group>"; };
 		60F1D4AAC33ACF5C8307310D /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6836D3FA2B57FDFF00A79D75 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		68DCEB762BD7D7590081FF65 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		68DCEB772BD7DA3F0081FF65 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -181,7 +185,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AEA2D2C2C29A282003ECDA0 /* Libcore.xcframework in Frameworks */,
+				6836D3FD2B57FE4300A79D75 /* Libcore in Frameworks */,
+				6836D4022B57FEFF00A79D75 /* Libcore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +203,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				075637BA2B01583F005AFB8E /* Pods_Runner.framework in Frameworks */,
-				5AEA2D2B2C29A282003ECDA0 /* Libcore.xcframework in Frameworks */,
 				68885DD72B4EF33400D214BA /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,6 +253,7 @@
 				03B516752AE762F700EA47E2 /* Logger.swift */,
 				03E392BC2ADDA00F000ADF15 /* Info.plist */,
 				03E392BD2ADDA00F000ADF15 /* SingBoxPacketTunnel.entitlements */,
+				68DCEB762BD7D7590081FF65 /* PrivacyInfo.xcprivacy */,
 			);
 			path = SingBoxPacketTunnel;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
+				68DCEB772BD7DA3F0081FF65 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -374,7 +380,6 @@
 		B8133545EEE13EDD5549E6A3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5AEA2D2A2C29A282003ECDA0 /* Libcore.xcframework */,
 				0736954E2B1FEB3E007249BE /* mobile_scanner.xcframework */,
 				07A63A932B1E72FB00CAFA4D /* cupertino_http.xcframework */,
 				07A63A972B1E72FB00CAFA4D /* device_info_plus.xcframework */,
@@ -427,6 +432,8 @@
 			);
 			name = SingBoxPacketTunnel;
 			packageProductDependencies = (
+				6836D3FC2B57FE4300A79D75 /* Libcore */,
+				6836D4012B57FEFF00A79D75 /* Libcore */,
 			);
 			productName = SingBoxPacketTunnel;
 			productReference = 03E392B62ADDA00E000ADF15 /* SingBoxPacketTunnel.appex */;
@@ -487,6 +494,7 @@
 				TargetAttributes = {
 					03E392B52ADDA00E000ADF15 = {
 						CreatedOnToolsVersion = 15.0;
+						DevelopmentTeam = 3JFTY5BP58;
 						DevelopmentTeamName = "Mark Pashmfouroush";
 						ProvisioningStyle = Automatic;
 					};
@@ -515,7 +523,7 @@
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			packageReferences = (
-				6836D4002B57FEFF00A79D75 /* XCLocalSwiftPackageReference "(null)" */,
+				6836D4002B57FEFF00A79D75 /* XCLocalSwiftPackageReference "Local Packages" */,
 			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
@@ -549,7 +557,6 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
-				5A1962BF2C2FE7B900530DBD /* GoogleService-Info.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
 			);
@@ -755,7 +762,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SingBoxPacketTunnel/SingBoxPacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1616;
+				CURRENT_PROJECT_VERSION = 10700;
 				DEVELOPMENT_TEAM = 79GPQJF499;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				EXCLUDED_ARCHS = armv7;
@@ -775,7 +782,7 @@
 					"@executable_path/libcore/",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.16.16;
+				MARKETING_VERSION = 1.7.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-lresolv";
@@ -808,7 +815,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SingBoxPacketTunnel/SingBoxPacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1616;
+				CURRENT_PROJECT_VERSION = 10700;
 				DEVELOPMENT_TEAM = 79GPQJF499;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				EXCLUDED_ARCHS = armv7;
@@ -828,7 +835,7 @@
 					"@executable_path/libcore/",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.16.16;
+				MARKETING_VERSION = 1.7.0;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lresolv";
@@ -859,7 +866,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = SingBoxPacketTunnel/SingBoxPacketTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1616;
+				CURRENT_PROJECT_VERSION = 10700;
 				DEVELOPMENT_TEAM = 79GPQJF499;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				EXCLUDED_ARCHS = armv7;
@@ -879,7 +886,7 @@
 					"@executable_path/libcore/",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.16.16;
+				MARKETING_VERSION = 1.7.0;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lresolv";
