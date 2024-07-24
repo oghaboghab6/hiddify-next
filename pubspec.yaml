@@ -96,7 +96,8 @@ dependencies:
   device_info_plus: ^9.1.2
   mobile_number: ^2.1.1
   firebase_messaging: ^14.7.19
-flutter_inappwebview: ^6.0.0
+  flutter_inappwebview: ^6.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
