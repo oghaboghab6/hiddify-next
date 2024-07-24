@@ -74,7 +74,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
           addProfileProvider,
       dynamic deleteProfileMutation) async {
     final prefs = await SharedPreferences.getInstance();
-    globals.urlLink = prefs.getString('url_login') ?? globals.global_url;
+    globals.urlLink = prefs.getString('url_login') ?? '';
+    // globals.urlLink = prefs.getString('url_login') ?? globals.global_url;
     globals.globalToken = prefs.getString('token') ?? '';
     globals.globalUsername = prefs.getString('config') != null
         ? ''
@@ -374,8 +375,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('token', '');
       prefs.setString('config', '');
-      prefs.setString('url_login', 'https://shop.hologate.pro/login/teuyrtye');
-      globals.urlLink = global_url + "/login/teuyrtye";
+      prefs.setString('url_login', '/login/teuyrtye');
+      globals.urlLink =  "/login/teuyrtye";
       prefs.setString('subscription', '');
       globals.globalToken = "";
       deleteProfileMutation.setFuture(

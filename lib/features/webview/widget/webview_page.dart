@@ -10,6 +10,7 @@ import '../../../core/localization/translations.dart';
 import '../../../utils/globals.dart';
 import '../../common/nested_app_bar.dart';
 import '../../home/widget/home_page.dart';
+import 'custom_webview.dart';
 
 class WebViewPage extends HookConsumerWidget {
   const WebViewPage({super.key});
@@ -97,7 +98,8 @@ class WebViewPage extends HookConsumerWidget {
       // appBar: AppBar(title: const Text('Flutter Simple Example')),
       body:  Container(
         margin: const EdgeInsets.only(top: 30.0,),
-        child: WebViewWidget(controller: controller),
+     //   child: WebViewWidget(controller: controller),
+        child:  InAppWebViewExampleScreen(urlString:global_url+globals.urlLink),
       ),
     );
    /* return Scaffold(

@@ -9,6 +9,7 @@ import 'package:hiddify/utils/globals.dart' as globals;
 import '../../../core/localization/translations.dart';
 import '../../common/nested_app_bar.dart';
 import '../../home/widget/home_page.dart';
+import 'custom_webview.dart';
 
 class WebViewAboutPage extends HookConsumerWidget {
   const WebViewAboutPage({super.key});
@@ -93,7 +94,8 @@ class WebViewAboutPage extends HookConsumerWidget {
      // appBar: AppBar(title: const Text('Flutter Simple Example')),
       body:  Container(
         margin: const EdgeInsets.only(top: 30.0,),
-        child: WebViewWidget(controller: controller),
+       // child: WebViewWidget(controller: controller),
+        child:  InAppWebViewExampleScreen(urlString:globals.global_url+"/hologate-plus"),
       ),
     );
    /* return Scaffold(
