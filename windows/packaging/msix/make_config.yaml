@@ -1,6 +1,6 @@
-display_name: Hiddify
-publisher_display_name: Hiddify
-identity_name: Hiddify.HiddifyNext
+display_name: HologatePlus
+publisher_display_name: HologatePlus
+identity_name: HologatePlus.HologatePlusNext
 msix_version: 1.7.0.0
 logo_path: windows\runner\resources\app_icon.ico
 capabilities: internetClient, internetClientServer, privateNetworkClientServer
