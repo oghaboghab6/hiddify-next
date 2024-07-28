@@ -16,7 +16,7 @@ import 'package:slang/builder/model/node.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 export 'package:slang_flutter/slang_flutter.dart';
 
-const AppLocale _baseLocale = AppLocale.en;
+const AppLocale _baseLocale = AppLocale.fa;
 
 /// Supported locales, see extension methods below.
 ///
