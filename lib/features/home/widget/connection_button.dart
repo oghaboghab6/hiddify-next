@@ -172,7 +172,7 @@ class _ConnectionButton extends StatelessWidget {
                       if (useImage) {
                         return image.image(filterQuality: FilterQuality.medium);
                       } else {
-                        return Assets.images.logo.svg(
+                        return Assets.images.vpn.svg(
                           colorFilter: ColorFilter.mode(
                             value!,
                             BlendMode.srcIn,

@@ -186,6 +186,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
 
     });
     return Scaffold(
+        appBar: AppBar(title: const Text('')),
+
         body: Stack(
       children: <Widget>[
         Padding(
