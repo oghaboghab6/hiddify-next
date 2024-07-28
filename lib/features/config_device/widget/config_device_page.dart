@@ -527,6 +527,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
       }
     });
     return Scaffold(
+        appBar: AppBar(title: const Text('')),
+
         body: Stack(
       children: <Widget>[
         Padding(

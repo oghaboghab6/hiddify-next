@@ -381,6 +381,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
     }
 
     return Scaffold(
+        appBar: AppBar(title: const Text('ورود')),
+
         body: isLoading.value && false
             ? Container(
                 width: MediaQuery.of(context).size.width,

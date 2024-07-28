@@ -384,6 +384,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
     }
 
     return Scaffold(
+        appBar: AppBar(title: const Text('ورود با کانفیگ')),
+
         body: isLoading.value && false
             ? Container(
                 width: MediaQuery.of(context).size.width,

@@ -94,7 +94,7 @@ class _InAppWebViewExampleScreenState extends State<InAppWebViewExampleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("InAppWebView")),
+        //appBar: AppBar(title: Text("InAppWebView")),
        // drawer: myDrawer(context: context),
         body: SafeArea(
             child: Column(children: <Widget>[

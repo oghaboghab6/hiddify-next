@@ -188,6 +188,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
 
     });
     return Scaffold(
+        appBar: AppBar(title: const Text('')),
+
         body: Stack(
       children: <Widget>[
         Padding(
