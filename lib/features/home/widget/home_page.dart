@@ -6,7 +6,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
@@ -671,43 +671,44 @@ class HomePage extends HookConsumerWidget with PresLogger {
         AuthenticationServer(context);
         // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-        final _messagingService = MessagingService();
-        _messagingService.init(context, ref);
-        // _messagingService.init(context);
-        //     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-        FirebaseMessaging.onMessage.listen((remoteMessage) async {
-          debugPrint('Got a message in the foreground');
-          debugPrint('message data00000: ${remoteMessage.data}');
+        if(!Platform.isWindows){
+          final _messagingService = MessagingService();
+          _messagingService.init(context, ref);
+          // _messagingService.init(context);
+          //     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+          FirebaseMessaging.onMessage.listen((remoteMessage) async {
+            debugPrint('Got a message in the foreground');
+            debugPrint('message data00000: ${remoteMessage.data}');
 
-          if (remoteMessage.data['link_url'].toString().isNotNullOrEmpty) {
-            final prefs = await SharedPreferences.getInstance();
-            var base_url = remoteMessage.data['link_url'].toString();
-            await prefs.setString("base_url", base_url);
+            var base_url = remoteMessage.data['link_url']?.toString()??"";
             if (base_url.isNotNullOrEmpty) {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setString("base_url", base_url);
+
               global_url = base_url;
             }
-          }
-          // final ConnectionRepository _connectionRepo =
-          //     ref.read(connectionRepositoryProvider);
 
-          await _connectionRepo.disconnect().mapLeft((err) {
-            // loggy.warning("error disconnecting", err);
-            // state = AsyncError(err, StackTrace.current);
-          }).run();
-          if (remoteMessage.data['exit'] == "true") {
-            CustomToast.success(remoteMessage.data['message']?.toString() ??
-                    "شما توسط شخص دیگری بیرون انداخته شدید")
-                .show(context);
-            if (globals.globalToken != "")
-              exitApp(context, ref, addProfileProvider, deleteProfileMutation);
-          } else if (remoteMessage.data['refresh'] == "true") {
-            GetListAccountServer(
-                context, ref, addProfileProvider, deleteProfileMutation);
-            CustomToast.success(remoteMessage.data['message']?.toString() ??
-                    "سرورهای شما در حال بروزرسانی است شکیبا باشید")
-                .show(context);
-          }
-          /*   if (remoteMessage.notification != null) {
+            // final ConnectionRepository _connectionRepo =
+            //     ref.read(connectionRepositoryProvider);
+
+            await _connectionRepo.disconnect().mapLeft((err) {
+              // loggy.warning("error disconnecting", err);
+              // state = AsyncError(err, StackTrace.current);
+            }).run();
+            if (remoteMessage.data['exit'] == "true") {
+              CustomToast.success(remoteMessage.data['message']?.toString() ??
+                  "شما توسط شخص دیگری بیرون انداخته شدید")
+                  .show(context);
+              if (globals.globalToken != "")
+                exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+            } else if (remoteMessage.data['refresh'] == "true") {
+              GetListAccountServer(
+                  context, ref, addProfileProvider, deleteProfileMutation);
+              CustomToast.success(remoteMessage.data['message']?.toString() ??
+                  "سرورهای شما در حال بروزرسانی است شکیبا باشید")
+                  .show(context);
+            }
+            /*   if (remoteMessage.notification != null) {
                flutterLocalNotificationsPlugin.show(
                   notification.hashCode,
                   notification.title,
@@ -723,9 +724,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
             // On Android, foreground notifications are not shown, only when the app
             // is backgrounded.
           }*/
-        });
+          });
 
-        print("oghab @@@@ @@@@@@@@ token " + globals.globalToken.toString());
+          print("oghab @@@@ @@@@@@@@ token " + globals.globalToken.toString());
+        }
+
 
         return null;
 
@@ -1481,7 +1484,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
     deleteProfileMutation.setFuture(
       ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
     );
-    await ref.read(addProfileProvider.notifier).add(subscription);
+     await ref.read(addProfileProvider.notifier).add(subscription);
+    //await ref.read(addProfileProvider.notifier).add("https://mavarimis.blog/wp-content/uploads/2024/v2raytel-configxx.txt");
+  ///  await ref.read(addProfileProvider.notifier).add("vmess://eyJ2IjoiMiIsInBzIjoicm9ib3QiLCJhZGQiOiJydTY5MS5ob2xvMzMzLmNvbSIsInBvcnQiOiI0ODQxMCIsImlkIjoiMDAyMjY5OTgtYjVhNi0xYzhhLTQ0YjEtMjc1ZTc0M2IxYzRlIiwiYWlkIjowLCJuZXQiOiJ0Y3AiLCJ0eXBlIjoibm9uZSIsImhvc3QiOiIiLCJwYXRoIjoiXC8iLCJ0bHMiOiJub25lIn0=");
     // await ref.read(addProfileProvider.notifier).add(subscription,onTap: ()  {            isLoadingSubscription.value = false;});
     return;
 

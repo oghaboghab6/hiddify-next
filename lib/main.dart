@@ -77,14 +77,18 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isAndroid) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } else {
-    await Firebase.initializeApp();
+  if(!Platform.isWindows){
+    if (Platform.isAndroid) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    } else {
+      await Firebase.initializeApp();
+    }
+    //
   }
-  //
+
+
   final prefs = await SharedPreferences.getInstance();
 
   var base_url = await prefs.getString("base_url");

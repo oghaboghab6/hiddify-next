@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hiddify/core/router/app_router.dart';
 import 'package:hiddify/features/common/adaptive_root_scaffold.dart';
-import 'package:hiddify/features/config_device/widget/config_device_page2.dart';
 import 'package:hiddify/features/config_option/overview/config_options_page.dart';
 import 'package:hiddify/features/geo_asset/overview/geo_assets_overview_page.dart';
 import 'package:hiddify/features/home/widget/home_page.dart';
 import 'package:hiddify/features/intro/widget/intro_page.dart';
 import 'package:hiddify/features/log/overview/logs_overview_page.dart';
-import 'package:hiddify/features/login/widget/login_page.dart';
-import 'package:hiddify/features/config_device/widget/config_device_page.dart';
 import 'package:hiddify/features/per_app_proxy/overview/per_app_proxy_page.dart';
 import 'package:hiddify/features/profile/add/add_profile_modal.dart';
 import 'package:hiddify/features/profile/details/profile_details_page.dart';
@@ -17,14 +14,7 @@ import 'package:hiddify/features/profile/overview/profiles_overview_page.dart';
 import 'package:hiddify/features/proxy/overview/proxies_overview_page.dart';
 import 'package:hiddify/features/settings/about/about_page.dart';
 import 'package:hiddify/features/settings/overview/settings_overview_page.dart';
-import 'package:hiddify/features/webview/widget/webview_page.dart';
 import 'package:hiddify/utils/utils.dart';
-
-import '../../features/config_device/widget/config_location_page.dart';
-import '../../features/config_device/widget/config_no_account_page.dart';
-import '../../features/login/widget/login_config_page.dart';
-import '../../features/login/widget/select_way_login_page.dart';
-import '../../features/webview/widget/webview_page_about.dart';
 
 part 'routes.g.dart';
 
@@ -79,34 +69,6 @@ GlobalKey<NavigatorState>? _dynamicRootKey =
           path: "about",
           name: AboutRoute.name,
         ),
-        TypedGoRoute<LoginRoute>(
-          path: "login",
-          name: LoginRoute.name,
-        ),
-        TypedGoRoute<SelectWayLoginRoute>(
-          path: "SelectWayLogin",
-          name: SelectWayLoginRoute.name,
-        ),
-        TypedGoRoute<LoginConfigRoute>(
-          path: "loginConfig",
-          name: LoginConfigRoute.name,
-        ),
-        TypedGoRoute<ConfigDeviceRoute>(
-          path: "ConfigDevice",
-          name: ConfigDeviceRoute.name,
-        ),
-        TypedGoRoute<ConfigDeviceRoute2>(
-          path: "ConfigDevice2",
-          name: ConfigDeviceRoute2.name,
-        ),
-        TypedGoRoute<WebViewRoute>(
-          path: "webview",
-          name: WebViewRoute.name,
-        ),
-        TypedGoRoute<WebViewAboutRoute>(
-          path: "webview_about",
-          name: WebViewAboutRoute.name,
-        ),
       ],
     ),
     TypedGoRoute<ProxiesRoute>(
@@ -146,63 +108,34 @@ class MobileWrapperRoute extends ShellRouteData {
           path: "profiles/:id",
           name: ProfileDetailsRoute.name,
         ),
-        TypedGoRoute<ConfigOptionsRoute>(
-          path: "/config-options",
-          name: ConfigOptionsRoute.name,
-        ),
-        TypedGoRoute<SettingsRoute>(
-          path: "/settings",
-          name: SettingsRoute.name,
-          routes: [
-            TypedGoRoute<GeoAssetsRoute>(
-              path: "routing-assets",
-              name: GeoAssetsRoute.name,
-            ),
-          ],
-        ),
-        TypedGoRoute<LogsOverviewRoute>(
-          path: "/logs",
-          name: LogsOverviewRoute.name,
-        ),
-        TypedGoRoute<AboutRoute>(
-          path: "/about",
-          name: AboutRoute.name,
-        ),
-        TypedGoRoute<LoginRoute>(
-          path: "/login",
-          name: LoginRoute.name,
-        ),
-        TypedGoRoute<SelectWayLoginRoute>(
-          path: "SelectWayLogin",
-          name: SelectWayLoginRoute.name,
-        ),
-        TypedGoRoute<LoginConfigRoute>(
-          path: "loginConfig",
-          name: LoginConfigRoute.name,
-        ),
-        TypedGoRoute<ConfigDeviceRoute>(
-          path: "/ConfigDevice",
-          name: ConfigDeviceRoute.name,
-        ),
-        TypedGoRoute<ConfigDeviceRoute2>(
-          path: "/ConfigDevice2",
-          name: ConfigDeviceRoute2.name,
-        ),
-        TypedGoRoute<WebViewRoute>(
-          path: "/webview",
-          name: WebViewRoute.name,
-        ),
-        TypedGoRoute<WebViewAboutRoute>(
-          path: "/webview_about",
-          name: WebViewAboutRoute.name,
-        ),
       ],
     ),
     TypedGoRoute<ProxiesRoute>(
       path: "/proxies",
       name: ProxiesRoute.name,
     ),
-
+    TypedGoRoute<ConfigOptionsRoute>(
+      path: "/config-options",
+      name: ConfigOptionsRoute.name,
+    ),
+    TypedGoRoute<SettingsRoute>(
+      path: "/settings",
+      name: SettingsRoute.name,
+      routes: [
+        TypedGoRoute<GeoAssetsRoute>(
+          path: "routing-assets",
+          name: GeoAssetsRoute.name,
+        ),
+      ],
+    ),
+    TypedGoRoute<LogsOverviewRoute>(
+      path: "/logs",
+      name: LogsOverviewRoute.name,
+    ),
+    TypedGoRoute<AboutRoute>(
+      path: "/about",
+      name: AboutRoute.name,
+    ),
   ],
 )
 class DesktopWrapperRoute extends ShellRouteData {
@@ -235,10 +168,9 @@ class HomeRoute extends GoRouteData {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-   // return const NoTransitionPage(
-    return const  NoTransitionPage(
+    return const NoTransitionPage(
       name: name,
-      child: HomePage( ),
+      child: HomePage(),
     );
   }
 }
@@ -434,176 +366,5 @@ class AboutRoute extends GoRouteData {
       );
     }
     return const NoTransitionPage(name: name, child: AboutPage());
-  }
-}
-class LoginRoute extends GoRouteData {
-  const LoginRoute();
-  static const name = "Login";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: LoginPage(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: LoginPage());
-  }
-}
-class SelectWayLoginRoute extends GoRouteData {
-  const SelectWayLoginRoute();
-  static const name = "SelectWayLogin";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>('location');
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: SelectWayLoginPage(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: SelectWayLoginPage());
-  }
-}
-class LoginConfigRoute extends GoRouteData {
-  const LoginConfigRoute();
-  static const name = "LoginConfig";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>('location');
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: LoginConfigPage(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: LoginConfigPage());
-  }
-}
-class ConfigLocationRoute extends GoRouteData {
-  const ConfigLocationRoute();
-  static const name = "ConfigLocation";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: ConfigLocationPage(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: ConfigLocationPage());
-  }
-}
-class ConfigNoAccountRoute extends GoRouteData {
-  const ConfigNoAccountRoute();
-  static const name = "ConfigNoAccount";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: ConfigNoAccountPage(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: ConfigNoAccountPage());
-  }
-}
-class ConfigDeviceRoute extends GoRouteData {
-  const ConfigDeviceRoute();
-  static const name = "ConfigDevice";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: ConfigDevicePage(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: ConfigDevicePage());
-  }
-}
-class ConfigDeviceRoute2 extends GoRouteData {
-  const ConfigDeviceRoute2();
-  static const name = "ConfigDevice2";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: ConfigDevicePage2(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: ConfigDevicePage2());
-  }
-}
-class WebViewRoute extends GoRouteData {
-  const WebViewRoute();
-  static const name = "WebView";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: WebViewPage(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: WebViewPage());
-  }
-}
-class WebViewAboutRoute extends GoRouteData {
-  const WebViewAboutRoute();
-  static const name = "WebViewAbout";
-
-  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    if (useMobileRouter) {
-      return const MaterialPage(
-        name: name,
-        child: WebViewAboutPage(),
-      );
-    }
-    return const NoTransitionPage(name: name, child: WebViewAboutPage());
   }
 }
