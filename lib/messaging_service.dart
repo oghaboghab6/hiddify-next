@@ -65,6 +65,7 @@ class MessagingService {
 
     debugPrint(
         'User granted notifications permission: ${settings.authorizationStatus}');
+    await Future.delayed(Duration(seconds: 1));
 
     // Retrieving the FCM token
     fcmToken = await _fcm.getToken();
