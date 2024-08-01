@@ -90,7 +90,7 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
                   loggy.warning('oghab @@@ proxy121' + group.toString());
 
                  Future.delayed(
-                const Duration(seconds: 6),
+                const Duration(seconds: 10),
                 () => 100,
                 ).then((value) async{
                  await  ref
