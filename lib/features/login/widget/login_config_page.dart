@@ -502,9 +502,8 @@ class _ConnectionWrapperState extends ConsumerState<LoginConfigPage> with PresLo
                             child: const Text('اسکن',style: TextStyle(color: Colors.white, fontSize: 18),),
 
                             onPressed: () async {
-                              final captureResult =
-                              await const QRCodeScannerScreen()
-                                  .open(context);
+                            //  final captureResult = await QRCodeScannerScreen().open(context);
+                              final captureResult = await QRCodeScannerScreen().open(context);
                               if (captureResult == null) return;
 
                               nameController.text=captureResult;
