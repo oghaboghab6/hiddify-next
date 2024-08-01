@@ -16,6 +16,8 @@ import 'package:hiddify/utils/alerts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 
+import '../../../core/router/app_router.dart';
+
 // TODO: rewrite
 class ConnectionButton extends HookConsumerWidget {
   const ConnectionButton({super.key});
@@ -42,6 +44,9 @@ class ConnectionButton extends HookConsumerWidget {
         if (next case AsyncData(value: Connected())) {
           globals.globalCheckGetListServer = false;
           print("oghab @@@@ wwwwwwwwwwww ");
+          if(globals.globalIsAdmin){
+            switchTab(1, context);
+          }
           // CustomAlertDialog.fromErr(t.presentError(connected))
           //     .show(context);
         }
