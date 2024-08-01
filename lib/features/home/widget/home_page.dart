@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -6,6 +7,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+
 // import 'package:firebase_core/firebase_core.dart';
 import 'package:dio/dio.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -37,6 +39,7 @@ import '../../../core/analytics/analytics_controller.dart';
 import '../../../messaging_service.dart';
 import '../../../singbox/model/singbox_config_enum.dart';
 import '../../../utils/globals.dart';
+
 // import '../../config_option/model/config_option_entity.dart';
 import '../../config_option/notifier/config_option_notifier.dart';
 import '../../connection/data/connection_data_providers.dart';
@@ -376,7 +379,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       prefs.setString('token', '');
       prefs.setString('config', '');
       prefs.setString('url_login', '/login/teuyrtye');
-      globals.urlLink =  "/login/teuyrtye";
+      globals.urlLink = "/login/teuyrtye";
       prefs.setString('subscription', '');
       globals.globalToken = "";
       deleteProfileMutation.setFuture(
@@ -579,11 +582,10 @@ class HomePage extends HookConsumerWidget with PresLogger {
             date_account.value = jsonData['expiration_date'].toString() ?? '';
             volume_account.value = jsonData['traffic'].toString() ?? '';
 
-
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             if (loginUrl.isNotNullOrEmpty) {
               final SharedPreferences prefs =
-              await SharedPreferences.getInstance();
+                  await SharedPreferences.getInstance();
               globals.urlLink = loginUrl;
               await prefs.setString('url_login', loginUrl);
             }
@@ -672,7 +674,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         AuthenticationServer(context);
         // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-        if(!Platform.isWindows){
+        if (!Platform.isWindows) {
           final _messagingService = MessagingService();
           _messagingService.init(context, ref);
           // _messagingService.init(context);
@@ -681,7 +683,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
             debugPrint('Got a message in the foreground');
             debugPrint('message data00000: ${remoteMessage.data}');
 
-            var base_url = remoteMessage.data['link_url']?.toString()??"";
+            var base_url = remoteMessage.data['link_url']?.toString() ?? "";
             if (base_url.isNotNullOrEmpty) {
               final prefs = await SharedPreferences.getInstance();
               await prefs.setString("base_url", base_url);
@@ -698,15 +700,16 @@ class HomePage extends HookConsumerWidget with PresLogger {
             }).run();
             if (remoteMessage.data['exit'] == "true") {
               CustomToast.success(remoteMessage.data['message']?.toString() ??
-                  "شما توسط شخص دیگری بیرون انداخته شدید")
+                      "شما توسط شخص دیگری بیرون انداخته شدید")
                   .show(context);
               if (globals.globalToken != "")
-                exitApp(context, ref, addProfileProvider, deleteProfileMutation);
+                exitApp(
+                    context, ref, addProfileProvider, deleteProfileMutation);
             } else if (remoteMessage.data['refresh'] == "true") {
               GetListAccountServer(
                   context, ref, addProfileProvider, deleteProfileMutation);
               CustomToast.success(remoteMessage.data['message']?.toString() ??
-                  "سرورهای شما در حال بروزرسانی است شکیبا باشید")
+                      "سرورهای شما در حال بروزرسانی است شکیبا باشید")
                   .show(context);
             }
             /*   if (remoteMessage.notification != null) {
@@ -730,7 +733,27 @@ class HomePage extends HookConsumerWidget with PresLogger {
           print("oghab @@@@ @@@@@@@@ token " + globals.globalToken.toString());
         }
 
-
+        if (globals.globalIsAdmin) {
+          /*    Future.delayed(
+            const Duration(seconds: 6),
+                () => 100,
+          ).then((value) async{
+            if((globals.globalToken != "" &&
+                globals.global_status_Connection == "success")){
+              await ref
+                  .read(connectionNotifierProvider.notifier)
+                  .toggleConnection();
+            }
+          });*/
+          Timer.periodic(Duration(minutes: 10), (timer) async {
+            if ((globals.globalToken != "" &&
+                globals.global_status_Connection == "success")) {
+              await ref
+                  .read(connectionNotifierProvider.notifier)
+                  .toggleConnection();
+            }
+          });
+        }
         return null;
 
         // return () {
@@ -1280,18 +1303,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
         ],
       ),
     );
-
-
   }
-  Future<void>  disableAnalytics(WidgetRef ref) async{
-    if (!ref
-        .read(analyticsControllerProvider)
-        .requireValue) {
+
+  Future<void> disableAnalytics(WidgetRef ref) async {
+    if (!ref.read(analyticsControllerProvider).requireValue) {
       loggy.info("disabling analytics per user request");
       try {
-        await ref
-            .read(analyticsControllerProvider.notifier)
-            .disableAnalytics();
+        await ref.read(analyticsControllerProvider.notifier).disableAnalytics();
       } catch (error, stackTrace) {
         loggy.error(
           "could not disable analytics",
@@ -1300,7 +1318,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
         );
       }
     }
-
   }
 
   Future<void> GetListAccountServer2233(
@@ -1485,9 +1502,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
     deleteProfileMutation.setFuture(
       ref.read(profilesOverviewNotifierProvider.notifier).deleteAllProfile(),
     );
-     await ref.read(addProfileProvider.notifier).add(subscription);
+    await ref.read(addProfileProvider.notifier).add(subscription);
     //await ref.read(addProfileProvider.notifier).add("https://mavarimis.blog/wp-content/uploads/2024/v2raytel-configxx.txt");
-  ///  await ref.read(addProfileProvider.notifier).add("vmess://eyJ2IjoiMiIsInBzIjoicm9ib3QiLCJhZGQiOiJydTY5MS5ob2xvMzMzLmNvbSIsInBvcnQiOiI0ODQxMCIsImlkIjoiMDAyMjY5OTgtYjVhNi0xYzhhLTQ0YjEtMjc1ZTc0M2IxYzRlIiwiYWlkIjowLCJuZXQiOiJ0Y3AiLCJ0eXBlIjoibm9uZSIsImhvc3QiOiIiLCJwYXRoIjoiXC8iLCJ0bHMiOiJub25lIn0=");
+    ///  await ref.read(addProfileProvider.notifier).add("vmess://eyJ2IjoiMiIsInBzIjoicm9ib3QiLCJhZGQiOiJydTY5MS5ob2xvMzMzLmNvbSIsInBvcnQiOiI0ODQxMCIsImlkIjoiMDAyMjY5OTgtYjVhNi0xYzhhLTQ0YjEtMjc1ZTc0M2IxYzRlIiwiYWlkIjowLCJuZXQiOiJ0Y3AiLCJ0eXBlIjoibm9uZSIsImhvc3QiOiIiLCJwYXRoIjoiXC8iLCJ0bHMiOiJub25lIn0=");
     // await ref.read(addProfileProvider.notifier).add(subscription,onTap: ()  {            isLoadingSubscription.value = false;});
     return;
 

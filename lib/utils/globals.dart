@@ -26,4 +26,6 @@ String global_device_id= "";
 //String global_url= "https://hologate6.com";
 // String global_url= "https://shop.hologate.pro";
 String global_url= "https://hologate4731.com";
+// String global_url= "https://hologate9066.com";
 String global_status_Connection= "";
+bool globalIsAdmin = false;
