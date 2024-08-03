@@ -180,9 +180,9 @@ class IntroPage extends HookConsumerWidget with PresLogger {
 
 
   Future<void>  disableAnalytics(WidgetRef ref) async{
-    if (!ref
-        .read(analyticsControllerProvider)
-        .requireValue) {
+    // if (!ref
+    //     .read(analyticsControllerProvider)
+    //     .requireValue) {
       loggy.info("disabling analytics per user request");
       try {
         await ref
@@ -195,7 +195,7 @@ class IntroPage extends HookConsumerWidget with PresLogger {
           stackTrace,
         );
       }
-    }
+   // }
 
   }
 

@@ -1306,7 +1306,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
   }
 
   Future<void> disableAnalytics(WidgetRef ref) async {
-    if (!ref.read(analyticsControllerProvider).requireValue) {
+ //   if (!ref.read(analyticsControllerProvider).requireValue) {
       loggy.info("disabling analytics per user request");
       try {
         await ref.read(analyticsControllerProvider.notifier).disableAnalytics();
@@ -1317,7 +1317,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           stackTrace,
         );
       }
-    }
+   // }
   }
 
   Future<void> GetListAccountServer2233(
