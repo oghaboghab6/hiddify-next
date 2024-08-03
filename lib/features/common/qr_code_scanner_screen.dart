@@ -18,7 +18,8 @@ class QRCodeScannerScreen extends StatefulHookConsumerWidget {
   const QRCodeScannerScreen({super.key});
 
   Future<String?> open(BuildContext context) async {
-    return Navigator.of(context, rootNavigator: true).push(
+   return Navigator.of(context, rootNavigator: true).push(
+   // return Navigator.of(context).push(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (context) => const QRCodeScannerScreen(),
@@ -36,6 +37,7 @@ class _QRCodeScannerScreenState extends ConsumerState<QRCodeScannerScreen> with 
     autoStart: false,
   );
   bool started = false;
+  int countCheck = 0;
 
   // late FlutterEasyPermission _easyPermission;
   @override
@@ -43,7 +45,7 @@ class _QRCodeScannerScreenState extends ConsumerState<QRCodeScannerScreen> with 
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _initializeScanner();
-
+    loggy.debug('@@@00000 widget.pages');
     // _easyPermission = FlutterEasyPermission()
     //   ..addPermissionCallback(onGranted: (requestCode, androidPerms, iosPerm) {
     //     debugPrint("android:$androidPerms");
@@ -264,7 +266,15 @@ class _QRCodeScannerScreenState extends ConsumerState<QRCodeScannerScreen> with 
                 final uri = Uri.tryParse(rawData);
                 if (context.mounted && uri != null) {
                   loggy.debug('captured url: [$uri]');
-                  Navigator.of(context, rootNavigator: true).pop(uri.toString());
+                  setState(() {
+                    countCheck += 1;
+                  });
+                  //loggy.debug('@@@ widget.pages'+countCheck.toString()+(Navigator.of(context, rootNavigator: true).widget.pages.toString()));
+                 // loggy.debug('@@@222 widget.pages'+(Navigator.of(context, rootNavigator: true).widget.pages.last.name.toString()));
+                 if(Navigator.canPop(context)&&Navigator.of(context, rootNavigator: true).widget.pages.last.name.toString()=="LoginConfig"&&countCheck<=1) {
+                 //  Navigator.of(context, rootNavigator: true).pop(uri.toString());
+                   Navigator.of(context, rootNavigator: true).pop(uri.toString());
+                 }
                 }
               } else {
                 loggy.warning("unable to capture");

@@ -220,6 +220,13 @@ class _ConnectionWrapperState extends ConsumerState<ConfigLocationPage>
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
                     child: Card(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                        side: BorderSide(
+                          color:  Color(0xffea5555),
+                          width: 1.0,
+                        ),
+                      ),
                       child: ListTile(
                           //tileColor: Colors.black12,
                           dense: true,
