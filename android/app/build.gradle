@@ -12,7 +12,7 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-boolean hasKeyStore = false
+boolean hasKeyStore = true
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
