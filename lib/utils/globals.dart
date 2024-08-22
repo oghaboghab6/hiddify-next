@@ -9,6 +9,7 @@ String globalTokenTemporary = "";
 String globalUsername = "";
 String globalPassword = "";
 bool globalCheckDevice = false;
+bool globalCheckFinish = false;
 bool globalCheckMcGroup = false;
 String global_subscription_id = "";
 String urlLink = "";

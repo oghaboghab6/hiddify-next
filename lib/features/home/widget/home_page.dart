@@ -745,13 +745,19 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   .toggleConnection();
             }
           });*/
-          Timer.periodic(Duration(minutes: 10), (timer) async {
-            if ((globals.globalToken != "" &&
-                globals.global_status_Connection == "success")) {
-              await ref
-                  .read(connectionNotifierProvider.notifier)
-                  .toggleConnection();
+          Timer.periodic(Duration(minutes: 1), (timer) async {
+            if(globals.globalCheckFinish){
+
             }
+            else{
+              if ((globals.globalToken != "" &&
+                  globals.global_status_Connection == "success")) {
+                await ref
+                    .read(connectionNotifierProvider.notifier)
+                    .toggleConnection();
+              }
+            }
+
           });
         }
         return null;

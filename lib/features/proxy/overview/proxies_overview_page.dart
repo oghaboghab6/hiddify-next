@@ -19,7 +19,7 @@ import 'package:hiddify/utils/globals.dart' as globals;
 
 import '../../../core/router/app_router.dart';
 import '../../connection/notifier/connection_notifier.dart';
-
+List<dynamic> ListData_send_server = [];
 class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
   const ProxiesOverviewPage({super.key});
 
@@ -81,22 +81,31 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
         } else {}
 
         final group = groups.first;
+        ListData_send_server=groups.first.items;
+        loggy.warning('oghab @@@ proxy121##  ' + ListData_send_server.toString()+"\n \n");
 
-
+        // await  ref
+        //       .read(connectionNotifierProvider.notifier)
+        //       .toggleConnection();
+        //  setLogSpeedServer(context, groups.first.items);
 
         useEffect(
               () {
                 if(globals.globalIsAdmin){
-                  loggy.warning('oghab @@@ proxy121' + group.toString());
+                  loggy.warning('oghab @@@ proxy121  ' + group.toString());
 
                  Future.delayed(
-                const Duration(seconds: 10),
+                const Duration(seconds: 20),
                 () => 100,
                 ).then((value) async{
-                 await  ref
+                   loggy.warning('oghab @@@ proxy121****  ' + ListData_send_server.toString()+"\n \n");
+
+                   await  ref
                        .read(connectionNotifierProvider.notifier)
                        .toggleConnection();
-                  setLogSpeedServer(context, groups.first.items);});
+                  setLogSpeedServer(context, ListData_send_server);
+
+                });
               }
 
             return null;
@@ -239,7 +248,7 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
       ListData.add({
         "name": item.tag,
         "urlTestDelay": item.urlTestDelay,
-        "ping": (item.urlTestDelay != 65535),
+        "ping": !(item.urlTestDelay == 65535||item.urlTestDelay == 0),
       });
     }
     /* await  items.map((item) => {
@@ -278,6 +287,13 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
         //if (jsonData['success'] == true) {
         if (jsonData['success'] == true) {
           print('oghab @@@ response' + jsonData.toString());
+          if(jsonData['message']=="finish"){
+            globals.globalCheckFinish=true;
+          }
+          else{
+            globals.globalCheckFinish=false;
+          }
+
         //  Navigator.of(context).pop();
           //  context.pop();
         } else {

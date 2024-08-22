@@ -69,6 +69,7 @@ class ConnectionButton extends HookConsumerWidget {
       onTap: switch (connectionStatus) {
         AsyncData(value: Disconnected()) || AsyncError() => () async {
             if (await showExperimentalNotice()) {
+              globals.globalCheckFinish=false;
               return await ref
                   .read(connectionNotifierProvider.notifier)
                   .toggleConnection();
