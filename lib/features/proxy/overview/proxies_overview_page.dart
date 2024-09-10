@@ -81,6 +81,9 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
         } else {}
 
         final group = groups.first;
+        final _connect = ref
+
+            .read(connectionNotifierProvider.notifier);
         ListData_send_server=groups.first.items;
         loggy.warning('oghab @@@ proxy121##  ' + ListData_send_server.toString()+"\n \n");
 
@@ -91,22 +94,21 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
 
         useEffect(
               () {
-                if(globals.globalIsAdmin){
+                //if(globals.globalIsAdmin){
                   loggy.warning('oghab @@@ proxy121  ' + group.toString());
 
                  Future.delayed(
-                const Duration(seconds: 20),
+                Duration(seconds: (globals.globalIsAdmin)?15:12),
                 () => 100,
                 ).then((value) async{
                    loggy.warning('oghab @@@ proxy121****  ' + ListData_send_server.toString()+"\n \n");
-
-                   await  ref
-                       .read(connectionNotifierProvider.notifier)
-                       .toggleConnection();
+                   if(globals.globalIsAdmin) {
+                     await _connect.toggleConnection();
+                   }
                   setLogSpeedServer(context, ListData_send_server);
 
                 });
-              }
+           //   }
 
             return null;
 
@@ -182,16 +184,16 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
           ),
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () async => {
-              if(globals.globalIsAdmin){
-                loggy.warning('oghab @@@ proxy' + group.toString()),
-                await ref
-                    .read(connectionNotifierProvider.notifier)
-                    .toggleConnection(),
-                await Future.delayed(
-                  const Duration(seconds: 1),
-                      () => 100,
-                ).then((value) {  setLogSpeedServer(context, groups.first.items);}),
-              },
+              // if(globals.globalIsAdmin){
+              //   loggy.warning('oghab @@@ proxy' + group.toString()),
+              //   await ref
+              //       .read(connectionNotifierProvider.notifier)
+              //       .toggleConnection(),
+              //   await Future.delayed(
+              //     const Duration(seconds: 1),
+              //         () => 100,
+              //   ).then((value) {  setLogSpeedServer(context, groups.first.items);}),
+              // },
 
 
               notifier.urlTest(group.tag)
@@ -283,33 +285,63 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
           globals.global_url + '/api/v2ray-server-ping', formData);
       if (response.statusCode == 200) {
         final jsonData = response.data!;
+        print('oghab @@@ response' + jsonData.toString());
 
         //if (jsonData['success'] == true) {
         if (jsonData['success'] == true) {
-          print('oghab @@@ response' + jsonData.toString());
-          if(jsonData['message']=="finish"){
+       //   print('Timer.periodic@@@???00   '+contants.name.toString());
+         // if(jsonData['message']=="finish"){
+          if(jsonData['finish']==true){
+           // print('Timer.periodic@@@???01   '+contants.name.toString());
+            // final contants cons=contants();
+            //cons.setName(0);
+            // contants.name=720;
             globals.globalCheckFinish=true;
+           // globals.globalCheckFinish=false;
+            globals.globalTimeRefresh=720;
           }
           else{
-            globals.globalCheckFinish=false;
+            // print('Timer.periodic@@@???02   '+contants.name.toString());
+            // final contants cons=contants();
+           // cons.setName(0);
+             //contants.name=0;
+            globals.globalTimeRefresh=0;
+
+           // globals.globalCheckFinish=true;
+
+            //   globals.globalCheckFinish=false;
           }
 
         //  Navigator.of(context).pop();
           //  context.pop();
         } else {
 
+          // contants.name=5;
+          // globals.globalCheckFinish=true;
+          //
+          // //   globals.globalCheckFinish=false;
+          // globals.globalTimeRefresh=5;
+          // print('Timer.periodic@@@???03   '+contants.name.toString());
           loggy.warning('Request failed with status2: ${response.statusCode}');
         }
 
       } else {
-
+        // print('Timer.periodic@@@???04   '+contants.name.toString());
         loggy.warning('Request failed with status: ${response.statusCode}');
       }
-      globals.globalCheckGetListServer=true;
-      switchTab(0, context);
+      if(globals.globalIsAdmin) {
+
+
+        globals.globalCheckGetListServer = true;
+        switchTab(0, context);
+      }
     } catch (e) {
-      globals.globalCheckGetListServer=true;
-      switchTab(0, context);
+      // print('Timer.periodic@@@???05   '+contants.name.toString());
+
+      if(globals.globalIsAdmin) {
+        globals.globalCheckGetListServer = true;
+        switchTab(0, context);
+      }
       loggy.warning('Could not get the local country code from ip');
     }
   }

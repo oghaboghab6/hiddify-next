@@ -209,6 +209,9 @@ class HomePage extends HookConsumerWidget with PresLogger {
     final activeProfile = ref.watch(activeProfileProvider);
     final asyncProfiles = ref.watch(profilesOverviewNotifierProvider);
     final addProfileState = ref.watch(addProfileProvider);
+    final connect_disconnectProfile =
+        ref.read(connectionNotifierProvider.notifier);
+
     disableAnalytics(ref);
 
     if (asyncProfiles case AsyncData(value: final links)) {
@@ -745,20 +748,40 @@ class HomePage extends HookConsumerWidget with PresLogger {
                   .toggleConnection();
             }
           });*/
-          Timer.periodic(Duration(minutes: 1), (timer) async {
-            if(globals.globalCheckFinish){
+          // Timer.periodic(Duration(minutes: 5), (timer) {
+          //   if(condition){
+          //     timer.cancel();
+          //     createNewPeriodicTask();
+          //   }
+          //   // task code
+          // });
+          //Timer.periodic(Duration(minutes: globals.globalTimeRefresh), (timer) async {
 
-            }
-            else{
-              if ((globals.globalToken != "" &&
-                  globals.global_status_Connection == "success")) {
-                await ref
-                    .read(connectionNotifierProvider.notifier)
-                    .toggleConnection();
+          if(globals.globalCheckTimer){
+            globals.globalCheckTimer=false;
+            Timer.periodic(const Duration(minutes: 1), (timer) async {
+              //final contants cons=contants();
+              // print('Timer.periodic@@@   ' +contants.name.toString()+"  ---  "+ globals.globalCheckGetListServer.toString()+"   ---   "+ globals.globalTimeRefresh.toString()+"   ---   "+globals.globalCheckFinish.toString());
+              // print('Timer.periodic@@@   ' + globals.globalCheckGetListServer.toString()+"   ---   "+ globals.globalTimeRefresh.toString()+"   ---   "+globals.globalCheckFinish.toString());
+
+              //if (globals.globalCheckFinish && globals.globalTimeRefresh < 5) {
+              if ( globals.globalTimeRefresh !=0) {
+                // if (contants.name !=0) {
+                globals.globalTimeRefresh -= 1;
+                // contants.name =contants.name -1;
+
+              } else {
+                if (globals.globalToken != "" &&
+                    globals.global_status_Connection == "success") {
+                  globals.globalTimeRefresh=1;
+                  // contants.name =0;
+                  //await ref.read(connectionNotifierProvider.notifier).toggleConnection();
+                  await connect_disconnectProfile.toggleConnection();
+                }
               }
-            }
+            });
+          }
 
-          });
         }
         return null;
 
@@ -1312,18 +1335,18 @@ class HomePage extends HookConsumerWidget with PresLogger {
   }
 
   Future<void> disableAnalytics(WidgetRef ref) async {
- //   if (!ref.read(analyticsControllerProvider).requireValue) {
-      loggy.info("disabling analytics per user request");
-      try {
-        await ref.read(analyticsControllerProvider.notifier).disableAnalytics();
-      } catch (error, stackTrace) {
-        loggy.error(
-          "could not disable analytics",
-          error,
-          stackTrace,
-        );
-      }
-   // }
+    //   if (!ref.read(analyticsControllerProvider).requireValue) {
+    loggy.info("disabling analytics per user request");
+    try {
+      await ref.read(analyticsControllerProvider.notifier).disableAnalytics();
+    } catch (error, stackTrace) {
+      loggy.error(
+        "could not disable analytics",
+        error,
+        stackTrace,
+      );
+    }
+    // }
   }
 
   Future<void> GetListAccountServer2233(

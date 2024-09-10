@@ -44,9 +44,9 @@ class ConnectionButton extends HookConsumerWidget {
         if (next case AsyncData(value: Connected())) {
           globals.globalCheckGetListServer = false;
           print("oghab @@@@ wwwwwwwwwwww ");
-          if(globals.globalIsAdmin){
+          //if(globals.globalIsAdmin){
             switchTab(1, context);
-          }
+         // }
           // CustomAlertDialog.fromErr(t.presentError(connected))
           //     .show(context);
         }
@@ -69,6 +69,7 @@ class ConnectionButton extends HookConsumerWidget {
       onTap: switch (connectionStatus) {
         AsyncData(value: Disconnected()) || AsyncError() => () async {
             if (await showExperimentalNotice()) {
+              print('Timer.periodic@@@###   ');
               globals.globalCheckFinish=false;
               return await ref
                   .read(connectionNotifierProvider.notifier)
