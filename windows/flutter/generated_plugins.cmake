@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
+  firebase_auth
   firebase_core
   protocol_handler_windows
   screen_retriever

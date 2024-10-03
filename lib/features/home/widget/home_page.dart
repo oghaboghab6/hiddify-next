@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dartx/dartx.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -390,6 +391,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       );
 
       goScreenLogin();
+      await FirebaseAuth.instance.signOut();
     }
 
     void exitApp(

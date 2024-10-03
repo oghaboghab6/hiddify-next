@@ -7,6 +7,7 @@
 #include "generated_plugin_registrant.h"
 
 #include <dynamic_color/dynamic_color_plugin_c_api.h>
+#include <firebase_auth/firebase_auth_plugin_c_api.h>
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <protocol_handler_windows/protocol_handler_windows_plugin_c_api.h>
 #include <screen_retriever/screen_retriever_plugin.h>
@@ -21,6 +22,8 @@
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   DynamicColorPluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("DynamicColorPluginCApi"));
+  FirebaseAuthPluginCApiRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FirebaseAuthPluginCApi"));
   FirebaseCorePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
   ProtocolHandlerWindowsPluginCApiRegisterWithRegistrar(

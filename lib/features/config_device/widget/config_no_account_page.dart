@@ -252,7 +252,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
 
                               );
                             }else if(products2[index]['url_type'].toString()=="api"){
-                              SetRequestServer(context);
+                              SetRequestServer(context,products2[index]['url'].toString());
                             }
                             else{
                               CustomToast.error("نیاز به بروزرسانی می باشد")
@@ -426,7 +426,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
     }
   }
 
-  Future<void> SetRequestServer(BuildContext context) async {
+  Future<void> SetRequestServer(BuildContext context,String url) async {
     isLoading = true;
     var deviceID = await get_unique_identifier();
 
@@ -460,7 +460,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
       print("oghab @@@ params: ${formData}");
 
       final response = await client.post(
-          globals.global_url + '/api/accounts/get-subscription', formData);
+         globals.global_url +( url.isEmpty? '/api/accounts/get-subscription':url), formData);
       if (response.statusCode == 200) {
         final jsonData = response.data!;
 

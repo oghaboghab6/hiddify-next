@@ -24,6 +24,7 @@ import 'package:hiddify/utils/utils.dart';
 import '../../features/config_device/widget/config_location_page.dart';
 import '../../features/config_device/widget/config_no_account_page.dart';
 import '../../features/login/widget/login_config_page.dart';
+import '../../features/login/widget/login_email_page.dart';
 import '../../features/login/widget/select_way_login_page.dart';
 import '../../features/webview/widget/webview_page_about.dart';
 
@@ -90,6 +91,10 @@ GlobalKey<NavigatorState>? _dynamicRootKey = useMobileRouter ? rootNavigatorKey 
         TypedGoRoute<LoginConfigRoute>(
           path: "LoginConfig",
           name: LoginConfigRoute.name,
+        ),
+        TypedGoRoute<LoginEmailRoute>(
+          path: "LoginEmail",
+          name: LoginEmailRoute.name,
         ),
         TypedGoRoute<ConfigDeviceRoute>(
           path: "ConfigDevice",
@@ -193,6 +198,10 @@ class MobileWrapperRoute extends ShellRouteData {
         TypedGoRoute<LoginConfigRoute>(
           path: "/LoginConfig",
           name: LoginConfigRoute.name,
+        ),
+        TypedGoRoute<LoginEmailRoute>(
+          path: "/LoginEmail",
+          name: LoginEmailRoute.name,
         ),
         TypedGoRoute<ConfigDeviceRoute>(
           path: "/ConfigDevice",
@@ -501,6 +510,25 @@ class LoginConfigRoute extends GoRouteData {
       );
     }
     return const NoTransitionPage(name: name, child: LoginConfigPage());
+  }
+}
+class LoginEmailRoute extends GoRouteData {
+  const LoginEmailRoute();
+  static const name = "LoginEmail";
+
+  // static final GlobalKey<NavigatorState>? $parentNavigatorKey = _dynamicRootKey;
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    if (useMobileRouter) {
+      return const MaterialPage(
+        name: name,
+        child: LoginEmailPage(),
+      );
+    }
+    return const NoTransitionPage(name: name, child: LoginEmailPage());
   }
 }
 class ConfigLocationRoute extends GoRouteData {

@@ -62,6 +62,7 @@ final tabLocations = [
   const AboutRoute().location,
   const LoginRoute().location,
   const LoginConfigRoute().location,
+  const LoginEmailRoute().location,
   const SelectWayLoginRoute().location,
   const WebViewRoute().location,
 
