@@ -721,6 +721,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
                           ),
                         ),
 
+                        if(!Platform.isWindows)
                         Container(
                           height: 50,
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),

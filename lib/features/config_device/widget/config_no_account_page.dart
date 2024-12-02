@@ -203,7 +203,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigNoAccountPage>
                 child: const Column(
                   children: <Widget>[
                     Text(
-                      'لوکیشن مورد نظر خود را انتخاب نمایید',
+                      'به هلوگیت پلاس خوش آمدید',
                       style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.w500,

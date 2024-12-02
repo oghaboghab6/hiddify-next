@@ -392,7 +392,7 @@ class _ConnectionWrapperState extends ConsumerState<LoginEmailPage>
     }
 
     return Scaffold(
-        appBar: AppBar(title: const Text('ورود با ایمیل')),
+        appBar: AppBar(title: const Text('ثبت نام با ایمیل')),
         body: isLoading.value && false
             ? Container(
                 width: MediaQuery.of(context).size.width,
