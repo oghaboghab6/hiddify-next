@@ -7,6 +7,7 @@ import 'package:hiddify/core/http_client/dio_http_client.dart';
 import 'package:hiddify/core/router/router.dart';
 import 'package:hiddify/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hiddify/utils/globals.dart' as globals;
 import 'package:hiddify/utils/link_parsers.dart';
@@ -366,6 +367,9 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
       isLoading.value = true;
       // return;
       try {
+        final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+        final String version = packageInfo.version;
+        final String code = packageInfo.buildNumber;
         var deviceID = await get_unique_identifier();
         print("oghab @@@ globalToken " +
             globals.globalToken +
@@ -390,6 +394,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage2>
           'unique_id': deviceID,
           'is_plus_device': true,
           'platform': Platform.operatingSystem,
+          'version': version,
+          'code': code,
           // 'password': pass,
           // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
         });

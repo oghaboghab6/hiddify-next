@@ -268,7 +268,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
             count_device.value = jsonData['number_of_devices'].toString() ?? '';
             date_account.value = jsonData['expiration_date'].toString() ?? '';
             volume_account.value = jsonData['traffic'].toString() ?? '';
+            globalBanner = jsonData['banner']?.toString() ?? "";
+            globalClickBanner = jsonData['banner_click']?.toString() ?? "";
 
+            var subscription_id  = jsonData['subscription_id']?.toString() ?? '';
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setString('subscription_id',subscription_id);
+            globals.global_subscription_id = subscription_id;
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             if (loginUrl.isNotNullOrEmpty) {
               final SharedPreferences prefs =
@@ -582,11 +588,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
           final jsonData = response.data!;
 
           if (jsonData['success'] == true) {
-            device_name.value = jsonData['username'].toString() ?? '';
-            count_device.value = jsonData['number_of_devices'].toString() ?? '';
-            date_account.value = jsonData['expiration_date'].toString() ?? '';
-            volume_account.value = jsonData['traffic'].toString() ?? '';
-
+            device_name.value = jsonData['username']?.toString() ?? '';
+            count_device.value = jsonData['number_of_devices']?.toString() ?? '';
+            date_account.value = jsonData['expiration_date']?.toString() ?? '';
+            volume_account.value = jsonData['traffic']?.toString() ?? '';
+            globalBanner = jsonData['banner']?.toString() ?? "";
+            globalClickBanner = jsonData['banner_click']?.toString() ?? "";
+            // CustomToast.error(globalBanner).show(context);
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             if (loginUrl.isNotNullOrEmpty) {
               final SharedPreferences prefs =
@@ -634,6 +642,11 @@ class HomePage extends HookConsumerWidget with PresLogger {
     useOnAppLifecycleStateChange((pref, state) {
       if (state == AppLifecycleState.resumed) {
         if (globals.globalToken != "") AuthenticationServer(context);
+        // CustomToast.success(globals.globalCheckChangeServerUrl.toString()).show(context);
+        if (globals.globalCheckChangeServerUrl) {
+          GetListAccountServer(
+              context, ref, addProfileProvider, deleteProfileMutation);
+        }
         //make a request
       }
     });
@@ -759,23 +772,22 @@ class HomePage extends HookConsumerWidget with PresLogger {
           // });
           //Timer.periodic(Duration(minutes: globals.globalTimeRefresh), (timer) async {
 
-          if(globals.globalCheckTimer){
-            globals.globalCheckTimer=false;
+          if (globals.globalCheckTimer) {
+            globals.globalCheckTimer = false;
             Timer.periodic(const Duration(minutes: 1), (timer) async {
               //final contants cons=contants();
               // print('Timer.periodic@@@   ' +contants.name.toString()+"  ---  "+ globals.globalCheckGetListServer.toString()+"   ---   "+ globals.globalTimeRefresh.toString()+"   ---   "+globals.globalCheckFinish.toString());
               // print('Timer.periodic@@@   ' + globals.globalCheckGetListServer.toString()+"   ---   "+ globals.globalTimeRefresh.toString()+"   ---   "+globals.globalCheckFinish.toString());
 
               //if (globals.globalCheckFinish && globals.globalTimeRefresh < 5) {
-              if ( globals.globalTimeRefresh !=0) {
+              if (globals.globalTimeRefresh != 0) {
                 // if (contants.name !=0) {
                 globals.globalTimeRefresh -= 1;
                 // contants.name =contants.name -1;
-
               } else {
                 if (globals.globalToken != "" &&
                     globals.global_status_Connection == "success") {
-                  globals.globalTimeRefresh=1;
+                  globals.globalTimeRefresh = 1;
                   // contants.name =0;
                   //await ref.read(connectionNotifierProvider.notifier).toggleConnection();
                   await connect_disconnectProfile.toggleConnection();
@@ -783,7 +795,6 @@ class HomePage extends HookConsumerWidget with PresLogger {
               }
             });
           }
-
         }
         return null;
 
@@ -942,6 +953,35 @@ class HomePage extends HookConsumerWidget with PresLogger {
                         // style: ButtonStyle( ),
                       ),
                     ),
+                  ],
+                ),
+              if (globals.globalBanner.isNotNullOrEmpty)
+                MultiSliver(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 4.0),
+                      child: SizedBox(
+                          height: (MediaQuery.of(context).size.height)/9,
+                          width: (MediaQuery.of(context).size.height),
+                          child:InkWell(
+                            onTap: () async{
+                             if (globals.globalClickBanner.isNotNullOrEmpty)
+                             await UriUtils.tryLaunch(Uri.parse(globals.globalClickBanner),);
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child:   Image.network(
+                                //  globals.global_url+ globals.globalBanner,
+                                globals.globalBanner,
+                                //"https://static.vecteezy.com/ti/gratis-vektor/t2/5715816-banner-abstract-vector-background-board-for-text-and-message-design-modern-vektor.jpg",
+                              ),
+                            ),
+                          ),
+
+
+                        ),
+                    )
                   ],
                 ),
               if (globals.globalToken != "")
@@ -1111,18 +1151,16 @@ class HomePage extends HookConsumerWidget with PresLogger {
                     width: 200,
                     child: FilledButton(
                       onPressed: () async {
-                        globals.globalCheckMcGroup = true;
                         final prefs = await SharedPreferences.getInstance();
+
+                         globals.globalCheckMcGroup = true;
+
                         var account_id = prefs.getString('account_id') ?? '';
                         globals.global_account_id = account_id;
 
                         var device_name = prefs.getString('device_name') ?? '';
                         globals.global_account_name = device_name;
-                        var subscription_id =
-                            prefs.getString('subscription_id') ?? '';
-                        globals.global_subscription_id = subscription_id;
-
-                        const ConfigLocationRoute().push(context).then((data) {
+                               const ConfigLocationRoute().push(context).then((data) {
                           print(
                               "oghab @@@@ globals.globalCheckMcGroup ${globals.globalCheckMcGroup}");
                           globals.globalCheckMcGroup = false;
@@ -1160,6 +1198,23 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
                           // then will return value when the loginscreen's pop is called.
                         });
+
+                        // var subscription_id =
+                        //     prefs.getString('subscription_id') ?? '';
+                        // globals.global_subscription_id = subscription_id;
+                        // var deviceID = await get_unique_identifier();
+                        //
+                        // await UriUtils.tryLaunch(
+                        //   Uri.parse(
+                        //        globals.global_url+"/subscription/"+globals.global_subscription_id+"/change-server/provider?token="+globals.globalToken+"&unique_id="+deviceID.toString()),
+                        //     //  "https://hologate4731.com:90" + "/subscription/" + globals.global_subscription_id + "/change-server/provider?token=" + globals.globalToken + "&unique_id=" + deviceID.toString()),
+                        // );
+                        // deleteProfileMutation.setFuture(
+                        //   ref
+                        //       .read(profilesOverviewNotifierProvider.notifier)
+                        //       .deleteAllProfile(),
+                        // );
+                        // globals.globalCheckChangeServerUrl = true;
                       },
                       child: const Text(
                         "تغییر گروه سرور",
