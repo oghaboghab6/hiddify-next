@@ -104,6 +104,14 @@ GlobalKey<NavigatorState>? _dynamicRootKey = useMobileRouter ? rootNavigatorKey 
           path: "ConfigDevice2",
           name: ConfigDeviceRoute2.name,
         ),
+        TypedGoRoute<ConfigLocationRoute>(
+          path: "ConfigLocation",
+          name: ConfigLocationRoute.name,
+        ),
+        TypedGoRoute<ConfigNoAccountRoute>(
+          path: "ConfigNoAccount",
+          name: ConfigNoAccountRoute.name,
+        ),
         TypedGoRoute<WebViewRoute>(
           path: "webview",
           name: WebViewRoute.name,
@@ -210,6 +218,14 @@ class MobileWrapperRoute extends ShellRouteData {
         TypedGoRoute<ConfigDeviceRoute2>(
           path: "/ConfigDevice2",
           name: ConfigDeviceRoute2.name,
+        ),
+        TypedGoRoute<ConfigLocationRoute>(
+          path: "/ConfigLocation",
+          name: ConfigLocationRoute.name,
+        ),
+        TypedGoRoute<ConfigNoAccountRoute>(
+          path: "/ConfigNoAccount",
+          name: ConfigNoAccountRoute.name,
         ),
         TypedGoRoute<WebViewRoute>(
           path: "/webview",
