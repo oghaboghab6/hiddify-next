@@ -19,6 +19,9 @@ jobs:
       - run: pod repo update
         working-directory: ios
 
+      - run: make ios-prepare
+      - run: flutter build ios-framework
+
       - run: flutter build ios --release --no-codesign
 
       - run: mkdir Payload
