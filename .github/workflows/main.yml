@@ -16,7 +16,6 @@ jobs:
           channel: 'stable'
           architecture: x64
 
-      - run: git switch hologateplusjadid
       - run: flutter pub get
 
       - run: pod repo update
