@@ -5,6 +5,7 @@ bool globalBoolean = true;
 String globalString = "";
 String globalToken = "";
 String globalBanner = "";
+String globalUnreadNotificationCount = "0";
 String globalClickBanner = "";
 String globalTokenFB = "";
 String globalTokenTemporary = "";

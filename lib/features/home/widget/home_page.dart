@@ -53,6 +53,11 @@ import '../../profile/overview/profiles_overview_notifier.dart';
 // import 'io.flutter.plugin.common.PluginRegistry.PluginRegistrantCallback';
 // import 'io.flutter.plugins.GeneratedPluginRegistrant';
 // import 'io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService';
+final List items = [
+  {'title': 'Meeting with John', 'date': '2025-01-10'},
+  {'title': 'Project Deadline', 'date': '2025-01-15'},
+  {'title': 'Call with Client', 'date': '2025-01-20'},
+];
 
 class HomePage extends HookConsumerWidget with PresLogger {
   // bool checkGetListServer = true;
@@ -129,7 +134,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
   void initHook(BuildContext context) {
     //super.initHook();
-
+   // print("@@@@@?????");
     // CustomToast.error(
     //     "rrrrrrr")
     //     .show(context);
@@ -269,11 +274,12 @@ class HomePage extends HookConsumerWidget with PresLogger {
             date_account.value = jsonData['expiration_date'].toString() ?? '';
             volume_account.value = jsonData['traffic'].toString() ?? '';
             globalBanner = jsonData['banner']?.toString() ?? "";
+            globalUnreadNotificationCount = jsonData['unread_notification_count']?.toString() ?? "20";
             globalClickBanner = jsonData['banner_click']?.toString() ?? "";
 
-            var subscription_id  = jsonData['subscription_id']?.toString() ?? '';
+            var subscription_id = jsonData['subscription_id']?.toString() ?? '';
             final prefs = await SharedPreferences.getInstance();
-            prefs.setString('subscription_id',subscription_id);
+            prefs.setString('subscription_id', subscription_id);
             globals.global_subscription_id = subscription_id;
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             if (loginUrl.isNotNullOrEmpty) {
@@ -589,10 +595,13 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
           if (jsonData['success'] == true) {
             device_name.value = jsonData['username']?.toString() ?? '';
-            count_device.value = jsonData['number_of_devices']?.toString() ?? '';
+            count_device.value =
+                jsonData['number_of_devices']?.toString() ?? '';
             date_account.value = jsonData['expiration_date']?.toString() ?? '';
             volume_account.value = jsonData['traffic']?.toString() ?? '';
             globalBanner = jsonData['banner']?.toString() ?? "";
+            globalUnreadNotificationCount = jsonData['unread_notification_count']?.toString() ?? "20";
+
             globalClickBanner = jsonData['banner_click']?.toString() ?? "";
             // CustomToast.error(globalBanner).show(context);
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
@@ -633,6 +642,102 @@ class HomePage extends HookConsumerWidget with PresLogger {
       //       .updateOption(const ConfigOptionPatch(ipv6Mode: IPv6Mode.prefer));
       //   await ref.read(analyticsControllerProvider.notifier).disableAnalytics();
       // }
+    }
+
+    Future<void> GetNotificationsServer(BuildContext context) async {
+      try {
+        var statusVpn = "";
+        // String status_vpn = connectionStatus as String;
+        //AsyncData<ConnectionStatus>(value: ConnectionStatus.disconnected(connectionFailure: null))
+        //AsyncData<ConnectionStatus>(value: ConnectionStatus.connected())
+        // if(status_vpn=="AsyncData<ConnectionStatus>(value: ConnectionStatus.connected())")
+        //   status_vpn="hjghj";
+        // status_vpn= AsyncData(connectionStatus) as String;
+        if (connectionStatus case AsyncData(:final value)) {
+          if (value.isConnected) {
+            statusVpn = "connect";
+          } else {
+            statusVpn = "disconnect";
+          }
+          //  status_vpn=value as String;
+        }
+        //   status_vpn= AsyncData(connectionStatus) as String;
+        // switch (connectionStatus) {
+        //   case AsyncData(value: final status):
+        //     status_vpn=status as String;
+        //     // return;
+        // }
+        var deviceID = await get_unique_identifier();
+
+        final DioHttpClient client = DioHttpClient(
+            timeout: const Duration(seconds: 10),
+            userAgent:
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+            debug: true,
+            Authorization: globals.globalToken);
+        // final response =
+        // await client.get<Map<String, dynamic>>('https://shop.hologate.pro/api/login');
+        var formData = FormData.fromMap({
+          'unique_id': deviceID,
+          'is_plus_device': true,
+          'token_fb': globals.globalTokenFB,
+          'connectionStatus': statusVpn,
+          'platform': Platform.operatingSystem,
+          // 'username': user,
+          // 'password': pass,
+          // 'file': await MultipartFile.fromFile('./text.txt',filename: 'upload.txt')
+        });
+
+        var device_model = await get_info_device();
+        var device_code = await get_info_device();
+        //  var params = "?username=${user}&password=${pass}&platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+        // var params =
+        //     "?platform=android&token_fb=null&unique_id=${deviceID}&&device_model=${device_model}&&device_code=${device_code}";
+        //  loggy.warning('oghab @@@ params: ${params}');
+
+        print(
+            "oghab @@@ params: ${statusVpn}  ${deviceID} ${globals.globalToken} ${globals.globalTokenFB}");
+
+        final response = await client.post(
+            globals.global_url + '/api/get-notifications', formData);
+        if (response.statusCode == 200) {
+          final jsonData = response.data!;
+          print("oghab @@@ params:${jsonData} ");
+          //List<String> streetsList = new List<String>.from(jsonData['notifications'] );
+
+          _showModalList(context,jsonData['notifications'] as List );
+          if (jsonData['success'] == true) {
+            // device_name.value = jsonData['username']?.toString() ?? '';
+            // count_device.value =
+            //     jsonData['number_of_devices']?.toString() ?? '';
+            // date_account.value = jsonData['expiration_date']?.toString() ?? '';
+            // volume_account.value = jsonData['traffic']?.toString() ?? '';
+            // globalBanner = jsonData['banner']?.toString() ?? "";
+            // globalClickBanner = jsonData['banner_click']?.toString() ?? "";
+            // // CustomToast.error(globalBanner).show(context);
+            // var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
+            // if (loginUrl.isNotNullOrEmpty) {
+            //   final SharedPreferences prefs =
+            //   await SharedPreferences.getInstance();
+            //   globals.urlLink = loginUrl;
+            //   await prefs.setString('url_login', loginUrl);
+            // }
+          } else {
+
+          }
+        } else {
+          // CustomToast.error(
+          //     "سرور با خطا مواجه شد!!*")
+          //     .show(context);
+          loggy.warning('Request failed with status: ${response.statusCode}');
+        }
+      } catch (e) {
+        // CustomToast.error(
+        //     "**سرور با خطا مواجه شد!!")
+        //     .show(context);
+        loggy.warning('Could not get the local country code from ip'+e.toString());
+      }
+
     }
 
     // @override
@@ -861,6 +966,53 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       icon: const Icon(FluentIcons.arrow_sync_24_regular),
                       tooltip: t.profile.add.buttonText,
                     ),
+                  IconButton(
+                    onPressed: () => {
+                      GetNotificationsServer(context)
+
+                    },
+                    icon: Stack(
+                      children: <Widget>[
+                        new Container(
+                          padding: EdgeInsets.only(right: 5.0),
+                          child: Icon(FluentIcons.alert_24_regular),
+                        ),
+                        if(globalUnreadNotificationCount!="0")
+                        new Positioned(
+                          top: 0.0,
+                          right: 0.0,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.brightness_1,
+                                size: 15.0,
+                                color: Colors.redAccent,
+                              ),
+
+                              Text(
+                                globalUnreadNotificationCount,
+                                textAlign: TextAlign.center,
+                                style: new TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // IconButton(
+                  //   onPressed: () => {
+                  //     GetNotificationsServer(context)
+                  //
+                  //   },
+                  //   icon: const Icon(FluentIcons.alert_24_regular),
+                  //   tooltip: t.profile.add.buttonText,
+                  // ),
                   if (1 != 1)
                     IconButton(
                       onPressed: () => {
@@ -962,25 +1114,25 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12.0, vertical: 4.0),
                       child: SizedBox(
-                          height: (MediaQuery.of(context).size.height)/9,
-                          width: (MediaQuery.of(context).size.height),
-                          child:InkWell(
-                            onTap: () async{
-                             if (globals.globalClickBanner.isNotNullOrEmpty)
-                             await UriUtils.tryLaunch(Uri.parse(globals.globalClickBanner),);
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child:   Image.network(
-                                //  globals.global_url+ globals.globalBanner,
-                                globals.globalBanner,
-                                //"https://static.vecteezy.com/ti/gratis-vektor/t2/5715816-banner-abstract-vector-background-board-for-text-and-message-design-modern-vektor.jpg",
-                              ),
+                        height: (MediaQuery.of(context).size.height) / 9,
+                        width: (MediaQuery.of(context).size.height),
+                        child: InkWell(
+                          onTap: () async {
+                            if (globals.globalClickBanner.isNotNullOrEmpty)
+                              await UriUtils.tryLaunch(
+                                Uri.parse(globals.globalClickBanner),
+                              );
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20.0),
+                            child: Image.network(
+                              //  globals.global_url+ globals.globalBanner,
+                              globals.globalBanner,
+                              //"https://static.vecteezy.com/ti/gratis-vektor/t2/5715816-banner-abstract-vector-background-board-for-text-and-message-design-modern-vektor.jpg",
                             ),
                           ),
-
-
                         ),
+                      ),
                     )
                   ],
                 ),
@@ -1153,14 +1305,14 @@ class HomePage extends HookConsumerWidget with PresLogger {
                       onPressed: () async {
                         final prefs = await SharedPreferences.getInstance();
 
-                         globals.globalCheckMcGroup = true;
+                        globals.globalCheckMcGroup = true;
 
                         var account_id = prefs.getString('account_id') ?? '';
                         globals.global_account_id = account_id;
 
                         var device_name = prefs.getString('device_name') ?? '';
                         globals.global_account_name = device_name;
-                               const ConfigLocationRoute().push(context).then((data) {
+                        const ConfigLocationRoute().push(context).then((data) {
                           print(
                               "oghab @@@@ globals.globalCheckMcGroup ${globals.globalCheckMcGroup}");
                           globals.globalCheckMcGroup = false;
@@ -1547,6 +1699,53 @@ class HomePage extends HookConsumerWidget with PresLogger {
     } catch (e) {
       loggy.warning('Could not get the local country code from ip');
     }
+  }
+
+  void _showModalList(BuildContext context,List  items) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+
+      builder: (context) {
+        return  Container(
+          height: MediaQuery.of(context).size.height * 0.75,
+          decoration: new BoxDecoration(
+          //  color: Colors.white,
+            borderRadius: new BorderRadius.only(
+              topLeft: const Radius.circular(25.0),
+              topRight: const Radius.circular(25.0),
+            ),
+          ),
+          child: Center(
+            child: ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    color: Colors.black,
+                    child: Padding(
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                        child: ListTile(
+                          title: Text(items[index]['subject'].toString()),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(items[index]['body'].toString()),
+                              Text(items[index]['time'].toString(), style: TextStyle(color: Colors.grey)),
+                            ],
+                          ),
+                          trailing: ElevatedButton(
+                            onPressed: () => {},
+                            child: Text(items[index]['url_text'].toString()),
+                          ),
+                        )));
+              },
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Future<void> GetListAccountServer(
