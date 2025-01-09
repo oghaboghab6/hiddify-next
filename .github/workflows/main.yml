@@ -3,9 +3,7 @@ name: iOS-ipa-build
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: My tests workflow # Reuse the name of your tests workflow
     branches: hologateplusjadid
-    types: completed
 
 jobs:
   build-ios:
