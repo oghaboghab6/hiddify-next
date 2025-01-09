@@ -2,8 +2,7 @@ name: iOS-ipa-build
 
 on:
   workflow_dispatch:
-  workflow_run:
-    branches: hologateplusjadid
+
 
 jobs:
   build-ios:
