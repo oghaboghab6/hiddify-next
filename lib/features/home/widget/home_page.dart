@@ -1716,33 +1716,54 @@ class HomePage extends HookConsumerWidget with PresLogger {
               topRight: const Radius.circular(25.0),
             ),
           ),
-          child: Center(
-            child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    color: Colors.black,
-                    child: Padding(
-                        padding:
-                        const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-                        child: ListTile(
-                          title: Text(items[index]['subject'].toString()),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(items[index]['body'].toString()),
-                              Text(items[index]['time'].toString(), style: TextStyle(color: Colors.grey)),
-                            ],
-                          ),
-                          trailing: ElevatedButton(
-                            onPressed: () => {},
-                            child: Text(items[index]['url_text'].toString()),
-                          ),
-                        )));
-              },
-            ),
-          ),
+          child: Stack(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 40.0),
+                child: ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                        color: Colors.black,
+                        child: Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+                            child: ListTile(
+                              title: Text(items[index]['subject'].toString()),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(items[index]['body'].toString()),
+                                  Text(items[index]['time'].toString(), style: TextStyle(color: Colors.grey)),
+                                ],
+                              ),
+                              trailing: ElevatedButton(
+                                onPressed: () => {},
+                                child: Text(items[index]['url_text'].toString()),
+                              ),
+                            )));
+                  },
+                ),
+              ),
+              Positioned(
+                top: 10,
+                left: 10,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Icon(
+                    Icons.close,
+                    size: 24,
+                    color: Colors.grey[400],
+                  ),
+                ),
+              ),
+            ],
+          )
+
+
         );
       },
     );
