@@ -14,7 +14,7 @@ jobs:
         with:
           channel: 'stable'
           architecture: x64
-      - run: flutter pub get
+      - run: flutter upgrade && flutter clean && rm -rf ios/Pods && rm ios/Podfile.lock && flutter packages get && flutter pub get && cd ios && pod install && cd .. && flutter pub get
 
       - run: pod repo update
         working-directory: ios
