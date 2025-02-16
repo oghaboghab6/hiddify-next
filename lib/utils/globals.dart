@@ -17,6 +17,7 @@ bool globalCheckFinish = false;
 bool globalCheckMcGroup = false;
 String global_subscription_id = "";
 String urlLink = "";
+String tokenWeb = "";
 String urlLinkWebView = "";
 bool globalCheckGetListServer = true;
 bool globalWaitingGetListServer = false;

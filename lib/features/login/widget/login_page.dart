@@ -287,19 +287,24 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
         isLoading.value = false;
 
         if (response.statusCode == 200) {
+          final SharedPreferences prefs =
+          await SharedPreferences.getInstance();
           //      if(jsonData['success']==true||jsonData['status']==true||jsonData['ok']==true){
           if (jsonData['success'] == true) {
             var access_token = jsonData['access_token']?.toString() ?? "";
             var token_type = jsonData['token_type']?.toString() ?? "";
           //  var loginUrl = jsonData['login_url']?.toString() ?? "";
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
+            var tokenWeb = jsonData['web_token']?.toString() ?? "";
+            globals.tokenWeb=tokenWeb;
+            await prefs.setString('web_token', tokenWeb);
+
             // globals.globalCheckGetListServer = true;
 
             // loggy.debug(
             //   'oghab @@@: ${access_token}   ${token_type} ',
             // );
-            final SharedPreferences prefs =
-                await SharedPreferences.getInstance();
+
             var token = token_type + " " + access_token;
             globals.globalTokenTemporary = token;
             // globals.globalToken = token;
@@ -441,19 +446,23 @@ class _ConnectionWrapperState extends ConsumerState<LoginPage> with PresLogger {
         isLoading.value = false;
 
         if (response.statusCode == 200) {
+          final SharedPreferences prefs =
+          await SharedPreferences.getInstance();
           //      if(jsonData['success']==true||jsonData['status']==true||jsonData['ok']==true){
           if (jsonData['success'] == true) {
             var access_token = jsonData['access_token']?.toString() ?? "";
             var token_type = jsonData['token_type']?.toString() ?? "";
             //  var loginUrl = jsonData['login_url']?.toString() ?? "";
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
+            var tokenWeb = jsonData['web_token']?.toString() ?? "";
+            globals.tokenWeb=tokenWeb;
+            await prefs.setString('web_token', tokenWeb);
             // globals.globalCheckGetListServer = true;
 
             // loggy.debug(
             //   'oghab @@@: ${access_token}   ${token_type} ',
             // );
-            final SharedPreferences prefs =
-            await SharedPreferences.getInstance();
+
             var token = token_type + " " + access_token;
             globals.globalTokenTemporary = token;
             // globals.globalToken = token;

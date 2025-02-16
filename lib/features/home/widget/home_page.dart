@@ -266,6 +266,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
         final response = await client.post(
             globals.global_url + '/api/accounts/device-permission', formData);
         if (response.statusCode == 200) {
+          final SharedPreferences prefs =
+          await SharedPreferences.getInstance();
           final jsonData = response.data!;
 
           if (jsonData['success'] == true) {
@@ -278,15 +280,19 @@ class HomePage extends HookConsumerWidget with PresLogger {
             globalClickBanner = jsonData['banner_click']?.toString() ?? "";
 
             var subscription_id = jsonData['subscription_id']?.toString() ?? '';
-            final prefs = await SharedPreferences.getInstance();
             prefs.setString('subscription_id', subscription_id);
             globals.global_subscription_id = subscription_id;
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             if (loginUrl.isNotNullOrEmpty) {
-              final SharedPreferences prefs =
-                  await SharedPreferences.getInstance();
+
               globals.urlLink = loginUrl;
               await prefs.setString('url_login', loginUrl);
+            }
+            var tokenWeb = jsonData['web_token']?.toString() ?? "";
+            if (tokenWeb.isNotNullOrEmpty) {
+
+              globals.tokenWeb=tokenWeb;
+              await prefs.setString('web_token', tokenWeb);
             }
           } else {
             loggy
@@ -592,7 +598,8 @@ class HomePage extends HookConsumerWidget with PresLogger {
             globals.global_url + '/api/accounts/device-permission', formData);
         if (response.statusCode == 200) {
           final jsonData = response.data!;
-
+          final SharedPreferences prefs =
+          await SharedPreferences.getInstance();
           if (jsonData['success'] == true) {
             device_name.value = jsonData['username']?.toString() ?? '';
             count_device.value =
@@ -606,11 +613,17 @@ class HomePage extends HookConsumerWidget with PresLogger {
             // CustomToast.error(globalBanner).show(context);
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             if (loginUrl.isNotNullOrEmpty) {
-              final SharedPreferences prefs =
-                  await SharedPreferences.getInstance();
+
               globals.urlLink = loginUrl;
               await prefs.setString('url_login', loginUrl);
             }
+            var tokenWeb = jsonData['web_token']?.toString() ?? "";
+            if (tokenWeb.isNotNullOrEmpty) {
+
+              globals.tokenWeb=tokenWeb;
+              await prefs.setString('web_token', tokenWeb);
+            }
+
           } else {
             exitApp(context, ref, addProfileProvider, deleteProfileMutation);
             // CustomToast.error(((jsonData['message']?.toString())!.length > 0)
@@ -1738,10 +1751,19 @@ class HomePage extends HookConsumerWidget with PresLogger {
                                   Text(items[index]['time'].toString(), style: TextStyle(color: Colors.grey)),
                                 ],
                               ),
-                              trailing: ElevatedButton(
-                                onPressed: () => {},
+
+                              trailing: (items[index]['url_text'].toString()!="")? ElevatedButton(
+                                onPressed:() async {
+                                  final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  var token = prefs.getString('web_token') ?? '';
+                                  token = token.replaceAll("Bearer ", "");
+
+                                await UriUtils.tryLaunch(
+                                  Uri.parse( globals.global_url +items[index]['url'].toString()+"?token="+token),
+                                );
+                              },
                                 child: Text(items[index]['url_text'].toString()),
-                              ),
+                              ):null,
                             )));
                   },
                 ),
