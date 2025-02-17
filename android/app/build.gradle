@@ -85,7 +85,18 @@ android {
     }
 
     buildTypes {
+
+
+            profile {
+                minifyEnabled true
+            }
+            debug {
+                minifyEnabled true
+            }
+
         release {
+            minifyEnabled true
+
             if (hasKeyStore) {
                 signingConfig signingConfigs.release
             } else {
