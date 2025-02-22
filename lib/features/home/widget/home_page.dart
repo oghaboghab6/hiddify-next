@@ -25,7 +25,7 @@ import 'package:hiddify/features/home/widget/connection_button.dart';
 import 'package:hiddify/features/home/widget/empty_profiles_home_body.dart';
 import 'package:hiddify/features/profile/notifier/active_profile_notifier.dart';
 import 'package:hiddify/features/profile/notifier/profile_notifier.dart';
-import 'package:hiddify/features/profile/widget/profile_tile.dart';
+// import 'package:hiddify/features/profile/widget/profile_tile.dart';
 import 'package:hiddify/features/proxy/active/active_proxy_delay_indicator.dart';
 import 'package:hiddify/features/proxy/active/active_proxy_footer.dart';
 import 'package:hiddify/utils/utils.dart';
@@ -42,11 +42,11 @@ import '../../../singbox/model/singbox_config_enum.dart';
 import '../../../utils/globals.dart';
 
 // import '../../config_option/model/config_option_entity.dart';
-import '../../config_option/notifier/config_option_notifier.dart';
+// import '../../config_option/notifier/config_option_notifier.dart';
 import '../../connection/data/connection_data_providers.dart';
 import '../../connection/data/connection_repository.dart';
 import '../../connection/notifier/connection_notifier.dart';
-import '../../connection/widget/experimental_feature_notice.dart';
+// import '../../connection/widget/experimental_feature_notice.dart';
 import '../../profile/overview/profiles_overview_notifier.dart';
 
 // import 'io.flutter.plugin.common.PluginRegistry';

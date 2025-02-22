@@ -6,56 +6,97 @@ import 'package:dio/io.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter_loggy_dio/flutter_loggy_dio.dart';
 import 'package:hiddify/utils/custom_loggers.dart';
+//final dio22 = Dio();
 
 class DioHttpClient with InfraLogger {
+  final Map<String, Dio> _dio = {};
+  late var dio_new = Dio();
+
   DioHttpClient({
     required Duration timeout,
     required String userAgent,
     required bool debug, String Authorization="",
   }) {
-    _dio = Dio(
-      BaseOptions(
-        contentType: Headers.jsonContentType,
-        validateStatus: (int? status) {
-          return status != null;
-          // return status != null && status >= 200 && status < 300;
-        },
-        connectTimeout: timeout,
-        sendTimeout: timeout,
-        receiveTimeout: timeout,
-        headers: {"User-Agent": userAgent,"Authorization":Authorization},
-      ),
-    );
+    for (var mode in ["proxy", "direct", "both"]) {
+      _dio[mode] = Dio(
+        BaseOptions(
+          connectTimeout: timeout,
+          sendTimeout: timeout,
+          receiveTimeout: timeout,
+          headers: {"User-Agent": userAgent,"Authorization":Authorization},
+        ),
+      );
+      dio_new = Dio(
+        BaseOptions(
+          connectTimeout: timeout,
+          sendTimeout: timeout,
+          receiveTimeout: timeout,
+          headers: {"User-Agent": userAgent,"Authorization":Authorization},
+        ),
+      );
+      _dio[mode]!.interceptors.add(
+            RetryInterceptor(
+              dio: _dio[mode]!,
+              retryDelays: [
+                const Duration(seconds: 1),
+                if (mode != "proxy") ...[
+                  const Duration(seconds: 2),
+                  const Duration(seconds: 3),
+                ]
+              ],
+            ),
+          );
 
-    _dio.interceptors.add(
-      RetryInterceptor(
-        dio: _dio,
-        retryDelays: const [
-          Duration(seconds: 1),
-          Duration(seconds: 2),
-          Duration(seconds: 3),
-        ],
-      ),
-    );
+      _dio[mode]!.httpClientAdapter = IOHttpClientAdapter(
+        createHttpClient: () {
+          final client = HttpClient();
+          client.findProxy = (url) {
+            if (mode == "proxy") {
+              return "PROXY localhost:$port";
+            } else if (mode == "direct") {
+              return "DIRECT";
+            } else {
+              return "PROXY localhost:$port; DIRECT";
+            }
+          };
+          return client;
+        },
+      );
+    }
 
     if (debug) {
-      _dio.interceptors.add(LoggyDioInterceptor(requestHeader: true));
+      // _dio.interceptors.add(LoggyDioInterceptor(requestHeader: true));
     }
   }
 
-  late final Dio _dio;
+  int port = 0;
+  // bool isPortOpen(String host, int port, {Duration timeout = const Duration(milliseconds: 200)}) async{
+  //   try {
+  //     Socket.connect(host, port, timeout: timeout).then((socket) {
+  //       socket.destroy();
+  //     });
+  //     return true;
+  //   } on SocketException catch (_) {
+  //     return false;
+  //   } catch (_) {
+  //     return false;
+  //   }
+  // }
+  Future<bool> isPortOpen(String host, int port, {Duration timeout = const Duration(seconds: 5)}) async {
+    try {
+      final socket = await Socket.connect(host, port, timeout: timeout);
+      await socket.close();
+      return true;
+    } on SocketException catch (_) {
+      return false;
+    } catch (_) {
+      return false;
+    }
+  }
 
   void setProxyPort(int port) {
+    this.port = port;
     loggy.debug("setting proxy port: [$port]");
-    _dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        final client = HttpClient();
-        client.findProxy = (url) {
-          return "PROXY localhost:$port; DIRECT";
-        };
-        return client;
-      },
-    );
   }
 
   Future<Response<T>> get<T>(
@@ -63,8 +104,16 @@ class DioHttpClient with InfraLogger {
     CancelToken? cancelToken,
     String? userAgent,
     ({String username, String password})? credentials,
+    bool proxyOnly = false,
   }) async {
-    return _dio.get<T>(
+    final mode = proxyOnly
+        ? "proxy"
+        : await isPortOpen("127.0.0.1", port)
+            ? "both"
+            : "direct";
+    final dio = _dio[mode]!;
+
+    return dio.get<T>(
       url,
       cancelToken: cancelToken,
       options: _options(url, userAgent: userAgent, credentials: credentials),
@@ -77,7 +126,7 @@ class DioHttpClient with InfraLogger {
     CancelToken? cancelToken,
     String? userAgent,
     ({String username, String password})? credentials,
-  }) async => _dio.post<T>(
+  }) async => dio_new.post<T>(
       url,
 
       data: data,
@@ -91,8 +140,15 @@ class DioHttpClient with InfraLogger {
     CancelToken? cancelToken,
     String? userAgent,
     ({String username, String password})? credentials,
+    bool proxyOnly = false,
   }) async {
-    return _dio.download(
+    final mode = proxyOnly
+        ? "proxy"
+        : await isPortOpen("127.0.0.1", port)
+            ? "both"
+            : "direct";
+    final dio = _dio[mode]!;
+    return dio.download(
       url,
       path,
       cancelToken: cancelToken,

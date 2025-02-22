@@ -106,6 +106,7 @@ class ConnectionNotifier extends _$ConnectionNotifier with AppLogger {
         profile.id,
         profile.name,
         ref.read(Preferences.disableMemoryLimit),
+        profile.testUrl,
       )
           .mapLeft((err) {
         loggy.warning("error reconnecting", err);
@@ -138,6 +139,7 @@ class ConnectionNotifier extends _$ConnectionNotifier with AppLogger {
       activeProfile.id,
       activeProfile.name,
       ref.read(Preferences.disableMemoryLimit),
+      activeProfile.testUrl,
     )
         .mapLeft((err) async {
       loggy.warning("error connecting", err);

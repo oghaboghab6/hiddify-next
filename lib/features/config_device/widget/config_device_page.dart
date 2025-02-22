@@ -261,6 +261,8 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
           isLoading.value = false;
 
           CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
+          loggy.warning(e);
+
           loggy.warning('Could not get the local country code from ip');
         }
       }
@@ -362,6 +364,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
 
         CustomToast.error("سرور با خطا مواجه شد!!!").show(context);
 
+        loggy.warning(e);
         loggy.warning('Could not get the local country code from ip');
       }
     }

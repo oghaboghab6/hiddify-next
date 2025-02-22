@@ -3,10 +3,10 @@
 /// Original: assets/translations
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 10
-/// Strings: 2962 (296 per locale)
+/// Locales: 11
+/// Strings: 3534 (321 per locale)
 ///
-/// Built on 2024-07-24 at 10:30 UTC
+/// Built on 2025-02-17 at 11:33 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -16,7 +16,7 @@ import 'package:slang/builder/model/node.dart';
 import 'package:slang_flutter/slang_flutter.dart';
 export 'package:slang_flutter/slang_flutter.dart';
 
-const AppLocale _baseLocale = AppLocale.fa;
+const AppLocale _baseLocale = AppLocale.en;
 
 /// Supported locales, see extension methods below.
 ///
@@ -29,6 +29,7 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
 	ar(languageCode: 'ar', build: TranslationsAr.build),
 	es(languageCode: 'es', build: TranslationsEs.build),
 	fa(languageCode: 'fa', build: TranslationsFa.build),
+	fr(languageCode: 'fr', build: TranslationsFr.build),
 	id(languageCode: 'id', build: TranslationsId.build),
 	ptBr(languageCode: 'pt', countryCode: 'BR', build: TranslationsPtBr.build),
 	ru(languageCode: 'ru', build: TranslationsRu.build),
@@ -100,6 +101,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsPlayEn play = TranslationsPlayEn._(_root);
 	late final TranslationsConnectionEn connection = TranslationsConnectionEn._(_root);
 	late final TranslationsConfigEn config = TranslationsConfigEn._(_root);
+	late final TranslationsWindowEn window = TranslationsWindowEn._(_root);
 }
 
 // Path: general
@@ -109,7 +111,7 @@ class TranslationsGeneralEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get appTitle => 'HologatePlus';
+	String get appTitle => 'Hiddify';
 	String get reset => 'Reset';
 	late final TranslationsGeneralToggleEn toggle = TranslationsGeneralToggleEn._(_root);
 	late final TranslationsGeneralStateEn state = TranslationsGeneralStateEn._(_root);
@@ -321,9 +323,9 @@ class TranslationsPlayEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'HologatePlus (Preview)';
+	String get title => 'Hiddify (Preview)';
 	String get short_description => 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
-	String get full_description => 'The key goal of HologatePlus is to provide a secure, user-friendly and efficient tunneling client. It enables you to route all traffic or selected app traffic to a remote server of your choose, utilizing VPN-Service permission.\n\nNote: We do not provide any server; users are required to ensure their online activities stay private by using use their own self-hosted server or trusted servers. \n \nWe Support Servers With:\n- Normal V2Ray/XRay Subscription Link\n- Clash Subscription Link\n- Sing-Box Subscription Link\n\nWhat is our unique features?\n - User Friendly\n - Optimized and Fast\n - Automatically select LowestPing \n - Show user usage information\n - Easily import sublink by one click using deeplinking \n - Free and No ADS\n - Easily switch user sublinks\n - More and more\n\nSupport:\n- All Protocols Supported by Sing-Box \n- VLESS + XTLS Reality, Vision\n- VMess\n- Trojan\n- ShadowSocks\n- Reality\n- WireGuard\n- V2Ray\n- Hysteria2\n- TUICv5\n- SSH\n- ShadowTLS\n\n\nThe source code exist in https://github.com/HologatePlus/HologatePlus-Next\nThe application core is based on open-source Sing-Box.\n\nPermission Description:\n- VPN Service: As the goal of this application is to provide a secure, user-friendly and efficient tunneling client, we need this permission to be able to route the traffic via tunnel to the remote server. \n- QUERY ALL PACKAGES: This permission is used to allow users to include or exclude specific applications for tunneling.\n- RECEIVE BOOT COMPLETED: This permission can be enabled or disabled from app settings to activate this application upon device boot.\n- POST NOTIFICATIONS: This permission is essential as we employ a foreground service to ensure the continuous operation of the VPN service.\n- This application is free from advertisements. The analytics and crash data only occurs with the explicit consent of the user in the first use of application.';
+	String get full_description => 'The key goal of Hiddify is to provide a secure, user-friendly and efficient tunneling client. It enables you to route all traffic or selected app traffic to a remote server of your choose, utilizing VPN-Service permission.\n\nNote: We do not provide any server; users are required to ensure their online activities stay private by using use their own self-hosted server or trusted servers. \n \nWe Support Servers With:\n- Normal V2Ray/XRay Subscription Link\n- Clash Subscription Link\n- Sing-Box Subscription Link\n\nWhat is our unique features?\n - User Friendly\n - Optimized and Fast\n - Automatically select LowestPing \n - Show user usage information\n - Easily import sublink by one click using deeplinking \n - Free and No ADS\n - Easily switch user sublinks\n - More and more\n\nSupport:\n- All Protocols Supported by Sing-Box \n- VLESS + XTLS Reality, Vision\n- VMess\n- Trojan\n- ShadowSocks\n- Reality\n- WireGuard\n- V2Ray\n- Hysteria2\n- TUICv5\n- SSH\n- ShadowTLS\n\n\nThe source code exist in https://github.com/hiddify/Hiddify-Next\nThe application core is based on open-source Sing-Box.\n\nPermission Description:\n- VPN Service: As the goal of this application is to provide a secure, user-friendly and efficient tunneling client, we need this permission to be able to route the traffic via tunnel to the remote server. \n- QUERY ALL PACKAGES: This permission is used to allow users to include or exclude specific applications for tunneling.\n- RECEIVE BOOT COMPLETED: This permission can be enabled or disabled from app settings to activate this application upon device boot.\n- POST NOTIFICATIONS: This permission is essential as we employ a foreground service to ensure the continuous operation of the VPN service.\n- This application is free from advertisements. The analytics and crash data only occurs with the explicit consent of the user in the first use of application.';
 }
 
 // Path: connection
@@ -352,6 +354,7 @@ class TranslationsConfigEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final TranslationsConfigUseXrayCoreWhenPossibleEn useXrayCoreWhenPossible = TranslationsConfigUseXrayCoreWhenPossibleEn._(_root);
 	String get resetBtn => 'Reset Options';
 	String get serviceMode => 'Service Mode';
 	String get quickSettings => 'Quick Settings';
@@ -363,7 +366,7 @@ class TranslationsConfigEn {
 	late final TranslationsConfigWarpConsentEn warpConsent = TranslationsConfigWarpConsentEn._(_root);
 	String get generateWarpConfig => 'Generate WARP Config';
 	String get missingWarpConfig => 'Missing WARP Config';
-	String get warpConfigGenerated => 'WARP Config Generated';
+	String get warpConfigGenerated => 'WARP Config is Generated';
 	String get pageTitle => 'Config Options';
 	String get logLevel => 'Log Level';
 	String get blockAds => 'Block Advertisements';
@@ -379,7 +382,7 @@ class TranslationsConfigEn {
 	String get localDnsPort => 'Local DNS Port';
 	String get allowConnectionFromLan => 'Share VPN in Local Network';
 	String get tunImplementation => 'TUN Implementation';
-	String get mtu => 'MTU';
+	String get mtu => 'Packet Size (MTU)';
 	String get connectionTestUrl => 'Connection Test URL';
 	String get urlTestInterval => 'URL Test Interval';
 	String get enableClashApi => 'Enable Clash API';
@@ -409,6 +412,19 @@ class TranslationsConfigEn {
 	String get warpNoiseSize => 'Noise Size';
 	String get warpNoiseMode => 'Noise Mode';
 	String get warpNoiseDelay => 'Noise Delay';
+}
+
+// Path: window
+class TranslationsWindowEn {
+	TranslationsWindowEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get hide => 'Hide';
+	String get close => 'Exit';
+	String get alertMessage => 'Hide or Exit the application?';
+	String get remember => 'Remember my choice';
 }
 
 // Path: general.toggle
@@ -475,7 +491,7 @@ class TranslationsProfileAddEn {
 	String get scanQr => 'Scan QR Code';
 	late final TranslationsProfileAddQrScannerEn qrScanner = TranslationsProfileAddQrScannerEn._(_root);
 	String get manually => 'Manual Entry';
-	String get addWarp => 'Add Warp';
+	String get addWarp => 'Add WARP';
 	String get addingWarpMsg => 'Please wait while we register WARP.';
 	String get addingProfileMsg => 'Adding Profile';
 	String get failureMsg => 'Failed to Add Profile';
@@ -624,6 +640,8 @@ class TranslationsSettingsGeneralEn {
 	String get dynamicNotification => 'Display Speed in Notification';
 	String get hapticFeedback => 'Haptic Feedback';
 	String get autoIpCheck => 'Automatically Check Connection IP';
+	String get actionAtClosing => 'Action at closing';
+	late final TranslationsSettingsGeneralActionsAtClosingEn actionsAtClosing = TranslationsSettingsGeneralActionsAtClosingEn._(_root);
 }
 
 // Path: settings.advanced
@@ -770,6 +788,17 @@ class TranslationsFailureGeoAssetsEn {
 	String get activeNotFound => 'Active Geo Asset Not Found';
 }
 
+// Path: config.useXrayCoreWhenPossible
+class TranslationsConfigUseXrayCoreWhenPossibleEn {
+	TranslationsConfigUseXrayCoreWhenPossibleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get Label => 'Use Xray-core When Possible';
+	String get Description => 'Use Xray-core during parsing sub links. You need to reimport the sub link to enable this option.';
+}
+
 // Path: config.serviceModes
 class TranslationsConfigServiceModesEn {
 	TranslationsConfigServiceModesEn._(this._root);
@@ -877,10 +906,13 @@ class TranslationsSettingsGeneralRegionsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get ir => 'Iran (ir)';
-	String get cn => 'China (cn)';
-	String get ru => 'Russia (ru)';
-	String get af => 'Afghanistan (af)';
+	String get ir => 'Iran (ir) 🇮🇷';
+	String get cn => 'China (cn) 🇨🇳';
+	String get ru => 'Russia (ru) 🇷🇺';
+	String get af => 'Afghanistan (af) 🇦🇫';
+	String get id => 'Indonesia (id) 🇮🇩';
+	String get tr => 'Türkiye (tr) 🇹🇷';
+	String get br => 'Brazil (br) 🇧🇷';
 	String get other => 'Other';
 }
 
@@ -895,6 +927,18 @@ class TranslationsSettingsGeneralThemeModesEn {
 	String get dark => 'Dark Mode';
 	String get light => 'Light Mode';
 	String get black => 'Black Mode';
+}
+
+// Path: settings.general.actionsAtClosing
+class TranslationsSettingsGeneralActionsAtClosingEn {
+	TranslationsSettingsGeneralActionsAtClosingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get askEachTime => 'Ask each time';
+	String get hide => 'Hide';
+	String get exit => 'Exit';
 }
 
 // Path: settings.network.perAppProxyModes
@@ -962,7 +1006,7 @@ class TranslationsGeneralAr extends TranslationsGeneralEn {
 	@override final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'HologatePlus';
+	@override String get appTitle => 'هلوگیت پلاس';
 	@override String get reset => 'إعادة تعيين';
 	@override late final TranslationsGeneralToggleAr toggle = TranslationsGeneralToggleAr._(_root);
 	@override late final TranslationsGeneralStateAr state = TranslationsGeneralStateAr._(_root);
@@ -1115,7 +1159,7 @@ class TranslationsAboutAr extends TranslationsAboutEn {
 	@override String get pageTitle => 'حول\nتعريب:م. ابراهيم قاسم';
 	@override String get version => 'الإصدار';
 	@override String get sourceCode => 'رمز المصدر';
-	@override String get telegramChannel => 'قناة Telegram';
+	@override String get telegramChannel => 'قناة تلگرام';
 	@override String get checkForUpdate => 'التحقق من وجود تحديث';
 	@override String get privacyPolicy => 'سياسة الخصوصية';
 	@override String get termsAndConditions => 'الشروط والأحكام';
@@ -1174,9 +1218,9 @@ class TranslationsPlayAr extends TranslationsPlayEn {
 	@override final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'HologatePlus (معاينة)';
+	@override String get title => 'Hiddify (معاينة)';
 	@override String get short_description => 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
-	@override String get full_description => 'الهدف الرئيسي لـ HologatePlus هو توفير عميل نفق آمن وسهل الاستخدام وكفاءة. يمكّنك من توجيه جميع حركة المرور أو حركة المرور من التطبيق المحدد إلى خادم بعيد من اختيارك، باستخدام إذن VPN-Service. \n\nملاحظة: لا نوفر أي خادم، ويتعين على المستخدمين ضمان بقاء أنشطتهم عبر الإنترنت خاصة باستخدام خادمهم المخصص أو الخوادم الموثوقة. \n \nندعم الخوادم مع:\n- رابط اشتراك V2Ray/XRay عادي \n- رابط اشتراك Clash \n- رابط اشتراك Sing-Box \n\nما هي ميزاتنا الفريدة؟\n - سهل الاستخدام \n - مُحسّن وسريع \n - اختيار أدنى Ping تلقائيًا \n - عرض معلومات استخدام المستخدم \n - استيراد sublink بسهولة بنقرة واحدة باستخدام deeplinking \n - مجاني وخالي من الإعلانات \n - تبديل sublinks بسهولة \n - المزيد والمزيد \n\nالدعم:\n- جميع البروتوكولات التي تدعمها Sing-Box \n- VLESS + XTLS Reality, Vision \n- VMess \n- Trojan \n- ShoadowSocks \n- Reality \n- WireGuard \n- V2Ray \n- Hysteria2 \n- TUICv5 \n- SSH \n- ShadowTLS \n\n\nرمز المصدر موجود في https://github.com/HologatePlus/HologatePlus-Next \nتعتمد نواة التطبيق على Sing-Box مفتوحة المصدر.\n\nوصف الإذن:\n- VPN Service: نظرًا لأن هدف هذا التطبيق هو توفير عميل نفق آمن وسهل الاستخدام وكفاءة، نحتاج إلى هذا الإذن لنتمكن من توجيه حركة المرور عبر النفق إلى الخادم البعيد. \n- QUERY ALL PACKAGES: يستخدم هذا الإذن للسماح للمستخدمين بتضمين أو استبعاد تطبيقات محددة للأنفاق. \n- RECEIVE BOOT COMPLETED: يمكن تمكين أو تعطيل هذا الإذن من إعدادات التطبيق لتنشيط هذا التطبيق عند تشغيل الجهاز. \n- POST NOTIFICATIONS: هذا الإذن ضروري لأننا نستخدم خدمة المقدمة لضمان تشغيل خدمة VPN بشكل مستمر. \n- هذا التطبيق خالي من الإعلانات. يتم جمع التحليلات وبيانات الأعطال فقط بموافقة صريحة من المستخدم في أول استخدام للتطبيق.';
+	@override String get full_description => 'الهدف الرئيسي لـ Hiddify هو توفير عميل نفق آمن وسهل الاستخدام وكفاءة. يمكّنك من توجيه جميع حركة المرور أو حركة المرور من التطبيق المحدد إلى خادم بعيد من اختيارك، باستخدام إذن VPN-Service. \n\nملاحظة: لا نوفر أي خادم، ويتعين على المستخدمين ضمان بقاء أنشطتهم عبر الإنترنت خاصة باستخدام خادمهم المخصص أو الخوادم الموثوقة. \n \nندعم الخوادم مع:\n- رابط اشتراك V2Ray/XRay عادي \n- رابط اشتراك Clash \n- رابط اشتراك Sing-Box \n\nما هي ميزاتنا الفريدة؟\n - سهل الاستخدام \n - مُحسّن وسريع \n - اختيار أدنى Ping تلقائيًا \n - عرض معلومات استخدام المستخدم \n - استيراد sublink بسهولة بنقرة واحدة باستخدام deeplinking \n - مجاني وخالي من الإعلانات \n - تبديل sublinks بسهولة \n - المزيد والمزيد \n\nالدعم:\n- جميع البروتوكولات التي تدعمها Sing-Box \n- VLESS + XTLS Reality, Vision \n- VMess \n- Trojan \n- ShoadowSocks \n- Reality \n- WireGuard \n- V2Ray \n- Hysteria2 \n- TUICv5 \n- SSH \n- ShadowTLS \n\n\nرمز المصدر موجود في https://github.com/hiddify/Hiddify-Next \nتعتمد نواة التطبيق على Sing-Box مفتوحة المصدر.\n\nوصف الإذن:\n- VPN Service: نظرًا لأن هدف هذا التطبيق هو توفير عميل نفق آمن وسهل الاستخدام وكفاءة، نحتاج إلى هذا الإذن لنتمكن من توجيه حركة المرور عبر النفق إلى الخادم البعيد. \n- QUERY ALL PACKAGES: يستخدم هذا الإذن للسماح للمستخدمين بتضمين أو استبعاد تطبيقات محددة للأنفاق. \n- RECEIVE BOOT COMPLETED: يمكن تمكين أو تعطيل هذا الإذن من إعدادات التطبيق لتنشيط هذا التطبيق عند تشغيل الجهاز. \n- POST NOTIFICATIONS: هذا الإذن ضروري لأننا نستخدم خدمة المقدمة لضمان تشغيل خدمة VPN بشكل مستمر. \n- هذا التطبيق خالي من الإعلانات. يتم جمع التحليلات وبيانات الأعطال فقط بموافقة صريحة من المستخدم في أول استخدام للتطبيق.';
 }
 
 // Path: connection
@@ -1219,6 +1263,7 @@ class TranslationsConfigAr extends TranslationsConfigEn {
 	@override String get warpConfigGenerated => 'تم إنشاء تكوين WARP';
 	@override String get pageTitle => 'خيارات التكوين';
 	@override String get logLevel => 'مستوى السجل';
+	@override String get blockAds => 'منع الإعلانات';
 	@override String get resolveDestination => 'حل الوجهة';
 	@override String get ipv6Mode => 'توجيه IPv6';
 	@override late final TranslationsConfigIpv6ModesAr ipv6Modes = TranslationsConfigIpv6ModesAr._(_root);
@@ -1231,7 +1276,7 @@ class TranslationsConfigAr extends TranslationsConfigEn {
 	@override String get localDnsPort => 'منفذ DNS المحلي';
 	@override String get allowConnectionFromLan => 'مشاركة VPN على الشبكة المحلية';
 	@override String get tunImplementation => 'تنفيذ TUN';
-	@override String get mtu => 'MTU';
+	@override String get mtu => 'حجم الحزمة (MTU)';
 	@override String get connectionTestUrl => 'عنوان URL لاختبار الاتصال';
 	@override String get urlTestInterval => 'مُدة اختبار عنوان URL';
 	@override String get enableClashApi => 'تمكين Clash API';
@@ -1258,6 +1303,8 @@ class TranslationsConfigAr extends TranslationsConfigEn {
 	@override String get warpCleanIp => 'عنوان IP نظيف';
 	@override String get warpPort => 'المنفذ';
 	@override String get warpNoise => 'عدد الضوضاء';
+	@override String get warpNoiseSize => 'حجم الضوضاء';
+	@override String get warpNoiseMode => 'وضع الضوضاء';
 	@override String get warpNoiseDelay => 'تأخير الضوضاء';
 }
 
@@ -1325,6 +1372,8 @@ class TranslationsProfileAddAr extends TranslationsProfileAddEn {
 	@override String get scanQr => 'مسح رمز الاستجابة السريعة';
 	@override late final TranslationsProfileAddQrScannerAr qrScanner = TranslationsProfileAddQrScannerAr._(_root);
 	@override String get manually => 'إدخال يدوي';
+	@override String get addWarp => 'أضف WARP';
+	@override String get addingWarpMsg => 'الرجاء الانتظار بينما نقوم بتسجيل WARP.';
 	@override String get addingProfileMsg => 'إضافة ملف التعريف';
 	@override String get failureMsg => 'فشل في إضافة ملف التعريف';
 }
@@ -1729,6 +1778,8 @@ class TranslationsSettingsGeneralRegionsAr extends TranslationsSettingsGeneralRe
 	@override String get cn => 'الصين (cn)';
 	@override String get ru => 'روسيا (ru)';
 	@override String get af => 'أفغانستان (af)';
+	@override String get id => 'إندونيسيا (id)';
+	@override String get tr => 'تركيا (tr) 🇹🇷';
 	@override String get other => 'أخرى';
 }
 
@@ -1789,6 +1840,7 @@ class TranslationsEs extends Translations {
 	@override late final TranslationsGeneralEs general = TranslationsGeneralEs._(_root);
 	@override late final TranslationsIntroEs intro = TranslationsIntroEs._(_root);
 	@override late final TranslationsHomeEs home = TranslationsHomeEs._(_root);
+	@override late final TranslationsStatsEs stats = TranslationsStatsEs._(_root);
 	@override late final TranslationsProfileEs profile = TranslationsProfileEs._(_root);
 	@override late final TranslationsProxiesEs proxies = TranslationsProxiesEs._(_root);
 	@override late final TranslationsLogsEs logs = TranslationsLogsEs._(_root);
@@ -1809,7 +1861,7 @@ class TranslationsGeneralEs extends TranslationsGeneralEn {
 	@override final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'HologatePlus';
+	@override String get appTitle => 'Hiddify';
 	@override String get reset => 'Renicio';
 	@override late final TranslationsGeneralToggleEs toggle = TranslationsGeneralToggleEs._(_root);
 	@override late final TranslationsGeneralStateEs state = TranslationsGeneralStateEs._(_root);
@@ -1822,8 +1874,10 @@ class TranslationsGeneralEs extends TranslationsGeneralEn {
 	@override String get unknown => 'Desconocido';
 	@override String get hidden => 'Oculto';
 	@override String get timeout => 'Se acabó el tiempo';
+	@override String get clipboardExportSuccessMsg => 'Añadido al portapapeles';
 	@override String get showMore => 'Mostrar más';
 	@override String get showLess => 'Muestra menos';
+	@override String get openAppSettings => 'Abrir la configuración de la aplicación';
 	@override String get grantPermission => 'Conceder permiso';
 }
 
@@ -1851,6 +1905,23 @@ class TranslationsHomeEs extends TranslationsHomeEn {
 	@override String get pageTitle => 'Hogar';
 	@override String get emptyProfilesMsg => 'Comience agregando un perfil de suscripción';
 	@override String get noActiveProfileMsg => 'Elige un perfil';
+}
+
+// Path: stats
+class TranslationsStatsEs extends TranslationsStatsEn {
+	TranslationsStatsEs._(TranslationsEs root) : this._root = root, super._(root);
+
+	@override final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get traffic => 'Tráfico';
+	@override String get trafficLive => 'Tráfico en tiempo real';
+	@override String get trafficTotal => 'Tráfico total';
+	@override String get uplink => 'Enlace de subida';
+	@override String get downlink => 'Enlace de bajada';
+	@override String get connection => 'Conexión';
+	@override String get speed => 'Velocidad';
+	@override String get totalTransferred => 'Total transferido';
 }
 
 // Path: profile
@@ -1887,7 +1958,12 @@ class TranslationsProxiesEs extends TranslationsProxiesEn {
 	@override String get emptyProxiesMsg => 'No proxies disponibles';
 	@override String get delayTestTooltip => 'Prueba de Restraso';
 	@override String get sortTooltip => 'Ordenar Proxies';
+	@override String get checkIp => 'Comprobar IP';
+	@override String get unknownIp => 'IP desconocida';
 	@override late final TranslationsProxiesSortOptionsEs sortOptions = TranslationsProxiesSortOptionsEs._(_root);
+	@override String get activeProxySemanticLabel => 'Proxy activo';
+	@override late final TranslationsProxiesDelaySemanticsEs delaySemantics = TranslationsProxiesDelaySemanticsEs._(_root);
+	@override late final TranslationsProxiesIpInfoSemanticsEs ipInfoSemantics = TranslationsProxiesIpInfoSemanticsEs._(_root);
 }
 
 // Path: logs
@@ -1918,6 +1994,10 @@ class TranslationsSettingsEs extends TranslationsSettingsEn {
 	@override String get requiresRestartMsg => 'Para que esto surta efecto, reinicie la aplicación.';
 	@override String get experimental => 'Experimental';
 	@override String get experimentalMsg => 'Las funciones con el indicador Experimental aún están en desarrollo y pueden causar problemas.';
+	@override String get exportOptions => 'Copiar opciones anónimas al portapapeles';
+	@override String get exportAllOptions => 'Copiar todas las opciones al portapapeles';
+	@override String get importOptions => 'Importar opciones desde el portapapeles';
+	@override String get importOptionsMsg => 'Esto reescribirá todas las opciones de configuración con los valores proporcionados. ¿Está seguro?';
 	@override late final TranslationsSettingsGeneralEs general = TranslationsSettingsGeneralEs._(_root);
 	@override late final TranslationsSettingsAdvancedEs advanced = TranslationsSettingsAdvancedEs._(_root);
 	@override late final TranslationsSettingsNetworkEs network = TranslationsSettingsNetworkEs._(_root);
@@ -1934,7 +2014,7 @@ class TranslationsAboutEs extends TranslationsAboutEn {
 	@override String get pageTitle => 'Acerca de';
 	@override String get version => 'Versión';
 	@override String get sourceCode => 'Código fuente';
-	@override String get telegramChannel => 'Canal de telegramas';
+	@override String get telegramChannel => 'Canal de Telegram';
 	@override String get checkForUpdate => 'Buscar actualizaciones';
 	@override String get privacyPolicy => 'Política de privacidad';
 	@override String get termsAndConditions => 'Términos y condiciones';
@@ -1993,9 +2073,9 @@ class TranslationsPlayEs extends TranslationsPlayEn {
 	@override final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'HologatePlus Next (vista previa)';
+	@override String get title => 'Hiddify Next (vista previa)';
 	@override String get short_description => 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
-	@override String get full_description => 'El objetivo clave de HologatePlusNext es proporcionar un cliente de túnel seguro, fácil de usar y eficiente. Le permite enrutar todo el tráfico o el tráfico de aplicaciones seleccionadas a un servidor remoto de su elección, utilizando el permiso del servicio VPN.Nota: No proporcionamos ningún servidor; Los usuarios deben garantizar que sus actividades en línea permanezcan privadas mediante el uso de su propio servidor autohospedado o servidores confiables. Soportamos servidores con:- Enlace de suscripción normal a V2ray/Xray- Enlace de suscripción a Choque- Enlace de suscripción a Sing-Box¿Cuáles son nuestras características únicas? - Fácil de usar - Optimizado y Rápido - Seleccionar automáticamente LowestPing - Mostrar información de uso del usuario. - Importe fácilmente un subvínculo con un solo clic mediante enlaces profundos - Gratis y sin anuncios - Cambie fácilmente los subvínculos de usuario - más y másApoyo:- Todos los protocolos soportados por Sing-Box- VLESS + xtls realidad, visión- VMESS- troyano- Calcetines Shoadow- Realidad-V2ray-Histria2-TUIC-SSH- SombraTLSEl código fuente existe en https://github.com/HologatePlus/HologatePlus-NextEl núcleo de la aplicación se basa en sing-box de código abierto.Descripción del permiso:- Servicio VPN: como el objetivo de esta aplicación es proporcionar un cliente de túnel seguro, fácil de usar y eficiente, necesitamos este permiso para poder enrutar el tráfico a través del túnel al servidor remoto.- CONSULTAR TODOS LOS PAQUETES: este permiso se utiliza para permitir a los usuarios incluir o excluir aplicaciones específicas para la tunelización.- RECIBIR ARRANQUE COMPLETADO: este permiso se puede habilitar o deshabilitar desde la configuración de la aplicación para activar esta aplicación al iniciar el dispositivo.- PUBLICAR NOTIFICACIONES: este permiso es esencial ya que empleamos un servicio en primer plano para garantizar el funcionamiento continuo del servicio VPN.- Esta aplicación está libre de publicidad. Los datos analíticos y de fallos solo se producen con el consentimiento explícito del usuario en el primer uso de la aplicación.';
+	@override String get full_description => 'El objetivo clave de HiddifyNext es proporcionar un cliente de túnel seguro, fácil de usar y eficiente. Le permite enrutar todo el tráfico o el tráfico de aplicaciones seleccionadas a un servidor remoto de su elección, utilizando el permiso del servicio VPN.Nota: No proporcionamos ningún servidor; Los usuarios deben garantizar que sus actividades en línea permanezcan privadas mediante el uso de su propio servidor autohospedado o servidores confiables. Soportamos servidores con:- Enlace de suscripción normal a V2ray/Xray- Enlace de suscripción a Choque- Enlace de suscripción a Sing-Box¿Cuáles son nuestras características únicas? - Fácil de usar - Optimizado y Rápido - Seleccionar automáticamente LowestPing - Mostrar información de uso del usuario. - Importe fácilmente un subvínculo con un solo clic mediante enlaces profundos - Gratis y sin anuncios - Cambie fácilmente los subvínculos de usuario - más y másApoyo:- Todos los protocolos soportados por Sing-Box- VLESS + xtls realidad, visión- VMESS- troyano- Calcetines Shoadow- Realidad-V2ray-Histria2-TUIC-SSH- SombraTLSEl código fuente existe en https://github.com/hiddify/Hiddify-NextEl núcleo de la aplicación se basa en sing-box de código abierto.Descripción del permiso:- Servicio VPN: como el objetivo de esta aplicación es proporcionar un cliente de túnel seguro, fácil de usar y eficiente, necesitamos este permiso para poder enrutar el tráfico a través del túnel al servidor remoto.- CONSULTAR TODOS LOS PAQUETES: este permiso se utiliza para permitir a los usuarios incluir o excluir aplicaciones específicas para la tunelización.- RECIBIR ARRANQUE COMPLETADO: este permiso se puede habilitar o deshabilitar desde la configuración de la aplicación para activar esta aplicación al iniciar el dispositivo.- PUBLICAR NOTIFICACIONES: este permiso es esencial ya que empleamos un servicio en primer plano para garantizar el funcionamiento continuo del servicio VPN.- Esta aplicación está libre de publicidad. Los datos analíticos y de fallos solo se producen con el consentimiento explícito del usuario en el primer uso de la aplicación.';
 }
 
 // Path: connection
@@ -2009,9 +2089,12 @@ class TranslationsConnectionEs extends TranslationsConnectionEn {
 	@override String get connecting => 'Conectando';
 	@override String get disconnecting => 'Desconectando';
 	@override String get connected => 'Conectado';
+	@override String get reconnect => 'Reconectar';
+	@override String get connectAnyWay => 'Conectar';
 	@override String get experimentalNotice => 'Funciones experimentales en uso';
 	@override String get experimentalNoticeMsg => 'Ha habilitado algunas funciones experimentales que podrían afectar la calidad de la conexión y provocar errores inesperados. Siempre puede cambiar o restablecer estas opciones desde la página de opciones de configuración.';
 	@override String get disableExperimentalNotice => 'No volver a mostrar';
+	@override String get reconnectMsg => 'Reconectar para tener en cuenta los cambios...';
 }
 
 // Path: config
@@ -2023,11 +2106,19 @@ class TranslationsConfigEs extends TranslationsConfigEn {
 	// Translations
 	@override String get resetBtn => 'Restablecer opciones';
 	@override String get serviceMode => 'Modo de servicio';
+	@override String get quickSettings => 'Ajustes rápidos';
+	@override String get setupWarp => 'Configurar WARP';
+	@override String get allOptions => 'Todas las opciones de configuración';
 	@override late final TranslationsConfigServiceModesEs serviceModes = TranslationsConfigServiceModesEs._(_root);
+	@override late final TranslationsConfigShortServiceModesEs shortServiceModes = TranslationsConfigShortServiceModesEs._(_root);
 	@override late final TranslationsConfigSectionEs section = TranslationsConfigSectionEs._(_root);
 	@override late final TranslationsConfigWarpConsentEs warpConsent = TranslationsConfigWarpConsentEs._(_root);
+	@override String get generateWarpConfig => 'Generar configuración WARP';
+	@override String get missingWarpConfig => 'Falta la configuración WARP';
+	@override String get warpConfigGenerated => 'Se genera la configuración WARP';
 	@override String get pageTitle => 'Opciones de configuración';
 	@override String get logLevel => 'Registro del Nivel';
+	@override String get blockAds => 'Bloquear anuncios';
 	@override String get resolveDestination => 'Resolver Destino';
 	@override String get ipv6Mode => 'Ruta IPv6';
 	@override late final TranslationsConfigIpv6ModesEs ipv6Modes = TranslationsConfigIpv6ModesEs._(_root);
@@ -2036,10 +2127,11 @@ class TranslationsConfigEs extends TranslationsConfigEn {
 	@override String get directDnsAddress => 'DNS Directo';
 	@override String get directDnsDomainStrategy => 'Estrategia de dominio DNS directo';
 	@override String get mixedPort => 'Puerto Mixto';
+	@override String get tproxyPort => 'Puerto de proxy transparente';
 	@override String get localDnsPort => 'Puerto DNS local';
 	@override String get allowConnectionFromLan => 'Permitir conexión desde LAN';
 	@override String get tunImplementation => 'Implementación de TUN';
-	@override String get mtu => 'MTU';
+	@override String get mtu => 'Tamaño de paquete (MTU)';
 	@override String get connectionTestUrl => 'URL de prueba de conexión';
 	@override String get urlTestInterval => 'URL Prueba de Intervalo';
 	@override String get enableClashApi => 'Habilitar API de choque';
@@ -2066,6 +2158,9 @@ class TranslationsConfigEs extends TranslationsConfigEn {
 	@override String get warpCleanIp => 'Clean IP';
 	@override String get warpPort => 'Port';
 	@override String get warpNoise => 'Noise';
+	@override String get warpNoiseSize => 'Tamaño de ruido';
+	@override String get warpNoiseMode => 'Modo Ruido';
+	@override String get warpNoiseDelay => 'Retraso por ruido';
 }
 
 // Path: general.toggle
@@ -2102,6 +2197,10 @@ class TranslationsProfileSubscriptionEs extends TranslationsProfileSubscriptionE
 	@override String remainingTrafficSemanticLabel({required Object consumed, required Object total}) => '${consumed} de ${total} Tráfico Consumido';
 	@override String get expired => 'Caducado';
 	@override String get noTraffic => 'Fuera de cuota';
+	@override String get upload => 'Subir';
+	@override String get download => 'Descargar';
+	@override String get total => 'Tráfico total';
+	@override String get expireDate => 'Fecha de expiración';
 }
 
 // Path: profile.sortBy
@@ -2128,6 +2227,8 @@ class TranslationsProfileAddEs extends TranslationsProfileAddEn {
 	@override String get scanQr => 'Escanear código QR';
 	@override late final TranslationsProfileAddQrScannerEs qrScanner = TranslationsProfileAddQrScannerEs._(_root);
 	@override String get manually => 'Entrada manual';
+	@override String get addWarp => 'Añadir WARP';
+	@override String get addingWarpMsg => 'Por favor, espere mientras registramos WARP.';
 	@override String get addingProfileMsg => 'Agregar perfil';
 	@override String get failureMsg => 'No se pudo agregar el perfil';
 }
@@ -2228,6 +2329,29 @@ class TranslationsProxiesSortOptionsEs extends TranslationsProxiesSortOptionsEn 
 	@override String get delay => 'Por retraso';
 }
 
+// Path: proxies.delaySemantics
+class TranslationsProxiesDelaySemanticsEs extends TranslationsProxiesDelaySemanticsEn {
+	TranslationsProxiesDelaySemanticsEs._(TranslationsEs root) : this._root = root, super._(root);
+
+	@override final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String result({required Object delay}) => 'Retraso: ${delay}ms';
+	@override String get timeout => 'Tiempo de espera del Timeout';
+	@override String get testing => 'Retraso: Probando...';
+}
+
+// Path: proxies.ipInfoSemantics
+class TranslationsProxiesIpInfoSemanticsEs extends TranslationsProxiesIpInfoSemanticsEn {
+	TranslationsProxiesIpInfoSemanticsEs._(TranslationsEs root) : this._root = root, super._(root);
+
+	@override final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get address => 'Dirección IP';
+	@override String get country => 'País';
+}
+
 // Path: settings.general
 class TranslationsSettingsGeneralEs extends TranslationsSettingsGeneralEn {
 	TranslationsSettingsGeneralEs._(TranslationsEs root) : this._root = root, super._(root);
@@ -2250,6 +2374,8 @@ class TranslationsSettingsGeneralEs extends TranslationsSettingsGeneralEn {
 	@override String get ignoreBatteryOptimizations => 'Deshabilitar la optimización de la batería';
 	@override String get ignoreBatteryOptimizationsMsg => 'Elimine las restricciones para un rendimiento VPN óptimo';
 	@override String get dynamicNotification => 'Mostrar velocidad en la notificación';
+	@override String get hapticFeedback => 'Respuesta háptica';
+	@override String get autoIpCheck => 'Comprobación automática de la IP de conexión';
 }
 
 // Path: settings.advanced
@@ -2406,6 +2532,20 @@ class TranslationsConfigServiceModesEs extends TranslationsConfigServiceModesEn 
 	@override String get proxy => 'Proxy';
 	@override String get systemProxy => 'Sistema Proxy';
 	@override String get tun => 'VPN';
+	@override String get tunService => 'Servicio VPN';
+}
+
+// Path: config.shortServiceModes
+class TranslationsConfigShortServiceModesEs extends TranslationsConfigShortServiceModesEn {
+	TranslationsConfigShortServiceModesEs._(TranslationsEs root) : this._root = root, super._(root);
+
+	@override final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxy => 'Proxy';
+	@override String get systemProxy => 'Proxy del sistema';
+	@override String get tun => 'VPN';
+	@override String get tunService => 'Servicio VPN';
 }
 
 // Path: config.section
@@ -2462,6 +2602,8 @@ class TranslationsConfigWarpDetourModesEs extends TranslationsConfigWarpDetourMo
 	@override final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
+	@override String get proxyOverWarp => 'Desvío de proxies a través de WARP';
+	@override String get warpOverProxy => 'Desvío de WARP a través de proxies';
 	@override String get inbound => 'Detour WARP through proxies';
 	@override String get outbound => 'Detour proxies through WARP';
 }
@@ -2477,6 +2619,7 @@ class TranslationsProfileAddQrScannerEs extends TranslationsProfileAddQrScannerE
 	@override String get unexpectedError => 'Algo salió mal';
 	@override String get torchSemanticLabel => 'Linterna';
 	@override String get facingSemanticLabel => 'Frente a la cámara';
+	@override String get permissionRequest => 'Permiso a la cámara para escanear el código QR';
 }
 
 // Path: settings.general.regions
@@ -2490,6 +2633,8 @@ class TranslationsSettingsGeneralRegionsEs extends TranslationsSettingsGeneralRe
 	@override String get cn => 'China (CN)';
 	@override String get ru => 'Rusia (ru)';
 	@override String get af => 'Afganistán (af)';
+	@override String get id => 'Indonesia (id)';
+	@override String get tr => 'Turquía (tr) 🇹🇷';
 	@override String get other => 'Otro';
 }
 
@@ -2786,7 +2931,7 @@ class TranslationsPlayFa extends TranslationsPlayEn {
 	// Translations
 	@override String get title => 'هلوگیت پلاس (آزمایشی)';
 	@override String get short_description => 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
-	@override String get full_description => 'هدف اصلی هلوگیت پلاس ارائه یک کلاینت ضدفیلتر ایمن، کاربرپسند و کارآمد است. این به شما امکان می‌دهد تا با استفاده از مجوز سرویس VPN، تمام ترافیک یا ترافیک برنامه‌ی انتخابی را به یک سرور راه دور مورد نظر خود هدایت کنید.\n\nتوجه: ما هیچ سروری ارائه نمی‌دهیم. کاربران موظف هستند با استفاده از سرورهای خود، هاست یا سرورهای مورد اعتماد، فعالیت‌های آنلاین خود را خصوصی نگه دارند. \n\nما از این سرورها پشتیبانی می‌کنیم:\n- لینک اشتراک V2Ray/XRay معمولی\n- لینک اشتراک کلش\n- لینک اشتراک Sing-Box\n\nویژگی‌های منحصر به فرد این برنامه چیست؟\n- کاربر پسند  \n- بهینه و سریع  \n- انتخاب کمترین پینگ به صورت خودکار\n- نمایش اطلاعات استفاده کاربر\n- به راحتی لینک فرعی را با یک کلیک با استفاده از دیپ لینک وارد کنید  \n- رایگان و بدون تبلیغات  \n- به‌راحتی لینک های فرعی کاربر را تغییر دهید  \n- بیشتر و بیشتر\n\nپشتیبانی از:\n- همه‌ی پروتکل‌های پشتیبانی‌شده توسط Sing-Box- VLESS + XTLS Reality، Vision- VMess- Trojan- ShadowSocks- Reality- WireGuard- V2Ray- Hysteria2- TUICv5- SSH- ShadowTLS\n\nکد منبع در https://github.com/HologatePlus/HologatePlus-Next موجود بوده و هسته‌ی برنامه مبتنی بر منبع باز Sing-Box است.\n\nتوضیحات مجوز:\n- VPN Service: از آن‌جا که هدف این برنامه ارائه‌ی یک کلاینت ضدفیلتر ایمن، کاربر پسند و کارآمد است، ما به این مجوز نیاز داریم تا بتوانیم ترافیک را از طریق تونل به سرور راه دور هدایت کنیم.\n- QUERY ALL PACKAGES: این مجوز برای اجازه دادن به کاربران برای گنجاندن یا حذف برنامه‌های کاربردی خاص برای تونل‌زدن استفاده می‌شود.\n- RECEIVE BOOT COMPLETED: این مجوز را می‌توان از تنظیمات برنامه فعال یا غیرفعال کرد تا این برنامه پس از شروع به کار دستگاه فعال شود.\n- POST NOTIFICATIONS: این مجوز ضروری است زیرا برای اطمینان از عملکرد یکسره VPN نیاز است از یک سرویس پس زمینه استفاده کنیم. \n- این برنامه بدون تبلیغات است. تجزیه و تحلیل و داده‌های خرابی فقط با رضایت صریح کاربر در اولین استفاده از برنامه اتفاق می‌افتد.';
+	@override String get full_description => 'هدف اصلی هلوگیت پلاس ارائه یک کلاینت ضدفیلتر ایمن، کاربرپسند و کارآمد است. این به شما امکان می‌دهد تا با استفاده از مجوز سرویس VPN، تمام ترافیک یا ترافیک برنامه‌ی انتخابی را به یک سرور راه دور مورد نظر خود هدایت کنید.\n\nتوجه: ما هیچ سروری ارائه نمی‌دهیم. کاربران موظف هستند با استفاده از سرورهای خود، هاست یا سرورهای مورد اعتماد، فعالیت‌های آنلاین خود را خصوصی نگه دارند. \n\nما از این سرورها پشتیبانی می‌کنیم:\n- لینک اشتراک V2Ray/XRay معمولی\n- لینک اشتراک کلش\n- لینک اشتراک Sing-Box\n\nویژگی‌های منحصر به فرد این برنامه چیست؟\n- کاربر پسند  \n- بهینه و سریع  \n- انتخاب کمترین پینگ به صورت خودکار\n- نمایش اطلاعات استفاده کاربر\n- به راحتی لینک فرعی را با یک کلیک با استفاده از دیپ لینک وارد کنید  \n- رایگان و بدون تبلیغات  \n- به‌راحتی لینک های فرعی کاربر را تغییر دهید  \n- بیشتر و بیشتر\n\nپشتیبانی از:\n- همه‌ی پروتکل‌های پشتیبانی‌شده توسط Sing-Box- VLESS + XTLS Reality، Vision- VMess- Trojan- ShadowSocks- Reality- WireGuard- V2Ray- Hysteria2- TUICv5- SSH- ShadowTLS\n\nکد منبع در https://github.com/hiddify/Hiddify-Next موجود بوده و هسته‌ی برنامه مبتنی بر منبع باز Sing-Box است.\n\nتوضیحات مجوز:\n- VPN Service: از آن‌جا که هدف این برنامه ارائه‌ی یک کلاینت ضدفیلتر ایمن، کاربر پسند و کارآمد است، ما به این مجوز نیاز داریم تا بتوانیم ترافیک را از طریق تونل به سرور راه دور هدایت کنیم.\n- QUERY ALL PACKAGES: این مجوز برای اجازه دادن به کاربران برای گنجاندن یا حذف برنامه‌های کاربردی خاص برای تونل‌زدن استفاده می‌شود.\n- RECEIVE BOOT COMPLETED: این مجوز را می‌توان از تنظیمات برنامه فعال یا غیرفعال کرد تا این برنامه پس از شروع به کار دستگاه فعال شود.\n- POST NOTIFICATIONS: این مجوز ضروری است زیرا برای اطمینان از عملکرد یکسره VPN نیاز است از یک سرویس پس زمینه استفاده کنیم. \n- این برنامه بدون تبلیغات است. تجزیه و تحلیل و داده‌های خرابی فقط با رضایت صریح کاربر در اولین استفاده از برنامه اتفاق می‌افتد.';
 }
 
 // Path: connection
@@ -2815,6 +2960,7 @@ class TranslationsConfigFa extends TranslationsConfigEn {
 	@override final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
+	@override late final TranslationsConfigUseXrayCoreWhenPossibleFa useXrayCoreWhenPossible = TranslationsConfigUseXrayCoreWhenPossibleFa._(_root);
 	@override String get resetBtn => 'بازنشانی تنظیمات';
 	@override String get serviceMode => 'حالت سرویس';
 	@override String get quickSettings => 'تنظیمات سریع';
@@ -2842,7 +2988,7 @@ class TranslationsConfigFa extends TranslationsConfigEn {
 	@override String get localDnsPort => 'پورت DNS داخلی';
 	@override String get allowConnectionFromLan => 'اشتراک VPN در شبکه داخلی';
 	@override String get tunImplementation => 'پیاده‌سازی TUN';
-	@override String get mtu => 'سایز بسته‌ها (MTU) ';
+	@override String get mtu => 'سایز بسته‌ (MTU) ';
 	@override String get connectionTestUrl => 'لینک بررسی اتصال';
 	@override String get urlTestInterval => 'فاصله‌ی زمانی بررسی لینک';
 	@override String get enableClashApi => 'فعال‌سازی Clash API';
@@ -2869,6 +3015,8 @@ class TranslationsConfigFa extends TranslationsConfigEn {
 	@override String get warpCleanIp => 'آی‌پی تمیز';
 	@override String get warpPort => 'پورت';
 	@override String get warpNoise => 'تعداد نویز';
+	@override String get warpNoiseSize => 'اندازه نویز';
+	@override String get warpNoiseMode => 'حالت نویز';
 	@override String get warpNoiseDelay => 'تأخیر نویز';
 }
 
@@ -2936,7 +3084,7 @@ class TranslationsProfileAddFa extends TranslationsProfileAddEn {
 	@override String get scanQr => 'اسکن کد QR';
 	@override late final TranslationsProfileAddQrScannerFa qrScanner = TranslationsProfileAddQrScannerFa._(_root);
 	@override String get manually => 'افزودن دستی';
-	@override String get addWarp => 'افزودن وارپ';
+	@override String get addWarp => 'افزودن WARP';
 	@override String get addingWarpMsg => 'لطفا صبر کنید تا وارپ ثبت شود';
 	@override String get addingProfileMsg => 'در حال افزودن پروفایل';
 	@override String get failureMsg => 'افزودن پروفایل ناموفق بود';
@@ -3231,6 +3379,17 @@ class TranslationsFailureGeoAssetsFa extends TranslationsFailureGeoAssetsEn {
 	@override String get activeNotFound => 'فایل جغرافیایی فعال یافت نشد';
 }
 
+// Path: config.useXrayCoreWhenPossible
+class TranslationsConfigUseXrayCoreWhenPossibleFa extends TranslationsConfigUseXrayCoreWhenPossibleEn {
+	TranslationsConfigUseXrayCoreWhenPossibleFa._(TranslationsFa root) : this._root = root, super._(root);
+
+	@override final TranslationsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get Label => 'استفاده از Xray-core در صورت ممکن';
+	@override String get Description => 'برای استفاده از Xray-core باید دوباره لینک ساب را وارد کنید تا این گزینه فعال شود.';
+}
+
 // Path: config.serviceModes
 class TranslationsConfigServiceModesFa extends TranslationsConfigServiceModesEn {
 	TranslationsConfigServiceModesFa._(TranslationsFa root) : this._root = root, super._(root);
@@ -3338,10 +3497,12 @@ class TranslationsSettingsGeneralRegionsFa extends TranslationsSettingsGeneralRe
 	@override final TranslationsFa _root; // ignore: unused_field
 
 	// Translations
-	@override String get ir => 'ایران (ir)';
-	@override String get cn => 'چین (cn)';
-	@override String get ru => 'روسیه (ru)';
-	@override String get af => 'افغانستان (af)';
+	@override String get ir => 'ایران (ir) 🇮🇷';
+	@override String get cn => 'چین (cn) 🇨🇳';
+	@override String get ru => 'روسیه (ru) 🇷🇺';
+	@override String get af => 'افغانستان (af) 🇦🇫';
+	@override String get id => 'إندونيسيا (id) 🇮🇩';
+	@override String get tr => 'ترکیه (tr) 🇹🇷';
 	@override String get other => 'سایر';
 }
 
@@ -3371,6 +3532,861 @@ class TranslationsSettingsNetworkPerAppProxyModesFa extends TranslationsSettings
 	@override String get includeMsg => 'تنها برنامه‌های انتخاب‌شده پروکسی شوند';
 	@override String get exclude => 'کنار گذاشتن';
 	@override String get excludeMsg => 'برنامه‌های انتخاب‌شده پروکسی نشوند';
+}
+
+// Path: <root>
+class TranslationsFr extends Translations {
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	TranslationsFr.build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+		  $meta = TranslationMetadata(
+		    locale: AppLocale.fr,
+		    overrides: overrides ?? {},
+		    cardinalResolver: cardinalResolver,
+		    ordinalResolver: ordinalResolver,
+		  ),
+		  super.build(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
+		super.$meta.setFlatMapFunction($meta.getTranslation); // copy base translations to super.$meta
+		$meta.setFlatMapFunction(_flatMapFunction);
+	}
+
+	/// Metadata for the translations of <fr>.
+	@override final TranslationMetadata<AppLocale, Translations> $meta;
+
+	/// Access flat map
+	@override dynamic operator[](String key) => $meta.getTranslation(key) ?? super.$meta.getTranslation(key);
+
+	@override late final TranslationsFr _root = this; // ignore: unused_field
+
+	// Translations
+	@override late final TranslationsGeneralFr general = TranslationsGeneralFr._(_root);
+	@override late final TranslationsIntroFr intro = TranslationsIntroFr._(_root);
+	@override late final TranslationsHomeFr home = TranslationsHomeFr._(_root);
+	@override late final TranslationsStatsFr stats = TranslationsStatsFr._(_root);
+	@override late final TranslationsProfileFr profile = TranslationsProfileFr._(_root);
+	@override late final TranslationsProxiesFr proxies = TranslationsProxiesFr._(_root);
+	@override late final TranslationsLogsFr logs = TranslationsLogsFr._(_root);
+	@override late final TranslationsSettingsFr settings = TranslationsSettingsFr._(_root);
+	@override late final TranslationsAboutFr about = TranslationsAboutFr._(_root);
+	@override late final TranslationsAppUpdateFr appUpdate = TranslationsAppUpdateFr._(_root);
+	@override late final TranslationsTrayFr tray = TranslationsTrayFr._(_root);
+	@override late final TranslationsFailureFr failure = TranslationsFailureFr._(_root);
+	@override late final TranslationsPlayFr play = TranslationsPlayFr._(_root);
+	@override late final TranslationsConnectionFr connection = TranslationsConnectionFr._(_root);
+	@override late final TranslationsConfigFr config = TranslationsConfigFr._(_root);
+}
+
+// Path: general
+class TranslationsGeneralFr extends TranslationsGeneralEn {
+	TranslationsGeneralFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get appTitle => 'Hiddify';
+	@override String get reset => 'Réinitialiser';
+	@override late final TranslationsGeneralToggleFr toggle = TranslationsGeneralToggleFr._(_root);
+	@override late final TranslationsGeneralStateFr state = TranslationsGeneralStateFr._(_root);
+	@override String get sort => 'Trier';
+	@override String get sortBy => 'Trier par';
+	@override String get addToClipboard => 'Ajouter au presse-papiers';
+	@override String get notSet => 'Pas encore défini';
+	@override String get agree => 'Accepter';
+	@override String get decline => 'Déclin';
+	@override String get unknown => 'Inconnu';
+	@override String get hidden => 'Caché';
+	@override String get timeout => 'Temps mort';
+	@override String get clipboardExportSuccessMsg => 'Ajouté au presse-papiers';
+	@override String get showMore => 'Montre plus';
+	@override String get showLess => 'Montrer moins';
+	@override String get openAppSettings => 'Ouvrir les paramètres de l\'application';
+	@override String get grantPermission => 'Donner la permission';
+}
+
+// Path: intro
+class TranslationsIntroFr extends TranslationsIntroEn {
+	TranslationsIntroFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override TextSpan termsAndPolicyCaution({required InlineSpanBuilder tap}) => TextSpan(children: [
+		const TextSpan(text: 'En continuant, vous êtes d\'accord avec '),
+		tap(' ${_root.about.termsAndConditions}'),
+	]);
+	@override String get start => 'Commencer';
+}
+
+// Path: home
+class TranslationsHomeFr extends TranslationsHomeEn {
+	TranslationsHomeFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get pageTitle => 'Maison';
+	@override String get emptyProfilesMsg => 'Commencez par ajouter un profil d\'abonnement';
+	@override String get noActiveProfileMsg => 'Choisissez un profil';
+}
+
+// Path: stats
+class TranslationsStatsFr extends TranslationsStatsEn {
+	TranslationsStatsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get traffic => 'Trafic';
+	@override String get trafficLive => 'Trafic en direct';
+	@override String get trafficTotal => 'Trafic total';
+	@override String get uplink => 'Liaison montante';
+	@override String get downlink => 'Liaison descendante';
+	@override String get connection => 'Connexion';
+	@override String get speed => 'Vitesse';
+	@override String get totalTransferred => 'Total transféré';
+}
+
+// Path: profile
+class TranslationsProfileFr extends TranslationsProfileEn {
+	TranslationsProfileFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get overviewPageTitle => 'Profils';
+	@override String get detailsPageTitle => 'Profil';
+	@override String activeProfileNameSemanticLabel({required Object name}) => 'Nom du profil actif : "${name}".';
+	@override String get activeProfileBtnSemanticLabel => 'Afficher tous les profils';
+	@override String nonActiveProfileBtnSemanticLabel({required Object name}) => 'Sélectionnez "${name}" comme profil actif';
+	@override late final TranslationsProfileSubscriptionFr subscription = TranslationsProfileSubscriptionFr._(_root);
+	@override late final TranslationsProfileSortByFr sortBy = TranslationsProfileSortByFr._(_root);
+	@override late final TranslationsProfileAddFr add = TranslationsProfileAddFr._(_root);
+	@override late final TranslationsProfileUpdateFr update = TranslationsProfileUpdateFr._(_root);
+	@override late final TranslationsProfileShareFr share = TranslationsProfileShareFr._(_root);
+	@override late final TranslationsProfileEditFr edit = TranslationsProfileEditFr._(_root);
+	@override late final TranslationsProfileDeleteFr delete = TranslationsProfileDeleteFr._(_root);
+	@override late final TranslationsProfileSaveFr save = TranslationsProfileSaveFr._(_root);
+	@override late final TranslationsProfileDetailsFormFr detailsForm = TranslationsProfileDetailsFormFr._(_root);
+}
+
+// Path: proxies
+class TranslationsProxiesFr extends TranslationsProxiesEn {
+	TranslationsProxiesFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get pageTitle => 'Procurations';
+	@override String get emptyProxiesMsg => 'Aucun proxy disponible';
+	@override String get delayTestTooltip => 'Délai de test';
+	@override String get sortTooltip => 'Trier les proxys';
+	@override String get checkIp => 'Vérifier l\'adresse IP';
+	@override String get unknownIp => 'IP inconnue';
+	@override late final TranslationsProxiesSortOptionsFr sortOptions = TranslationsProxiesSortOptionsFr._(_root);
+	@override String get activeProxySemanticLabel => 'Mandataire actif';
+	@override late final TranslationsProxiesDelaySemanticsFr delaySemantics = TranslationsProxiesDelaySemanticsFr._(_root);
+	@override late final TranslationsProxiesIpInfoSemanticsFr ipInfoSemantics = TranslationsProxiesIpInfoSemanticsFr._(_root);
+}
+
+// Path: logs
+class TranslationsLogsFr extends TranslationsLogsEn {
+	TranslationsLogsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get pageTitle => 'Journaux';
+	@override String get filterHint => 'Filtre';
+	@override String get allLevelsFilter => 'Tous';
+	@override String get shareCoreLogs => 'Partager les journaux principaux';
+	@override String get shareAppLogs => 'Partager les journaux d\'applications';
+	@override String get pauseTooltip => 'Pause';
+	@override String get resumeTooltip => 'CV';
+	@override String get clearTooltip => 'Clair';
+}
+
+// Path: settings
+class TranslationsSettingsFr extends TranslationsSettingsEn {
+	TranslationsSettingsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get pageTitle => 'Paramètres';
+	@override String get requiresRestartMsg => 'Pour que cela prenne effet, redémarrez l\'application';
+	@override String get experimental => 'Expérimental';
+	@override String get experimentalMsg => 'Les fonctionnalités avec l\'indicateur expérimental sont encore en développement et peuvent causer des problèmes.';
+	@override String get exportOptions => 'Copier les options anonymes dans le presse-papiers';
+	@override String get exportAllOptions => 'Copier toutes les options dans le presse-papiers';
+	@override String get importOptions => 'Options d\'importation à partir du Presse-papiers';
+	@override String get importOptionsMsg => 'Cela réécrira toutes les options de configuration avec les valeurs fournies. Es-tu sûr?';
+	@override late final TranslationsSettingsGeneralFr general = TranslationsSettingsGeneralFr._(_root);
+	@override late final TranslationsSettingsAdvancedFr advanced = TranslationsSettingsAdvancedFr._(_root);
+	@override late final TranslationsSettingsNetworkFr network = TranslationsSettingsNetworkFr._(_root);
+	@override late final TranslationsSettingsGeoAssetsFr geoAssets = TranslationsSettingsGeoAssetsFr._(_root);
+}
+
+// Path: about
+class TranslationsAboutFr extends TranslationsAboutEn {
+	TranslationsAboutFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get pageTitle => 'À propos';
+	@override String get version => 'Version';
+	@override String get sourceCode => 'Code source';
+	@override String get telegramChannel => 'Chaîne de Telegram';
+	@override String get checkForUpdate => 'Rechercher une mise à jour';
+	@override String get privacyPolicy => 'politique de confidentialité';
+	@override String get termsAndConditions => 'Termes et conditions';
+}
+
+// Path: appUpdate
+class TranslationsAppUpdateFr extends TranslationsAppUpdateEn {
+	TranslationsAppUpdateFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get notAvailableMsg => 'Vous utilisez déjà la dernière version';
+	@override String get dialogTitle => 'Mise à jour disponible';
+	@override String get updateMsg => 'Une nouvelle version de ${_root.general.appTitle} est disponible. Souhaitez-vous mettre à jour maintenant ?';
+	@override String get currentVersionLbl => 'Version actuelle';
+	@override String get newVersionLbl => 'Nouvelle version';
+	@override String get updateNowBtnTxt => 'Mettez à jour maintenant';
+	@override String get laterBtnTxt => 'Plus tard';
+	@override String get ignoreBtnTxt => 'Ignorer';
+}
+
+// Path: tray
+class TranslationsTrayFr extends TranslationsTrayEn {
+	TranslationsTrayFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get dashboard => 'Tableau de bord';
+	@override String get quit => 'Quitter';
+	@override String get open => 'Ouvrir';
+	@override late final TranslationsTrayStatusFr status = TranslationsTrayStatusFr._(_root);
+}
+
+// Path: failure
+class TranslationsFailureFr extends TranslationsFailureEn {
+	TranslationsFailureFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get unexpected => 'Erreur inattendue';
+	@override late final TranslationsFailureClashFr clash = TranslationsFailureClashFr._(_root);
+	@override late final TranslationsFailureSingboxFr singbox = TranslationsFailureSingboxFr._(_root);
+	@override late final TranslationsFailureConnectivityFr connectivity = TranslationsFailureConnectivityFr._(_root);
+	@override late final TranslationsFailureProfilesFr profiles = TranslationsFailureProfilesFr._(_root);
+	@override late final TranslationsFailureConnectionFr connection = TranslationsFailureConnectionFr._(_root);
+	@override late final TranslationsFailureGeoAssetsFr geoAssets = TranslationsFailureGeoAssetsFr._(_root);
+}
+
+// Path: play
+class TranslationsPlayFr extends TranslationsPlayEn {
+	TranslationsPlayFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Hiddify (aperçu)';
+	@override String get short_description => 'Auto, SSH, VLESS, VMess, cheval de Troie, Reality, Sing-Box, Clash, XRay, Shadowsocks';
+	@override String get full_description => 'L\'objectif principal de Hiddify est de fournir un client de tunneling sécurisé, convivial et efficace. Il vous permet d\'acheminer tout le trafic ou le trafic d\'applications sélectionnées vers un serveur distant de votre choix, en utilisant l\'autorisation du service VPN.<inlang-LineFeed>\nRemarque : Nous ne fournissons aucun serveur ; les utilisateurs sont tenus de garantir que leurs activités en ligne restent privées en utilisant leur propre serveur auto-hébergé ou des serveurs de confiance.<inlang-LineFeed>\nNous prenons en charge les serveurs avec :\n- Lien d\'abonnement normal V2Ray/XRay\n- Lien d\'abonnement Clash\n- Lien d\'abonnement à Sing-Box<inlang-LineFeed>\nQuelles sont nos caractéristiques uniques ?\n- Convivial\n- Optimisé et rapide\n- Sélectionnez automatiquement le plus bas Ping\n- Afficher les informations d\'utilisation de l\'utilisateur\n- Importez facilement des sous-liens en un seul clic grâce au deeplinking\n- Gratuit et sans publicité\n- Changez facilement de sous-liens utilisateur\n- De plus en plus<inlang-LineFeed>\nSoutien:\n- Tous les protocoles pris en charge par Sing-Box\n- VLESS + XTLS Réalité, Vision\n-VMess\n- Cheval de Troie\n- Chaussettes Shadow\n- Réalité\n- WireGuard\n-V2Ray\n- Hystérie2\n-TUICv5\n-SSH\n-OmbreTLS<inlang-LineFeed><inlang-LineFeed>\nLe code source existe sur https://github.com/hiddify/Hiddify-Next\nLe cœur de l\'application est basé sur Sing-Box open source.<inlang-LineFeed>\nDescription de l\'autorisation :\n- Service VPN : L\'objectif de cette application étant de fournir un client de tunneling sécurisé, convivial et efficace, nous avons besoin de cette autorisation pour pouvoir acheminer le trafic via un tunnel vers le serveur distant.\n- REQUÊTER TOUS LES PAQUETS : cette autorisation est utilisée pour permettre aux utilisateurs d\'inclure ou d\'exclure des applications spécifiques pour le tunneling.\n- RECEVOIR LE BOOT TERMINÉ : Cette autorisation peut être activée ou désactivée à partir des paramètres de l\'application pour activer cette application au démarrage de l\'appareil.\n- POST NOTIFICATIONS : Cette autorisation est essentielle car nous utilisons un service de premier plan pour assurer le fonctionnement continu du service VPN.\n- Cette application est exempte de publicités. Les données d\'analyse et de crash n\'ont lieu qu\'avec le consentement explicite de l\'utilisateur lors de la première utilisation de l\'application.';
+}
+
+// Path: connection
+class TranslationsConnectionFr extends TranslationsConnectionEn {
+	TranslationsConnectionFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get tapToConnect => 'Appuyez pour vous connecter';
+	@override String get connecting => 'De liaison';
+	@override String get disconnecting => 'Déconnexion';
+	@override String get connected => 'Connecté';
+	@override String get reconnect => 'Reconnecter';
+	@override String get connectAnyWay => 'Connecter';
+	@override String get experimentalNotice => 'Fonctionnalités expérimentales utilisées';
+	@override String get experimentalNoticeMsg => 'Vous avez activé certaines fonctionnalités expérimentales qui peuvent affecter la qualité de la connexion et provoquer des erreurs inattendues. Vous pouvez toujours modifier ou réinitialiser ces options à partir de la page des options de configuration.';
+	@override String get disableExperimentalNotice => 'Ne plus montrer';
+	@override String get reconnectMsg => 'Se reconnecter pour prendre en compte les changements...';
+}
+
+// Path: config
+class TranslationsConfigFr extends TranslationsConfigEn {
+	TranslationsConfigFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get resetBtn => 'Options de réinitialisation';
+	@override String get serviceMode => 'Mode de service';
+	@override String get quickSettings => 'Réglages rapides';
+	@override String get setupWarp => 'Configuration de WARP';
+	@override String get allOptions => 'Toutes les options de configuration';
+	@override late final TranslationsConfigServiceModesFr serviceModes = TranslationsConfigServiceModesFr._(_root);
+	@override late final TranslationsConfigShortServiceModesFr shortServiceModes = TranslationsConfigShortServiceModesFr._(_root);
+	@override late final TranslationsConfigSectionFr section = TranslationsConfigSectionFr._(_root);
+	@override late final TranslationsConfigWarpConsentFr warpConsent = TranslationsConfigWarpConsentFr._(_root);
+	@override String get generateWarpConfig => 'Générer une configuration WARP';
+	@override String get missingWarpConfig => 'Configuration WARP manquante';
+	@override String get warpConfigGenerated => 'La configuration WARP est générée';
+	@override String get pageTitle => 'Options de configuration';
+	@override String get logLevel => 'Niveau de journalisation';
+	@override String get blockAds => 'Bloquer les publicités';
+	@override String get resolveDestination => 'Résoudre la destination';
+	@override String get ipv6Mode => 'Itinéraire IPv6';
+	@override late final TranslationsConfigIpv6ModesFr ipv6Modes = TranslationsConfigIpv6ModesFr._(_root);
+	@override String get remoteDnsAddress => 'DNS distant';
+	@override String get remoteDnsDomainStrategy => 'Stratégie de domaine DNS distant';
+	@override String get directDnsAddress => 'DNS direct';
+	@override String get directDnsDomainStrategy => 'Stratégie de domaine DNS direct';
+	@override String get mixedPort => 'Port mixte';
+	@override String get tproxyPort => 'Port proxy transparent';
+	@override String get localDnsPort => 'Port DNS local';
+	@override String get allowConnectionFromLan => 'Partager un VPN sur un réseau local';
+	@override String get tunImplementation => 'Implémentation du TUN';
+	@override String get mtu => 'Taille du paquet (MTU)';
+	@override String get connectionTestUrl => 'URL de test de connexion';
+	@override String get urlTestInterval => 'Intervalle de test d\'URL';
+	@override String get enableClashApi => 'Activer l\'API Clash';
+	@override String get clashApiPort => 'Port API de conflit';
+	@override String get enableTun => 'Activer TUN';
+	@override String get setSystemProxy => 'Définir le proxy système';
+	@override String get enableDnsRouting => 'Activer le routage DNS';
+	@override String get enableFakeDns => 'Activer le faux DNS';
+	@override String get bypassLan => 'Contourner le réseau local';
+	@override String get strictRoute => 'Itinéraire strict';
+	@override String get enableTlsFragment => 'Activer le fragment TLS';
+	@override String get tlsFragmentSize => 'Taille des fragments TLS';
+	@override String get tlsFragmentSleep => 'Veille des fragments TLS';
+	@override String get enableTlsMixedSniCase => 'Activer le cas TLS Mixed SNI';
+	@override String get enableTlsPadding => 'Activer TLS Padding';
+	@override String get tlsPaddingSize => 'TLS Padding';
+	@override String get enableMux => 'Activer MUX';
+	@override String get muxProtocol => 'Protocole MUX';
+	@override String get muxMaxStreams => 'Flux simultanés maximum';
+	@override String get enableWarp => 'Activer WARP';
+	@override String get warpDetourMode => 'Mode détour';
+	@override late final TranslationsConfigWarpDetourModesFr warpDetourModes = TranslationsConfigWarpDetourModesFr._(_root);
+	@override String get warpLicenseKey => 'Clé de licence';
+	@override String get warpCleanIp => 'IP propre';
+	@override String get warpPort => 'Port';
+	@override String get warpNoise => 'Nombre de bruit';
+	@override String get warpNoiseSize => 'Taille du bruit';
+	@override String get warpNoiseMode => 'Mode bruit';
+	@override String get warpNoiseDelay => 'Retard de bruit';
+}
+
+// Path: general.toggle
+class TranslationsGeneralToggleFr extends TranslationsGeneralToggleEn {
+	TranslationsGeneralToggleFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get enabled => 'Activé';
+	@override String get disabled => 'Désactivé';
+}
+
+// Path: general.state
+class TranslationsGeneralStateFr extends TranslationsGeneralStateEn {
+	TranslationsGeneralStateFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get disable => 'Désactiver';
+}
+
+// Path: profile.subscription
+class TranslationsProfileSubscriptionFr extends TranslationsProfileSubscriptionEn {
+	TranslationsProfileSubscriptionFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get traffic => 'Trafic';
+	@override String updatedTimeAgo({required Object timeago}) => 'Mise à jour ${timeago}';
+	@override String remainingDuration({required Object duration}) => '${duration} jours restants';
+	@override String remainingTrafficSemanticLabel({required Object consumed, required Object total}) => '${consumed} de ${total} de trafic consommé';
+	@override String get expired => 'Expiré';
+	@override String get noTraffic => 'Hors quota';
+	@override String get upload => 'Télécharger';
+	@override String get download => 'Télécharger';
+	@override String get total => 'Trafic total';
+	@override String get expireDate => 'Date d\'expiration';
+}
+
+// Path: profile.sortBy
+class TranslationsProfileSortByFr extends TranslationsProfileSortByEn {
+	TranslationsProfileSortByFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get lastUpdate => 'Récemment mis à jour';
+	@override String get name => 'Alphabétiquement';
+}
+
+// Path: profile.add
+class TranslationsProfileAddFr extends TranslationsProfileAddEn {
+	TranslationsProfileAddFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get buttonText => 'Nouveau profile';
+	@override String get shortBtnTxt => 'Nouveau profile';
+	@override String get fromClipboard => 'Ajouter à partir du presse-papiers';
+	@override String get scanQr => 'Scanner le code QR';
+	@override late final TranslationsProfileAddQrScannerFr qrScanner = TranslationsProfileAddQrScannerFr._(_root);
+	@override String get manually => 'Saisie manuelle';
+	@override String get addWarp => 'Ajouter WARP';
+	@override String get addingWarpMsg => 'Veuillez patienter pendant que nous enregistrons WARP.';
+	@override String get addingProfileMsg => 'Ajout d\'un profil';
+	@override String get failureMsg => 'Échec de l\'ajout du profil';
+}
+
+// Path: profile.update
+class TranslationsProfileUpdateFr extends TranslationsProfileUpdateEn {
+	TranslationsProfileUpdateFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get buttonTxt => 'Mise à jour';
+	@override String get tooltip => 'Mettre à jour le profil';
+	@override String get updateSubscriptions => 'Mettre à jour les abonnements';
+	@override String get failureMsg => 'Échec de la mise à jour du profil';
+	@override String get successMsg => 'Mise à jour du profil réussie';
+	@override String namedFailureMsg({required Object name}) => 'Échec de la mise à jour de "${name}"';
+	@override String namedSuccessMsg({required Object name}) => '"${name}" a été mis à jour avec succès';
+}
+
+// Path: profile.share
+class TranslationsProfileShareFr extends TranslationsProfileShareEn {
+	TranslationsProfileShareFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get buttonText => 'Partager';
+	@override String get exportToClipboardSuccess => 'Exporté vers le Presse-papiers';
+	@override String get exportSubLinkToClipboard => 'Exporter le lien d\'abonnement vers le presse-papiers';
+	@override String get subLinkQrCode => 'Code QR du lien d\'abonnement';
+	@override String get exportConfigToClipboard => 'Exporter la configuration vers le presse-papiers';
+	@override String get exportConfigToClipboardSuccess => 'Configuration copiée dans le presse-papiers';
+}
+
+// Path: profile.edit
+class TranslationsProfileEditFr extends TranslationsProfileEditEn {
+	TranslationsProfileEditFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get buttonTxt => 'Modifier';
+	@override String get selectActiveTxt => 'Sélectionnez un profil actif';
+}
+
+// Path: profile.delete
+class TranslationsProfileDeleteFr extends TranslationsProfileDeleteEn {
+	TranslationsProfileDeleteFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get buttonTxt => 'Supprimer';
+	@override String get confirmationMsg => 'Supprimer le profil définitivement ?';
+	@override String get successMsg => 'Profil supprimé avec succès';
+}
+
+// Path: profile.save
+class TranslationsProfileSaveFr extends TranslationsProfileSaveEn {
+	TranslationsProfileSaveFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get buttonText => 'Sauvegarder';
+	@override String get successMsg => 'Profil enregistré avec succès';
+	@override String get failureMsg => 'Échec de l\'enregistrement du profil';
+}
+
+// Path: profile.detailsForm
+class TranslationsProfileDetailsFormFr extends TranslationsProfileDetailsFormEn {
+	TranslationsProfileDetailsFormFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get nameLabel => 'Nom';
+	@override String get nameHint => 'Nom de profil';
+	@override String get urlLabel => 'URL';
+	@override String get urlHint => 'URL de configuration complète';
+	@override String get emptyNameMsg => 'Le nom est requis';
+	@override String get invalidUrlMsg => 'URL invalide';
+	@override String get lastUpdate => 'Dernière mise à jour';
+	@override String get updateInterval => 'Mise à jour automatique';
+	@override String get updateIntervalDialogTitle => 'Intervalle de mise à jour automatique (en heures)';
+}
+
+// Path: proxies.sortOptions
+class TranslationsProxiesSortOptionsFr extends TranslationsProxiesSortOptionsEn {
+	TranslationsProxiesSortOptionsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get unsorted => 'Défaut';
+	@override String get name => 'Alphabétiquement';
+	@override String get delay => 'Par retard';
+}
+
+// Path: proxies.delaySemantics
+class TranslationsProxiesDelaySemanticsFr extends TranslationsProxiesDelaySemanticsEn {
+	TranslationsProxiesDelaySemanticsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String result({required Object delay}) => 'Délai : ${delay} ms';
+	@override String get timeout => 'Délai d\'expiration du test';
+	@override String get testing => 'Retard : test...';
+}
+
+// Path: proxies.ipInfoSemantics
+class TranslationsProxiesIpInfoSemanticsFr extends TranslationsProxiesIpInfoSemanticsEn {
+	TranslationsProxiesIpInfoSemanticsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get address => 'Adresse IP';
+	@override String get country => 'Pays';
+}
+
+// Path: settings.general
+class TranslationsSettingsGeneralFr extends TranslationsSettingsGeneralEn {
+	TranslationsSettingsGeneralFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get sectionTitle => 'Général';
+	@override String get locale => 'Langue';
+	@override String get region => 'Région';
+	@override String get regionMsg => 'Aide à définir les options par défaut pour contourner les adresses nationales';
+	@override late final TranslationsSettingsGeneralRegionsFr regions = TranslationsSettingsGeneralRegionsFr._(_root);
+	@override String get themeMode => 'Mode Thème';
+	@override late final TranslationsSettingsGeneralThemeModesFr themeModes = TranslationsSettingsGeneralThemeModesFr._(_root);
+	@override String get enableAnalytics => 'Activer l\'analyse';
+	@override String get enableAnalyticsMsg => 'Autoriser la collecte d\'analyses et l\'envoi de rapports d\'erreur pour améliorer l\'application';
+	@override String get autoStart => 'Commencez par la connexion';
+	@override String get silentStart => 'Démarrer réduit';
+	@override String get openWorkingDir => 'Ouvrir le répertoire de travail';
+	@override String get ignoreBatteryOptimizations => 'Désactiver l\'optimisation de la batterie';
+	@override String get ignoreBatteryOptimizationsMsg => 'Supprimez les restrictions pour des performances VPN optimales';
+	@override String get dynamicNotification => 'Vitesse d\'affichage dans les notifications';
+	@override String get hapticFeedback => 'Retour haptique';
+	@override String get autoIpCheck => 'Vérifier automatiquement l\'adresse IP de la connexion';
+}
+
+// Path: settings.advanced
+class TranslationsSettingsAdvancedFr extends TranslationsSettingsAdvancedEn {
+	TranslationsSettingsAdvancedFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get sectionTitle => 'Avancé';
+	@override String get debugMode => 'Mode débogage';
+	@override String get debugModeMsg => 'Redémarrez l\'application pour appliquer cette modification';
+	@override String get memoryLimit => 'Limite de mémoire';
+	@override String get memoryLimitMsg => 'Activer si vous rencontrez des erreurs de mémoire insuffisante ou des plantages fréquents de l\'application';
+	@override String get resetTunnel => 'Réinitialiser le profil VPN';
+}
+
+// Path: settings.network
+class TranslationsSettingsNetworkFr extends TranslationsSettingsNetworkEn {
+	TranslationsSettingsNetworkFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get perAppProxyPageTitle => 'Proxy par application';
+	@override late final TranslationsSettingsNetworkPerAppProxyModesFr perAppProxyModes = TranslationsSettingsNetworkPerAppProxyModesFr._(_root);
+	@override String get showSystemApps => 'Afficher les applications système';
+	@override String get hideSystemApps => 'Masquer les applications système';
+	@override String get clearSelection => 'Effacer la sélection';
+}
+
+// Path: settings.geoAssets
+class TranslationsSettingsGeoAssetsFr extends TranslationsSettingsGeoAssetsEn {
+	TranslationsSettingsGeoAssetsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get pageTitle => 'Actifs de routage';
+	@override String get geoip => 'GéoIP';
+	@override String get geosite => 'GéoSite';
+	@override String version({required Object version}) => 'Version ${version}';
+	@override String get fileMissing => 'Dossier manquant';
+	@override String get update => 'Mise à jour';
+	@override String get download => 'Télécharger';
+	@override String get failureMsg => 'Échec de la mise à jour de l\'actif';
+	@override String get successMsg => 'Actif mis à jour avec succès';
+	@override String get addRecommended => 'Ajouter des actifs recommandés';
+	@override String get missingGeoAssetsMsg => 'Les fichiers des ressources de routage sélectionnées sont manquants. Téléchargez-les ou choisissez ceux existants';
+}
+
+// Path: tray.status
+class TranslationsTrayStatusFr extends TranslationsTrayStatusEn {
+	TranslationsTrayStatusFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get connect => 'Connecter';
+	@override String get connecting => 'De liaison';
+	@override String get disconnect => 'Déconnecter';
+	@override String get disconnecting => 'Déconnexion';
+}
+
+// Path: failure.clash
+class TranslationsFailureClashFr extends TranslationsFailureClashEn {
+	TranslationsFailureClashFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get unexpected => 'Erreur inattendue';
+	@override String core({required Object reason}) => 'Erreur de conflit ${reason}';
+}
+
+// Path: failure.singbox
+class TranslationsFailureSingboxFr extends TranslationsFailureSingboxEn {
+	TranslationsFailureSingboxFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get unexpected => 'Erreur de service inattendue';
+	@override String get serviceNotRunning => 'Le service ne fonctionne pas';
+	@override String get missingPrivilege => 'Privilège manquant';
+	@override String get missingPrivilegeMsg => 'Le mode VPN nécessite des privilèges d\'administrateur. Soit relancez l\'application en tant qu\'administrateur, soit changez de mode de service.';
+	@override String get missingGeoAssets => 'Actifs géographiques manquants';
+	@override String get missingGeoAssetsMsg => 'Les ressources géographiques sont manquantes. Pensez à modifier l\'actif actif ou à télécharger celui sélectionné dans les paramètres.';
+	@override String get invalidConfigOptions => 'Options de configuration invalides';
+	@override String get invalidConfig => 'Configuration invalide';
+	@override String get create => 'Erreur de création de service';
+	@override String get start => 'Erreur de démarrage du service';
+}
+
+// Path: failure.connectivity
+class TranslationsFailureConnectivityFr extends TranslationsFailureConnectivityEn {
+	TranslationsFailureConnectivityFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get unexpected => 'Échec inattendu';
+	@override String get missingVpnPermission => 'Autorisation VPN manquante';
+	@override String get missingNotificationPermission => 'Autorisation de notification manquante';
+	@override String get core => 'Erreur principale';
+}
+
+// Path: failure.profiles
+class TranslationsFailureProfilesFr extends TranslationsFailureProfilesEn {
+	TranslationsFailureProfilesFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get unexpected => 'Erreur inattendue';
+	@override String get notFound => 'Profil non trouvé';
+	@override String get invalidConfig => 'Configurations invalides';
+	@override String get invalidUrl => 'URL invalide';
+}
+
+// Path: failure.connection
+class TranslationsFailureConnectionFr extends TranslationsFailureConnectionEn {
+	TranslationsFailureConnectionFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get unexpected => 'Erreur de connexion inattendue';
+	@override String get timeout => 'Délai de connection dépassé';
+	@override String get badResponse => 'Mauvaise réponse';
+	@override String get connectionError => 'Erreur de connexion';
+	@override String get badCertificate => 'Mauvais certificat';
+}
+
+// Path: failure.geoAssets
+class TranslationsFailureGeoAssetsFr extends TranslationsFailureGeoAssetsEn {
+	TranslationsFailureGeoAssetsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get unexpected => 'Erreur inattendue';
+	@override String get notUpdate => 'Pas de mise a jour disponible';
+	@override String get activeNotFound => 'Actif géographique actif introuvable';
+}
+
+// Path: config.serviceModes
+class TranslationsConfigServiceModesFr extends TranslationsConfigServiceModesEn {
+	TranslationsConfigServiceModesFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxy => 'Service proxy uniquement';
+	@override String get systemProxy => 'Définir le proxy système';
+	@override String get tun => 'VPN';
+	@override String get tunService => 'Service VPN';
+}
+
+// Path: config.shortServiceModes
+class TranslationsConfigShortServiceModesFr extends TranslationsConfigShortServiceModesEn {
+	TranslationsConfigShortServiceModesFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxy => 'Proxy';
+	@override String get systemProxy => 'Proxy système';
+	@override String get tun => 'VPN';
+	@override String get tunService => 'Service VPN';
+}
+
+// Path: config.section
+class TranslationsConfigSectionFr extends TranslationsConfigSectionEn {
+	TranslationsConfigSectionFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get route => 'Options d\'itinéraire';
+	@override String get dns => 'Options DNS';
+	@override String get inbound => 'Options entrantes';
+	@override String get mux => 'MultiPlexeur';
+	@override String get outbound => 'Options sortantes';
+	@override String get tlsTricks => 'Astuces TLS';
+	@override String get warp => 'Options de WARP ';
+	@override String get misc => 'Diverses options';
+}
+
+// Path: config.warpConsent
+class TranslationsConfigWarpConsentFr extends TranslationsConfigWarpConsentEn {
+	TranslationsConfigWarpConsentFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Consentement du Cloudflare WARP';
+	@override TextSpan description({required InlineSpanBuilder tos, required InlineSpanBuilder privacy}) => TextSpan(children: [
+		const TextSpan(text: 'Cloudflare WARP est un fournisseur VPN WireGuard gratuit. En activant cette option, vous acceptez les '),
+		tos('Terms of Service'),
+		const TextSpan(text: ' et '),
+		privacy('Privacy Policy'),
+		const TextSpan(text: ' de Cloudflare WARP.'),
+	]);
+}
+
+// Path: config.ipv6Modes
+class TranslationsConfigIpv6ModesFr extends TranslationsConfigIpv6ModesEn {
+	TranslationsConfigIpv6ModesFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get disable => 'Désactiver';
+	@override String get enable => 'Activer';
+	@override String get prefer => 'Préféré';
+	@override String get only => 'Exclusif';
+}
+
+// Path: config.warpDetourModes
+class TranslationsConfigWarpDetourModesFr extends TranslationsConfigWarpDetourModesEn {
+	TranslationsConfigWarpDetourModesFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxyOverWarp => 'Proxy de détour via WARP';
+	@override String get warpOverProxy => 'Détour WARP via des proxys';
+	@override String get inbound => 'Détour WARP via des proxys';
+	@override String get outbound => 'Proxy de détour via WARP';
+}
+
+// Path: profile.add.qrScanner
+class TranslationsProfileAddQrScannerFr extends TranslationsProfileAddQrScannerEn {
+	TranslationsProfileAddQrScannerFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get permissionDeniedError => 'Permission refusée';
+	@override String get unexpectedError => 'Quelque chose s\'est mal passé';
+	@override String get torchSemanticLabel => 'Lampe torche';
+	@override String get facingSemanticLabel => 'Face à la caméra';
+	@override String get permissionRequest => 'Autorisation de la caméra pour scanner le code QR';
+}
+
+// Path: settings.general.regions
+class TranslationsSettingsGeneralRegionsFr extends TranslationsSettingsGeneralRegionsEn {
+	TranslationsSettingsGeneralRegionsFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get ir => 'Iran (ir) 🇮🇷';
+	@override String get cn => 'Chine (cn) 🇨🇳';
+	@override String get ru => 'Russie (ru) 🇷🇺';
+	@override String get af => 'Afghanistan (af) 🇦🇫';
+	@override String get id => 'Indonésie (id) 🇮🇩';
+	@override String get tr => 'Turquie (tr) 🇹🇷';
+	@override String get other => 'Autre';
+}
+
+// Path: settings.general.themeModes
+class TranslationsSettingsGeneralThemeModesFr extends TranslationsSettingsGeneralThemeModesEn {
+	TranslationsSettingsGeneralThemeModesFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get system => 'Suivre le thème du système';
+	@override String get dark => 'Mode sombre';
+	@override String get light => 'Mode lumière';
+	@override String get black => 'Mode noir';
+}
+
+// Path: settings.network.perAppProxyModes
+class TranslationsSettingsNetworkPerAppProxyModesFr extends TranslationsSettingsNetworkPerAppProxyModesEn {
+	TranslationsSettingsNetworkPerAppProxyModesFr._(TranslationsFr root) : this._root = root, super._(root);
+
+	@override final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get off => 'Tous';
+	@override String get offMsg => 'Proxy Toutes les applications';
+	@override String get include => 'Proxy';
+	@override String get includeMsg => 'Applications sélectionnées par proxy uniquement';
+	@override String get exclude => 'Contourne';
+	@override String get excludeMsg => 'Ne pas proxyer les applications sélectionnées';
 }
 
 // Path: <root>
@@ -3423,7 +4439,7 @@ class TranslationsGeneralId extends TranslationsGeneralEn {
 	@override final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'HologatePlus';
+	@override String get appTitle => 'Hiddify';
 	@override String get reset => 'Set Ulang';
 	@override late final TranslationsGeneralToggleId toggle = TranslationsGeneralToggleId._(_root);
 	@override late final TranslationsGeneralStateId state = TranslationsGeneralStateId._(_root);
@@ -3436,6 +4452,11 @@ class TranslationsGeneralId extends TranslationsGeneralEn {
 	@override String get unknown => 'Tidak Dikenal';
 	@override String get hidden => 'Tersembunyi';
 	@override String get timeout => 'Waktu habis';
+	@override String get clipboardExportSuccessMsg => 'Ditambahkan ke Papan Klip';
+	@override String get showMore => 'Menampilkan lebih banyak';
+	@override String get showLess => 'Tampilkan Lebih Sedikit';
+	@override String get openAppSettings => 'Buka Pengaturan Aplikasi';
+	@override String get grantPermission => 'Memberikan ijin';
 }
 
 // Path: intro
@@ -3472,10 +4493,13 @@ class TranslationsStatsId extends TranslationsStatsEn {
 
 	// Translations
 	@override String get traffic => 'Trafik Langsung';
+	@override String get trafficLive => 'Lalu Lintas Langsung';
 	@override String get trafficTotal => 'Total Trafik';
 	@override String get uplink => 'Uplink';
 	@override String get downlink => 'Downlink';
 	@override String get connection => 'Sambungan';
+	@override String get speed => 'Kecepatan';
+	@override String get totalTransferred => 'Jumlah yang Ditransfer';
 }
 
 // Path: profile
@@ -3512,7 +4536,12 @@ class TranslationsProxiesId extends TranslationsProxiesEn {
 	@override String get emptyProxiesMsg => 'Tidak ada proxy';
 	@override String get delayTestTooltip => 'Test delay';
 	@override String get sortTooltip => 'Urut Proxy';
+	@override String get checkIp => 'Periksa IP';
+	@override String get unknownIp => 'IP tidak dikenal';
 	@override late final TranslationsProxiesSortOptionsId sortOptions = TranslationsProxiesSortOptionsId._(_root);
+	@override String get activeProxySemanticLabel => 'Proksi Aktif';
+	@override late final TranslationsProxiesDelaySemanticsId delaySemantics = TranslationsProxiesDelaySemanticsId._(_root);
+	@override late final TranslationsProxiesIpInfoSemanticsId ipInfoSemantics = TranslationsProxiesIpInfoSemanticsId._(_root);
 }
 
 // Path: logs
@@ -3543,6 +4572,10 @@ class TranslationsSettingsId extends TranslationsSettingsEn {
 	@override String get requiresRestartMsg => 'Untuk mencoba restart aplikasi';
 	@override String get experimental => 'Eksperimen';
 	@override String get experimentalMsg => 'Fitur dengan tanda Eksperimen masih dalam pengembangan dan resiko bermasalah.';
+	@override String get exportOptions => 'Salin Opsi Anonim ke Papan Klip';
+	@override String get exportAllOptions => 'Salin Semua Opsi ke Clipboard';
+	@override String get importOptions => 'Impor Opsi Dari Clipboard';
+	@override String get importOptionsMsg => 'Ini akan menulis ulang semua opsi konfigurasi dengan nilai yang diberikan. Apa kamu yakin?';
 	@override late final TranslationsSettingsGeneralId general = TranslationsSettingsGeneralId._(_root);
 	@override late final TranslationsSettingsAdvancedId advanced = TranslationsSettingsAdvancedId._(_root);
 	@override late final TranslationsSettingsNetworkId network = TranslationsSettingsNetworkId._(_root);
@@ -3618,9 +4651,9 @@ class TranslationsPlayId extends TranslationsPlayEn {
 	@override final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'HologatePlus (Preview)';
+	@override String get title => 'Hiddify (Preview)';
 	@override String get short_description => 'Otomatik, SSH, VLESS, Vmess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
-	@override String get full_description => 'Tujuan utama HologatePlus adalah memberikan keamanan, user-friendly dan client tunnel yg efisien. HologatePlus mengizinkanmu untuk mengarahkan semua atau beberapa trafik data aplikasi terpilih ke server remot pilihanmu, memanfaatkan izin VPN-Service.\n\nNote: Kami tidak menyediakan server apapun; pengguna diwajibkan untuk memastikan aktivitas online mereka tetap private dengan menggunakan self-hosted server atau server yg dipercaya pilihan mereka sendiri. \n \nKami mendukung server dengan:\n- Normal V2ray/Xray Subscription Link\n- Clash Subscription Link\n- Sing-Box Subscription Link\n\nApa fitur unik kami?\n - User Friendly\n - Cepat dan teroptimasi\n - Otomatis pilihan PING terendah \n - Menampilkan informasi penggunaan user\n - Dengan mudah import sublink dengan satu klik menggunakan deeplinking \n - Bebas dan tanpa iklan\n - Dengan mudah berganti user sublink\n - dan sebagainya\n\nSupport:\n- Semua protokol di dukung oleh Sing-Box \n- VLESS + xtls reality, vision\n- VMESS\n- Trojan\n- ShadowSocks\n- Reality\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\n\nCode Sumber ada di https://github.com/HologatePlus/HologatePlus-Next\nInti Aplikasi didasarkan pada Sing-Box Open Source.\n\nDeskripsi Izin:\n- VPN Servis: Tujuan aplikasi ini menyediakan keamanan, user-friendly dan tunneling client efisien, kami membutuhkan izin untuk bisa mengarahkan traffic data melalui kanal remot server. \n- QUERY ALL PACKAGES: izin ini digunakan untuk memperbolehkan pengguna masuk atau mengeluarkan aplikasi tertentu untuk tunneling.\n- RECEIVE BOOT COMPLETED: izin ini dapat diaktifkan atau dinonaktifkan dari setting aplikasi untuk mengaktikan aplikasi ini saat boot device.\n- POST NOTIFICATIONS: izin ini penting karena kami menggunakan foreground service untuk memastikan operasi berkelanjutan dari VPN Servis.\n- Aplikasi ini bebas dari iklan. Analitik dan data crash hanya terjadi dengan persetujuan eksplisit dari pengguna pada saat penggunaan pertama kali';
+	@override String get full_description => 'Tujuan utama Hiddify adalah memberikan keamanan, user-friendly dan client tunnel yg efisien. Hiddify mengizinkanmu untuk mengarahkan semua atau beberapa trafik data aplikasi terpilih ke server remot pilihanmu, memanfaatkan izin VPN-Service.\n\nNote: Kami tidak menyediakan server apapun; pengguna diwajibkan untuk memastikan aktivitas online mereka tetap private dengan menggunakan self-hosted server atau server yg dipercaya pilihan mereka sendiri. \n \nKami mendukung server dengan:\n- Normal V2ray/Xray Subscription Link\n- Clash Subscription Link\n- Sing-Box Subscription Link\n\nApa fitur unik kami?\n - User Friendly\n - Cepat dan teroptimasi\n - Otomatis pilihan PING terendah \n - Menampilkan informasi penggunaan user\n - Dengan mudah import sublink dengan satu klik menggunakan deeplinking \n - Bebas dan tanpa iklan\n - Dengan mudah berganti user sublink\n - dan sebagainya\n\nSupport:\n- Semua protokol di dukung oleh Sing-Box \n- VLESS + xtls reality, vision\n- VMESS\n- Trojan\n- ShadowSocks\n- Reality\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\n\nCode Sumber ada di https://github.com/hiddify/Hiddify-Next\nInti Aplikasi didasarkan pada Sing-Box Open Source.\n\nDeskripsi Izin:\n- VPN Servis: Tujuan aplikasi ini menyediakan keamanan, user-friendly dan tunneling client efisien, kami membutuhkan izin untuk bisa mengarahkan traffic data melalui kanal remot server. \n- QUERY ALL PACKAGES: izin ini digunakan untuk memperbolehkan pengguna masuk atau mengeluarkan aplikasi tertentu untuk tunneling.\n- RECEIVE BOOT COMPLETED: izin ini dapat diaktifkan atau dinonaktifkan dari setting aplikasi untuk mengaktikan aplikasi ini saat boot device.\n- POST NOTIFICATIONS: izin ini penting karena kami menggunakan foreground service untuk memastikan operasi berkelanjutan dari VPN Servis.\n- Aplikasi ini bebas dari iklan. Analitik dan data crash hanya terjadi dengan persetujuan eksplisit dari pengguna pada saat penggunaan pertama kali';
 }
 
 // Path: connection
@@ -3634,9 +4667,12 @@ class TranslationsConnectionId extends TranslationsConnectionEn {
 	@override String get connecting => 'Sambungkan';
 	@override String get disconnecting => 'Putus Sambungan';
 	@override String get connected => 'Tersambung';
+	@override String get reconnect => 'Hubungkan kembali';
+	@override String get connectAnyWay => 'Menghubung';
 	@override String get experimentalNotice => 'Fitur Experimental digunakan';
 	@override String get experimentalNoticeMsg => 'Kamu telah mengaktifkan fitur experimental yang mungkin mempengaruhi kualitas sambungan dan error tidak terduga. Kamu tetap bisa merubah atau set ulang opsi dari Halaman Konfigurasi';
 	@override String get disableExperimentalNotice => 'Jangan tampil lagi';
+	@override String get reconnectMsg => 'Menghubungkan kembali untuk memperhitungkan perubahan...';
 }
 
 // Path: config
@@ -3648,11 +4684,19 @@ class TranslationsConfigId extends TranslationsConfigEn {
 	// Translations
 	@override String get resetBtn => 'Set Ulang Opsi';
 	@override String get serviceMode => 'Sambung ulang agar perubahan diterapkan';
+	@override String get quickSettings => 'Pengaturan Cepat';
+	@override String get setupWarp => 'Siapkan WARP';
+	@override String get allOptions => 'Semua Opsi Konfigurasi';
 	@override late final TranslationsConfigServiceModesId serviceModes = TranslationsConfigServiceModesId._(_root);
+	@override late final TranslationsConfigShortServiceModesId shortServiceModes = TranslationsConfigShortServiceModesId._(_root);
 	@override late final TranslationsConfigSectionId section = TranslationsConfigSectionId._(_root);
 	@override late final TranslationsConfigWarpConsentId warpConsent = TranslationsConfigWarpConsentId._(_root);
+	@override String get generateWarpConfig => 'Hasilkan Konfigurasi WARP';
+	@override String get missingWarpConfig => 'Konfigurasi WARP tidak ada';
+	@override String get warpConfigGenerated => 'Konfigurasi WARP Dibuat';
 	@override String get pageTitle => 'Opsi Konfig';
 	@override String get logLevel => 'Log Level';
+	@override String get blockAds => 'Blokir Iklan';
 	@override String get resolveDestination => 'Resolve Destination';
 	@override String get ipv6Mode => 'IPv6 Route';
 	@override late final TranslationsConfigIpv6ModesId ipv6Modes = TranslationsConfigIpv6ModesId._(_root);
@@ -3661,10 +4705,11 @@ class TranslationsConfigId extends TranslationsConfigEn {
 	@override String get directDnsAddress => 'Direct DNS';
 	@override String get directDnsDomainStrategy => 'Direct DNS Domain Strategy';
 	@override String get mixedPort => 'Mixed Port';
+	@override String get tproxyPort => 'Port Proksi Transparan';
 	@override String get localDnsPort => 'DNS Port Lokal';
 	@override String get allowConnectionFromLan => 'Perbolehkan Sambungan LAN';
 	@override String get tunImplementation => 'Implementasi TUN';
-	@override String get mtu => 'MTU';
+	@override String get mtu => 'Ukuran Paket (MTU)';
 	@override String get connectionTestUrl => 'URL Tes Sambungan';
 	@override String get urlTestInterval => 'URL Test Interval';
 	@override String get enableClashApi => 'Aktifkan Clash API';
@@ -3691,6 +4736,9 @@ class TranslationsConfigId extends TranslationsConfigEn {
 	@override String get warpCleanIp => 'Clean IP';
 	@override String get warpPort => 'Port';
 	@override String get warpNoise => 'Noise';
+	@override String get warpNoiseSize => 'Ukuran Kebisingan';
+	@override String get warpNoiseMode => 'Modus Kebisingan';
+	@override String get warpNoiseDelay => 'Penundaan Kebisingan';
 }
 
 // Path: general.toggle
@@ -3727,6 +4775,10 @@ class TranslationsProfileSubscriptionId extends TranslationsProfileSubscriptionE
 	@override String remainingTrafficSemanticLabel({required Object consumed, required Object total}) => '${consumed}/${total} trafik terpakai';
 	@override String get expired => 'Kadaluarsa';
 	@override String get noTraffic => 'Kuota Habis';
+	@override String get upload => 'Mengunggah';
+	@override String get download => 'Unduh';
+	@override String get total => 'Jumlah Lalu Lintas';
+	@override String get expireDate => 'Tanggal kadaluarsa';
 }
 
 // Path: profile.sortBy
@@ -3753,6 +4805,8 @@ class TranslationsProfileAddId extends TranslationsProfileAddEn {
 	@override String get scanQr => 'Pindai QR';
 	@override late final TranslationsProfileAddQrScannerId qrScanner = TranslationsProfileAddQrScannerId._(_root);
 	@override String get manually => 'Isian Manual';
+	@override String get addWarp => 'Tambahkan WARP';
+	@override String get addingWarpMsg => 'Mohon tunggu selagi kami mendaftarkan WARP.';
 	@override String get addingProfileMsg => 'Tambahkan Profil';
 	@override String get failureMsg => 'Gagal tambahkan profil';
 }
@@ -3853,6 +4907,29 @@ class TranslationsProxiesSortOptionsId extends TranslationsProxiesSortOptionsEn 
 	@override String get delay => 'Berdasarkan Delay';
 }
 
+// Path: proxies.delaySemantics
+class TranslationsProxiesDelaySemanticsId extends TranslationsProxiesDelaySemanticsEn {
+	TranslationsProxiesDelaySemanticsId._(TranslationsId root) : this._root = root, super._(root);
+
+	@override final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String result({required Object delay}) => 'Penundaan: ${delay}ms';
+	@override String get timeout => 'Batas Waktu Uji Tunda';
+	@override String get testing => 'Penundaan: Menguji...';
+}
+
+// Path: proxies.ipInfoSemantics
+class TranslationsProxiesIpInfoSemanticsId extends TranslationsProxiesIpInfoSemanticsEn {
+	TranslationsProxiesIpInfoSemanticsId._(TranslationsId root) : this._root = root, super._(root);
+
+	@override final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get address => 'Alamat IP';
+	@override String get country => 'Negara';
+}
+
 // Path: settings.general
 class TranslationsSettingsGeneralId extends TranslationsSettingsGeneralEn {
 	TranslationsSettingsGeneralId._(TranslationsId root) : this._root = root, super._(root);
@@ -3875,6 +4952,8 @@ class TranslationsSettingsGeneralId extends TranslationsSettingsGeneralEn {
 	@override String get ignoreBatteryOptimizations => 'Menonaktifkan Optimisasi Baterai';
 	@override String get ignoreBatteryOptimizationsMsg => 'Hapus batasan untuk performa VPN yang optimal';
 	@override String get dynamicNotification => 'Tampilkan Kecepatan di notifikasi';
+	@override String get hapticFeedback => 'Umpan Balik Haptik';
+	@override String get autoIpCheck => 'Secara Otomatis Memeriksa IP Koneksi';
 }
 
 // Path: settings.advanced
@@ -4031,6 +5110,20 @@ class TranslationsConfigServiceModesId extends TranslationsConfigServiceModesEn 
 	@override String get proxy => 'Proxy';
 	@override String get systemProxy => 'Sistem Proxy';
 	@override String get tun => 'VPN';
+	@override String get tunService => 'Layanan VPN';
+}
+
+// Path: config.shortServiceModes
+class TranslationsConfigShortServiceModesId extends TranslationsConfigShortServiceModesEn {
+	TranslationsConfigShortServiceModesId._(TranslationsId root) : this._root = root, super._(root);
+
+	@override final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxy => 'Proksi';
+	@override String get systemProxy => 'Proksi Sistem';
+	@override String get tun => 'VPN';
+	@override String get tunService => 'Layanan VPN';
 }
 
 // Path: config.section
@@ -4087,6 +5180,8 @@ class TranslationsConfigWarpDetourModesId extends TranslationsConfigWarpDetourMo
 	@override final TranslationsId _root; // ignore: unused_field
 
 	// Translations
+	@override String get proxyOverWarp => 'Memutar Proxy Melalui WARP';
+	@override String get warpOverProxy => 'Jalan memutar WARP Melalui Proxy';
 	@override String get inbound => 'Detour WARP through proxies';
 	@override String get outbound => 'Detour proxies through WARP';
 }
@@ -4102,6 +5197,7 @@ class TranslationsProfileAddQrScannerId extends TranslationsProfileAddQrScannerE
 	@override String get unexpectedError => 'Terjadi masalah';
 	@override String get torchSemanticLabel => 'Lampu Flash';
 	@override String get facingSemanticLabel => 'Hadap Kamera';
+	@override String get permissionRequest => 'Izin ke kamera untuk memindai Kode QR';
 }
 
 // Path: settings.general.regions
@@ -4115,6 +5211,8 @@ class TranslationsSettingsGeneralRegionsId extends TranslationsSettingsGeneralRe
 	@override String get cn => 'Çin (cn)';
 	@override String get ru => 'Russia (ru)';
 	@override String get af => 'Afghanistan (af)';
+	@override String get id => 'Indonesia (id)';
+	@override String get tr => 'Turki (tr) 🇹🇷';
 	@override String get other => 'Lainnya';
 }
 
@@ -4196,7 +5294,7 @@ class TranslationsGeneralPtBr extends TranslationsGeneralEn {
 	@override final TranslationsPtBr _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'HologatePlus';
+	@override String get appTitle => 'Hiddify';
 	@override String get reset => 'Restaurar';
 	@override late final TranslationsGeneralTogglePtBr toggle = TranslationsGeneralTogglePtBr._(_root);
 	@override late final TranslationsGeneralStatePtBr state = TranslationsGeneralStatePtBr._(_root);
@@ -4209,8 +5307,10 @@ class TranslationsGeneralPtBr extends TranslationsGeneralEn {
 	@override String get unknown => 'Desconhecido';
 	@override String get hidden => 'Escondido';
 	@override String get timeout => 'Tempo Esgotado';
+	@override String get clipboardExportSuccessMsg => 'Adicionado à área de transferência';
 	@override String get showMore => 'Mostre mais';
 	@override String get showLess => 'Mostre menos';
+	@override String get openAppSettings => 'Abra as configurações do aplicativo';
 	@override String get grantPermission => 'Conceder permissão';
 }
 
@@ -4247,6 +5347,7 @@ class TranslationsStatsPtBr extends TranslationsStatsEn {
 	@override final TranslationsPtBr _root; // ignore: unused_field
 
 	// Translations
+	@override String get traffic => 'Tráfego';
 	@override String get trafficLive => 'Tráfego ao vivo';
 	@override String get trafficTotal => 'Tráfego total';
 	@override String get uplink => 'Ligação ascendente';
@@ -4326,6 +5427,10 @@ class TranslationsSettingsPtBr extends TranslationsSettingsEn {
 	@override String get requiresRestartMsg => 'Para que isso tenha efeito, reinicie o aplicativo';
 	@override String get experimental => 'Experimental';
 	@override String get experimentalMsg => 'Os recursos com sinalização Experimental ainda estão em desenvolvimento e podem causar problemas.';
+	@override String get exportOptions => 'Copiar opções anônimas para a área de transferência';
+	@override String get exportAllOptions => 'Copiar todas as opções para a área de transferência';
+	@override String get importOptions => 'Opções de importação da área de transferência';
+	@override String get importOptionsMsg => 'Isto irá reescrever todas as opções de configuração com os valores fornecidos. Tem certeza?';
 	@override late final TranslationsSettingsGeneralPtBr general = TranslationsSettingsGeneralPtBr._(_root);
 	@override late final TranslationsSettingsAdvancedPtBr advanced = TranslationsSettingsAdvancedPtBr._(_root);
 	@override late final TranslationsSettingsNetworkPtBr network = TranslationsSettingsNetworkPtBr._(_root);
@@ -4401,8 +5506,9 @@ class TranslationsPlayPtBr extends TranslationsPlayEn {
 	@override final TranslationsPtBr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'HologatePlus (Pré-visualização)';
+	@override String get title => 'Hiddify (Pré-visualização)';
 	@override String get short_description => 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
+	@override String get full_description => 'O principal objetivo do Hiddify é fornecer um cliente de tunelamento seguro, fácil de usar e eficiente. Ele permite que você direcione todo o tráfego ou tráfego de aplicativo selecionado para um servidor remoto de sua escolha, utilizando a permissão do serviço VPN.<inlang-LineFeed>\nNota: Não fornecemos nenhum servidor; os usuários são obrigados a garantir que suas atividades online permaneçam privadas usando seu próprio servidor auto-hospedado ou servidores confiáveis.<inlang-LineFeed>\nOferecemos suporte a servidores com:\n- Link de assinatura V2Ray/XRay normal\n- Link de assinatura do Clash\n- Link de assinatura do Sing-Box<inlang-LineFeed>\nQuais são os nossos recursos exclusivos?\n- Amigo do usuário\n- Otimizado e rápido\n- Selecione automaticamente o LowerPing\n- Mostrar informações de uso do usuário\n- Importe facilmente sublinks com um clique usando deeplinking\n- Gratuito e sem anúncios\n- Alterne facilmente sublinks de usuários\n- Mais e mais<inlang-LineFeed>\nApoiar:\n- Todos os protocolos suportados pelo Sing-Box\n- VLESS + XTLS Realidade, Visão\n- VMess\n- Trojan\n- ShadowSocks\n- Realidade\n- WireGuard\n-V2Ray\n- Histeria2\n-TUICv5\n-SSH\n- ShadowTLS<inlang-LineFeed><inlang-LineFeed>\nO código-fonte existe em https://github.com/hiddify/Hiddify-Next\nO núcleo do aplicativo é baseado no Sing-Box de código aberto.<inlang-LineFeed>\nDescrição da permissão:\n- Serviço VPN: Como o objetivo desta aplicação é fornecer um cliente de tunelamento seguro, fácil de usar e eficiente, precisamos dessa permissão para poder rotear o tráfego via túnel para o servidor remoto.\n- CONSULTAR TODOS OS PACOTES: Esta permissão é usada para permitir que os usuários incluam ou excluam aplicativos específicos para tunelamento.\n- RECEBER BOOT COMPLETED: Esta permissão pode ser habilitada ou desabilitada nas configurações do aplicativo para ativar este aplicativo na inicialização do dispositivo.\n- PÓS NOTIFICAÇÕES: Esta permissão é essencial, pois empregamos um serviço de primeiro plano para garantir a operação contínua do serviço VPN.\n- Este aplicativo está livre de anúncios. A análise e os dados de travamento só ocorrem com o consentimento explícito do usuário na primeira utilização do aplicativo.';
 }
 
 // Path: connection
@@ -4416,9 +5522,12 @@ class TranslationsConnectionPtBr extends TranslationsConnectionEn {
 	@override String get connecting => 'Conectando';
 	@override String get disconnecting => 'Desconectando';
 	@override String get connected => 'Conectado';
+	@override String get reconnect => 'Reconectar';
+	@override String get connectAnyWay => 'Conectar';
 	@override String get experimentalNotice => 'Recursos experimentais em uso';
 	@override String get experimentalNoticeMsg => 'Você ativou alguns recursos experimentais que podem afetar a qualidade da conexão e causar erros inesperados. Você sempre pode alterar ou redefinir essas opções na página de opções de configuração.';
 	@override String get disableExperimentalNotice => 'Não mostrar novamente';
+	@override String get reconnectMsg => 'Reconectando por levar em conta as mudanças...';
 }
 
 // Path: config
@@ -4430,14 +5539,19 @@ class TranslationsConfigPtBr extends TranslationsConfigEn {
 	// Translations
 	@override String get resetBtn => 'Redefinir opções';
 	@override String get serviceMode => 'Modo de serviço';
+	@override String get quickSettings => 'Configurações rápidas';
+	@override String get setupWarp => 'Configurar WARP';
+	@override String get allOptions => 'Todas as opções de configuração';
 	@override late final TranslationsConfigServiceModesPtBr serviceModes = TranslationsConfigServiceModesPtBr._(_root);
+	@override late final TranslationsConfigShortServiceModesPtBr shortServiceModes = TranslationsConfigShortServiceModesPtBr._(_root);
 	@override late final TranslationsConfigSectionPtBr section = TranslationsConfigSectionPtBr._(_root);
 	@override late final TranslationsConfigWarpConsentPtBr warpConsent = TranslationsConfigWarpConsentPtBr._(_root);
 	@override String get generateWarpConfig => 'Gerar configuração WARP';
 	@override String get missingWarpConfig => 'Configuração WARP ausente';
-	@override String get warpConfigGenerated => 'Configuração WARP gerada';
+	@override String get warpConfigGenerated => 'A configuração WARP é gerada';
 	@override String get pageTitle => 'Opções de configuração';
 	@override String get logLevel => 'Nível de registro';
+	@override String get blockAds => 'Bloquear anúncios';
 	@override String get resolveDestination => 'Resolver destino';
 	@override String get ipv6Mode => 'Rota IPv6';
 	@override late final TranslationsConfigIpv6ModesPtBr ipv6Modes = TranslationsConfigIpv6ModesPtBr._(_root);
@@ -4446,10 +5560,11 @@ class TranslationsConfigPtBr extends TranslationsConfigEn {
 	@override String get directDnsAddress => 'DNS direto';
 	@override String get directDnsDomainStrategy => 'Estratégia de Domínio DNS Direto';
 	@override String get mixedPort => 'Porta Mista';
+	@override String get tproxyPort => 'Porta proxy transparente';
 	@override String get localDnsPort => 'Porta DNS local';
 	@override String get allowConnectionFromLan => 'Permitir conexão da LAN';
 	@override String get tunImplementation => 'Implementação TUN';
-	@override String get mtu => 'MTU';
+	@override String get mtu => 'Tamanho do pacote (MTU)';
 	@override String get connectionTestUrl => 'URL de teste de conexão';
 	@override String get urlTestInterval => 'Intervalo de teste de URL';
 	@override String get enableClashApi => 'Ativar API Clash';
@@ -4476,6 +5591,8 @@ class TranslationsConfigPtBr extends TranslationsConfigEn {
 	@override String get warpCleanIp => 'Limpar IP';
 	@override String get warpPort => 'Porta';
 	@override String get warpNoise => 'Contagem de ruído';
+	@override String get warpNoiseSize => 'Tamanho do ruído';
+	@override String get warpNoiseMode => 'Modo de ruído';
 	@override String get warpNoiseDelay => 'Atraso de ruído';
 }
 
@@ -4543,6 +5660,8 @@ class TranslationsProfileAddPtBr extends TranslationsProfileAddEn {
 	@override String get scanQr => 'Digitalize o código QR';
 	@override late final TranslationsProfileAddQrScannerPtBr qrScanner = TranslationsProfileAddQrScannerPtBr._(_root);
 	@override String get manually => 'Entrada manual';
+	@override String get addWarp => 'Adicionar WARP';
+	@override String get addingWarpMsg => 'Aguarde enquanto registramos o WARP.';
 	@override String get addingProfileMsg => 'Adicionando Perfil';
 	@override String get failureMsg => 'Falha ao adicionar perfil';
 }
@@ -4849,6 +5968,19 @@ class TranslationsConfigServiceModesPtBr extends TranslationsConfigServiceModesE
 	@override String get tunService => 'Serviço VPN';
 }
 
+// Path: config.shortServiceModes
+class TranslationsConfigShortServiceModesPtBr extends TranslationsConfigShortServiceModesEn {
+	TranslationsConfigShortServiceModesPtBr._(TranslationsPtBr root) : this._root = root, super._(root);
+
+	@override final TranslationsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxy => 'Procuração';
+	@override String get systemProxy => 'Proxy do sistema';
+	@override String get tun => 'VPN';
+	@override String get tunService => 'Serviço VPN';
+}
+
 // Path: config.section
 class TranslationsConfigSectionPtBr extends TranslationsConfigSectionEn {
 	TranslationsConfigSectionPtBr._(TranslationsPtBr root) : this._root = root, super._(root);
@@ -4903,6 +6035,8 @@ class TranslationsConfigWarpDetourModesPtBr extends TranslationsConfigWarpDetour
 	@override final TranslationsPtBr _root; // ignore: unused_field
 
 	// Translations
+	@override String get proxyOverWarp => 'Proxies de desvio através do WARP';
+	@override String get warpOverProxy => 'Desvio WARP através de proxies';
 	@override String get inbound => 'Desvie o WARP através de proxies';
 	@override String get outbound => 'Desviar proxies através do WARP';
 }
@@ -4918,6 +6052,7 @@ class TranslationsProfileAddQrScannerPtBr extends TranslationsProfileAddQrScanne
 	@override String get unexpectedError => 'Algo deu errado';
 	@override String get torchSemanticLabel => 'Luz do flash';
 	@override String get facingSemanticLabel => 'Câmera voltada';
+	@override String get permissionRequest => 'Permissão para a câmera digitalizar o QR Code';
 }
 
 // Path: settings.general.regions
@@ -4931,6 +6066,8 @@ class TranslationsSettingsGeneralRegionsPtBr extends TranslationsSettingsGeneral
 	@override String get cn => 'China (cn)';
 	@override String get ru => 'Rússia (ru)';
 	@override String get af => 'Afeganistão (af)';
+	@override String get id => 'Indonesia (id)';
+	@override String get tr => 'Turquia (tr) 🇹🇷';
 	@override String get other => 'Outro';
 }
 
@@ -5003,6 +6140,7 @@ class TranslationsRu extends Translations {
 	@override late final TranslationsPlayRu play = TranslationsPlayRu._(_root);
 	@override late final TranslationsConnectionRu connection = TranslationsConnectionRu._(_root);
 	@override late final TranslationsConfigRu config = TranslationsConfigRu._(_root);
+	@override late final TranslationsWindowRu window = TranslationsWindowRu._(_root);
 }
 
 // Path: general
@@ -5012,7 +6150,7 @@ class TranslationsGeneralRu extends TranslationsGeneralEn {
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'HologatePlus';
+	@override String get appTitle => 'Hiddify';
 	@override String get reset => 'Сброс';
 	@override late final TranslationsGeneralToggleRu toggle = TranslationsGeneralToggleRu._(_root);
 	@override late final TranslationsGeneralStateRu state = TranslationsGeneralStateRu._(_root);
@@ -5020,15 +6158,15 @@ class TranslationsGeneralRu extends TranslationsGeneralEn {
 	@override String get sortBy => 'Сортировка';
 	@override String get addToClipboard => 'Копировать в буфер обмена';
 	@override String get notSet => 'Не задано';
-	@override String get agree => 'Соглашаться';
+	@override String get agree => 'Согласиться';
 	@override String get decline => 'Отклонить';
 	@override String get unknown => 'Неизвестный';
 	@override String get hidden => 'Скрытый';
 	@override String get timeout => 'Таймаут';
-	@override String get clipboardExportSuccessMsg => 'Скопировано';
+	@override String get clipboardExportSuccessMsg => 'Скопировано в буфер обмена';
 	@override String get showMore => 'Развернуть ';
 	@override String get showLess => 'Свернуть ';
-	@override String get openAppSettings => 'Открыть настройки';
+	@override String get openAppSettings => 'Открыть настройки приложения';
 	@override String get grantPermission => 'Дать права доступа';
 }
 
@@ -5043,7 +6181,7 @@ class TranslationsIntroRu extends TranslationsIntroEn {
 		const TextSpan(text: 'Продолжая, Вы соглашаетесь с '),
 		tap(_root.about.termsAndConditions),
 	]);
-	@override String get start => 'Начать';
+	@override String get start => 'Старт';
 }
 
 // Path: home
@@ -5067,7 +6205,7 @@ class TranslationsStatsRu extends TranslationsStatsEn {
 	// Translations
 	@override String get traffic => 'Трафик';
 	@override String get trafficLive => 'Текущий трафик';
-	@override String get trafficTotal => 'Трафик';
+	@override String get trafficTotal => 'Весь трафик';
 	@override String get uplink => 'Скорость отправки';
 	@override String get downlink => 'Скорость загрузки';
 	@override String get connection => 'Соединение ';
@@ -5124,7 +6262,7 @@ class TranslationsLogsRu extends TranslationsLogsEn {
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get pageTitle => 'Журналы';
+	@override String get pageTitle => 'Логи';
 	@override String get filterHint => 'Фильтр';
 	@override String get allLevelsFilter => 'Все';
 	@override String get shareCoreLogs => 'Поделиться журналами ядра';
@@ -5142,9 +6280,11 @@ class TranslationsSettingsRu extends TranslationsSettingsEn {
 
 	// Translations
 	@override String get pageTitle => 'Настройки';
-	@override String get requiresRestartMsg => 'Чтобы применить изменения, перезапустите приложение.';
+	@override String get requiresRestartMsg => 'Чтобы применить изменения, перезапустите приложение';
 	@override String get experimental => 'Экспериментальный';
 	@override String get experimentalMsg => 'Функции с флагом «Экспериментально» все еще находятся в разработке и могут вызвать проблемы.';
+	@override String get exportOptions => 'Копировать анонимные параметры в буфер обмена';
+	@override String get exportAllOptions => 'Скопировать все параметры в буфер обмена';
 	@override String get importOptions => 'Импорт параметров из буфера обмена';
 	@override String get importOptionsMsg => 'Это перезапишет все параметры конфига предоставленными значениями. Вы уверены?';
 	@override late final TranslationsSettingsGeneralRu general = TranslationsSettingsGeneralRu._(_root);
@@ -5176,7 +6316,7 @@ class TranslationsAppUpdateRu extends TranslationsAppUpdateEn {
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get notAvailableMsg => 'Установлена последняя версия';
+	@override String get notAvailableMsg => 'Уже используется последняя версия';
 	@override String get dialogTitle => 'Доступно обновление';
 	@override String get updateMsg => 'Доступна новая версия ${_root.general.appTitle}. Обновить сейчас?';
 	@override String get currentVersionLbl => 'Текущая версия';
@@ -5222,9 +6362,9 @@ class TranslationsPlayRu extends TranslationsPlayEn {
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'HologatePlus (Preview)';
-	@override String get short_description => 'Автовыбор, SSH, VLESS, Vmess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
-	@override String get full_description => 'Основная цель HologatePlus — предоставить безопасный, удобный и эффективный клиент туннелирования. Он позволяет направлять весь трафик или трафик выбранного приложения на указанный Вами удалённый сервер.\nПримечание: мы не предоставляем серверы, пользователи должны сами обеспечивать конфиденциальность своих действий в Интернете, используя собственный сервер или доверенные серверы. Поддерживаются сервера с:— Обычной ссылка на подписку V2ray/Xray— Ссылкой на подписку Clash— Ссылко на подписку на Sing–Box\nВ чём уникальные особенности? — Удобство — Оптимизация и скорость — Автоматический выбор минимальной задержки — Отображение информации об использовании — Простой импорт ссылок одним щелчком мыши — Бесплатно и без рекламы — Простое переключение ссылок — …и много больше\nПоддерживаются:• Все протоколы, поддерживаемые Sing-Box• VLESS + xtls reality, vision• VMESS• Trojan• ShoadowSocks• Reality• V2ray• Hystria2• TUIC• SSH• ShadowTLS\nИсходный код доступен по адресу https://github.com/HologatePlus/HologatePlus-Next.Ядро приложения основано на открытом исходном коде Sing–Box.\nОписание разрешений:— СЛУЖБА VPN: поскольку целью данного приложения является предоставление безопасного, удобного и эффективного клиента туннелирования, это разрешение необходимо, чтобы иметь возможность направлять трафик через туннель на удалённый сервер.— ЗАПРОС ВСЕХ ПАКЕТОВ: это разрешение позволяет добавлять или удалять определённые приложения из списка для туннелирования.— ИНФОРМИРОВАНИЕ О ЗАВЕРШЕНИИ ЗАГРУЗКИ: это разрешение можно включить или отключить в настройках приложения, чтобы (де)активировать запуск приложения при загрузке устройства.— ПОСТОЯННОЕ УВЕДОМЛЕНИЕ: это разрешение необходимо, так как используется приоритетная служба для обеспечения непрерывной работы VPN.— Приложение не содержит рекламы. Сбор аналитики и данных о сбоях происходят только с явного согласия пользователя при первом использовании приложения.';
+	@override String get title => 'Hiddify (Предварительная версия)';
+	@override String get short_description => 'Автовыбор, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
+	@override String get full_description => 'Основная цель Hiddify — предоставить безопасный, удобный и эффективный клиент туннелирования. Он позволяет направлять весь трафик или трафик выбранного приложения на указанный Вами удалённый сервер.\n\nПримечание: мы не предоставляем серверы, пользователи должны сами обеспечивать конфиденциальность своих действий в Интернете, используя собственный сервер или доверенные серверы. \nПоддерживаются сервера с:\n- Обычной ссылкой на подписку V2ray/Xray\n- Ссылкой на подписку Clash\n- Ссылкой на подписку на Sing–Box\n\nВ чём уникальные особенности? \n- Удобство\n- Оптимизация и скорость\n- Автоматический выбор минимальной задержки\n- Отображение информации об использовании\n- Простой импорт подписок одним щелчком мыши\n- Бесплатно и без рекламы\n- Простое переключение подписок\n- И многое другое...\n\nПоддерживаются:\n- Все протоколы, поддерживаемые Sing-Box\n- VLESS + XTLS Reality, Vision\n- VMESS\n- Trojan\n- ShoadowSocks\n- Reality\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\nИсходный код доступен по адресу https://github.com/hiddify/Hiddify-Next\nЯдро приложения основано на открытом исходном коде Sing–Box.\n\nОписание разрешений:\n- СЛУЖБА VPN: поскольку целью данного приложения является предоставление безопасного, удобного и эффективного клиента туннелирования, это разрешение необходимо, чтобы иметь возможность направлять трафик через туннель на удалённый сервер.\n- ЗАПРОС ВСЕХ ПАКЕТОВ: это разрешение позволяет добавлять или удалять определённые приложения из списка для туннелирования.\n- ИНФОРМИРОВАНИЕ О ЗАВЕРШЕНИИ ЗАГРУЗКИ: это разрешение можно включить или отключить в настройках приложения, чтобы (де)активировать запуск приложения при загрузке устройства.\n- ПОСТОЯННОЕ УВЕДОМЛЕНИЕ: это разрешение необходимо, так как используется приоритетная служба для обеспечения непрерывной работы VPN.\n- Приложение не содержит рекламы. Сбор аналитики и данных о сбоях происходят только с явного согласия пользователя при первом использовании приложения.';
 }
 
 // Path: connection
@@ -5243,7 +6383,7 @@ class TranslationsConnectionRu extends TranslationsConnectionEn {
 	@override String get experimentalNotice => 'Экспериментальные функции в использовании';
 	@override String get experimentalNoticeMsg => 'Вы включили некоторые экспериментальные функции, которые могут повлиять на качество соединения и вызвать непредвиденные ошибки. Вы всегда можете изменить или сбросить эти параметры на странице параметров конфигурации.';
 	@override String get disableExperimentalNotice => 'Больше не показывать';
-	@override String get reconnectMsg => 'Переподключить для применения изменений';
+	@override String get reconnectMsg => 'Переподключение для применения изменений...';
 }
 
 // Path: config
@@ -5253,6 +6393,7 @@ class TranslationsConfigRu extends TranslationsConfigEn {
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
+	@override late final TranslationsConfigUseXrayCoreWhenPossibleRu useXrayCoreWhenPossible = TranslationsConfigUseXrayCoreWhenPossibleRu._(_root);
 	@override String get resetBtn => 'Сбросить параметры';
 	@override String get serviceMode => 'Режим работы';
 	@override String get quickSettings => 'Быстрые настройки';
@@ -5262,11 +6403,12 @@ class TranslationsConfigRu extends TranslationsConfigEn {
 	@override late final TranslationsConfigShortServiceModesRu shortServiceModes = TranslationsConfigShortServiceModesRu._(_root);
 	@override late final TranslationsConfigSectionRu section = TranslationsConfigSectionRu._(_root);
 	@override late final TranslationsConfigWarpConsentRu warpConsent = TranslationsConfigWarpConsentRu._(_root);
-	@override String get generateWarpConfig => 'Cгенерировать WARP конфиг';
-	@override String get missingWarpConfig => 'Отсутствует WARP конфиг';
-	@override String get warpConfigGenerated => 'WARP конфиг сгенерирован';
+	@override String get generateWarpConfig => 'Cгенерировать конфигурацию WARP';
+	@override String get missingWarpConfig => 'Отсутствует конфигурация WARP';
+	@override String get warpConfigGenerated => 'Создана конфигурация WARP';
 	@override String get pageTitle => 'Параметры конфигурации';
-	@override String get logLevel => 'Подробность журналирования';
+	@override String get logLevel => 'Уровень логирования';
+	@override String get blockAds => 'Блокировать рекламу';
 	@override String get resolveDestination => 'Определять назначение';
 	@override String get ipv6Mode => 'Маршрутизация IPv6';
 	@override late final TranslationsConfigIpv6ModesRu ipv6Modes = TranslationsConfigIpv6ModesRu._(_root);
@@ -5277,35 +6419,51 @@ class TranslationsConfigRu extends TranslationsConfigEn {
 	@override String get mixedPort => 'Смешанный порт';
 	@override String get tproxyPort => 'Прозрачный прокси порт';
 	@override String get localDnsPort => 'Локальный порт DNS';
-	@override String get allowConnectionFromLan => 'Allow Connection from LAN';
+	@override String get allowConnectionFromLan => 'Общий доступ к VPN в локальной сети';
 	@override String get tunImplementation => 'Реализация TUN';
-	@override String get mtu => 'MTU';
-	@override String get connectionTestUrl => 'URL проверки подключения';
+	@override String get mtu => 'Размер пакета (MTU)';
+	@override String get connectionTestUrl => 'URL для проверки подключения';
 	@override String get urlTestInterval => 'Интервал проверки URL';
 	@override String get enableClashApi => 'Использовать Clash API';
 	@override String get clashApiPort => 'Порт Clash API';
 	@override String get enableTun => 'Использовать TUN';
-	@override String get setSystemProxy => 'Использовать системный прокси';
-	@override String get enableDnsRouting => 'Enable DNS Routing';
-	@override String get enableFakeDns => 'Использовать поддельную DNS';
+	@override String get setSystemProxy => 'Установить системный прокси';
+	@override String get enableDnsRouting => 'Использовать маршрутизацию DNS';
+	@override String get enableFakeDns => 'Использовать поддельный DNS';
 	@override String get bypassLan => 'Обход локальной сети';
 	@override String get strictRoute => 'Строгая маршрутизация';
-	@override String get enableTlsFragment => 'Enable TLS Fragment';
-	@override String get tlsFragmentSize => 'TLS Fragment Size';
-	@override String get tlsFragmentSleep => 'TLS Fragment Sleep';
-	@override String get enableTlsMixedSniCase => 'Enable TLS Mixed SNI Case';
-	@override String get enableTlsPadding => 'Enable TLS Padding';
+	@override String get enableTlsFragment => 'Включить Фрагментацию TLS';
+	@override String get tlsFragmentSize => 'Размер фрагмента TLS';
+	@override String get tlsFragmentSleep => 'Сон фрагмента TLS';
+	@override String get enableTlsMixedSniCase => 'Включить TLS Mixed SNI Case';
+	@override String get enableTlsPadding => 'Включить TLS Padding';
 	@override String get tlsPaddingSize => 'TLS Padding';
-	@override String get enableMux => 'Enable Mux';
-	@override String get muxProtocol => 'Mux Protocol';
-	@override String get muxMaxStreams => 'Max Concurrent Streams';
-	@override String get enableWarp => 'Enable WARP';
-	@override String get warpDetourMode => 'Detour Mode';
+	@override String get enableMux => 'Включить Mux';
+	@override String get muxProtocol => 'Протокол Mux';
+	@override String get muxMaxStreams => 'Масимальное количество параллельных потоков';
+	@override String get enableWarp => 'Включить WARP';
+	@override String get warpDetourMode => 'Режим обхода WARP';
 	@override late final TranslationsConfigWarpDetourModesRu warpDetourModes = TranslationsConfigWarpDetourModesRu._(_root);
-	@override String get warpLicenseKey => 'License Key';
-	@override String get warpCleanIp => 'Clean IP';
-	@override String get warpPort => 'Port';
-	@override String get warpNoise => 'Noise';
+	@override String get warpLicenseKey => 'Лицензионный ключ';
+	@override String get warpCleanIp => 'Очистить IP';
+	@override String get warpPort => 'Порт';
+	@override String get warpNoise => 'Шум';
+	@override String get warpNoiseSize => 'Размер шума';
+	@override String get warpNoiseMode => 'Шумовой режим';
+	@override String get warpNoiseDelay => 'Задержка шума';
+}
+
+// Path: window
+class TranslationsWindowRu extends TranslationsWindowEn {
+	TranslationsWindowRu._(TranslationsRu root) : this._root = root, super._(root);
+
+	@override final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get hide => 'Скрыть';
+	@override String get close => 'Закрыть';
+	@override String get alertMessage => 'Скрыть приложение или выйти?';
+	@override String get remember => 'Запомнить выбор';
 }
 
 // Path: general.toggle
@@ -5355,8 +6513,8 @@ class TranslationsProfileSortByRu extends TranslationsProfileSortByEn {
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get lastUpdate => 'по последнему обновлению';
-	@override String get name => 'по названию';
+	@override String get lastUpdate => 'По последнему обновлению';
+	@override String get name => 'По названию';
 }
 
 // Path: profile.add
@@ -5372,6 +6530,8 @@ class TranslationsProfileAddRu extends TranslationsProfileAddEn {
 	@override String get scanQr => 'Сканировать QR-код';
 	@override late final TranslationsProfileAddQrScannerRu qrScanner = TranslationsProfileAddQrScannerRu._(_root);
 	@override String get manually => 'Ввести вручную';
+	@override String get addWarp => 'Добавить WARP';
+	@override String get addingWarpMsg => 'Пожалуйста, подождите, пока мы зарегистрируем WARP.';
 	@override String get addingProfileMsg => 'Добавление профиля';
 	@override String get failureMsg => 'Не удалось добавить профиль';
 }
@@ -5505,19 +6665,22 @@ class TranslationsSettingsGeneralRu extends TranslationsSettingsGeneralEn {
 	@override String get sectionTitle => 'Основные';
 	@override String get locale => 'Язык';
 	@override String get region => 'Регион';
-	@override String get regionMsg => 'Помогает установить параметры по умолчанию для обхода внутренних адресов.';
+	@override String get regionMsg => 'Помогает установить параметры по умолчанию для обхода внутренних (домашних, внутри страны) адресов.';
 	@override late final TranslationsSettingsGeneralRegionsRu regions = TranslationsSettingsGeneralRegionsRu._(_root);
 	@override String get themeMode => 'Оформление';
 	@override late final TranslationsSettingsGeneralThemeModesRu themeModes = TranslationsSettingsGeneralThemeModesRu._(_root);
 	@override String get enableAnalytics => 'Сбор аналитики';
 	@override String get enableAnalyticsMsg => 'Сбор данных аналитики и отправка отчётов о сбоях для улучшения приложения';
 	@override String get autoStart => 'Запуск при загрузке';
-	@override String get silentStart => 'Тихий запуск';
+	@override String get silentStart => 'Запуск в свёрнутом виде';
 	@override String get openWorkingDir => 'Открыть рабочую папку';
 	@override String get ignoreBatteryOptimizations => 'Отключить оптимизацию батареи';
-	@override String get ignoreBatteryOptimizationsMsg => 'Отключение ограничений для оптимальной производительности VPN.';
+	@override String get ignoreBatteryOptimizationsMsg => 'Отключение ограничений для оптимальной производительности VPN';
 	@override String get dynamicNotification => 'Отображение скорости в уведомлении';
+	@override String get hapticFeedback => 'Тактильная обратная связь';
 	@override String get autoIpCheck => 'Автоматически проверять IP-адрес соединения';
+	@override String get actionAtClosing => 'Действие при закрытии';
+	@override late final TranslationsSettingsGeneralActionsAtClosingRu actionsAtClosing = TranslationsSettingsGeneralActionsAtClosingRu._(_root);
 }
 
 // Path: settings.advanced
@@ -5529,9 +6692,9 @@ class TranslationsSettingsAdvancedRu extends TranslationsSettingsAdvancedEn {
 	// Translations
 	@override String get sectionTitle => 'Расширенные';
 	@override String get debugMode => 'Режим отладки';
-	@override String get debugModeMsg => 'Чтобы применить изменения, перезапустите приложение.';
+	@override String get debugModeMsg => 'Чтобы применить изменения, перезапустите приложение';
 	@override String get memoryLimit => 'Ограничение памяти';
-	@override String get memoryLimitMsg => 'Включите, если у вас возникают ошибки нехватки памяти или частые сбои приложения.';
+	@override String get memoryLimitMsg => 'Включите, если у вас возникают ошибки нехватки памяти или частые сбои приложения';
 	@override String get resetTunnel => 'Сбросить профиль VPN';
 }
 
@@ -5542,7 +6705,7 @@ class TranslationsSettingsNetworkRu extends TranslationsSettingsNetworkEn {
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get perAppProxyPageTitle => 'Раздельное проксирование';
+	@override String get perAppProxyPageTitle => 'Раздельное проксирование приложений';
 	@override late final TranslationsSettingsNetworkPerAppProxyModesRu perAppProxyModes = TranslationsSettingsNetworkPerAppProxyModesRu._(_root);
 	@override String get showSystemApps => 'Показать системные приложения';
 	@override String get hideSystemApps => 'Скрыть системные приложения';
@@ -5566,7 +6729,7 @@ class TranslationsSettingsGeoAssetsRu extends TranslationsSettingsGeoAssetsEn {
 	@override String get failureMsg => 'Не удалось обновить объект';
 	@override String get successMsg => 'Объект успешно обновлен';
 	@override String get addRecommended => 'Добавить рекомендуемые активы';
-	@override String get missingGeoAssetsMsg => 'Файлы выбранных ресурсов маршрутизации отсутствуют. Либо скачайте их, либо выберите существующие.';
+	@override String get missingGeoAssetsMsg => 'Файлы выбранных ресурсов маршрутизации отсутствуют. Либо скачайте их, либо выберите существующие';
 }
 
 // Path: tray.status
@@ -5602,7 +6765,7 @@ class TranslationsFailureSingboxRu extends TranslationsFailureSingboxEn {
 	// Translations
 	@override String get unexpected => 'Непредвиденная ошибка (SingBox)';
 	@override String get serviceNotRunning => 'Сервис не запущен';
-	@override String get missingPrivilege => 'Отсутствие прав';
+	@override String get missingPrivilege => 'Отсутствуют права';
 	@override String get missingPrivilegeMsg => 'Режим VPN требует прав администратора. Перезапустите приложение от имени администратора или измените режим работы приложения.';
 	@override String get missingGeoAssets => 'Отсутствуют географические ресурсы';
 	@override String get missingGeoAssetsMsg => 'Георесурсы отсутствуют. Изменените выбранный ресурс или загрузите собственный в настройках.';
@@ -5664,6 +6827,17 @@ class TranslationsFailureGeoAssetsRu extends TranslationsFailureGeoAssetsEn {
 	@override String get activeNotFound => 'Активный географический актив не найден';
 }
 
+// Path: config.useXrayCoreWhenPossible
+class TranslationsConfigUseXrayCoreWhenPossibleRu extends TranslationsConfigUseXrayCoreWhenPossibleEn {
+	TranslationsConfigUseXrayCoreWhenPossibleRu._(TranslationsRu root) : this._root = root, super._(root);
+
+	@override final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get Label => 'Использовать Xray-core по возможности';
+	@override String get Description => 'Использование Xray-core для анализа подписок. Чтобы включить эту опцию, вам необходимо повторно импортировать подписку.';
+}
+
 // Path: config.serviceModes
 class TranslationsConfigServiceModesRu extends TranslationsConfigServiceModesEn {
 	TranslationsConfigServiceModesRu._(TranslationsRu root) : this._root = root, super._(root);
@@ -5674,7 +6848,7 @@ class TranslationsConfigServiceModesRu extends TranslationsConfigServiceModesEn 
 	@override String get proxy => 'Прокси';
 	@override String get systemProxy => 'Системный прокси';
 	@override String get tun => 'VPN';
-	@override String get tunService => 'VPN сервис';
+	@override String get tunService => 'VPN Сервис';
 }
 
 // Path: config.shortServiceModes
@@ -5687,7 +6861,7 @@ class TranslationsConfigShortServiceModesRu extends TranslationsConfigShortServi
 	@override String get proxy => 'Прокси';
 	@override String get systemProxy => 'Системный прокси';
 	@override String get tun => 'VPN';
-	@override String get tunService => 'VPN сервис';
+	@override String get tunService => 'VPN Сервис';
 }
 
 // Path: config.section
@@ -5700,10 +6874,10 @@ class TranslationsConfigSectionRu extends TranslationsConfigSectionEn {
 	@override String get route => 'Варианты маршрутизации';
 	@override String get dns => 'Параметры DNS';
 	@override String get inbound => 'Входящие параметры';
-	@override String get mux => 'Multiplexer';
-	@override String get outbound => 'Outbound Options';
-	@override String get tlsTricks => 'TLS Tricks';
-	@override String get warp => 'WARP Options';
+	@override String get mux => 'Мультиплексор';
+	@override String get outbound => 'Исходящие параметры';
+	@override String get tlsTricks => 'Хитрости TLS';
+	@override String get warp => 'Настройки WARP';
 	@override String get misc => 'Разные параметры';
 }
 
@@ -5744,10 +6918,10 @@ class TranslationsConfigWarpDetourModesRu extends TranslationsConfigWarpDetourMo
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get proxyOverWarp => 'Работа прокси через WARP';
-	@override String get warpOverProxy => 'Работа WARP через прокси';
-	@override String get inbound => 'Detour WARP through proxies';
-	@override String get outbound => 'Detour proxies through WARP';
+	@override String get proxyOverWarp => 'Работа Прокси через WARP';
+	@override String get warpOverProxy => 'Работа WARP через Прокси';
+	@override String get inbound => 'Обход WARP через Прокси';
+	@override String get outbound => 'Обход Прокси через WARP';
 }
 
 // Path: profile.add.qrScanner
@@ -5771,10 +6945,13 @@ class TranslationsSettingsGeneralRegionsRu extends TranslationsSettingsGeneralRe
 	@override final TranslationsRu _root; // ignore: unused_field
 
 	// Translations
-	@override String get ir => 'Иран (ir)';
-	@override String get cn => 'Китай (cn)';
-	@override String get ru => 'Россия (ru)';
-	@override String get af => 'Afghanistan (af)';
+	@override String get ir => 'Иран (ir) 🇮🇷';
+	@override String get cn => 'Китай (cn) 🇨🇳';
+	@override String get ru => 'Россия (ru) 🇷🇺';
+	@override String get af => 'Афганистан (af) 🇦🇫';
+	@override String get id => 'Индонезия (id) 🇮🇩';
+	@override String get tr => 'Турция (tr) 🇹🇷';
+	@override String get br => 'Бразилия (br) 🇧🇷';
 	@override String get other => 'Другой';
 }
 
@@ -5789,6 +6966,18 @@ class TranslationsSettingsGeneralThemeModesRu extends TranslationsSettingsGenera
 	@override String get dark => 'Тёмная тема';
 	@override String get light => 'Светлая тема';
 	@override String get black => 'Чёрная тема';
+}
+
+// Path: settings.general.actionsAtClosing
+class TranslationsSettingsGeneralActionsAtClosingRu extends TranslationsSettingsGeneralActionsAtClosingEn {
+	TranslationsSettingsGeneralActionsAtClosingRu._(TranslationsRu root) : this._root = root, super._(root);
+
+	@override final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get askEachTime => 'Каждый раз спрашивать';
+	@override String get hide => 'Скрыть';
+	@override String get exit => 'Выйти';
 }
 
 // Path: settings.network.perAppProxyModes
@@ -5856,7 +7045,7 @@ class TranslationsGeneralTr extends TranslationsGeneralEn {
 	@override final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'HologatePlus';
+	@override String get appTitle => 'Hiddify';
 	@override String get reset => 'Sıfırla';
 	@override late final TranslationsGeneralToggleTr toggle = TranslationsGeneralToggleTr._(_root);
 	@override late final TranslationsGeneralStateTr state = TranslationsGeneralStateTr._(_root);
@@ -5869,8 +7058,10 @@ class TranslationsGeneralTr extends TranslationsGeneralEn {
 	@override String get unknown => 'Bilinmeyen';
 	@override String get hidden => 'Gizlenmiş';
 	@override String get timeout => 'Zaman aşımı';
+	@override String get clipboardExportSuccessMsg => 'Panoya Eklendi';
 	@override String get showMore => 'Daha fazla göster';
 	@override String get showLess => 'Daha az göster';
+	@override String get openAppSettings => 'Uygulama Ayarlarını Aç';
 	@override String get grantPermission => 'İzin Ver';
 }
 
@@ -5908,10 +7099,14 @@ class TranslationsStatsTr extends TranslationsStatsEn {
 	@override final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
+	@override String get traffic => 'Trafik';
 	@override String get trafficLive => 'Canlı Trafik';
 	@override String get trafficTotal => 'Toplam Trafik';
 	@override String get uplink => 'Çıkış Yolu';
 	@override String get downlink => 'Giriş Yolu';
+	@override String get connection => 'Bağlantı';
+	@override String get speed => 'Hız';
+	@override String get totalTransferred => 'Toplam Aktarılan';
 }
 
 // Path: profile
@@ -5948,7 +7143,12 @@ class TranslationsProxiesTr extends TranslationsProxiesEn {
 	@override String get emptyProxiesMsg => 'Kullanılabilir proxy yok';
 	@override String get delayTestTooltip => 'Test Gecikmesi';
 	@override String get sortTooltip => 'Proxy\'leri Sırala';
+	@override String get checkIp => 'IP\'yi kontrol edin';
+	@override String get unknownIp => 'Bilinmeyen IP';
 	@override late final TranslationsProxiesSortOptionsTr sortOptions = TranslationsProxiesSortOptionsTr._(_root);
+	@override String get activeProxySemanticLabel => 'Aktif Vekil';
+	@override late final TranslationsProxiesDelaySemanticsTr delaySemantics = TranslationsProxiesDelaySemanticsTr._(_root);
+	@override late final TranslationsProxiesIpInfoSemanticsTr ipInfoSemantics = TranslationsProxiesIpInfoSemanticsTr._(_root);
 }
 
 // Path: logs
@@ -5979,6 +7179,10 @@ class TranslationsSettingsTr extends TranslationsSettingsEn {
 	@override String get requiresRestartMsg => 'Bunun etkili olması için uygulamayı yeniden başlatın';
 	@override String get experimental => 'Deneysel';
 	@override String get experimentalMsg => 'Deneysel işaretli özellikler hâlâ geliştirilme aşamasındadır ve sorunlara neden olabilir.';
+	@override String get exportOptions => 'Anonim Seçenekleri Panoya Kopyala';
+	@override String get exportAllOptions => 'Tüm Seçenekleri Panoya Kopyala';
+	@override String get importOptions => 'Seçenekleri Panodan İçe Aktarma';
+	@override String get importOptionsMsg => 'Bu, tüm yapılandırma seçeneklerini sağlanan değerlerle yeniden yazacaktır. Emin misin?';
 	@override late final TranslationsSettingsGeneralTr general = TranslationsSettingsGeneralTr._(_root);
 	@override late final TranslationsSettingsAdvancedTr advanced = TranslationsSettingsAdvancedTr._(_root);
 	@override late final TranslationsSettingsNetworkTr network = TranslationsSettingsNetworkTr._(_root);
@@ -6054,9 +7258,9 @@ class TranslationsPlayTr extends TranslationsPlayEn {
 	@override final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'HologatePlus (Önizleme)';
+	@override String get title => 'Hiddify (Önizleme)';
 	@override String get short_description => 'Otomatik, SSH, VLESS, Vmess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
-	@override String get full_description => 'HologatePlus\'in temel hedefi güvenli, kullanıcı dostu ve verimli bir tünel istemcisi sağlamaktır. VPN Hizmeti iznini kullanarak tüm trafiği veya seçilen uygulama trafiğini seçtiğiniz uzak bir sunucuya yönlendirmenizi sağlar. Not: Herhangi bir sunucu sağlamıyoruz; kullanıcıların kendi barındırılan sunucularını veya güvenilir sunucularını kullanarak çevrimiçi etkinliklerinin gizli kalmasını sağlamaları gerekir. Sunucuları aşağıdakilerle destekliyoruz: - Normal V2ray/Xray Abonelik Bağlantısı - Clash Abonelik Bağlantısı - Sing-Box Abonelik Bağlantısı Benzersiz özelliklerimiz nelerdir? - Kullanıcı Dostu - Optimize Edilmiş ve Hızlı - En Düşük Ping\'i otomatik olarak seçin - Kullanıcı kullanım bilgilerini gösterin - Derin bağlantı kullanarak tek tıklamayla alt bağlantıyı kolayca içe aktarın - Ücretsiz ve ADS Yok - Kullanıcı alt bağlantılarını kolayca değiştirin - giderek daha fazla Destek: - Sing-Box tarafından desteklenen tüm Protokoller - VLESS + xtls gerçeklik, vizyon - VMESS - Trojan - ShoadowSocks - Reality - V2ray - Hystria2 - TUIC - SSH - ShadowTLS Kaynak kodu https://github.com/HologatePlus/HologatePlus-Next adresinde mevcuttur. Uygulama çekirdeği açık tabanlıdır. kaynak şarkı kutusu. İzin Açıklaması: - VPN Hizmeti: Bu uygulamanın amacı güvenli, kullanıcı dostu ve verimli bir tünel istemcisi sağlamak olduğundan, trafiği tünel aracılığıyla uzak sunucuya yönlendirebilmek için bu izne ihtiyacımız var. - TÜM PAKETLERİ SORGULAYIN: Bu izin, kullanıcıların tünelleme için belirli uygulamaları dahil etmesine veya hariç tutmasına izin vermek için kullanılır. - ALMA ÖNYÜKLEME TAMAMLANDI: Bu izin, cihaz önyüklemesi sırasında bu uygulamayı etkinleştirmek için uygulama ayarlarından etkinleştirilebilir veya devre dışı bırakılabilir. - BİLDİRİMLER SONRASI: VPN hizmetinin sürekli çalışmasını sağlamak için bir ön plan hizmeti kullandığımız için bu izin önemlidir. - Bu uygulama reklam içermez. Analitik ve kilitlenme verileri yalnızca uygulamanın ilk kullanımında kullanıcının açık rızası ile gerçekleşir.';
+	@override String get full_description => 'Hiddify\'in temel hedefi güvenli, kullanıcı dostu ve verimli bir tünel istemcisi sağlamaktır. VPN Hizmeti iznini kullanarak tüm trafiği veya seçilen uygulama trafiğini seçtiğiniz uzak bir sunucuya yönlendirmenizi sağlar. Not: Herhangi bir sunucu sağlamıyoruz; kullanıcıların kendi barındırılan sunucularını veya güvenilir sunucularını kullanarak çevrimiçi etkinliklerinin gizli kalmasını sağlamaları gerekir. Sunucuları aşağıdakilerle destekliyoruz: - Normal V2ray/Xray Abonelik Bağlantısı - Clash Abonelik Bağlantısı - Sing-Box Abonelik Bağlantısı Benzersiz özelliklerimiz nelerdir? - Kullanıcı Dostu - Optimize Edilmiş ve Hızlı - En Düşük Ping\'i otomatik olarak seçin - Kullanıcı kullanım bilgilerini gösterin - Derin bağlantı kullanarak tek tıklamayla alt bağlantıyı kolayca içe aktarın - Ücretsiz ve ADS Yok - Kullanıcı alt bağlantılarını kolayca değiştirin - giderek daha fazla Destek: - Sing-Box tarafından desteklenen tüm Protokoller - VLESS + xtls gerçeklik, vizyon - VMESS - Trojan - ShoadowSocks - Reality - V2ray - Hystria2 - TUIC - SSH - ShadowTLS Kaynak kodu https://github.com/hiddify/Hiddify-Next adresinde mevcuttur. Uygulama çekirdeği açık tabanlıdır. kaynak şarkı kutusu. İzin Açıklaması: - VPN Hizmeti: Bu uygulamanın amacı güvenli, kullanıcı dostu ve verimli bir tünel istemcisi sağlamak olduğundan, trafiği tünel aracılığıyla uzak sunucuya yönlendirebilmek için bu izne ihtiyacımız var. - TÜM PAKETLERİ SORGULAYIN: Bu izin, kullanıcıların tünelleme için belirli uygulamaları dahil etmesine veya hariç tutmasına izin vermek için kullanılır. - ALMA ÖNYÜKLEME TAMAMLANDI: Bu izin, cihaz önyüklemesi sırasında bu uygulamayı etkinleştirmek için uygulama ayarlarından etkinleştirilebilir veya devre dışı bırakılabilir. - BİLDİRİMLER SONRASI: VPN hizmetinin sürekli çalışmasını sağlamak için bir ön plan hizmeti kullandığımız için bu izin önemlidir. - Bu uygulama reklam içermez. Analitik ve kilitlenme verileri yalnızca uygulamanın ilk kullanımında kullanıcının açık rızası ile gerçekleşir.';
 }
 
 // Path: connection
@@ -6070,9 +7274,12 @@ class TranslationsConnectionTr extends TranslationsConnectionEn {
 	@override String get connecting => 'Bağlanıyor';
 	@override String get disconnecting => 'Bağlantı kesiliyor';
 	@override String get connected => 'Bağlandı';
+	@override String get reconnect => 'Yeniden bağlan';
+	@override String get connectAnyWay => 'Bağlamak';
 	@override String get experimentalNotice => 'Kullanımdaki Deneysel Özellikler';
 	@override String get experimentalNoticeMsg => 'Bağlantı kalitesini etkileyebilecek ve beklenmeyen hatalara neden olabilecek bazı deneysel özellikleri etkinleştirdiniz. Bu seçenekleri istediğiniz zaman Yapılandırma seçenekleri sayfasından değiştirebilir veya sıfırlayabilirsiniz.';
 	@override String get disableExperimentalNotice => 'Bir daha gösterme';
+	@override String get reconnectMsg => 'Değişiklikleri dikkate almak için yeniden bağlanılıyor...';
 }
 
 // Path: config
@@ -6084,11 +7291,19 @@ class TranslationsConfigTr extends TranslationsConfigEn {
 	// Translations
 	@override String get resetBtn => 'Ayarları sıfırla';
 	@override String get serviceMode => 'Servis modu';
+	@override String get quickSettings => 'Hızlı Ayarlar';
+	@override String get setupWarp => 'WARP\'ı Kur';
+	@override String get allOptions => 'Tüm Yapılandırma Seçenekleri';
 	@override late final TranslationsConfigServiceModesTr serviceModes = TranslationsConfigServiceModesTr._(_root);
+	@override late final TranslationsConfigShortServiceModesTr shortServiceModes = TranslationsConfigShortServiceModesTr._(_root);
 	@override late final TranslationsConfigSectionTr section = TranslationsConfigSectionTr._(_root);
 	@override late final TranslationsConfigWarpConsentTr warpConsent = TranslationsConfigWarpConsentTr._(_root);
+	@override String get generateWarpConfig => 'WARP Yapılandırması Oluştur';
+	@override String get missingWarpConfig => 'WARP Yapılandırması Eksik';
+	@override String get warpConfigGenerated => 'WARP Yapılandırması Oluşturuldu';
 	@override String get pageTitle => 'Yapılandırma Seçenekleri';
 	@override String get logLevel => 'Log Seviyesi';
+	@override String get blockAds => 'Reklamları Engelle';
 	@override String get resolveDestination => 'Hedefi Çöz';
 	@override String get ipv6Mode => 'IPv6 Rotası';
 	@override late final TranslationsConfigIpv6ModesTr ipv6Modes = TranslationsConfigIpv6ModesTr._(_root);
@@ -6097,10 +7312,11 @@ class TranslationsConfigTr extends TranslationsConfigEn {
 	@override String get directDnsAddress => 'Doğrudan DNS';
 	@override String get directDnsDomainStrategy => 'Doğrudan DNS Domain Stratejisi';
 	@override String get mixedPort => 'Mixed Port';
+	@override String get tproxyPort => 'Şeffaf Proxy Bağlantı Noktası';
 	@override String get localDnsPort => 'Yerel DNS Bağlantı Noktası';
 	@override String get allowConnectionFromLan => 'Allow Connection from LAN';
 	@override String get tunImplementation => 'TUN İmplementasyonu';
-	@override String get mtu => 'MTU';
+	@override String get mtu => 'Paket Boyutu (MTU)';
 	@override String get connectionTestUrl => 'Bağlantı Testi URL\'i';
 	@override String get urlTestInterval => 'URL Test Aralığı';
 	@override String get enableClashApi => 'Clash API\'yi etkinleştir';
@@ -6127,6 +7343,9 @@ class TranslationsConfigTr extends TranslationsConfigEn {
 	@override String get warpCleanIp => 'Clean IP';
 	@override String get warpPort => 'Port';
 	@override String get warpNoise => 'Noise';
+	@override String get warpNoiseSize => 'Gürültü Boyutu';
+	@override String get warpNoiseMode => 'Gürültü Modu';
+	@override String get warpNoiseDelay => 'Gürültü Gecikmesi';
 }
 
 // Path: general.toggle
@@ -6163,6 +7382,10 @@ class TranslationsProfileSubscriptionTr extends TranslationsProfileSubscriptionE
 	@override String remainingTrafficSemanticLabel({required Object consumed, required Object total}) => '${consumed}/${total} trafik tüketildi';
 	@override String get expired => 'Süresi Doldu';
 	@override String get noTraffic => 'Kotal Doldu';
+	@override String get upload => 'Yüklemek';
+	@override String get download => 'İndirmek';
+	@override String get total => 'Toplam Trafik';
+	@override String get expireDate => 'Son kullanma tarihi';
 }
 
 // Path: profile.sortBy
@@ -6189,6 +7412,8 @@ class TranslationsProfileAddTr extends TranslationsProfileAddEn {
 	@override String get scanQr => 'QR kodunu tarayın';
 	@override late final TranslationsProfileAddQrScannerTr qrScanner = TranslationsProfileAddQrScannerTr._(_root);
 	@override String get manually => 'Manuel giriş';
+	@override String get addWarp => 'WARP ekle';
+	@override String get addingWarpMsg => 'WARP\'ı kaydederken lütfen bekleyin.';
 	@override String get addingProfileMsg => 'Profil Ekleniyor';
 	@override String get failureMsg => 'Profil eklenemedi';
 }
@@ -6289,6 +7514,29 @@ class TranslationsProxiesSortOptionsTr extends TranslationsProxiesSortOptionsEn 
 	@override String get delay => 'Gecikmeyle';
 }
 
+// Path: proxies.delaySemantics
+class TranslationsProxiesDelaySemanticsTr extends TranslationsProxiesDelaySemanticsEn {
+	TranslationsProxiesDelaySemanticsTr._(TranslationsTr root) : this._root = root, super._(root);
+
+	@override final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String result({required Object delay}) => 'Gecikme: ${delay}ms';
+	@override String get timeout => 'Gecikme Testi Zaman Aşımı';
+	@override String get testing => 'Gecikme: Test ediliyor...';
+}
+
+// Path: proxies.ipInfoSemantics
+class TranslationsProxiesIpInfoSemanticsTr extends TranslationsProxiesIpInfoSemanticsEn {
+	TranslationsProxiesIpInfoSemanticsTr._(TranslationsTr root) : this._root = root, super._(root);
+
+	@override final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get address => 'IP adresi';
+	@override String get country => 'Ülke';
+}
+
 // Path: settings.general
 class TranslationsSettingsGeneralTr extends TranslationsSettingsGeneralEn {
 	TranslationsSettingsGeneralTr._(TranslationsTr root) : this._root = root, super._(root);
@@ -6311,6 +7559,8 @@ class TranslationsSettingsGeneralTr extends TranslationsSettingsGeneralEn {
 	@override String get ignoreBatteryOptimizations => 'Pil Optimizasyonunu Devre Dışı Bırak';
 	@override String get ignoreBatteryOptimizationsMsg => 'Optimum VPN performansı için kısıtlamaları kaldırın';
 	@override String get dynamicNotification => 'Bildirimde hızı göster';
+	@override String get hapticFeedback => 'Dokunsal geribildirim';
+	@override String get autoIpCheck => 'Bağlantı IP\'sini Otomatik Olarak Kontrol Et';
 }
 
 // Path: settings.advanced
@@ -6467,6 +7717,20 @@ class TranslationsConfigServiceModesTr extends TranslationsConfigServiceModesEn 
 	@override String get proxy => 'Proxy';
 	@override String get systemProxy => 'Sistem Proxy';
 	@override String get tun => 'VPN';
+	@override String get tunService => 'VPN Hizmeti';
+}
+
+// Path: config.shortServiceModes
+class TranslationsConfigShortServiceModesTr extends TranslationsConfigShortServiceModesEn {
+	TranslationsConfigShortServiceModesTr._(TranslationsTr root) : this._root = root, super._(root);
+
+	@override final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get proxy => 'vekil';
+	@override String get systemProxy => 'Sistem Proxy\'si';
+	@override String get tun => 'VPN';
+	@override String get tunService => 'VPN Hizmeti';
 }
 
 // Path: config.section
@@ -6523,6 +7787,8 @@ class TranslationsConfigWarpDetourModesTr extends TranslationsConfigWarpDetourMo
 	@override final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
+	@override String get proxyOverWarp => 'WARP Aracılığıyla Proxy\'lerin Yönünü Değiştirin';
+	@override String get warpOverProxy => 'Proxy\'ler Aracılığıyla WARP\'tan Sapma';
 	@override String get inbound => 'Detour WARP through proxies';
 	@override String get outbound => 'Detour proxies through WARP';
 }
@@ -6538,6 +7804,7 @@ class TranslationsProfileAddQrScannerTr extends TranslationsProfileAddQrScannerE
 	@override String get unexpectedError => 'Bir şeyler yanlış gitti';
 	@override String get torchSemanticLabel => 'El feneri';
 	@override String get facingSemanticLabel => 'Kameraya önü';
+	@override String get permissionRequest => 'QR Kodunu taramak için kamera izni';
 }
 
 // Path: settings.general.regions
@@ -6547,10 +7814,12 @@ class TranslationsSettingsGeneralRegionsTr extends TranslationsSettingsGeneralRe
 	@override final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get ir => 'İran (ir)';
-	@override String get cn => 'Çin (cn)';
-	@override String get ru => 'Rusya (ru)';
-	@override String get af => 'Afghanistan (af)';
+	@override String get ir => 'İran (ir) 🇮🇷';
+	@override String get cn => 'Çin (cn) 🇨🇳';
+	@override String get ru => 'Rusya (ru) 🇷🇺';
+	@override String get af => 'Afghanistan (af) 🇦🇫';
+	@override String get id => 'Endonezya (id) 🇮🇩';
+	@override String get tr => 'Türk (tr) 🇹🇷';
 	@override String get other => 'Diğer';
 }
 
@@ -6623,6 +7892,7 @@ class TranslationsZhCn extends Translations {
 	@override late final TranslationsPlayZhCn play = TranslationsPlayZhCn._(_root);
 	@override late final TranslationsConnectionZhCn connection = TranslationsConnectionZhCn._(_root);
 	@override late final TranslationsConfigZhCn config = TranslationsConfigZhCn._(_root);
+	@override late final TranslationsWindowZhCn window = TranslationsWindowZhCn._(_root);
 }
 
 // Path: general
@@ -6632,7 +7902,7 @@ class TranslationsGeneralZhCn extends TranslationsGeneralEn {
 	@override final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'HologatePlus';
+	@override String get appTitle => 'Hiddify';
 	@override String get reset => '重置';
 	@override late final TranslationsGeneralToggleZhCn toggle = TranslationsGeneralToggleZhCn._(_root);
 	@override late final TranslationsGeneralStateZhCn state = TranslationsGeneralStateZhCn._(_root);
@@ -6729,10 +7999,10 @@ class TranslationsProxiesZhCn extends TranslationsProxiesEn {
 	@override String get emptyProxiesMsg => '无可用的代理';
 	@override String get delayTestTooltip => '测试延迟';
 	@override String get sortTooltip => '对代理进行排序';
-	@override String get checkIp => '检测 IP 地址';
+	@override String get checkIp => '检测 IP 位置';
 	@override String get unknownIp => '未知的 IP';
 	@override late final TranslationsProxiesSortOptionsZhCn sortOptions = TranslationsProxiesSortOptionsZhCn._(_root);
-	@override String get activeProxySemanticLabel => '激活的代理';
+	@override String get activeProxySemanticLabel => '激活中的代理';
 	@override late final TranslationsProxiesDelaySemanticsZhCn delaySemantics = TranslationsProxiesDelaySemanticsZhCn._(_root);
 	@override late final TranslationsProxiesIpInfoSemanticsZhCn ipInfoSemantics = TranslationsProxiesIpInfoSemanticsZhCn._(_root);
 }
@@ -6751,7 +8021,7 @@ class TranslationsLogsZhCn extends TranslationsLogsEn {
 	@override String get shareAppLogs => '分享应用日志';
 	@override String get pauseTooltip => '暂停';
 	@override String get resumeTooltip => '恢复';
-	@override String get clearTooltip => '清除';
+	@override String get clearTooltip => '清空';
 }
 
 // Path: settings
@@ -6768,7 +8038,7 @@ class TranslationsSettingsZhCn extends TranslationsSettingsEn {
 	@override String get exportOptions => '将匿名选项导出到剪贴板';
 	@override String get exportAllOptions => '将所有选项导出到剪贴板（用于调试）';
 	@override String get importOptions => '从剪贴板导入选项';
-	@override String get importOptionsMsg => '这将使用提供的值重写所有配置选项。您确定吗？';
+	@override String get importOptionsMsg => '这将使用提供的值覆盖所有配置选项。您确定吗？';
 	@override late final TranslationsSettingsGeneralZhCn general = TranslationsSettingsGeneralZhCn._(_root);
 	@override late final TranslationsSettingsAdvancedZhCn advanced = TranslationsSettingsAdvancedZhCn._(_root);
 	@override late final TranslationsSettingsNetworkZhCn network = TranslationsSettingsNetworkZhCn._(_root);
@@ -6844,9 +8114,9 @@ class TranslationsPlayZhCn extends TranslationsPlayEn {
 	@override final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'HologatePlus（预览）';
+	@override String get title => 'Hiddify（预览）';
 	@override String get short_description => '自动，SSH, VLESS, Vmess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
-	@override String get full_description => 'HologatePlus 的主要目标是提供安全、用户友好且高效的隧道客户端。它使您能够利用 VPN 服务权限将所有流量或选定的应用程序流量路由到您选择的远程服务器。\n\n注：我们不提供任何服务器；用户需要使用自己托管的服务器或可信的服务器来确保您在线活动的私密性。\n \n我们支持以下类型的服务器：\n- 普通 V2ray/Xray 订阅链接\n- Clash 订阅链接\n- Sing-Box 订阅链接\n\n我们的特色是什么？\n\n- 用户友好\n- 优化和高速\n- 自动选择最低延迟\n- 显示用户使用信息\n- 通过一键链接轻松导入\n- 免费且无广告\n- 轻松切换线路\n- 等等\n\n支持：\n- Sing-Box 支持的所有协议\n- VLESS + XTLS Reality、Vision 协议\n- VMESS\n- Trojan\n- ShadowSocks\n- Reality\n- WireGuard\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\n\n源代码位于 https://github.com/HologatePlus/HologatePlus-Next\n应用程序核心基于开源的 Sing-Box。\n\n权限说明：\n\n- VPN 服务：由于此应用程序的目标是提供安全、用户友好和高效的隧道客户端，我们需要此权限以能够通过隧道将流量路由到远程服务器。\n获取应用程序列表：此权限用于允许用户包括或排除特定应用程序以进行隧道传输。\n- 接收开机广播：可以从应用程序设置中启用或禁用此权限，以便在设备启动时激活此应用程序。\n- 发送通知：此权限是必需的，因为我们使用前台服务来确保 VPN 服务的持续运行。\n- 本应用程序没有广告。分析和崩溃数据仅在首次使用应用程序时经用户明确同意的情况下发生。';
+	@override String get full_description => 'Hiddify 的主要目标是提供安全、用户友好且高效的隧道客户端。它使您能够利用 VPN 服务权限将所有流量或选定的应用程序流量路由到您选择的远程服务器。\n\n注：我们不提供任何服务器；用户需要使用自己托管的服务器或可信的服务器来确保您在线活动的私密性。\n \n我们支持以下类型的服务器：\n- 普通 V2ray/Xray 订阅链接\n- Clash 订阅链接\n- Sing-Box 订阅链接\n\n我们的特色是什么？\n\n- 用户友好\n- 优化和高速\n- 自动选择最低延迟\n- 显示用户使用信息\n- 通过一键链接轻松导入\n- 免费且无广告\n- 轻松切换线路\n- 等等\n\n支持：\n- Sing-Box 支持的所有协议\n- VLESS + XTLS Reality、Vision 协议\n- VMESS\n- Trojan\n- ShadowSocks\n- Reality\n- WireGuard\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\n\n源代码位于 https://github.com/hiddify/Hiddify-Next\n应用程序核心基于开源的 Sing-Box。\n\n权限说明：\n\n- VPN 服务：由于此应用程序的目标是提供安全、用户友好和高效的隧道客户端，我们需要此权限以能够通过隧道将流量路由到远程服务器。\n获取应用程序列表：此权限用于允许用户包括或排除特定应用程序以进行隧道传输。\n- 接收开机广播：可以从应用程序设置中启用或禁用此权限，以便在设备启动时激活此应用程序。\n- 发送通知：此权限是必需的，因为我们使用前台服务来确保 VPN 服务的持续运行。\n- 本应用程序没有广告。分析和崩溃数据仅在首次使用应用程序时经用户明确同意的情况下发生。';
 }
 
 // Path: connection
@@ -6856,14 +8126,14 @@ class TranslationsConnectionZhCn extends TranslationsConnectionEn {
 	@override final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get tapToConnect => '点击连接';
+	@override String get tapToConnect => '开始连接';
 	@override String get connecting => '正在连接';
 	@override String get disconnecting => '正在断开连接';
 	@override String get connected => '已连接';
 	@override String get reconnect => '重新连接';
 	@override String get connectAnyWay => '连接';
 	@override String get experimentalNotice => '使用中的实验功能';
-	@override String get experimentalNoticeMsg => '您启用了一些实验性功能，这些功能可能会影响连接质量并导致意外错误。您可以随时从“配置”页面更改或重置这些选项。';
+	@override String get experimentalNoticeMsg => '您启用了一些实验性功能，这些功能可能会影响连接质量并导致一些意外错误。您可以随时从“配置选项”页面更改或重新设置这些选项。';
 	@override String get disableExperimentalNotice => '不再显示';
 	@override String get reconnectMsg => '重新连接以使更改生效';
 }
@@ -6875,6 +8145,7 @@ class TranslationsConfigZhCn extends TranslationsConfigEn {
 	@override final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
+	@override late final TranslationsConfigUseXrayCoreWhenPossibleZhCn useXrayCoreWhenPossible = TranslationsConfigUseXrayCoreWhenPossibleZhCn._(_root);
 	@override String get resetBtn => '重置选项';
 	@override String get serviceMode => '服务模式';
 	@override String get quickSettings => '快速设置';
@@ -6886,7 +8157,7 @@ class TranslationsConfigZhCn extends TranslationsConfigEn {
 	@override late final TranslationsConfigWarpConsentZhCn warpConsent = TranslationsConfigWarpConsentZhCn._(_root);
 	@override String get generateWarpConfig => '生成 WARP 配置文件';
 	@override String get missingWarpConfig => 'WARP 配置文件缺失';
-	@override String get warpConfigGenerated => 'WARP 配置文件已生成';
+	@override String get warpConfigGenerated => 'WARP 配置已生成';
 	@override String get pageTitle => '配置选项';
 	@override String get logLevel => '日志级别';
 	@override String get blockAds => '阻止广告';
@@ -6902,7 +8173,7 @@ class TranslationsConfigZhCn extends TranslationsConfigEn {
 	@override String get localDnsPort => '本地 DNS 端口';
 	@override String get allowConnectionFromLan => '允许局域网连接';
 	@override String get tunImplementation => 'TUN 实现';
-	@override String get mtu => 'MTU';
+	@override String get mtu => '数据包大小 (MTU)';
 	@override String get connectionTestUrl => '连接测试网址';
 	@override String get urlTestInterval => '网址测试间隔';
 	@override String get enableClashApi => '启用 Clash API';
@@ -6929,7 +8200,22 @@ class TranslationsConfigZhCn extends TranslationsConfigEn {
 	@override String get warpCleanIp => '清理 IP';
 	@override String get warpPort => '端口';
 	@override String get warpNoise => '噪音计数';
+	@override String get warpNoiseSize => '噪音大小';
+	@override String get warpNoiseMode => '噪音模式';
 	@override String get warpNoiseDelay => '噪音延迟';
+}
+
+// Path: window
+class TranslationsWindowZhCn extends TranslationsWindowEn {
+	TranslationsWindowZhCn._(TranslationsZhCn root) : this._root = root, super._(root);
+
+	@override final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get hide => '隐藏';
+	@override String get close => '关闭';
+	@override String get alertMessage => '隐藏或退出应用程序？';
+	@override String get remember => '记住我的选择';
 }
 
 // Path: general.toggle
@@ -7093,9 +8379,9 @@ class TranslationsProxiesSortOptionsZhCn extends TranslationsProxiesSortOptionsE
 	@override final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get unsorted => '默认';
-	@override String get name => '按字母顺序';
-	@override String get delay => '按延迟顺序';
+	@override String get unsorted => '默认顺序';
+	@override String get name => '按首字母排序';
+	@override String get delay => '按延迟排序';
 }
 
 // Path: proxies.delaySemantics
@@ -7128,7 +8414,7 @@ class TranslationsSettingsGeneralZhCn extends TranslationsSettingsGeneralEn {
 	@override final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get sectionTitle => '一般选项';
+	@override String get sectionTitle => '通用';
 	@override String get locale => '语言';
 	@override String get region => '地区';
 	@override String get regionMsg => '帮助设置默认选项以绕过国内地址';
@@ -7145,6 +8431,8 @@ class TranslationsSettingsGeneralZhCn extends TranslationsSettingsGeneralEn {
 	@override String get dynamicNotification => '在通知中显示网络速度';
 	@override String get hapticFeedback => '触觉反馈';
 	@override String get autoIpCheck => '自动检查连接的 IP';
+	@override String get actionAtClosing => '关闭时动作';
+	@override late final TranslationsSettingsGeneralActionsAtClosingZhCn actionsAtClosing = TranslationsSettingsGeneralActionsAtClosingZhCn._(_root);
 }
 
 // Path: settings.advanced
@@ -7158,7 +8446,7 @@ class TranslationsSettingsAdvancedZhCn extends TranslationsSettingsAdvancedEn {
 	@override String get debugMode => '调试模式';
 	@override String get debugModeMsg => '重新启动应用程序以应用此更改';
 	@override String get memoryLimit => '内存限制';
-	@override String get memoryLimitMsg => '如果您遇到内存不足错误或频繁应用程序崩溃，请启用';
+	@override String get memoryLimitMsg => '如果您遇到内存不足或频繁应用程序崩溃的问题，请启用';
 	@override String get resetTunnel => '重置 VPN 配置文件';
 }
 
@@ -7287,8 +8575,19 @@ class TranslationsFailureGeoAssetsZhCn extends TranslationsFailureGeoAssetsEn {
 
 	// Translations
 	@override String get unexpected => '意外错误';
-	@override String get notUpdate => '无可用更新';
+	@override String get notUpdate => '暂无可用更新';
 	@override String get activeNotFound => '未找到激活的 GEO 资源文件';
+}
+
+// Path: config.useXrayCoreWhenPossible
+class TranslationsConfigUseXrayCoreWhenPossibleZhCn extends TranslationsConfigUseXrayCoreWhenPossibleEn {
+	TranslationsConfigUseXrayCoreWhenPossibleZhCn._(TranslationsZhCn root) : this._root = root, super._(root);
+
+	@override final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get Label => '尽可能使用 Xray-core';
+	@override String get Description => '解析子链接时使用 Xray-core。您需要重新导入子链接才能启用此选项。';
 }
 
 // Path: config.serviceModes
@@ -7397,10 +8696,13 @@ class TranslationsSettingsGeneralRegionsZhCn extends TranslationsSettingsGeneral
 	@override final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get ir => '伊朗 (ir)';
-	@override String get cn => '中国 (cn)';
-	@override String get ru => '俄罗斯 (ru)';
-	@override String get af => '阿富汗 (af)';
+	@override String get ir => '伊朗 (ir) 🇮🇷';
+	@override String get cn => '中国 (cn) 🇨🇳';
+	@override String get ru => '俄罗斯 (ru) 🇷🇺';
+	@override String get af => '阿富汗 (af) 🇦🇫';
+	@override String get id => '印度尼西亚 (id) 🇮🇩';
+	@override String get tr => '土耳其（tr）🇹🇷';
+	@override String get br => '巴西 (br) 🇧🇷';
 	@override String get other => '其它';
 }
 
@@ -7411,10 +8713,22 @@ class TranslationsSettingsGeneralThemeModesZhCn extends TranslationsSettingsGene
 	@override final TranslationsZhCn _root; // ignore: unused_field
 
 	// Translations
-	@override String get system => '遵循系统主题';
-	@override String get dark => '暗色';
+	@override String get system => '跟随系统主题';
+	@override String get dark => '深色';
 	@override String get light => '浅色';
 	@override String get black => '黑色';
+}
+
+// Path: settings.general.actionsAtClosing
+class TranslationsSettingsGeneralActionsAtClosingZhCn extends TranslationsSettingsGeneralActionsAtClosingEn {
+	TranslationsSettingsGeneralActionsAtClosingZhCn._(TranslationsZhCn root) : this._root = root, super._(root);
+
+	@override final TranslationsZhCn _root; // ignore: unused_field
+
+	// Translations
+	@override String get askEachTime => '每次都询问';
+	@override String get hide => '隐藏';
+	@override String get exit => '退出';
 }
 
 // Path: settings.network.perAppProxyModes
@@ -7473,6 +8787,7 @@ class TranslationsZhTw extends Translations {
 	@override late final TranslationsPlayZhTw play = TranslationsPlayZhTw._(_root);
 	@override late final TranslationsConnectionZhTw connection = TranslationsConnectionZhTw._(_root);
 	@override late final TranslationsConfigZhTw config = TranslationsConfigZhTw._(_root);
+	@override late final TranslationsWindowZhTw window = TranslationsWindowZhTw._(_root);
 }
 
 // Path: general
@@ -7482,7 +8797,7 @@ class TranslationsGeneralZhTw extends TranslationsGeneralEn {
 	@override final TranslationsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get appTitle => 'HologatePlus';
+	@override String get appTitle => 'Hiddify';
 	@override String get reset => '重置';
 	@override late final TranslationsGeneralToggleZhTw toggle = TranslationsGeneralToggleZhTw._(_root);
 	@override late final TranslationsGeneralStateZhTw state = TranslationsGeneralStateZhTw._(_root);
@@ -7694,9 +9009,9 @@ class TranslationsPlayZhTw extends TranslationsPlayEn {
 	@override final TranslationsZhTw _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'HologatePlus（預覽）';
+	@override String get title => 'Hiddify（預覽）';
 	@override String get short_description => '自動、SSH、VLESS、Vmess、Trojan、Reality、Sing-Box、Clash、Xray、Shadowsocks';
-	@override String get full_description => 'HologatePlus 的主要目標是提供安全、使用者友好且高效率的隧道用戶端。它使您能夠利用 VPN 服務權限將所有流量或選定的應用程式流量路由到您選擇的遠端伺服器。\n\n註：我們不提供任何伺服器；使用者需要使用自己的自託管伺服器或受信任的伺服器來確保其線上活動的隱私。\n\n我們透過以下方式支援伺服器：\n - 普通 V2ray/Xray 訂閱連結\n - Clash 訂閱連結\n - Sing-Box 訂閱連結\n\n 我們的獨特功能是什麼？\n - 使用者友善\n - 最佳化且快速\n - 自動選擇最低延遲\n - 顯示使用者使用資訊\n - 使用一鍵連結輕鬆導入\n - 免費且無廣告\n - 輕鬆切換線路\n - 等等\n 支援：\n - Sing-Box 支援的所有協定 \n - VLESS + XTLS Reality、Vision 協定 \n - VMESS\n - Trojan\n - ShadowSocks\n - Reality\n - WireGuard\n - V2ray\n - Hystria2\n - TUIC \n - SSH\n - ShadowTLS\n\n\n 原始碼位於 https://github.com/HologatePlus/HologatePlus-Next\n 應用程式核心基於開源的 Sing-Box。\n\n權限說明：\n\n - VPN 服務：由於此應用程式的目標是提供安全性、使用者友好且高效的隧道用戶端，因此我們需要此權限才能透過隧道將流量路由到遠端伺服器。\n - 獲取應用程式列表：此權限用於允許使用者包含或排除隧道的特定應用程式。\n - 接收啟動廣播：可以從應用程式設定中啟用或停用此權限，以在裝置啟動時啟動此應用程式。\n - 傳送通知：此權限至關重要，因為我們使用前台服務來確保 VPN 服務的持續運作。\n - 該應用程式沒有廣告。分析和崩潰數據僅在用戶首次使用應用程式時明確同意的情況下才會出現。';
+	@override String get full_description => 'Hiddify 的主要目標是提供安全、使用者友好且高效率的隧道用戶端。它使您能夠利用 VPN 服務權限將所有流量或選定的應用程式流量路由到您選擇的遠端伺服器。\n\n註：我們不提供任何伺服器；使用者需要使用自己的自託管伺服器或受信任的伺服器來確保其線上活動的隱私。\n\n我們透過以下方式支援伺服器：\n - 普通 V2ray/Xray 訂閱連結\n - Clash 訂閱連結\n - Sing-Box 訂閱連結\n\n 我們的獨特功能是什麼？\n - 使用者友善\n - 最佳化且快速\n - 自動選擇最低延遲\n - 顯示使用者使用資訊\n - 使用一鍵連結輕鬆導入\n - 免費且無廣告\n - 輕鬆切換線路\n - 等等\n 支援：\n - Sing-Box 支援的所有協定 \n - VLESS + XTLS Reality、Vision 協定 \n - VMESS\n - Trojan\n - ShadowSocks\n - Reality\n - WireGuard\n - V2ray\n - Hystria2\n - TUIC \n - SSH\n - ShadowTLS\n\n\n 原始碼位於 https://github.com/hiddify/Hiddify-Next\n 應用程式核心基於開源的 Sing-Box。\n\n權限說明：\n\n - VPN 服務：由於此應用程式的目標是提供安全性、使用者友好且高效的隧道用戶端，因此我們需要此權限才能透過隧道將流量路由到遠端伺服器。\n - 獲取應用程式列表：此權限用於允許使用者包含或排除隧道的特定應用程式。\n - 接收啟動廣播：可以從應用程式設定中啟用或停用此權限，以在裝置啟動時啟動此應用程式。\n - 傳送通知：此權限至關重要，因為我們使用前台服務來確保 VPN 服務的持續運作。\n - 該應用程式沒有廣告。分析和崩潰數據僅在用戶首次使用應用程式時明確同意的情況下才會出現。';
 }
 
 // Path: connection
@@ -7736,9 +9051,10 @@ class TranslationsConfigZhTw extends TranslationsConfigEn {
 	@override late final TranslationsConfigWarpConsentZhTw warpConsent = TranslationsConfigWarpConsentZhTw._(_root);
 	@override String get generateWarpConfig => '生成 WARP 配置檔案';
 	@override String get missingWarpConfig => 'WARP 配置檔案缺失';
-	@override String get warpConfigGenerated => 'WARP 配置檔案已生成';
+	@override String get warpConfigGenerated => 'WARP 設定已生成';
 	@override String get pageTitle => '配置選項';
 	@override String get logLevel => '紀錄等級';
+	@override String get blockAds => '阻止廣告';
 	@override String get resolveDestination => '解析目標地址';
 	@override String get ipv6Mode => 'IPv6 路由';
 	@override late final TranslationsConfigIpv6ModesZhTw ipv6Modes = TranslationsConfigIpv6ModesZhTw._(_root);
@@ -7751,7 +9067,7 @@ class TranslationsConfigZhTw extends TranslationsConfigEn {
 	@override String get localDnsPort => '本機 DNS 連接埠';
 	@override String get allowConnectionFromLan => '允許區域網路連線';
 	@override String get tunImplementation => 'TUN 實現';
-	@override String get mtu => 'MTU';
+	@override String get mtu => '封包大小 (MTU)';
 	@override String get connectionTestUrl => '連線測試網址';
 	@override String get urlTestInterval => '網址測試間隔';
 	@override String get enableClashApi => '啟用 Clash API';
@@ -7778,7 +9094,19 @@ class TranslationsConfigZhTw extends TranslationsConfigEn {
 	@override String get warpCleanIp => '清理 IP';
 	@override String get warpPort => '連接埠';
 	@override String get warpNoise => '噪音計數';
+	@override String get warpNoiseSize => '噪音大小';
+	@override String get warpNoiseMode => '噪音模式';
 	@override String get warpNoiseDelay => '噪音延遲';
+}
+
+// Path: window
+class TranslationsWindowZhTw extends TranslationsWindowEn {
+	TranslationsWindowZhTw._(TranslationsZhTw root) : this._root = root, super._(root);
+
+	@override final TranslationsZhTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get remember => '記住我的選擇';
 }
 
 // Path: general.toggle
@@ -8250,6 +9578,8 @@ class TranslationsSettingsGeneralRegionsZhTw extends TranslationsSettingsGeneral
 	@override String get cn => '中國 (cn)';
 	@override String get ru => '俄羅斯 (ru)';
 	@override String get af => '阿富汗 (af)';
+	@override String get id => '印尼 (id)';
+	@override String get tr => '土耳其 (tr) 🇹🇷';
 	@override String get other => '其他';
 }
 
@@ -8287,7 +9617,7 @@ class TranslationsSettingsNetworkPerAppProxyModesZhTw extends TranslationsSettin
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'Hiddify';
 			case 'general.reset': return 'Reset';
 			case 'general.toggle.enabled': return 'Enabled';
 			case 'general.toggle.disabled': return 'Disabled';
@@ -8349,7 +9679,7 @@ extension on Translations {
 			case 'profile.add.qrScanner.facingSemanticLabel': return 'Camera Facing';
 			case 'profile.add.qrScanner.permissionRequest': return 'Permission to camera to scan QR Code';
 			case 'profile.add.manually': return 'Manual Entry';
-			case 'profile.add.addWarp': return 'Add Warp';
+			case 'profile.add.addWarp': return 'Add WARP';
 			case 'profile.add.addingWarpMsg': return 'Please wait while we register WARP.';
 			case 'profile.add.addingProfileMsg': return 'Adding Profile';
 			case 'profile.add.failureMsg': return 'Failed to Add Profile';
@@ -8418,10 +9748,13 @@ extension on Translations {
 			case 'settings.general.locale': return 'Language';
 			case 'settings.general.region': return 'Region';
 			case 'settings.general.regionMsg': return 'Helps set default options to bypass domestic addresses';
-			case 'settings.general.regions.ir': return 'Iran (ir)';
-			case 'settings.general.regions.cn': return 'China (cn)';
-			case 'settings.general.regions.ru': return 'Russia (ru)';
-			case 'settings.general.regions.af': return 'Afghanistan (af)';
+			case 'settings.general.regions.ir': return 'Iran (ir) 🇮🇷';
+			case 'settings.general.regions.cn': return 'China (cn) 🇨🇳';
+			case 'settings.general.regions.ru': return 'Russia (ru) 🇷🇺';
+			case 'settings.general.regions.af': return 'Afghanistan (af) 🇦🇫';
+			case 'settings.general.regions.id': return 'Indonesia (id) 🇮🇩';
+			case 'settings.general.regions.tr': return 'Türkiye (tr) 🇹🇷';
+			case 'settings.general.regions.br': return 'Brazil (br) 🇧🇷';
 			case 'settings.general.regions.other': return 'Other';
 			case 'settings.general.themeMode': return 'Theme Mode';
 			case 'settings.general.themeModes.system': return 'Follow System Theme';
@@ -8438,6 +9771,10 @@ extension on Translations {
 			case 'settings.general.dynamicNotification': return 'Display Speed in Notification';
 			case 'settings.general.hapticFeedback': return 'Haptic Feedback';
 			case 'settings.general.autoIpCheck': return 'Automatically Check Connection IP';
+			case 'settings.general.actionAtClosing': return 'Action at closing';
+			case 'settings.general.actionsAtClosing.askEachTime': return 'Ask each time';
+			case 'settings.general.actionsAtClosing.hide': return 'Hide';
+			case 'settings.general.actionsAtClosing.exit': return 'Exit';
 			case 'settings.advanced.sectionTitle': return 'Advanced';
 			case 'settings.advanced.debugMode': return 'Debug Mode';
 			case 'settings.advanced.debugModeMsg': return 'Restart the app for applying this change';
@@ -8516,9 +9853,9 @@ extension on Translations {
 			case 'failure.geoAssets.unexpected': return 'Unexpected Error';
 			case 'failure.geoAssets.notUpdate': return 'No Update Available';
 			case 'failure.geoAssets.activeNotFound': return 'Active Geo Asset Not Found';
-			case 'play.title': return 'HologatePlus (Preview)';
+			case 'play.title': return 'Hiddify (Preview)';
 			case 'play.short_description': return 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
-			case 'play.full_description': return 'The key goal of HologatePlus is to provide a secure, user-friendly and efficient tunneling client. It enables you to route all traffic or selected app traffic to a remote server of your choose, utilizing VPN-Service permission.\n\nNote: We do not provide any server; users are required to ensure their online activities stay private by using use their own self-hosted server or trusted servers. \n \nWe Support Servers With:\n- Normal V2Ray/XRay Subscription Link\n- Clash Subscription Link\n- Sing-Box Subscription Link\n\nWhat is our unique features?\n - User Friendly\n - Optimized and Fast\n - Automatically select LowestPing \n - Show user usage information\n - Easily import sublink by one click using deeplinking \n - Free and No ADS\n - Easily switch user sublinks\n - More and more\n\nSupport:\n- All Protocols Supported by Sing-Box \n- VLESS + XTLS Reality, Vision\n- VMess\n- Trojan\n- ShadowSocks\n- Reality\n- WireGuard\n- V2Ray\n- Hysteria2\n- TUICv5\n- SSH\n- ShadowTLS\n\n\nThe source code exist in https://github.com/HologatePlus/HologatePlus-Next\nThe application core is based on open-source Sing-Box.\n\nPermission Description:\n- VPN Service: As the goal of this application is to provide a secure, user-friendly and efficient tunneling client, we need this permission to be able to route the traffic via tunnel to the remote server. \n- QUERY ALL PACKAGES: This permission is used to allow users to include or exclude specific applications for tunneling.\n- RECEIVE BOOT COMPLETED: This permission can be enabled or disabled from app settings to activate this application upon device boot.\n- POST NOTIFICATIONS: This permission is essential as we employ a foreground service to ensure the continuous operation of the VPN service.\n- This application is free from advertisements. The analytics and crash data only occurs with the explicit consent of the user in the first use of application.';
+			case 'play.full_description': return 'The key goal of Hiddify is to provide a secure, user-friendly and efficient tunneling client. It enables you to route all traffic or selected app traffic to a remote server of your choose, utilizing VPN-Service permission.\n\nNote: We do not provide any server; users are required to ensure their online activities stay private by using use their own self-hosted server or trusted servers. \n \nWe Support Servers With:\n- Normal V2Ray/XRay Subscription Link\n- Clash Subscription Link\n- Sing-Box Subscription Link\n\nWhat is our unique features?\n - User Friendly\n - Optimized and Fast\n - Automatically select LowestPing \n - Show user usage information\n - Easily import sublink by one click using deeplinking \n - Free and No ADS\n - Easily switch user sublinks\n - More and more\n\nSupport:\n- All Protocols Supported by Sing-Box \n- VLESS + XTLS Reality, Vision\n- VMess\n- Trojan\n- ShadowSocks\n- Reality\n- WireGuard\n- V2Ray\n- Hysteria2\n- TUICv5\n- SSH\n- ShadowTLS\n\n\nThe source code exist in https://github.com/hiddify/Hiddify-Next\nThe application core is based on open-source Sing-Box.\n\nPermission Description:\n- VPN Service: As the goal of this application is to provide a secure, user-friendly and efficient tunneling client, we need this permission to be able to route the traffic via tunnel to the remote server. \n- QUERY ALL PACKAGES: This permission is used to allow users to include or exclude specific applications for tunneling.\n- RECEIVE BOOT COMPLETED: This permission can be enabled or disabled from app settings to activate this application upon device boot.\n- POST NOTIFICATIONS: This permission is essential as we employ a foreground service to ensure the continuous operation of the VPN service.\n- This application is free from advertisements. The analytics and crash data only occurs with the explicit consent of the user in the first use of application.';
 			case 'connection.tapToConnect': return 'Tap To Connect';
 			case 'connection.connecting': return 'Connecting';
 			case 'connection.disconnecting': return 'Disconnecting';
@@ -8529,6 +9866,8 @@ extension on Translations {
 			case 'connection.experimentalNoticeMsg': return 'You\'ve enabled some experimental features which might affect connection quality and cause unexpected errors. You can always change or reset these options from Config options page.';
 			case 'connection.disableExperimentalNotice': return 'Don\'t Show Again';
 			case 'connection.reconnectMsg': return 'Reconnecting for taking into account the changes...';
+			case 'config.useXrayCoreWhenPossible.Label': return 'Use Xray-core When Possible';
+			case 'config.useXrayCoreWhenPossible.Description': return 'Use Xray-core during parsing sub links. You need to reimport the sub link to enable this option.';
 			case 'config.resetBtn': return 'Reset Options';
 			case 'config.serviceMode': return 'Service Mode';
 			case 'config.quickSettings': return 'Quick Settings';
@@ -8560,7 +9899,7 @@ extension on Translations {
 			]);
 			case 'config.generateWarpConfig': return 'Generate WARP Config';
 			case 'config.missingWarpConfig': return 'Missing WARP Config';
-			case 'config.warpConfigGenerated': return 'WARP Config Generated';
+			case 'config.warpConfigGenerated': return 'WARP Config is Generated';
 			case 'config.pageTitle': return 'Config Options';
 			case 'config.logLevel': return 'Log Level';
 			case 'config.blockAds': return 'Block Advertisements';
@@ -8579,7 +9918,7 @@ extension on Translations {
 			case 'config.localDnsPort': return 'Local DNS Port';
 			case 'config.allowConnectionFromLan': return 'Share VPN in Local Network';
 			case 'config.tunImplementation': return 'TUN Implementation';
-			case 'config.mtu': return 'MTU';
+			case 'config.mtu': return 'Packet Size (MTU)';
 			case 'config.connectionTestUrl': return 'Connection Test URL';
 			case 'config.urlTestInterval': return 'URL Test Interval';
 			case 'config.enableClashApi': return 'Enable Clash API';
@@ -8612,6 +9951,10 @@ extension on Translations {
 			case 'config.warpNoiseSize': return 'Noise Size';
 			case 'config.warpNoiseMode': return 'Noise Mode';
 			case 'config.warpNoiseDelay': return 'Noise Delay';
+			case 'window.hide': return 'Hide';
+			case 'window.close': return 'Exit';
+			case 'window.alertMessage': return 'Hide or Exit the application?';
+			case 'window.remember': return 'Remember my choice';
 			default: return null;
 		}
 	}
@@ -8620,7 +9963,7 @@ extension on Translations {
 extension on TranslationsAr {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'هلوگیت پلاس';
 			case 'general.reset': return 'إعادة تعيين';
 			case 'general.toggle.enabled': return 'مُفعّل';
 			case 'general.toggle.disabled': return 'غير مُفعّل';
@@ -8682,6 +10025,8 @@ extension on TranslationsAr {
 			case 'profile.add.qrScanner.facingSemanticLabel': return 'اتجاه الكاميرا';
 			case 'profile.add.qrScanner.permissionRequest': return 'الإذن للكاميرا لمسح رمز الاستجابة السريعة';
 			case 'profile.add.manually': return 'إدخال يدوي';
+			case 'profile.add.addWarp': return 'أضف WARP';
+			case 'profile.add.addingWarpMsg': return 'الرجاء الانتظار بينما نقوم بتسجيل WARP.';
 			case 'profile.add.addingProfileMsg': return 'إضافة ملف التعريف';
 			case 'profile.add.failureMsg': return 'فشل في إضافة ملف التعريف';
 			case 'profile.update.buttonTxt': return 'تحديث';
@@ -8753,6 +10098,8 @@ extension on TranslationsAr {
 			case 'settings.general.regions.cn': return 'الصين (cn)';
 			case 'settings.general.regions.ru': return 'روسيا (ru)';
 			case 'settings.general.regions.af': return 'أفغانستان (af)';
+			case 'settings.general.regions.id': return 'إندونيسيا (id)';
+			case 'settings.general.regions.tr': return 'تركيا (tr) 🇹🇷';
 			case 'settings.general.regions.other': return 'أخرى';
 			case 'settings.general.themeMode': return 'وضع السمة';
 			case 'settings.general.themeModes.system': return 'اتباع سمة النظام';
@@ -8799,7 +10146,7 @@ extension on TranslationsAr {
 			case 'about.pageTitle': return 'حول\nتعريب:م. ابراهيم قاسم';
 			case 'about.version': return 'الإصدار';
 			case 'about.sourceCode': return 'رمز المصدر';
-			case 'about.telegramChannel': return 'قناة Telegram';
+			case 'about.telegramChannel': return 'قناة تلگرام';
 			case 'about.checkForUpdate': return 'التحقق من وجود تحديث';
 			case 'about.privacyPolicy': return 'سياسة الخصوصية';
 			case 'about.termsAndConditions': return 'الشروط والأحكام';
@@ -8847,9 +10194,9 @@ extension on TranslationsAr {
 			case 'failure.geoAssets.unexpected': return 'خطأ غير متوقع';
 			case 'failure.geoAssets.notUpdate': return 'لا يوجد تحديث متاح';
 			case 'failure.geoAssets.activeNotFound': return 'لم يتم العثور على أصل Geo النشط';
-			case 'play.title': return 'HologatePlus (معاينة)';
+			case 'play.title': return 'Hiddify (معاينة)';
 			case 'play.short_description': return 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
-			case 'play.full_description': return 'الهدف الرئيسي لـ HologatePlus هو توفير عميل نفق آمن وسهل الاستخدام وكفاءة. يمكّنك من توجيه جميع حركة المرور أو حركة المرور من التطبيق المحدد إلى خادم بعيد من اختيارك، باستخدام إذن VPN-Service. \n\nملاحظة: لا نوفر أي خادم، ويتعين على المستخدمين ضمان بقاء أنشطتهم عبر الإنترنت خاصة باستخدام خادمهم المخصص أو الخوادم الموثوقة. \n \nندعم الخوادم مع:\n- رابط اشتراك V2Ray/XRay عادي \n- رابط اشتراك Clash \n- رابط اشتراك Sing-Box \n\nما هي ميزاتنا الفريدة؟\n - سهل الاستخدام \n - مُحسّن وسريع \n - اختيار أدنى Ping تلقائيًا \n - عرض معلومات استخدام المستخدم \n - استيراد sublink بسهولة بنقرة واحدة باستخدام deeplinking \n - مجاني وخالي من الإعلانات \n - تبديل sublinks بسهولة \n - المزيد والمزيد \n\nالدعم:\n- جميع البروتوكولات التي تدعمها Sing-Box \n- VLESS + XTLS Reality, Vision \n- VMess \n- Trojan \n- ShoadowSocks \n- Reality \n- WireGuard \n- V2Ray \n- Hysteria2 \n- TUICv5 \n- SSH \n- ShadowTLS \n\n\nرمز المصدر موجود في https://github.com/HologatePlus/HologatePlus-Next \nتعتمد نواة التطبيق على Sing-Box مفتوحة المصدر.\n\nوصف الإذن:\n- VPN Service: نظرًا لأن هدف هذا التطبيق هو توفير عميل نفق آمن وسهل الاستخدام وكفاءة، نحتاج إلى هذا الإذن لنتمكن من توجيه حركة المرور عبر النفق إلى الخادم البعيد. \n- QUERY ALL PACKAGES: يستخدم هذا الإذن للسماح للمستخدمين بتضمين أو استبعاد تطبيقات محددة للأنفاق. \n- RECEIVE BOOT COMPLETED: يمكن تمكين أو تعطيل هذا الإذن من إعدادات التطبيق لتنشيط هذا التطبيق عند تشغيل الجهاز. \n- POST NOTIFICATIONS: هذا الإذن ضروري لأننا نستخدم خدمة المقدمة لضمان تشغيل خدمة VPN بشكل مستمر. \n- هذا التطبيق خالي من الإعلانات. يتم جمع التحليلات وبيانات الأعطال فقط بموافقة صريحة من المستخدم في أول استخدام للتطبيق.';
+			case 'play.full_description': return 'الهدف الرئيسي لـ Hiddify هو توفير عميل نفق آمن وسهل الاستخدام وكفاءة. يمكّنك من توجيه جميع حركة المرور أو حركة المرور من التطبيق المحدد إلى خادم بعيد من اختيارك، باستخدام إذن VPN-Service. \n\nملاحظة: لا نوفر أي خادم، ويتعين على المستخدمين ضمان بقاء أنشطتهم عبر الإنترنت خاصة باستخدام خادمهم المخصص أو الخوادم الموثوقة. \n \nندعم الخوادم مع:\n- رابط اشتراك V2Ray/XRay عادي \n- رابط اشتراك Clash \n- رابط اشتراك Sing-Box \n\nما هي ميزاتنا الفريدة؟\n - سهل الاستخدام \n - مُحسّن وسريع \n - اختيار أدنى Ping تلقائيًا \n - عرض معلومات استخدام المستخدم \n - استيراد sublink بسهولة بنقرة واحدة باستخدام deeplinking \n - مجاني وخالي من الإعلانات \n - تبديل sublinks بسهولة \n - المزيد والمزيد \n\nالدعم:\n- جميع البروتوكولات التي تدعمها Sing-Box \n- VLESS + XTLS Reality, Vision \n- VMess \n- Trojan \n- ShoadowSocks \n- Reality \n- WireGuard \n- V2Ray \n- Hysteria2 \n- TUICv5 \n- SSH \n- ShadowTLS \n\n\nرمز المصدر موجود في https://github.com/hiddify/Hiddify-Next \nتعتمد نواة التطبيق على Sing-Box مفتوحة المصدر.\n\nوصف الإذن:\n- VPN Service: نظرًا لأن هدف هذا التطبيق هو توفير عميل نفق آمن وسهل الاستخدام وكفاءة، نحتاج إلى هذا الإذن لنتمكن من توجيه حركة المرور عبر النفق إلى الخادم البعيد. \n- QUERY ALL PACKAGES: يستخدم هذا الإذن للسماح للمستخدمين بتضمين أو استبعاد تطبيقات محددة للأنفاق. \n- RECEIVE BOOT COMPLETED: يمكن تمكين أو تعطيل هذا الإذن من إعدادات التطبيق لتنشيط هذا التطبيق عند تشغيل الجهاز. \n- POST NOTIFICATIONS: هذا الإذن ضروري لأننا نستخدم خدمة المقدمة لضمان تشغيل خدمة VPN بشكل مستمر. \n- هذا التطبيق خالي من الإعلانات. يتم جمع التحليلات وبيانات الأعطال فقط بموافقة صريحة من المستخدم في أول استخدام للتطبيق.';
 			case 'connection.tapToConnect': return 'انقر للاتصال';
 			case 'connection.connecting': return 'جار الاتصال';
 			case 'connection.disconnecting': return 'جار فصم الاتصال';
@@ -8894,6 +10241,7 @@ extension on TranslationsAr {
 			case 'config.warpConfigGenerated': return 'تم إنشاء تكوين WARP';
 			case 'config.pageTitle': return 'خيارات التكوين';
 			case 'config.logLevel': return 'مستوى السجل';
+			case 'config.blockAds': return 'منع الإعلانات';
 			case 'config.resolveDestination': return 'حل الوجهة';
 			case 'config.ipv6Mode': return 'توجيه IPv6';
 			case 'config.ipv6Modes.disable': return 'تعطيل';
@@ -8909,7 +10257,7 @@ extension on TranslationsAr {
 			case 'config.localDnsPort': return 'منفذ DNS المحلي';
 			case 'config.allowConnectionFromLan': return 'مشاركة VPN على الشبكة المحلية';
 			case 'config.tunImplementation': return 'تنفيذ TUN';
-			case 'config.mtu': return 'MTU';
+			case 'config.mtu': return 'حجم الحزمة (MTU)';
 			case 'config.connectionTestUrl': return 'عنوان URL لاختبار الاتصال';
 			case 'config.urlTestInterval': return 'مُدة اختبار عنوان URL';
 			case 'config.enableClashApi': return 'تمكين Clash API';
@@ -8939,6 +10287,8 @@ extension on TranslationsAr {
 			case 'config.warpCleanIp': return 'عنوان IP نظيف';
 			case 'config.warpPort': return 'المنفذ';
 			case 'config.warpNoise': return 'عدد الضوضاء';
+			case 'config.warpNoiseSize': return 'حجم الضوضاء';
+			case 'config.warpNoiseMode': return 'وضع الضوضاء';
 			case 'config.warpNoiseDelay': return 'تأخير الضوضاء';
 			default: return null;
 		}
@@ -8948,7 +10298,7 @@ extension on TranslationsAr {
 extension on TranslationsEs {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'Hiddify';
 			case 'general.reset': return 'Renicio';
 			case 'general.toggle.enabled': return 'Activado';
 			case 'general.toggle.disabled': return 'Desactivado';
@@ -8962,8 +10312,10 @@ extension on TranslationsEs {
 			case 'general.unknown': return 'Desconocido';
 			case 'general.hidden': return 'Oculto';
 			case 'general.timeout': return 'Se acabó el tiempo';
+			case 'general.clipboardExportSuccessMsg': return 'Añadido al portapapeles';
 			case 'general.showMore': return 'Mostrar más';
 			case 'general.showLess': return 'Muestra menos';
+			case 'general.openAppSettings': return 'Abrir la configuración de la aplicación';
 			case 'general.grantPermission': return 'Conceder permiso';
 			case 'intro.termsAndPolicyCaution': return ({required InlineSpanBuilder tap}) => TextSpan(children: [
 				const TextSpan(text: 'al continuar, aceptas '),
@@ -8973,6 +10325,14 @@ extension on TranslationsEs {
 			case 'home.pageTitle': return 'Hogar';
 			case 'home.emptyProfilesMsg': return 'Comience agregando un perfil de suscripción';
 			case 'home.noActiveProfileMsg': return 'Elige un perfil';
+			case 'stats.traffic': return 'Tráfico';
+			case 'stats.trafficLive': return 'Tráfico en tiempo real';
+			case 'stats.trafficTotal': return 'Tráfico total';
+			case 'stats.uplink': return 'Enlace de subida';
+			case 'stats.downlink': return 'Enlace de bajada';
+			case 'stats.connection': return 'Conexión';
+			case 'stats.speed': return 'Velocidad';
+			case 'stats.totalTransferred': return 'Total transferido';
 			case 'profile.overviewPageTitle': return 'Perfiles';
 			case 'profile.detailsPageTitle': return 'Perfil';
 			case 'profile.activeProfileNameSemanticLabel': return ({required Object name}) => 'Nombre del perfil activo: "${name}".';
@@ -8984,6 +10344,10 @@ extension on TranslationsEs {
 			case 'profile.subscription.remainingTrafficSemanticLabel': return ({required Object consumed, required Object total}) => '${consumed} de ${total} Tráfico Consumido';
 			case 'profile.subscription.expired': return 'Caducado';
 			case 'profile.subscription.noTraffic': return 'Fuera de cuota';
+			case 'profile.subscription.upload': return 'Subir';
+			case 'profile.subscription.download': return 'Descargar';
+			case 'profile.subscription.total': return 'Tráfico total';
+			case 'profile.subscription.expireDate': return 'Fecha de expiración';
 			case 'profile.sortBy.lastUpdate': return 'Recientemente actualizado';
 			case 'profile.sortBy.name': return 'Alfabéticamente';
 			case 'profile.add.buttonText': return 'Nuevo perfil';
@@ -8994,7 +10358,10 @@ extension on TranslationsEs {
 			case 'profile.add.qrScanner.unexpectedError': return 'Algo salió mal';
 			case 'profile.add.qrScanner.torchSemanticLabel': return 'Linterna';
 			case 'profile.add.qrScanner.facingSemanticLabel': return 'Frente a la cámara';
+			case 'profile.add.qrScanner.permissionRequest': return 'Permiso a la cámara para escanear el código QR';
 			case 'profile.add.manually': return 'Entrada manual';
+			case 'profile.add.addWarp': return 'Añadir WARP';
+			case 'profile.add.addingWarpMsg': return 'Por favor, espere mientras registramos WARP.';
 			case 'profile.add.addingProfileMsg': return 'Agregar perfil';
 			case 'profile.add.failureMsg': return 'No se pudo agregar el perfil';
 			case 'profile.update.buttonTxt': return 'Actualizar';
@@ -9031,9 +10398,17 @@ extension on TranslationsEs {
 			case 'proxies.emptyProxiesMsg': return 'No proxies disponibles';
 			case 'proxies.delayTestTooltip': return 'Prueba de Restraso';
 			case 'proxies.sortTooltip': return 'Ordenar Proxies';
+			case 'proxies.checkIp': return 'Comprobar IP';
+			case 'proxies.unknownIp': return 'IP desconocida';
 			case 'proxies.sortOptions.unsorted': return 'Por Defecto';
 			case 'proxies.sortOptions.name': return 'Alfabéticamente';
 			case 'proxies.sortOptions.delay': return 'Por retraso';
+			case 'proxies.activeProxySemanticLabel': return 'Proxy activo';
+			case 'proxies.delaySemantics.result': return ({required Object delay}) => 'Retraso: ${delay}ms';
+			case 'proxies.delaySemantics.timeout': return 'Tiempo de espera del Timeout';
+			case 'proxies.delaySemantics.testing': return 'Retraso: Probando...';
+			case 'proxies.ipInfoSemantics.address': return 'Dirección IP';
+			case 'proxies.ipInfoSemantics.country': return 'País';
 			case 'logs.pageTitle': return 'Registros';
 			case 'logs.filterHint': return 'Filtrar';
 			case 'logs.allLevelsFilter': return 'Todo';
@@ -9046,6 +10421,10 @@ extension on TranslationsEs {
 			case 'settings.requiresRestartMsg': return 'Para que esto surta efecto, reinicie la aplicación.';
 			case 'settings.experimental': return 'Experimental';
 			case 'settings.experimentalMsg': return 'Las funciones con el indicador Experimental aún están en desarrollo y pueden causar problemas.';
+			case 'settings.exportOptions': return 'Copiar opciones anónimas al portapapeles';
+			case 'settings.exportAllOptions': return 'Copiar todas las opciones al portapapeles';
+			case 'settings.importOptions': return 'Importar opciones desde el portapapeles';
+			case 'settings.importOptionsMsg': return 'Esto reescribirá todas las opciones de configuración con los valores proporcionados. ¿Está seguro?';
 			case 'settings.general.sectionTitle': return 'General';
 			case 'settings.general.locale': return 'Idioma';
 			case 'settings.general.region': return 'Región';
@@ -9054,6 +10433,8 @@ extension on TranslationsEs {
 			case 'settings.general.regions.cn': return 'China (CN)';
 			case 'settings.general.regions.ru': return 'Rusia (ru)';
 			case 'settings.general.regions.af': return 'Afganistán (af)';
+			case 'settings.general.regions.id': return 'Indonesia (id)';
+			case 'settings.general.regions.tr': return 'Turquía (tr) 🇹🇷';
 			case 'settings.general.regions.other': return 'Otro';
 			case 'settings.general.themeMode': return 'Modo temático';
 			case 'settings.general.themeModes.system': return 'Seguir el tema del sistema';
@@ -9068,6 +10449,8 @@ extension on TranslationsEs {
 			case 'settings.general.ignoreBatteryOptimizations': return 'Deshabilitar la optimización de la batería';
 			case 'settings.general.ignoreBatteryOptimizationsMsg': return 'Elimine las restricciones para un rendimiento VPN óptimo';
 			case 'settings.general.dynamicNotification': return 'Mostrar velocidad en la notificación';
+			case 'settings.general.hapticFeedback': return 'Respuesta háptica';
+			case 'settings.general.autoIpCheck': return 'Comprobación automática de la IP de conexión';
 			case 'settings.advanced.sectionTitle': return 'Avanzado';
 			case 'settings.advanced.debugMode': return 'Modo de depuración';
 			case 'settings.advanced.debugModeMsg': return 'Reinicie la aplicación para aplicar este cambio.';
@@ -9098,7 +10481,7 @@ extension on TranslationsEs {
 			case 'about.pageTitle': return 'Acerca de';
 			case 'about.version': return 'Versión';
 			case 'about.sourceCode': return 'Código fuente';
-			case 'about.telegramChannel': return 'Canal de telegramas';
+			case 'about.telegramChannel': return 'Canal de Telegram';
 			case 'about.checkForUpdate': return 'Buscar actualizaciones';
 			case 'about.privacyPolicy': return 'Política de privacidad';
 			case 'about.termsAndConditions': return 'Términos y condiciones';
@@ -9146,21 +10529,32 @@ extension on TranslationsEs {
 			case 'failure.geoAssets.unexpected': return 'Error inesperado';
 			case 'failure.geoAssets.notUpdate': return 'Actualización no disponible';
 			case 'failure.geoAssets.activeNotFound': return 'Activo geográfico activo no encontrado';
-			case 'play.title': return 'HologatePlus Next (vista previa)';
+			case 'play.title': return 'Hiddify Next (vista previa)';
 			case 'play.short_description': return 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
-			case 'play.full_description': return 'El objetivo clave de HologatePlusNext es proporcionar un cliente de túnel seguro, fácil de usar y eficiente. Le permite enrutar todo el tráfico o el tráfico de aplicaciones seleccionadas a un servidor remoto de su elección, utilizando el permiso del servicio VPN.Nota: No proporcionamos ningún servidor; Los usuarios deben garantizar que sus actividades en línea permanezcan privadas mediante el uso de su propio servidor autohospedado o servidores confiables. Soportamos servidores con:- Enlace de suscripción normal a V2ray/Xray- Enlace de suscripción a Choque- Enlace de suscripción a Sing-Box¿Cuáles son nuestras características únicas? - Fácil de usar - Optimizado y Rápido - Seleccionar automáticamente LowestPing - Mostrar información de uso del usuario. - Importe fácilmente un subvínculo con un solo clic mediante enlaces profundos - Gratis y sin anuncios - Cambie fácilmente los subvínculos de usuario - más y másApoyo:- Todos los protocolos soportados por Sing-Box- VLESS + xtls realidad, visión- VMESS- troyano- Calcetines Shoadow- Realidad-V2ray-Histria2-TUIC-SSH- SombraTLSEl código fuente existe en https://github.com/HologatePlus/HologatePlus-NextEl núcleo de la aplicación se basa en sing-box de código abierto.Descripción del permiso:- Servicio VPN: como el objetivo de esta aplicación es proporcionar un cliente de túnel seguro, fácil de usar y eficiente, necesitamos este permiso para poder enrutar el tráfico a través del túnel al servidor remoto.- CONSULTAR TODOS LOS PAQUETES: este permiso se utiliza para permitir a los usuarios incluir o excluir aplicaciones específicas para la tunelización.- RECIBIR ARRANQUE COMPLETADO: este permiso se puede habilitar o deshabilitar desde la configuración de la aplicación para activar esta aplicación al iniciar el dispositivo.- PUBLICAR NOTIFICACIONES: este permiso es esencial ya que empleamos un servicio en primer plano para garantizar el funcionamiento continuo del servicio VPN.- Esta aplicación está libre de publicidad. Los datos analíticos y de fallos solo se producen con el consentimiento explícito del usuario en el primer uso de la aplicación.';
+			case 'play.full_description': return 'El objetivo clave de HiddifyNext es proporcionar un cliente de túnel seguro, fácil de usar y eficiente. Le permite enrutar todo el tráfico o el tráfico de aplicaciones seleccionadas a un servidor remoto de su elección, utilizando el permiso del servicio VPN.Nota: No proporcionamos ningún servidor; Los usuarios deben garantizar que sus actividades en línea permanezcan privadas mediante el uso de su propio servidor autohospedado o servidores confiables. Soportamos servidores con:- Enlace de suscripción normal a V2ray/Xray- Enlace de suscripción a Choque- Enlace de suscripción a Sing-Box¿Cuáles son nuestras características únicas? - Fácil de usar - Optimizado y Rápido - Seleccionar automáticamente LowestPing - Mostrar información de uso del usuario. - Importe fácilmente un subvínculo con un solo clic mediante enlaces profundos - Gratis y sin anuncios - Cambie fácilmente los subvínculos de usuario - más y másApoyo:- Todos los protocolos soportados por Sing-Box- VLESS + xtls realidad, visión- VMESS- troyano- Calcetines Shoadow- Realidad-V2ray-Histria2-TUIC-SSH- SombraTLSEl código fuente existe en https://github.com/hiddify/Hiddify-NextEl núcleo de la aplicación se basa en sing-box de código abierto.Descripción del permiso:- Servicio VPN: como el objetivo de esta aplicación es proporcionar un cliente de túnel seguro, fácil de usar y eficiente, necesitamos este permiso para poder enrutar el tráfico a través del túnel al servidor remoto.- CONSULTAR TODOS LOS PAQUETES: este permiso se utiliza para permitir a los usuarios incluir o excluir aplicaciones específicas para la tunelización.- RECIBIR ARRANQUE COMPLETADO: este permiso se puede habilitar o deshabilitar desde la configuración de la aplicación para activar esta aplicación al iniciar el dispositivo.- PUBLICAR NOTIFICACIONES: este permiso es esencial ya que empleamos un servicio en primer plano para garantizar el funcionamiento continuo del servicio VPN.- Esta aplicación está libre de publicidad. Los datos analíticos y de fallos solo se producen con el consentimiento explícito del usuario en el primer uso de la aplicación.';
 			case 'connection.tapToConnect': return 'Toque para conectarse';
 			case 'connection.connecting': return 'Conectando';
 			case 'connection.disconnecting': return 'Desconectando';
 			case 'connection.connected': return 'Conectado';
+			case 'connection.reconnect': return 'Reconectar';
+			case 'connection.connectAnyWay': return 'Conectar';
 			case 'connection.experimentalNotice': return 'Funciones experimentales en uso';
 			case 'connection.experimentalNoticeMsg': return 'Ha habilitado algunas funciones experimentales que podrían afectar la calidad de la conexión y provocar errores inesperados. Siempre puede cambiar o restablecer estas opciones desde la página de opciones de configuración.';
 			case 'connection.disableExperimentalNotice': return 'No volver a mostrar';
+			case 'connection.reconnectMsg': return 'Reconectar para tener en cuenta los cambios...';
 			case 'config.resetBtn': return 'Restablecer opciones';
 			case 'config.serviceMode': return 'Modo de servicio';
+			case 'config.quickSettings': return 'Ajustes rápidos';
+			case 'config.setupWarp': return 'Configurar WARP';
+			case 'config.allOptions': return 'Todas las opciones de configuración';
 			case 'config.serviceModes.proxy': return 'Proxy';
 			case 'config.serviceModes.systemProxy': return 'Sistema Proxy';
 			case 'config.serviceModes.tun': return 'VPN';
+			case 'config.serviceModes.tunService': return 'Servicio VPN';
+			case 'config.shortServiceModes.proxy': return 'Proxy';
+			case 'config.shortServiceModes.systemProxy': return 'Proxy del sistema';
+			case 'config.shortServiceModes.tun': return 'VPN';
+			case 'config.shortServiceModes.tunService': return 'Servicio VPN';
 			case 'config.section.route': return 'Opciones de ruta';
 			case 'config.section.dns': return 'Opciones de DNS';
 			case 'config.section.inbound': return 'Opciones entrantes';
@@ -9177,8 +10571,12 @@ extension on TranslationsEs {
 				privacy('Política de privacidad'),
 				const TextSpan(text: ' de Cloudflare WARP.'),
 			]);
+			case 'config.generateWarpConfig': return 'Generar configuración WARP';
+			case 'config.missingWarpConfig': return 'Falta la configuración WARP';
+			case 'config.warpConfigGenerated': return 'Se genera la configuración WARP';
 			case 'config.pageTitle': return 'Opciones de configuración';
 			case 'config.logLevel': return 'Registro del Nivel';
+			case 'config.blockAds': return 'Bloquear anuncios';
 			case 'config.resolveDestination': return 'Resolver Destino';
 			case 'config.ipv6Mode': return 'Ruta IPv6';
 			case 'config.ipv6Modes.disable': return 'Desactivar';
@@ -9190,10 +10588,11 @@ extension on TranslationsEs {
 			case 'config.directDnsAddress': return 'DNS Directo';
 			case 'config.directDnsDomainStrategy': return 'Estrategia de dominio DNS directo';
 			case 'config.mixedPort': return 'Puerto Mixto';
+			case 'config.tproxyPort': return 'Puerto de proxy transparente';
 			case 'config.localDnsPort': return 'Puerto DNS local';
 			case 'config.allowConnectionFromLan': return 'Permitir conexión desde LAN';
 			case 'config.tunImplementation': return 'Implementación de TUN';
-			case 'config.mtu': return 'MTU';
+			case 'config.mtu': return 'Tamaño de paquete (MTU)';
 			case 'config.connectionTestUrl': return 'URL de prueba de conexión';
 			case 'config.urlTestInterval': return 'URL Prueba de Intervalo';
 			case 'config.enableClashApi': return 'Habilitar API de choque';
@@ -9215,12 +10614,17 @@ extension on TranslationsEs {
 			case 'config.muxMaxStreams': return 'Max Concurrent Streams';
 			case 'config.enableWarp': return 'Enable WARP';
 			case 'config.warpDetourMode': return 'Detour Mode';
+			case 'config.warpDetourModes.proxyOverWarp': return 'Desvío de proxies a través de WARP';
+			case 'config.warpDetourModes.warpOverProxy': return 'Desvío de WARP a través de proxies';
 			case 'config.warpDetourModes.inbound': return 'Detour WARP through proxies';
 			case 'config.warpDetourModes.outbound': return 'Detour proxies through WARP';
 			case 'config.warpLicenseKey': return 'License Key';
 			case 'config.warpCleanIp': return 'Clean IP';
 			case 'config.warpPort': return 'Port';
 			case 'config.warpNoise': return 'Noise';
+			case 'config.warpNoiseSize': return 'Tamaño de ruido';
+			case 'config.warpNoiseMode': return 'Modo Ruido';
+			case 'config.warpNoiseDelay': return 'Retraso por ruido';
 			default: return null;
 		}
 	}
@@ -9292,7 +10696,7 @@ extension on TranslationsFa {
 			case 'profile.add.qrScanner.facingSemanticLabel': return 'جهت دوربین';
 			case 'profile.add.qrScanner.permissionRequest': return 'دسترسی به دوربین برای اسکن کد QR';
 			case 'profile.add.manually': return 'افزودن دستی';
-			case 'profile.add.addWarp': return 'افزودن وارپ';
+			case 'profile.add.addWarp': return 'افزودن WARP';
 			case 'profile.add.addingWarpMsg': return 'لطفا صبر کنید تا وارپ ثبت شود';
 			case 'profile.add.addingProfileMsg': return 'در حال افزودن پروفایل';
 			case 'profile.add.failureMsg': return 'افزودن پروفایل ناموفق بود';
@@ -9361,10 +10765,12 @@ extension on TranslationsFa {
 			case 'settings.general.locale': return 'زبان';
 			case 'settings.general.region': return 'منطقه';
 			case 'settings.general.regionMsg': return 'به انتخاب تنظیمات پیش‌فرض برای دور زدن آدرس‌های داخلی کمک می‌کند';
-			case 'settings.general.regions.ir': return 'ایران (ir)';
-			case 'settings.general.regions.cn': return 'چین (cn)';
-			case 'settings.general.regions.ru': return 'روسیه (ru)';
-			case 'settings.general.regions.af': return 'افغانستان (af)';
+			case 'settings.general.regions.ir': return 'ایران (ir) 🇮🇷';
+			case 'settings.general.regions.cn': return 'چین (cn) 🇨🇳';
+			case 'settings.general.regions.ru': return 'روسیه (ru) 🇷🇺';
+			case 'settings.general.regions.af': return 'افغانستان (af) 🇦🇫';
+			case 'settings.general.regions.id': return 'إندونيسيا (id) 🇮🇩';
+			case 'settings.general.regions.tr': return 'ترکیه (tr) 🇹🇷';
 			case 'settings.general.regions.other': return 'سایر';
 			case 'settings.general.themeMode': return 'حالت پوسته';
 			case 'settings.general.themeModes.system': return 'پیروی از پوسته‌ی دستگاه';
@@ -9461,7 +10867,7 @@ extension on TranslationsFa {
 			case 'failure.geoAssets.activeNotFound': return 'فایل جغرافیایی فعال یافت نشد';
 			case 'play.title': return 'هلوگیت پلاس (آزمایشی)';
 			case 'play.short_description': return 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
-			case 'play.full_description': return 'هدف اصلی هلوگیت پلاس ارائه یک کلاینت ضدفیلتر ایمن، کاربرپسند و کارآمد است. این به شما امکان می‌دهد تا با استفاده از مجوز سرویس VPN، تمام ترافیک یا ترافیک برنامه‌ی انتخابی را به یک سرور راه دور مورد نظر خود هدایت کنید.\n\nتوجه: ما هیچ سروری ارائه نمی‌دهیم. کاربران موظف هستند با استفاده از سرورهای خود، هاست یا سرورهای مورد اعتماد، فعالیت‌های آنلاین خود را خصوصی نگه دارند. \n\nما از این سرورها پشتیبانی می‌کنیم:\n- لینک اشتراک V2Ray/XRay معمولی\n- لینک اشتراک کلش\n- لینک اشتراک Sing-Box\n\nویژگی‌های منحصر به فرد این برنامه چیست؟\n- کاربر پسند  \n- بهینه و سریع  \n- انتخاب کمترین پینگ به صورت خودکار\n- نمایش اطلاعات استفاده کاربر\n- به راحتی لینک فرعی را با یک کلیک با استفاده از دیپ لینک وارد کنید  \n- رایگان و بدون تبلیغات  \n- به‌راحتی لینک های فرعی کاربر را تغییر دهید  \n- بیشتر و بیشتر\n\nپشتیبانی از:\n- همه‌ی پروتکل‌های پشتیبانی‌شده توسط Sing-Box- VLESS + XTLS Reality، Vision- VMess- Trojan- ShadowSocks- Reality- WireGuard- V2Ray- Hysteria2- TUICv5- SSH- ShadowTLS\n\nکد منبع در https://github.com/HologatePlus/HologatePlus-Next موجود بوده و هسته‌ی برنامه مبتنی بر منبع باز Sing-Box است.\n\nتوضیحات مجوز:\n- VPN Service: از آن‌جا که هدف این برنامه ارائه‌ی یک کلاینت ضدفیلتر ایمن، کاربر پسند و کارآمد است، ما به این مجوز نیاز داریم تا بتوانیم ترافیک را از طریق تونل به سرور راه دور هدایت کنیم.\n- QUERY ALL PACKAGES: این مجوز برای اجازه دادن به کاربران برای گنجاندن یا حذف برنامه‌های کاربردی خاص برای تونل‌زدن استفاده می‌شود.\n- RECEIVE BOOT COMPLETED: این مجوز را می‌توان از تنظیمات برنامه فعال یا غیرفعال کرد تا این برنامه پس از شروع به کار دستگاه فعال شود.\n- POST NOTIFICATIONS: این مجوز ضروری است زیرا برای اطمینان از عملکرد یکسره VPN نیاز است از یک سرویس پس زمینه استفاده کنیم. \n- این برنامه بدون تبلیغات است. تجزیه و تحلیل و داده‌های خرابی فقط با رضایت صریح کاربر در اولین استفاده از برنامه اتفاق می‌افتد.';
+			case 'play.full_description': return 'هدف اصلی هلوگیت پلاس ارائه یک کلاینت ضدفیلتر ایمن، کاربرپسند و کارآمد است. این به شما امکان می‌دهد تا با استفاده از مجوز سرویس VPN، تمام ترافیک یا ترافیک برنامه‌ی انتخابی را به یک سرور راه دور مورد نظر خود هدایت کنید.\n\nتوجه: ما هیچ سروری ارائه نمی‌دهیم. کاربران موظف هستند با استفاده از سرورهای خود، هاست یا سرورهای مورد اعتماد، فعالیت‌های آنلاین خود را خصوصی نگه دارند. \n\nما از این سرورها پشتیبانی می‌کنیم:\n- لینک اشتراک V2Ray/XRay معمولی\n- لینک اشتراک کلش\n- لینک اشتراک Sing-Box\n\nویژگی‌های منحصر به فرد این برنامه چیست؟\n- کاربر پسند  \n- بهینه و سریع  \n- انتخاب کمترین پینگ به صورت خودکار\n- نمایش اطلاعات استفاده کاربر\n- به راحتی لینک فرعی را با یک کلیک با استفاده از دیپ لینک وارد کنید  \n- رایگان و بدون تبلیغات  \n- به‌راحتی لینک های فرعی کاربر را تغییر دهید  \n- بیشتر و بیشتر\n\nپشتیبانی از:\n- همه‌ی پروتکل‌های پشتیبانی‌شده توسط Sing-Box- VLESS + XTLS Reality، Vision- VMess- Trojan- ShadowSocks- Reality- WireGuard- V2Ray- Hysteria2- TUICv5- SSH- ShadowTLS\n\nکد منبع در https://github.com/hiddify/Hiddify-Next موجود بوده و هسته‌ی برنامه مبتنی بر منبع باز Sing-Box است.\n\nتوضیحات مجوز:\n- VPN Service: از آن‌جا که هدف این برنامه ارائه‌ی یک کلاینت ضدفیلتر ایمن، کاربر پسند و کارآمد است، ما به این مجوز نیاز داریم تا بتوانیم ترافیک را از طریق تونل به سرور راه دور هدایت کنیم.\n- QUERY ALL PACKAGES: این مجوز برای اجازه دادن به کاربران برای گنجاندن یا حذف برنامه‌های کاربردی خاص برای تونل‌زدن استفاده می‌شود.\n- RECEIVE BOOT COMPLETED: این مجوز را می‌توان از تنظیمات برنامه فعال یا غیرفعال کرد تا این برنامه پس از شروع به کار دستگاه فعال شود.\n- POST NOTIFICATIONS: این مجوز ضروری است زیرا برای اطمینان از عملکرد یکسره VPN نیاز است از یک سرویس پس زمینه استفاده کنیم. \n- این برنامه بدون تبلیغات است. تجزیه و تحلیل و داده‌های خرابی فقط با رضایت صریح کاربر در اولین استفاده از برنامه اتفاق می‌افتد.';
 			case 'connection.tapToConnect': return 'برای اتصال ضربه بزنید';
 			case 'connection.connecting': return 'در حال اتصال';
 			case 'connection.disconnecting': return 'در حال قطع اتصال';
@@ -9472,6 +10878,8 @@ extension on TranslationsFa {
 			case 'connection.experimentalNoticeMsg': return 'شما برخی از ویژگی‌های آزمایشی را فعال کرده‌اید که ممکن است بر کیفیت اتصال تأثیر گذاشته و باعث بروز خطاهای غیرمنتظره شود. شما همیشه می‌توانید این گزینه‌ها را از صفحه‌ی تنظیمات پیکربندی تغییر دهید یا بازنشانی کنید.';
 			case 'connection.disableExperimentalNotice': return 'دیگر نشان نده';
 			case 'connection.reconnectMsg': return 'در حال اتصال مجدد برای اعمال تغییرات...';
+			case 'config.useXrayCoreWhenPossible.Label': return 'استفاده از Xray-core در صورت ممکن';
+			case 'config.useXrayCoreWhenPossible.Description': return 'برای استفاده از Xray-core باید دوباره لینک ساب را وارد کنید تا این گزینه فعال شود.';
 			case 'config.resetBtn': return 'بازنشانی تنظیمات';
 			case 'config.serviceMode': return 'حالت سرویس';
 			case 'config.quickSettings': return 'تنظیمات سریع';
@@ -9522,7 +10930,7 @@ extension on TranslationsFa {
 			case 'config.localDnsPort': return 'پورت DNS داخلی';
 			case 'config.allowConnectionFromLan': return 'اشتراک VPN در شبکه داخلی';
 			case 'config.tunImplementation': return 'پیاده‌سازی TUN';
-			case 'config.mtu': return 'سایز بسته‌ها (MTU) ';
+			case 'config.mtu': return 'سایز بسته‌ (MTU) ';
 			case 'config.connectionTestUrl': return 'لینک بررسی اتصال';
 			case 'config.urlTestInterval': return 'فاصله‌ی زمانی بررسی لینک';
 			case 'config.enableClashApi': return 'فعال‌سازی Clash API';
@@ -9552,7 +10960,344 @@ extension on TranslationsFa {
 			case 'config.warpCleanIp': return 'آی‌پی تمیز';
 			case 'config.warpPort': return 'پورت';
 			case 'config.warpNoise': return 'تعداد نویز';
+			case 'config.warpNoiseSize': return 'اندازه نویز';
+			case 'config.warpNoiseMode': return 'حالت نویز';
 			case 'config.warpNoiseDelay': return 'تأخیر نویز';
+			default: return null;
+		}
+	}
+}
+
+extension on TranslationsFr {
+	dynamic _flatMapFunction(String path) {
+		switch (path) {
+			case 'general.appTitle': return 'Hiddify';
+			case 'general.reset': return 'Réinitialiser';
+			case 'general.toggle.enabled': return 'Activé';
+			case 'general.toggle.disabled': return 'Désactivé';
+			case 'general.state.disable': return 'Désactiver';
+			case 'general.sort': return 'Trier';
+			case 'general.sortBy': return 'Trier par';
+			case 'general.addToClipboard': return 'Ajouter au presse-papiers';
+			case 'general.notSet': return 'Pas encore défini';
+			case 'general.agree': return 'Accepter';
+			case 'general.decline': return 'Déclin';
+			case 'general.unknown': return 'Inconnu';
+			case 'general.hidden': return 'Caché';
+			case 'general.timeout': return 'Temps mort';
+			case 'general.clipboardExportSuccessMsg': return 'Ajouté au presse-papiers';
+			case 'general.showMore': return 'Montre plus';
+			case 'general.showLess': return 'Montrer moins';
+			case 'general.openAppSettings': return 'Ouvrir les paramètres de l\'application';
+			case 'general.grantPermission': return 'Donner la permission';
+			case 'intro.termsAndPolicyCaution': return ({required InlineSpanBuilder tap}) => TextSpan(children: [
+				const TextSpan(text: 'En continuant, vous êtes d\'accord avec '),
+				tap(' ${_root.about.termsAndConditions}'),
+			]);
+			case 'intro.start': return 'Commencer';
+			case 'home.pageTitle': return 'Maison';
+			case 'home.emptyProfilesMsg': return 'Commencez par ajouter un profil d\'abonnement';
+			case 'home.noActiveProfileMsg': return 'Choisissez un profil';
+			case 'stats.traffic': return 'Trafic';
+			case 'stats.trafficLive': return 'Trafic en direct';
+			case 'stats.trafficTotal': return 'Trafic total';
+			case 'stats.uplink': return 'Liaison montante';
+			case 'stats.downlink': return 'Liaison descendante';
+			case 'stats.connection': return 'Connexion';
+			case 'stats.speed': return 'Vitesse';
+			case 'stats.totalTransferred': return 'Total transféré';
+			case 'profile.overviewPageTitle': return 'Profils';
+			case 'profile.detailsPageTitle': return 'Profil';
+			case 'profile.activeProfileNameSemanticLabel': return ({required Object name}) => 'Nom du profil actif : "${name}".';
+			case 'profile.activeProfileBtnSemanticLabel': return 'Afficher tous les profils';
+			case 'profile.nonActiveProfileBtnSemanticLabel': return ({required Object name}) => 'Sélectionnez "${name}" comme profil actif';
+			case 'profile.subscription.traffic': return 'Trafic';
+			case 'profile.subscription.updatedTimeAgo': return ({required Object timeago}) => 'Mise à jour ${timeago}';
+			case 'profile.subscription.remainingDuration': return ({required Object duration}) => '${duration} jours restants';
+			case 'profile.subscription.remainingTrafficSemanticLabel': return ({required Object consumed, required Object total}) => '${consumed} de ${total} de trafic consommé';
+			case 'profile.subscription.expired': return 'Expiré';
+			case 'profile.subscription.noTraffic': return 'Hors quota';
+			case 'profile.subscription.upload': return 'Télécharger';
+			case 'profile.subscription.download': return 'Télécharger';
+			case 'profile.subscription.total': return 'Trafic total';
+			case 'profile.subscription.expireDate': return 'Date d\'expiration';
+			case 'profile.sortBy.lastUpdate': return 'Récemment mis à jour';
+			case 'profile.sortBy.name': return 'Alphabétiquement';
+			case 'profile.add.buttonText': return 'Nouveau profile';
+			case 'profile.add.shortBtnTxt': return 'Nouveau profile';
+			case 'profile.add.fromClipboard': return 'Ajouter à partir du presse-papiers';
+			case 'profile.add.scanQr': return 'Scanner le code QR';
+			case 'profile.add.qrScanner.permissionDeniedError': return 'Permission refusée';
+			case 'profile.add.qrScanner.unexpectedError': return 'Quelque chose s\'est mal passé';
+			case 'profile.add.qrScanner.torchSemanticLabel': return 'Lampe torche';
+			case 'profile.add.qrScanner.facingSemanticLabel': return 'Face à la caméra';
+			case 'profile.add.qrScanner.permissionRequest': return 'Autorisation de la caméra pour scanner le code QR';
+			case 'profile.add.manually': return 'Saisie manuelle';
+			case 'profile.add.addWarp': return 'Ajouter WARP';
+			case 'profile.add.addingWarpMsg': return 'Veuillez patienter pendant que nous enregistrons WARP.';
+			case 'profile.add.addingProfileMsg': return 'Ajout d\'un profil';
+			case 'profile.add.failureMsg': return 'Échec de l\'ajout du profil';
+			case 'profile.update.buttonTxt': return 'Mise à jour';
+			case 'profile.update.tooltip': return 'Mettre à jour le profil';
+			case 'profile.update.updateSubscriptions': return 'Mettre à jour les abonnements';
+			case 'profile.update.failureMsg': return 'Échec de la mise à jour du profil';
+			case 'profile.update.successMsg': return 'Mise à jour du profil réussie';
+			case 'profile.update.namedFailureMsg': return ({required Object name}) => 'Échec de la mise à jour de "${name}"';
+			case 'profile.update.namedSuccessMsg': return ({required Object name}) => '"${name}" a été mis à jour avec succès';
+			case 'profile.share.buttonText': return 'Partager';
+			case 'profile.share.exportToClipboardSuccess': return 'Exporté vers le Presse-papiers';
+			case 'profile.share.exportSubLinkToClipboard': return 'Exporter le lien d\'abonnement vers le presse-papiers';
+			case 'profile.share.subLinkQrCode': return 'Code QR du lien d\'abonnement';
+			case 'profile.share.exportConfigToClipboard': return 'Exporter la configuration vers le presse-papiers';
+			case 'profile.share.exportConfigToClipboardSuccess': return 'Configuration copiée dans le presse-papiers';
+			case 'profile.edit.buttonTxt': return 'Modifier';
+			case 'profile.edit.selectActiveTxt': return 'Sélectionnez un profil actif';
+			case 'profile.delete.buttonTxt': return 'Supprimer';
+			case 'profile.delete.confirmationMsg': return 'Supprimer le profil définitivement ?';
+			case 'profile.delete.successMsg': return 'Profil supprimé avec succès';
+			case 'profile.save.buttonText': return 'Sauvegarder';
+			case 'profile.save.successMsg': return 'Profil enregistré avec succès';
+			case 'profile.save.failureMsg': return 'Échec de l\'enregistrement du profil';
+			case 'profile.detailsForm.nameLabel': return 'Nom';
+			case 'profile.detailsForm.nameHint': return 'Nom de profil';
+			case 'profile.detailsForm.urlLabel': return 'URL';
+			case 'profile.detailsForm.urlHint': return 'URL de configuration complète';
+			case 'profile.detailsForm.emptyNameMsg': return 'Le nom est requis';
+			case 'profile.detailsForm.invalidUrlMsg': return 'URL invalide';
+			case 'profile.detailsForm.lastUpdate': return 'Dernière mise à jour';
+			case 'profile.detailsForm.updateInterval': return 'Mise à jour automatique';
+			case 'profile.detailsForm.updateIntervalDialogTitle': return 'Intervalle de mise à jour automatique (en heures)';
+			case 'proxies.pageTitle': return 'Procurations';
+			case 'proxies.emptyProxiesMsg': return 'Aucun proxy disponible';
+			case 'proxies.delayTestTooltip': return 'Délai de test';
+			case 'proxies.sortTooltip': return 'Trier les proxys';
+			case 'proxies.checkIp': return 'Vérifier l\'adresse IP';
+			case 'proxies.unknownIp': return 'IP inconnue';
+			case 'proxies.sortOptions.unsorted': return 'Défaut';
+			case 'proxies.sortOptions.name': return 'Alphabétiquement';
+			case 'proxies.sortOptions.delay': return 'Par retard';
+			case 'proxies.activeProxySemanticLabel': return 'Mandataire actif';
+			case 'proxies.delaySemantics.result': return ({required Object delay}) => 'Délai : ${delay} ms';
+			case 'proxies.delaySemantics.timeout': return 'Délai d\'expiration du test';
+			case 'proxies.delaySemantics.testing': return 'Retard : test...';
+			case 'proxies.ipInfoSemantics.address': return 'Adresse IP';
+			case 'proxies.ipInfoSemantics.country': return 'Pays';
+			case 'logs.pageTitle': return 'Journaux';
+			case 'logs.filterHint': return 'Filtre';
+			case 'logs.allLevelsFilter': return 'Tous';
+			case 'logs.shareCoreLogs': return 'Partager les journaux principaux';
+			case 'logs.shareAppLogs': return 'Partager les journaux d\'applications';
+			case 'logs.pauseTooltip': return 'Pause';
+			case 'logs.resumeTooltip': return 'CV';
+			case 'logs.clearTooltip': return 'Clair';
+			case 'settings.pageTitle': return 'Paramètres';
+			case 'settings.requiresRestartMsg': return 'Pour que cela prenne effet, redémarrez l\'application';
+			case 'settings.experimental': return 'Expérimental';
+			case 'settings.experimentalMsg': return 'Les fonctionnalités avec l\'indicateur expérimental sont encore en développement et peuvent causer des problèmes.';
+			case 'settings.exportOptions': return 'Copier les options anonymes dans le presse-papiers';
+			case 'settings.exportAllOptions': return 'Copier toutes les options dans le presse-papiers';
+			case 'settings.importOptions': return 'Options d\'importation à partir du Presse-papiers';
+			case 'settings.importOptionsMsg': return 'Cela réécrira toutes les options de configuration avec les valeurs fournies. Es-tu sûr?';
+			case 'settings.general.sectionTitle': return 'Général';
+			case 'settings.general.locale': return 'Langue';
+			case 'settings.general.region': return 'Région';
+			case 'settings.general.regionMsg': return 'Aide à définir les options par défaut pour contourner les adresses nationales';
+			case 'settings.general.regions.ir': return 'Iran (ir) 🇮🇷';
+			case 'settings.general.regions.cn': return 'Chine (cn) 🇨🇳';
+			case 'settings.general.regions.ru': return 'Russie (ru) 🇷🇺';
+			case 'settings.general.regions.af': return 'Afghanistan (af) 🇦🇫';
+			case 'settings.general.regions.id': return 'Indonésie (id) 🇮🇩';
+			case 'settings.general.regions.tr': return 'Turquie (tr) 🇹🇷';
+			case 'settings.general.regions.other': return 'Autre';
+			case 'settings.general.themeMode': return 'Mode Thème';
+			case 'settings.general.themeModes.system': return 'Suivre le thème du système';
+			case 'settings.general.themeModes.dark': return 'Mode sombre';
+			case 'settings.general.themeModes.light': return 'Mode lumière';
+			case 'settings.general.themeModes.black': return 'Mode noir';
+			case 'settings.general.enableAnalytics': return 'Activer l\'analyse';
+			case 'settings.general.enableAnalyticsMsg': return 'Autoriser la collecte d\'analyses et l\'envoi de rapports d\'erreur pour améliorer l\'application';
+			case 'settings.general.autoStart': return 'Commencez par la connexion';
+			case 'settings.general.silentStart': return 'Démarrer réduit';
+			case 'settings.general.openWorkingDir': return 'Ouvrir le répertoire de travail';
+			case 'settings.general.ignoreBatteryOptimizations': return 'Désactiver l\'optimisation de la batterie';
+			case 'settings.general.ignoreBatteryOptimizationsMsg': return 'Supprimez les restrictions pour des performances VPN optimales';
+			case 'settings.general.dynamicNotification': return 'Vitesse d\'affichage dans les notifications';
+			case 'settings.general.hapticFeedback': return 'Retour haptique';
+			case 'settings.general.autoIpCheck': return 'Vérifier automatiquement l\'adresse IP de la connexion';
+			case 'settings.advanced.sectionTitle': return 'Avancé';
+			case 'settings.advanced.debugMode': return 'Mode débogage';
+			case 'settings.advanced.debugModeMsg': return 'Redémarrez l\'application pour appliquer cette modification';
+			case 'settings.advanced.memoryLimit': return 'Limite de mémoire';
+			case 'settings.advanced.memoryLimitMsg': return 'Activer si vous rencontrez des erreurs de mémoire insuffisante ou des plantages fréquents de l\'application';
+			case 'settings.advanced.resetTunnel': return 'Réinitialiser le profil VPN';
+			case 'settings.network.perAppProxyPageTitle': return 'Proxy par application';
+			case 'settings.network.perAppProxyModes.off': return 'Tous';
+			case 'settings.network.perAppProxyModes.offMsg': return 'Proxy Toutes les applications';
+			case 'settings.network.perAppProxyModes.include': return 'Proxy';
+			case 'settings.network.perAppProxyModes.includeMsg': return 'Applications sélectionnées par proxy uniquement';
+			case 'settings.network.perAppProxyModes.exclude': return 'Contourne';
+			case 'settings.network.perAppProxyModes.excludeMsg': return 'Ne pas proxyer les applications sélectionnées';
+			case 'settings.network.showSystemApps': return 'Afficher les applications système';
+			case 'settings.network.hideSystemApps': return 'Masquer les applications système';
+			case 'settings.network.clearSelection': return 'Effacer la sélection';
+			case 'settings.geoAssets.pageTitle': return 'Actifs de routage';
+			case 'settings.geoAssets.geoip': return 'GéoIP';
+			case 'settings.geoAssets.geosite': return 'GéoSite';
+			case 'settings.geoAssets.version': return ({required Object version}) => 'Version ${version}';
+			case 'settings.geoAssets.fileMissing': return 'Dossier manquant';
+			case 'settings.geoAssets.update': return 'Mise à jour';
+			case 'settings.geoAssets.download': return 'Télécharger';
+			case 'settings.geoAssets.failureMsg': return 'Échec de la mise à jour de l\'actif';
+			case 'settings.geoAssets.successMsg': return 'Actif mis à jour avec succès';
+			case 'settings.geoAssets.addRecommended': return 'Ajouter des actifs recommandés';
+			case 'settings.geoAssets.missingGeoAssetsMsg': return 'Les fichiers des ressources de routage sélectionnées sont manquants. Téléchargez-les ou choisissez ceux existants';
+			case 'about.pageTitle': return 'À propos';
+			case 'about.version': return 'Version';
+			case 'about.sourceCode': return 'Code source';
+			case 'about.telegramChannel': return 'Chaîne de Telegram';
+			case 'about.checkForUpdate': return 'Rechercher une mise à jour';
+			case 'about.privacyPolicy': return 'politique de confidentialité';
+			case 'about.termsAndConditions': return 'Termes et conditions';
+			case 'appUpdate.notAvailableMsg': return 'Vous utilisez déjà la dernière version';
+			case 'appUpdate.dialogTitle': return 'Mise à jour disponible';
+			case 'appUpdate.updateMsg': return 'Une nouvelle version de ${_root.general.appTitle} est disponible. Souhaitez-vous mettre à jour maintenant ?';
+			case 'appUpdate.currentVersionLbl': return 'Version actuelle';
+			case 'appUpdate.newVersionLbl': return 'Nouvelle version';
+			case 'appUpdate.updateNowBtnTxt': return 'Mettez à jour maintenant';
+			case 'appUpdate.laterBtnTxt': return 'Plus tard';
+			case 'appUpdate.ignoreBtnTxt': return 'Ignorer';
+			case 'tray.dashboard': return 'Tableau de bord';
+			case 'tray.quit': return 'Quitter';
+			case 'tray.open': return 'Ouvrir';
+			case 'tray.status.connect': return 'Connecter';
+			case 'tray.status.connecting': return 'De liaison';
+			case 'tray.status.disconnect': return 'Déconnecter';
+			case 'tray.status.disconnecting': return 'Déconnexion';
+			case 'failure.unexpected': return 'Erreur inattendue';
+			case 'failure.clash.unexpected': return 'Erreur inattendue';
+			case 'failure.clash.core': return ({required Object reason}) => 'Erreur de conflit ${reason}';
+			case 'failure.singbox.unexpected': return 'Erreur de service inattendue';
+			case 'failure.singbox.serviceNotRunning': return 'Le service ne fonctionne pas';
+			case 'failure.singbox.missingPrivilege': return 'Privilège manquant';
+			case 'failure.singbox.missingPrivilegeMsg': return 'Le mode VPN nécessite des privilèges d\'administrateur. Soit relancez l\'application en tant qu\'administrateur, soit changez de mode de service.';
+			case 'failure.singbox.missingGeoAssets': return 'Actifs géographiques manquants';
+			case 'failure.singbox.missingGeoAssetsMsg': return 'Les ressources géographiques sont manquantes. Pensez à modifier l\'actif actif ou à télécharger celui sélectionné dans les paramètres.';
+			case 'failure.singbox.invalidConfigOptions': return 'Options de configuration invalides';
+			case 'failure.singbox.invalidConfig': return 'Configuration invalide';
+			case 'failure.singbox.create': return 'Erreur de création de service';
+			case 'failure.singbox.start': return 'Erreur de démarrage du service';
+			case 'failure.connectivity.unexpected': return 'Échec inattendu';
+			case 'failure.connectivity.missingVpnPermission': return 'Autorisation VPN manquante';
+			case 'failure.connectivity.missingNotificationPermission': return 'Autorisation de notification manquante';
+			case 'failure.connectivity.core': return 'Erreur principale';
+			case 'failure.profiles.unexpected': return 'Erreur inattendue';
+			case 'failure.profiles.notFound': return 'Profil non trouvé';
+			case 'failure.profiles.invalidConfig': return 'Configurations invalides';
+			case 'failure.profiles.invalidUrl': return 'URL invalide';
+			case 'failure.connection.unexpected': return 'Erreur de connexion inattendue';
+			case 'failure.connection.timeout': return 'Délai de connection dépassé';
+			case 'failure.connection.badResponse': return 'Mauvaise réponse';
+			case 'failure.connection.connectionError': return 'Erreur de connexion';
+			case 'failure.connection.badCertificate': return 'Mauvais certificat';
+			case 'failure.geoAssets.unexpected': return 'Erreur inattendue';
+			case 'failure.geoAssets.notUpdate': return 'Pas de mise a jour disponible';
+			case 'failure.geoAssets.activeNotFound': return 'Actif géographique actif introuvable';
+			case 'play.title': return 'Hiddify (aperçu)';
+			case 'play.short_description': return 'Auto, SSH, VLESS, VMess, cheval de Troie, Reality, Sing-Box, Clash, XRay, Shadowsocks';
+			case 'play.full_description': return 'L\'objectif principal de Hiddify est de fournir un client de tunneling sécurisé, convivial et efficace. Il vous permet d\'acheminer tout le trafic ou le trafic d\'applications sélectionnées vers un serveur distant de votre choix, en utilisant l\'autorisation du service VPN.<inlang-LineFeed>\nRemarque : Nous ne fournissons aucun serveur ; les utilisateurs sont tenus de garantir que leurs activités en ligne restent privées en utilisant leur propre serveur auto-hébergé ou des serveurs de confiance.<inlang-LineFeed>\nNous prenons en charge les serveurs avec :\n- Lien d\'abonnement normal V2Ray/XRay\n- Lien d\'abonnement Clash\n- Lien d\'abonnement à Sing-Box<inlang-LineFeed>\nQuelles sont nos caractéristiques uniques ?\n- Convivial\n- Optimisé et rapide\n- Sélectionnez automatiquement le plus bas Ping\n- Afficher les informations d\'utilisation de l\'utilisateur\n- Importez facilement des sous-liens en un seul clic grâce au deeplinking\n- Gratuit et sans publicité\n- Changez facilement de sous-liens utilisateur\n- De plus en plus<inlang-LineFeed>\nSoutien:\n- Tous les protocoles pris en charge par Sing-Box\n- VLESS + XTLS Réalité, Vision\n-VMess\n- Cheval de Troie\n- Chaussettes Shadow\n- Réalité\n- WireGuard\n-V2Ray\n- Hystérie2\n-TUICv5\n-SSH\n-OmbreTLS<inlang-LineFeed><inlang-LineFeed>\nLe code source existe sur https://github.com/hiddify/Hiddify-Next\nLe cœur de l\'application est basé sur Sing-Box open source.<inlang-LineFeed>\nDescription de l\'autorisation :\n- Service VPN : L\'objectif de cette application étant de fournir un client de tunneling sécurisé, convivial et efficace, nous avons besoin de cette autorisation pour pouvoir acheminer le trafic via un tunnel vers le serveur distant.\n- REQUÊTER TOUS LES PAQUETS : cette autorisation est utilisée pour permettre aux utilisateurs d\'inclure ou d\'exclure des applications spécifiques pour le tunneling.\n- RECEVOIR LE BOOT TERMINÉ : Cette autorisation peut être activée ou désactivée à partir des paramètres de l\'application pour activer cette application au démarrage de l\'appareil.\n- POST NOTIFICATIONS : Cette autorisation est essentielle car nous utilisons un service de premier plan pour assurer le fonctionnement continu du service VPN.\n- Cette application est exempte de publicités. Les données d\'analyse et de crash n\'ont lieu qu\'avec le consentement explicite de l\'utilisateur lors de la première utilisation de l\'application.';
+			case 'connection.tapToConnect': return 'Appuyez pour vous connecter';
+			case 'connection.connecting': return 'De liaison';
+			case 'connection.disconnecting': return 'Déconnexion';
+			case 'connection.connected': return 'Connecté';
+			case 'connection.reconnect': return 'Reconnecter';
+			case 'connection.connectAnyWay': return 'Connecter';
+			case 'connection.experimentalNotice': return 'Fonctionnalités expérimentales utilisées';
+			case 'connection.experimentalNoticeMsg': return 'Vous avez activé certaines fonctionnalités expérimentales qui peuvent affecter la qualité de la connexion et provoquer des erreurs inattendues. Vous pouvez toujours modifier ou réinitialiser ces options à partir de la page des options de configuration.';
+			case 'connection.disableExperimentalNotice': return 'Ne plus montrer';
+			case 'connection.reconnectMsg': return 'Se reconnecter pour prendre en compte les changements...';
+			case 'config.resetBtn': return 'Options de réinitialisation';
+			case 'config.serviceMode': return 'Mode de service';
+			case 'config.quickSettings': return 'Réglages rapides';
+			case 'config.setupWarp': return 'Configuration de WARP';
+			case 'config.allOptions': return 'Toutes les options de configuration';
+			case 'config.serviceModes.proxy': return 'Service proxy uniquement';
+			case 'config.serviceModes.systemProxy': return 'Définir le proxy système';
+			case 'config.serviceModes.tun': return 'VPN';
+			case 'config.serviceModes.tunService': return 'Service VPN';
+			case 'config.shortServiceModes.proxy': return 'Proxy';
+			case 'config.shortServiceModes.systemProxy': return 'Proxy système';
+			case 'config.shortServiceModes.tun': return 'VPN';
+			case 'config.shortServiceModes.tunService': return 'Service VPN';
+			case 'config.section.route': return 'Options d\'itinéraire';
+			case 'config.section.dns': return 'Options DNS';
+			case 'config.section.inbound': return 'Options entrantes';
+			case 'config.section.mux': return 'MultiPlexeur';
+			case 'config.section.outbound': return 'Options sortantes';
+			case 'config.section.tlsTricks': return 'Astuces TLS';
+			case 'config.section.warp': return 'Options de WARP ';
+			case 'config.section.misc': return 'Diverses options';
+			case 'config.warpConsent.title': return 'Consentement du Cloudflare WARP';
+			case 'config.warpConsent.description': return ({required InlineSpanBuilder tos, required InlineSpanBuilder privacy}) => TextSpan(children: [
+				const TextSpan(text: 'Cloudflare WARP est un fournisseur VPN WireGuard gratuit. En activant cette option, vous acceptez les '),
+				tos('Terms of Service'),
+				const TextSpan(text: ' et '),
+				privacy('Privacy Policy'),
+				const TextSpan(text: ' de Cloudflare WARP.'),
+			]);
+			case 'config.generateWarpConfig': return 'Générer une configuration WARP';
+			case 'config.missingWarpConfig': return 'Configuration WARP manquante';
+			case 'config.warpConfigGenerated': return 'La configuration WARP est générée';
+			case 'config.pageTitle': return 'Options de configuration';
+			case 'config.logLevel': return 'Niveau de journalisation';
+			case 'config.blockAds': return 'Bloquer les publicités';
+			case 'config.resolveDestination': return 'Résoudre la destination';
+			case 'config.ipv6Mode': return 'Itinéraire IPv6';
+			case 'config.ipv6Modes.disable': return 'Désactiver';
+			case 'config.ipv6Modes.enable': return 'Activer';
+			case 'config.ipv6Modes.prefer': return 'Préféré';
+			case 'config.ipv6Modes.only': return 'Exclusif';
+			case 'config.remoteDnsAddress': return 'DNS distant';
+			case 'config.remoteDnsDomainStrategy': return 'Stratégie de domaine DNS distant';
+			case 'config.directDnsAddress': return 'DNS direct';
+			case 'config.directDnsDomainStrategy': return 'Stratégie de domaine DNS direct';
+			case 'config.mixedPort': return 'Port mixte';
+			case 'config.tproxyPort': return 'Port proxy transparent';
+			case 'config.localDnsPort': return 'Port DNS local';
+			case 'config.allowConnectionFromLan': return 'Partager un VPN sur un réseau local';
+			case 'config.tunImplementation': return 'Implémentation du TUN';
+			case 'config.mtu': return 'Taille du paquet (MTU)';
+			case 'config.connectionTestUrl': return 'URL de test de connexion';
+			case 'config.urlTestInterval': return 'Intervalle de test d\'URL';
+			case 'config.enableClashApi': return 'Activer l\'API Clash';
+			case 'config.clashApiPort': return 'Port API de conflit';
+			case 'config.enableTun': return 'Activer TUN';
+			case 'config.setSystemProxy': return 'Définir le proxy système';
+			case 'config.enableDnsRouting': return 'Activer le routage DNS';
+			case 'config.enableFakeDns': return 'Activer le faux DNS';
+			case 'config.bypassLan': return 'Contourner le réseau local';
+			case 'config.strictRoute': return 'Itinéraire strict';
+			case 'config.enableTlsFragment': return 'Activer le fragment TLS';
+			case 'config.tlsFragmentSize': return 'Taille des fragments TLS';
+			case 'config.tlsFragmentSleep': return 'Veille des fragments TLS';
+			case 'config.enableTlsMixedSniCase': return 'Activer le cas TLS Mixed SNI';
+			case 'config.enableTlsPadding': return 'Activer TLS Padding';
+			case 'config.tlsPaddingSize': return 'TLS Padding';
+			case 'config.enableMux': return 'Activer MUX';
+			case 'config.muxProtocol': return 'Protocole MUX';
+			case 'config.muxMaxStreams': return 'Flux simultanés maximum';
+			case 'config.enableWarp': return 'Activer WARP';
+			case 'config.warpDetourMode': return 'Mode détour';
+			case 'config.warpDetourModes.proxyOverWarp': return 'Proxy de détour via WARP';
+			case 'config.warpDetourModes.warpOverProxy': return 'Détour WARP via des proxys';
+			case 'config.warpDetourModes.inbound': return 'Détour WARP via des proxys';
+			case 'config.warpDetourModes.outbound': return 'Proxy de détour via WARP';
+			case 'config.warpLicenseKey': return 'Clé de licence';
+			case 'config.warpCleanIp': return 'IP propre';
+			case 'config.warpPort': return 'Port';
+			case 'config.warpNoise': return 'Nombre de bruit';
+			case 'config.warpNoiseSize': return 'Taille du bruit';
+			case 'config.warpNoiseMode': return 'Mode bruit';
+			case 'config.warpNoiseDelay': return 'Retard de bruit';
 			default: return null;
 		}
 	}
@@ -9561,7 +11306,7 @@ extension on TranslationsFa {
 extension on TranslationsId {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'Hiddify';
 			case 'general.reset': return 'Set Ulang';
 			case 'general.toggle.enabled': return 'Mengaktifkan';
 			case 'general.toggle.disabled': return 'Menonaktifkan';
@@ -9575,6 +11320,11 @@ extension on TranslationsId {
 			case 'general.unknown': return 'Tidak Dikenal';
 			case 'general.hidden': return 'Tersembunyi';
 			case 'general.timeout': return 'Waktu habis';
+			case 'general.clipboardExportSuccessMsg': return 'Ditambahkan ke Papan Klip';
+			case 'general.showMore': return 'Menampilkan lebih banyak';
+			case 'general.showLess': return 'Tampilkan Lebih Sedikit';
+			case 'general.openAppSettings': return 'Buka Pengaturan Aplikasi';
+			case 'general.grantPermission': return 'Memberikan ijin';
 			case 'intro.termsAndPolicyCaution': return ({required InlineSpanBuilder tap}) => TextSpan(children: [
 				const TextSpan(text: 'lanjut berarti setuju dengan '),
 				tap(_root.about.termsAndConditions),
@@ -9584,10 +11334,13 @@ extension on TranslationsId {
 			case 'home.emptyProfilesMsg': return 'Mulai menambahkan langganan profil';
 			case 'home.noActiveProfileMsg': return 'Pilih profil';
 			case 'stats.traffic': return 'Trafik Langsung';
+			case 'stats.trafficLive': return 'Lalu Lintas Langsung';
 			case 'stats.trafficTotal': return 'Total Trafik';
 			case 'stats.uplink': return 'Uplink';
 			case 'stats.downlink': return 'Downlink';
 			case 'stats.connection': return 'Sambungan';
+			case 'stats.speed': return 'Kecepatan';
+			case 'stats.totalTransferred': return 'Jumlah yang Ditransfer';
 			case 'profile.overviewPageTitle': return 'Beberapa Profil';
 			case 'profile.detailsPageTitle': return 'Profil';
 			case 'profile.activeProfileNameSemanticLabel': return ({required Object name}) => 'Nama profil aktif: "${name}".';
@@ -9599,6 +11352,10 @@ extension on TranslationsId {
 			case 'profile.subscription.remainingTrafficSemanticLabel': return ({required Object consumed, required Object total}) => '${consumed}/${total} trafik terpakai';
 			case 'profile.subscription.expired': return 'Kadaluarsa';
 			case 'profile.subscription.noTraffic': return 'Kuota Habis';
+			case 'profile.subscription.upload': return 'Mengunggah';
+			case 'profile.subscription.download': return 'Unduh';
+			case 'profile.subscription.total': return 'Jumlah Lalu Lintas';
+			case 'profile.subscription.expireDate': return 'Tanggal kadaluarsa';
 			case 'profile.sortBy.lastUpdate': return 'Baru diperbaharui';
 			case 'profile.sortBy.name': return 'Alphabetikal';
 			case 'profile.add.buttonText': return 'Profil Baru';
@@ -9609,7 +11366,10 @@ extension on TranslationsId {
 			case 'profile.add.qrScanner.unexpectedError': return 'Terjadi masalah';
 			case 'profile.add.qrScanner.torchSemanticLabel': return 'Lampu Flash';
 			case 'profile.add.qrScanner.facingSemanticLabel': return 'Hadap Kamera';
+			case 'profile.add.qrScanner.permissionRequest': return 'Izin ke kamera untuk memindai Kode QR';
 			case 'profile.add.manually': return 'Isian Manual';
+			case 'profile.add.addWarp': return 'Tambahkan WARP';
+			case 'profile.add.addingWarpMsg': return 'Mohon tunggu selagi kami mendaftarkan WARP.';
 			case 'profile.add.addingProfileMsg': return 'Tambahkan Profil';
 			case 'profile.add.failureMsg': return 'Gagal tambahkan profil';
 			case 'profile.update.buttonTxt': return 'Perbarui';
@@ -9646,9 +11406,17 @@ extension on TranslationsId {
 			case 'proxies.emptyProxiesMsg': return 'Tidak ada proxy';
 			case 'proxies.delayTestTooltip': return 'Test delay';
 			case 'proxies.sortTooltip': return 'Urut Proxy';
+			case 'proxies.checkIp': return 'Periksa IP';
+			case 'proxies.unknownIp': return 'IP tidak dikenal';
 			case 'proxies.sortOptions.unsorted': return 'Awal';
 			case 'proxies.sortOptions.name': return 'Alfabetikal';
 			case 'proxies.sortOptions.delay': return 'Berdasarkan Delay';
+			case 'proxies.activeProxySemanticLabel': return 'Proksi Aktif';
+			case 'proxies.delaySemantics.result': return ({required Object delay}) => 'Penundaan: ${delay}ms';
+			case 'proxies.delaySemantics.timeout': return 'Batas Waktu Uji Tunda';
+			case 'proxies.delaySemantics.testing': return 'Penundaan: Menguji...';
+			case 'proxies.ipInfoSemantics.address': return 'Alamat IP';
+			case 'proxies.ipInfoSemantics.country': return 'Negara';
 			case 'logs.pageTitle': return 'Log';
 			case 'logs.filterHint': return 'Filter';
 			case 'logs.allLevelsFilter': return 'Semua';
@@ -9661,6 +11429,10 @@ extension on TranslationsId {
 			case 'settings.requiresRestartMsg': return 'Untuk mencoba restart aplikasi';
 			case 'settings.experimental': return 'Eksperimen';
 			case 'settings.experimentalMsg': return 'Fitur dengan tanda Eksperimen masih dalam pengembangan dan resiko bermasalah.';
+			case 'settings.exportOptions': return 'Salin Opsi Anonim ke Papan Klip';
+			case 'settings.exportAllOptions': return 'Salin Semua Opsi ke Clipboard';
+			case 'settings.importOptions': return 'Impor Opsi Dari Clipboard';
+			case 'settings.importOptionsMsg': return 'Ini akan menulis ulang semua opsi konfigurasi dengan nilai yang diberikan. Apa kamu yakin?';
 			case 'settings.general.sectionTitle': return 'Umum';
 			case 'settings.general.locale': return 'Bahasa';
 			case 'settings.general.region': return 'Region';
@@ -9669,6 +11441,8 @@ extension on TranslationsId {
 			case 'settings.general.regions.cn': return 'Çin (cn)';
 			case 'settings.general.regions.ru': return 'Russia (ru)';
 			case 'settings.general.regions.af': return 'Afghanistan (af)';
+			case 'settings.general.regions.id': return 'Indonesia (id)';
+			case 'settings.general.regions.tr': return 'Turki (tr) 🇹🇷';
 			case 'settings.general.regions.other': return 'Lainnya';
 			case 'settings.general.themeMode': return 'Jenis Tema';
 			case 'settings.general.themeModes.system': return 'Ikut Tema Sistem';
@@ -9683,6 +11457,8 @@ extension on TranslationsId {
 			case 'settings.general.ignoreBatteryOptimizations': return 'Menonaktifkan Optimisasi Baterai';
 			case 'settings.general.ignoreBatteryOptimizationsMsg': return 'Hapus batasan untuk performa VPN yang optimal';
 			case 'settings.general.dynamicNotification': return 'Tampilkan Kecepatan di notifikasi';
+			case 'settings.general.hapticFeedback': return 'Umpan Balik Haptik';
+			case 'settings.general.autoIpCheck': return 'Secara Otomatis Memeriksa IP Koneksi';
 			case 'settings.advanced.sectionTitle': return 'Mode Lanjut';
 			case 'settings.advanced.debugMode': return 'Mode Debug';
 			case 'settings.advanced.debugModeMsg': return 'Restart aplikasi untuk menerapkan perubahan';
@@ -9761,21 +11537,32 @@ extension on TranslationsId {
 			case 'failure.geoAssets.unexpected': return 'Error Tidak Terduga';
 			case 'failure.geoAssets.notUpdate': return 'Perbaruan tidak tersedia';
 			case 'failure.geoAssets.activeNotFound': return 'Geo Aset Aktif tidak ditemukan';
-			case 'play.title': return 'HologatePlus (Preview)';
+			case 'play.title': return 'Hiddify (Preview)';
 			case 'play.short_description': return 'Otomatik, SSH, VLESS, Vmess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
-			case 'play.full_description': return 'Tujuan utama HologatePlus adalah memberikan keamanan, user-friendly dan client tunnel yg efisien. HologatePlus mengizinkanmu untuk mengarahkan semua atau beberapa trafik data aplikasi terpilih ke server remot pilihanmu, memanfaatkan izin VPN-Service.\n\nNote: Kami tidak menyediakan server apapun; pengguna diwajibkan untuk memastikan aktivitas online mereka tetap private dengan menggunakan self-hosted server atau server yg dipercaya pilihan mereka sendiri. \n \nKami mendukung server dengan:\n- Normal V2ray/Xray Subscription Link\n- Clash Subscription Link\n- Sing-Box Subscription Link\n\nApa fitur unik kami?\n - User Friendly\n - Cepat dan teroptimasi\n - Otomatis pilihan PING terendah \n - Menampilkan informasi penggunaan user\n - Dengan mudah import sublink dengan satu klik menggunakan deeplinking \n - Bebas dan tanpa iklan\n - Dengan mudah berganti user sublink\n - dan sebagainya\n\nSupport:\n- Semua protokol di dukung oleh Sing-Box \n- VLESS + xtls reality, vision\n- VMESS\n- Trojan\n- ShadowSocks\n- Reality\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\n\nCode Sumber ada di https://github.com/HologatePlus/HologatePlus-Next\nInti Aplikasi didasarkan pada Sing-Box Open Source.\n\nDeskripsi Izin:\n- VPN Servis: Tujuan aplikasi ini menyediakan keamanan, user-friendly dan tunneling client efisien, kami membutuhkan izin untuk bisa mengarahkan traffic data melalui kanal remot server. \n- QUERY ALL PACKAGES: izin ini digunakan untuk memperbolehkan pengguna masuk atau mengeluarkan aplikasi tertentu untuk tunneling.\n- RECEIVE BOOT COMPLETED: izin ini dapat diaktifkan atau dinonaktifkan dari setting aplikasi untuk mengaktikan aplikasi ini saat boot device.\n- POST NOTIFICATIONS: izin ini penting karena kami menggunakan foreground service untuk memastikan operasi berkelanjutan dari VPN Servis.\n- Aplikasi ini bebas dari iklan. Analitik dan data crash hanya terjadi dengan persetujuan eksplisit dari pengguna pada saat penggunaan pertama kali';
+			case 'play.full_description': return 'Tujuan utama Hiddify adalah memberikan keamanan, user-friendly dan client tunnel yg efisien. Hiddify mengizinkanmu untuk mengarahkan semua atau beberapa trafik data aplikasi terpilih ke server remot pilihanmu, memanfaatkan izin VPN-Service.\n\nNote: Kami tidak menyediakan server apapun; pengguna diwajibkan untuk memastikan aktivitas online mereka tetap private dengan menggunakan self-hosted server atau server yg dipercaya pilihan mereka sendiri. \n \nKami mendukung server dengan:\n- Normal V2ray/Xray Subscription Link\n- Clash Subscription Link\n- Sing-Box Subscription Link\n\nApa fitur unik kami?\n - User Friendly\n - Cepat dan teroptimasi\n - Otomatis pilihan PING terendah \n - Menampilkan informasi penggunaan user\n - Dengan mudah import sublink dengan satu klik menggunakan deeplinking \n - Bebas dan tanpa iklan\n - Dengan mudah berganti user sublink\n - dan sebagainya\n\nSupport:\n- Semua protokol di dukung oleh Sing-Box \n- VLESS + xtls reality, vision\n- VMESS\n- Trojan\n- ShadowSocks\n- Reality\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\n\nCode Sumber ada di https://github.com/hiddify/Hiddify-Next\nInti Aplikasi didasarkan pada Sing-Box Open Source.\n\nDeskripsi Izin:\n- VPN Servis: Tujuan aplikasi ini menyediakan keamanan, user-friendly dan tunneling client efisien, kami membutuhkan izin untuk bisa mengarahkan traffic data melalui kanal remot server. \n- QUERY ALL PACKAGES: izin ini digunakan untuk memperbolehkan pengguna masuk atau mengeluarkan aplikasi tertentu untuk tunneling.\n- RECEIVE BOOT COMPLETED: izin ini dapat diaktifkan atau dinonaktifkan dari setting aplikasi untuk mengaktikan aplikasi ini saat boot device.\n- POST NOTIFICATIONS: izin ini penting karena kami menggunakan foreground service untuk memastikan operasi berkelanjutan dari VPN Servis.\n- Aplikasi ini bebas dari iklan. Analitik dan data crash hanya terjadi dengan persetujuan eksplisit dari pengguna pada saat penggunaan pertama kali';
 			case 'connection.tapToConnect': return 'Ketuk untuk Sambung';
 			case 'connection.connecting': return 'Sambungkan';
 			case 'connection.disconnecting': return 'Putus Sambungan';
 			case 'connection.connected': return 'Tersambung';
+			case 'connection.reconnect': return 'Hubungkan kembali';
+			case 'connection.connectAnyWay': return 'Menghubung';
 			case 'connection.experimentalNotice': return 'Fitur Experimental digunakan';
 			case 'connection.experimentalNoticeMsg': return 'Kamu telah mengaktifkan fitur experimental yang mungkin mempengaruhi kualitas sambungan dan error tidak terduga. Kamu tetap bisa merubah atau set ulang opsi dari Halaman Konfigurasi';
 			case 'connection.disableExperimentalNotice': return 'Jangan tampil lagi';
+			case 'connection.reconnectMsg': return 'Menghubungkan kembali untuk memperhitungkan perubahan...';
 			case 'config.resetBtn': return 'Set Ulang Opsi';
 			case 'config.serviceMode': return 'Sambung ulang agar perubahan diterapkan';
+			case 'config.quickSettings': return 'Pengaturan Cepat';
+			case 'config.setupWarp': return 'Siapkan WARP';
+			case 'config.allOptions': return 'Semua Opsi Konfigurasi';
 			case 'config.serviceModes.proxy': return 'Proxy';
 			case 'config.serviceModes.systemProxy': return 'Sistem Proxy';
 			case 'config.serviceModes.tun': return 'VPN';
+			case 'config.serviceModes.tunService': return 'Layanan VPN';
+			case 'config.shortServiceModes.proxy': return 'Proksi';
+			case 'config.shortServiceModes.systemProxy': return 'Proksi Sistem';
+			case 'config.shortServiceModes.tun': return 'VPN';
+			case 'config.shortServiceModes.tunService': return 'Layanan VPN';
 			case 'config.section.route': return 'Opsi Route';
 			case 'config.section.dns': return 'Opsi DNS';
 			case 'config.section.inbound': return 'Opsi Inbound';
@@ -9792,8 +11579,12 @@ extension on TranslationsId {
 				privacy('Privacy Policy'),
 				const TextSpan(text: '.'),
 			]);
+			case 'config.generateWarpConfig': return 'Hasilkan Konfigurasi WARP';
+			case 'config.missingWarpConfig': return 'Konfigurasi WARP tidak ada';
+			case 'config.warpConfigGenerated': return 'Konfigurasi WARP Dibuat';
 			case 'config.pageTitle': return 'Opsi Konfig';
 			case 'config.logLevel': return 'Log Level';
+			case 'config.blockAds': return 'Blokir Iklan';
 			case 'config.resolveDestination': return 'Resolve Destination';
 			case 'config.ipv6Mode': return 'IPv6 Route';
 			case 'config.ipv6Modes.disable': return 'Nonaktifkan';
@@ -9805,10 +11596,11 @@ extension on TranslationsId {
 			case 'config.directDnsAddress': return 'Direct DNS';
 			case 'config.directDnsDomainStrategy': return 'Direct DNS Domain Strategy';
 			case 'config.mixedPort': return 'Mixed Port';
+			case 'config.tproxyPort': return 'Port Proksi Transparan';
 			case 'config.localDnsPort': return 'DNS Port Lokal';
 			case 'config.allowConnectionFromLan': return 'Perbolehkan Sambungan LAN';
 			case 'config.tunImplementation': return 'Implementasi TUN';
-			case 'config.mtu': return 'MTU';
+			case 'config.mtu': return 'Ukuran Paket (MTU)';
 			case 'config.connectionTestUrl': return 'URL Tes Sambungan';
 			case 'config.urlTestInterval': return 'URL Test Interval';
 			case 'config.enableClashApi': return 'Aktifkan Clash API';
@@ -9830,12 +11622,17 @@ extension on TranslationsId {
 			case 'config.muxMaxStreams': return 'Max Concurrent Streams';
 			case 'config.enableWarp': return 'Enable WARP';
 			case 'config.warpDetourMode': return 'Detour Mode';
+			case 'config.warpDetourModes.proxyOverWarp': return 'Memutar Proxy Melalui WARP';
+			case 'config.warpDetourModes.warpOverProxy': return 'Jalan memutar WARP Melalui Proxy';
 			case 'config.warpDetourModes.inbound': return 'Detour WARP through proxies';
 			case 'config.warpDetourModes.outbound': return 'Detour proxies through WARP';
 			case 'config.warpLicenseKey': return 'License Key';
 			case 'config.warpCleanIp': return 'Clean IP';
 			case 'config.warpPort': return 'Port';
 			case 'config.warpNoise': return 'Noise';
+			case 'config.warpNoiseSize': return 'Ukuran Kebisingan';
+			case 'config.warpNoiseMode': return 'Modus Kebisingan';
+			case 'config.warpNoiseDelay': return 'Penundaan Kebisingan';
 			default: return null;
 		}
 	}
@@ -9844,7 +11641,7 @@ extension on TranslationsId {
 extension on TranslationsPtBr {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'Hiddify';
 			case 'general.reset': return 'Restaurar';
 			case 'general.toggle.enabled': return 'Habilitado';
 			case 'general.toggle.disabled': return 'Desabilitado';
@@ -9858,8 +11655,10 @@ extension on TranslationsPtBr {
 			case 'general.unknown': return 'Desconhecido';
 			case 'general.hidden': return 'Escondido';
 			case 'general.timeout': return 'Tempo Esgotado';
+			case 'general.clipboardExportSuccessMsg': return 'Adicionado à área de transferência';
 			case 'general.showMore': return 'Mostre mais';
 			case 'general.showLess': return 'Mostre menos';
+			case 'general.openAppSettings': return 'Abra as configurações do aplicativo';
 			case 'general.grantPermission': return 'Conceder permissão';
 			case 'intro.termsAndPolicyCaution': return ({required InlineSpanBuilder tap}) => TextSpan(children: [
 				const TextSpan(text: 'ao continuar você concorda com '),
@@ -9869,6 +11668,7 @@ extension on TranslationsPtBr {
 			case 'home.pageTitle': return 'Inicio';
 			case 'home.emptyProfilesMsg': return 'Comece adicionando um perfil de assinatura';
 			case 'home.noActiveProfileMsg': return 'Escolha um perfil';
+			case 'stats.traffic': return 'Tráfego';
 			case 'stats.trafficLive': return 'Tráfego ao vivo';
 			case 'stats.trafficTotal': return 'Tráfego total';
 			case 'stats.uplink': return 'Ligação ascendente';
@@ -9901,7 +11701,10 @@ extension on TranslationsPtBr {
 			case 'profile.add.qrScanner.unexpectedError': return 'Algo deu errado';
 			case 'profile.add.qrScanner.torchSemanticLabel': return 'Luz do flash';
 			case 'profile.add.qrScanner.facingSemanticLabel': return 'Câmera voltada';
+			case 'profile.add.qrScanner.permissionRequest': return 'Permissão para a câmera digitalizar o QR Code';
 			case 'profile.add.manually': return 'Entrada manual';
+			case 'profile.add.addWarp': return 'Adicionar WARP';
+			case 'profile.add.addingWarpMsg': return 'Aguarde enquanto registramos o WARP.';
 			case 'profile.add.addingProfileMsg': return 'Adicionando Perfil';
 			case 'profile.add.failureMsg': return 'Falha ao adicionar perfil';
 			case 'profile.update.buttonTxt': return 'Atualizar';
@@ -9961,6 +11764,10 @@ extension on TranslationsPtBr {
 			case 'settings.requiresRestartMsg': return 'Para que isso tenha efeito, reinicie o aplicativo';
 			case 'settings.experimental': return 'Experimental';
 			case 'settings.experimentalMsg': return 'Os recursos com sinalização Experimental ainda estão em desenvolvimento e podem causar problemas.';
+			case 'settings.exportOptions': return 'Copiar opções anônimas para a área de transferência';
+			case 'settings.exportAllOptions': return 'Copiar todas as opções para a área de transferência';
+			case 'settings.importOptions': return 'Opções de importação da área de transferência';
+			case 'settings.importOptionsMsg': return 'Isto irá reescrever todas as opções de configuração com os valores fornecidos. Tem certeza?';
 			case 'settings.general.sectionTitle': return 'Geral';
 			case 'settings.general.locale': return 'Linguagem';
 			case 'settings.general.region': return 'Região';
@@ -9969,6 +11776,8 @@ extension on TranslationsPtBr {
 			case 'settings.general.regions.cn': return 'China (cn)';
 			case 'settings.general.regions.ru': return 'Rússia (ru)';
 			case 'settings.general.regions.af': return 'Afeganistão (af)';
+			case 'settings.general.regions.id': return 'Indonesia (id)';
+			case 'settings.general.regions.tr': return 'Turquia (tr) 🇹🇷';
 			case 'settings.general.regions.other': return 'Outro';
 			case 'settings.general.themeMode': return 'Modo de Tema';
 			case 'settings.general.themeModes.system': return 'Seguir o tema do sistema';
@@ -10063,21 +11872,32 @@ extension on TranslationsPtBr {
 			case 'failure.geoAssets.unexpected': return 'Erro inesperado';
 			case 'failure.geoAssets.notUpdate': return 'Nenhuma atualização disponível';
 			case 'failure.geoAssets.activeNotFound': return 'Recurso geográfico ativo não encontrado';
-			case 'play.title': return 'HologatePlus (Pré-visualização)';
+			case 'play.title': return 'Hiddify (Pré-visualização)';
 			case 'play.short_description': return 'Auto, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, XRay, Shadowsocks';
+			case 'play.full_description': return 'O principal objetivo do Hiddify é fornecer um cliente de tunelamento seguro, fácil de usar e eficiente. Ele permite que você direcione todo o tráfego ou tráfego de aplicativo selecionado para um servidor remoto de sua escolha, utilizando a permissão do serviço VPN.<inlang-LineFeed>\nNota: Não fornecemos nenhum servidor; os usuários são obrigados a garantir que suas atividades online permaneçam privadas usando seu próprio servidor auto-hospedado ou servidores confiáveis.<inlang-LineFeed>\nOferecemos suporte a servidores com:\n- Link de assinatura V2Ray/XRay normal\n- Link de assinatura do Clash\n- Link de assinatura do Sing-Box<inlang-LineFeed>\nQuais são os nossos recursos exclusivos?\n- Amigo do usuário\n- Otimizado e rápido\n- Selecione automaticamente o LowerPing\n- Mostrar informações de uso do usuário\n- Importe facilmente sublinks com um clique usando deeplinking\n- Gratuito e sem anúncios\n- Alterne facilmente sublinks de usuários\n- Mais e mais<inlang-LineFeed>\nApoiar:\n- Todos os protocolos suportados pelo Sing-Box\n- VLESS + XTLS Realidade, Visão\n- VMess\n- Trojan\n- ShadowSocks\n- Realidade\n- WireGuard\n-V2Ray\n- Histeria2\n-TUICv5\n-SSH\n- ShadowTLS<inlang-LineFeed><inlang-LineFeed>\nO código-fonte existe em https://github.com/hiddify/Hiddify-Next\nO núcleo do aplicativo é baseado no Sing-Box de código aberto.<inlang-LineFeed>\nDescrição da permissão:\n- Serviço VPN: Como o objetivo desta aplicação é fornecer um cliente de tunelamento seguro, fácil de usar e eficiente, precisamos dessa permissão para poder rotear o tráfego via túnel para o servidor remoto.\n- CONSULTAR TODOS OS PACOTES: Esta permissão é usada para permitir que os usuários incluam ou excluam aplicativos específicos para tunelamento.\n- RECEBER BOOT COMPLETED: Esta permissão pode ser habilitada ou desabilitada nas configurações do aplicativo para ativar este aplicativo na inicialização do dispositivo.\n- PÓS NOTIFICAÇÕES: Esta permissão é essencial, pois empregamos um serviço de primeiro plano para garantir a operação contínua do serviço VPN.\n- Este aplicativo está livre de anúncios. A análise e os dados de travamento só ocorrem com o consentimento explícito do usuário na primeira utilização do aplicativo.';
 			case 'connection.tapToConnect': return 'Toque para conectar';
 			case 'connection.connecting': return 'Conectando';
 			case 'connection.disconnecting': return 'Desconectando';
 			case 'connection.connected': return 'Conectado';
+			case 'connection.reconnect': return 'Reconectar';
+			case 'connection.connectAnyWay': return 'Conectar';
 			case 'connection.experimentalNotice': return 'Recursos experimentais em uso';
 			case 'connection.experimentalNoticeMsg': return 'Você ativou alguns recursos experimentais que podem afetar a qualidade da conexão e causar erros inesperados. Você sempre pode alterar ou redefinir essas opções na página de opções de configuração.';
 			case 'connection.disableExperimentalNotice': return 'Não mostrar novamente';
+			case 'connection.reconnectMsg': return 'Reconectando por levar em conta as mudanças...';
 			case 'config.resetBtn': return 'Redefinir opções';
 			case 'config.serviceMode': return 'Modo de serviço';
+			case 'config.quickSettings': return 'Configurações rápidas';
+			case 'config.setupWarp': return 'Configurar WARP';
+			case 'config.allOptions': return 'Todas as opções de configuração';
 			case 'config.serviceModes.proxy': return 'Somente serviço de proxy';
 			case 'config.serviceModes.systemProxy': return 'Definir proxy do sistema';
 			case 'config.serviceModes.tun': return 'VPN';
 			case 'config.serviceModes.tunService': return 'Serviço VPN';
+			case 'config.shortServiceModes.proxy': return 'Procuração';
+			case 'config.shortServiceModes.systemProxy': return 'Proxy do sistema';
+			case 'config.shortServiceModes.tun': return 'VPN';
+			case 'config.shortServiceModes.tunService': return 'Serviço VPN';
 			case 'config.section.route': return 'Opções de rota';
 			case 'config.section.dns': return 'Opções de DNS';
 			case 'config.section.inbound': return 'Opções de entrada';
@@ -10096,9 +11916,10 @@ extension on TranslationsPtBr {
 			]);
 			case 'config.generateWarpConfig': return 'Gerar configuração WARP';
 			case 'config.missingWarpConfig': return 'Configuração WARP ausente';
-			case 'config.warpConfigGenerated': return 'Configuração WARP gerada';
+			case 'config.warpConfigGenerated': return 'A configuração WARP é gerada';
 			case 'config.pageTitle': return 'Opções de configuração';
 			case 'config.logLevel': return 'Nível de registro';
+			case 'config.blockAds': return 'Bloquear anúncios';
 			case 'config.resolveDestination': return 'Resolver destino';
 			case 'config.ipv6Mode': return 'Rota IPv6';
 			case 'config.ipv6Modes.disable': return 'Desabilitar';
@@ -10110,10 +11931,11 @@ extension on TranslationsPtBr {
 			case 'config.directDnsAddress': return 'DNS direto';
 			case 'config.directDnsDomainStrategy': return 'Estratégia de Domínio DNS Direto';
 			case 'config.mixedPort': return 'Porta Mista';
+			case 'config.tproxyPort': return 'Porta proxy transparente';
 			case 'config.localDnsPort': return 'Porta DNS local';
 			case 'config.allowConnectionFromLan': return 'Permitir conexão da LAN';
 			case 'config.tunImplementation': return 'Implementação TUN';
-			case 'config.mtu': return 'MTU';
+			case 'config.mtu': return 'Tamanho do pacote (MTU)';
 			case 'config.connectionTestUrl': return 'URL de teste de conexão';
 			case 'config.urlTestInterval': return 'Intervalo de teste de URL';
 			case 'config.enableClashApi': return 'Ativar API Clash';
@@ -10135,12 +11957,16 @@ extension on TranslationsPtBr {
 			case 'config.muxMaxStreams': return 'Máximo de fluxos simultâneos';
 			case 'config.enableWarp': return 'Habilitar WARP';
 			case 'config.warpDetourMode': return 'Modo de desvio';
+			case 'config.warpDetourModes.proxyOverWarp': return 'Proxies de desvio através do WARP';
+			case 'config.warpDetourModes.warpOverProxy': return 'Desvio WARP através de proxies';
 			case 'config.warpDetourModes.inbound': return 'Desvie o WARP através de proxies';
 			case 'config.warpDetourModes.outbound': return 'Desviar proxies através do WARP';
 			case 'config.warpLicenseKey': return 'Chave de licença';
 			case 'config.warpCleanIp': return 'Limpar IP';
 			case 'config.warpPort': return 'Porta';
 			case 'config.warpNoise': return 'Contagem de ruído';
+			case 'config.warpNoiseSize': return 'Tamanho do ruído';
+			case 'config.warpNoiseMode': return 'Modo de ruído';
 			case 'config.warpNoiseDelay': return 'Atraso de ruído';
 			default: return null;
 		}
@@ -10150,7 +11976,7 @@ extension on TranslationsPtBr {
 extension on TranslationsRu {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'Hiddify';
 			case 'general.reset': return 'Сброс';
 			case 'general.toggle.enabled': return 'Включено';
 			case 'general.toggle.disabled': return 'Отключено';
@@ -10159,27 +11985,27 @@ extension on TranslationsRu {
 			case 'general.sortBy': return 'Сортировка';
 			case 'general.addToClipboard': return 'Копировать в буфер обмена';
 			case 'general.notSet': return 'Не задано';
-			case 'general.agree': return 'Соглашаться';
+			case 'general.agree': return 'Согласиться';
 			case 'general.decline': return 'Отклонить';
 			case 'general.unknown': return 'Неизвестный';
 			case 'general.hidden': return 'Скрытый';
 			case 'general.timeout': return 'Таймаут';
-			case 'general.clipboardExportSuccessMsg': return 'Скопировано';
+			case 'general.clipboardExportSuccessMsg': return 'Скопировано в буфер обмена';
 			case 'general.showMore': return 'Развернуть ';
 			case 'general.showLess': return 'Свернуть ';
-			case 'general.openAppSettings': return 'Открыть настройки';
+			case 'general.openAppSettings': return 'Открыть настройки приложения';
 			case 'general.grantPermission': return 'Дать права доступа';
 			case 'intro.termsAndPolicyCaution': return ({required InlineSpanBuilder tap}) => TextSpan(children: [
 				const TextSpan(text: 'Продолжая, Вы соглашаетесь с '),
 				tap(_root.about.termsAndConditions),
 			]);
-			case 'intro.start': return 'Начать';
+			case 'intro.start': return 'Старт';
 			case 'home.pageTitle': return 'Главная';
 			case 'home.emptyProfilesMsg': return 'Начните с добавления профиля подписки';
 			case 'home.noActiveProfileMsg': return 'Выберите профиль';
 			case 'stats.traffic': return 'Трафик';
 			case 'stats.trafficLive': return 'Текущий трафик';
-			case 'stats.trafficTotal': return 'Трафик';
+			case 'stats.trafficTotal': return 'Весь трафик';
 			case 'stats.uplink': return 'Скорость отправки';
 			case 'stats.downlink': return 'Скорость загрузки';
 			case 'stats.connection': return 'Соединение ';
@@ -10200,8 +12026,8 @@ extension on TranslationsRu {
 			case 'profile.subscription.download': return 'Скачано';
 			case 'profile.subscription.total': return 'Всего трафика';
 			case 'profile.subscription.expireDate': return 'Дата окончания подписки ';
-			case 'profile.sortBy.lastUpdate': return 'по последнему обновлению';
-			case 'profile.sortBy.name': return 'по названию';
+			case 'profile.sortBy.lastUpdate': return 'По последнему обновлению';
+			case 'profile.sortBy.name': return 'По названию';
 			case 'profile.add.buttonText': return 'Новый профиль';
 			case 'profile.add.shortBtnTxt': return 'Новый профиль';
 			case 'profile.add.fromClipboard': return 'Добавить из буфера обмена';
@@ -10212,6 +12038,8 @@ extension on TranslationsRu {
 			case 'profile.add.qrScanner.facingSemanticLabel': return 'Фронтальная камера';
 			case 'profile.add.qrScanner.permissionRequest': return 'Права на использование камеры для считывания QR';
 			case 'profile.add.manually': return 'Ввести вручную';
+			case 'profile.add.addWarp': return 'Добавить WARP';
+			case 'profile.add.addingWarpMsg': return 'Пожалуйста, подождите, пока мы зарегистрируем WARP.';
 			case 'profile.add.addingProfileMsg': return 'Добавление профиля';
 			case 'profile.add.failureMsg': return 'Не удалось добавить профиль';
 			case 'profile.update.buttonTxt': return 'Обновить';
@@ -10259,7 +12087,7 @@ extension on TranslationsRu {
 			case 'proxies.delaySemantics.testing': return 'Задержка: Тестирование...';
 			case 'proxies.ipInfoSemantics.address': return 'IP адрес';
 			case 'proxies.ipInfoSemantics.country': return 'Страна';
-			case 'logs.pageTitle': return 'Журналы';
+			case 'logs.pageTitle': return 'Логи';
 			case 'logs.filterHint': return 'Фильтр';
 			case 'logs.allLevelsFilter': return 'Все';
 			case 'logs.shareCoreLogs': return 'Поделиться журналами ядра';
@@ -10268,19 +12096,24 @@ extension on TranslationsRu {
 			case 'logs.resumeTooltip': return 'Возобновить';
 			case 'logs.clearTooltip': return 'Очистить';
 			case 'settings.pageTitle': return 'Настройки';
-			case 'settings.requiresRestartMsg': return 'Чтобы применить изменения, перезапустите приложение.';
+			case 'settings.requiresRestartMsg': return 'Чтобы применить изменения, перезапустите приложение';
 			case 'settings.experimental': return 'Экспериментальный';
 			case 'settings.experimentalMsg': return 'Функции с флагом «Экспериментально» все еще находятся в разработке и могут вызвать проблемы.';
+			case 'settings.exportOptions': return 'Копировать анонимные параметры в буфер обмена';
+			case 'settings.exportAllOptions': return 'Скопировать все параметры в буфер обмена';
 			case 'settings.importOptions': return 'Импорт параметров из буфера обмена';
 			case 'settings.importOptionsMsg': return 'Это перезапишет все параметры конфига предоставленными значениями. Вы уверены?';
 			case 'settings.general.sectionTitle': return 'Основные';
 			case 'settings.general.locale': return 'Язык';
 			case 'settings.general.region': return 'Регион';
-			case 'settings.general.regionMsg': return 'Помогает установить параметры по умолчанию для обхода внутренних адресов.';
-			case 'settings.general.regions.ir': return 'Иран (ir)';
-			case 'settings.general.regions.cn': return 'Китай (cn)';
-			case 'settings.general.regions.ru': return 'Россия (ru)';
-			case 'settings.general.regions.af': return 'Afghanistan (af)';
+			case 'settings.general.regionMsg': return 'Помогает установить параметры по умолчанию для обхода внутренних (домашних, внутри страны) адресов.';
+			case 'settings.general.regions.ir': return 'Иран (ir) 🇮🇷';
+			case 'settings.general.regions.cn': return 'Китай (cn) 🇨🇳';
+			case 'settings.general.regions.ru': return 'Россия (ru) 🇷🇺';
+			case 'settings.general.regions.af': return 'Афганистан (af) 🇦🇫';
+			case 'settings.general.regions.id': return 'Индонезия (id) 🇮🇩';
+			case 'settings.general.regions.tr': return 'Турция (tr) 🇹🇷';
+			case 'settings.general.regions.br': return 'Бразилия (br) 🇧🇷';
 			case 'settings.general.regions.other': return 'Другой';
 			case 'settings.general.themeMode': return 'Оформление';
 			case 'settings.general.themeModes.system': return 'Системная тема';
@@ -10290,19 +12123,24 @@ extension on TranslationsRu {
 			case 'settings.general.enableAnalytics': return 'Сбор аналитики';
 			case 'settings.general.enableAnalyticsMsg': return 'Сбор данных аналитики и отправка отчётов о сбоях для улучшения приложения';
 			case 'settings.general.autoStart': return 'Запуск при загрузке';
-			case 'settings.general.silentStart': return 'Тихий запуск';
+			case 'settings.general.silentStart': return 'Запуск в свёрнутом виде';
 			case 'settings.general.openWorkingDir': return 'Открыть рабочую папку';
 			case 'settings.general.ignoreBatteryOptimizations': return 'Отключить оптимизацию батареи';
-			case 'settings.general.ignoreBatteryOptimizationsMsg': return 'Отключение ограничений для оптимальной производительности VPN.';
+			case 'settings.general.ignoreBatteryOptimizationsMsg': return 'Отключение ограничений для оптимальной производительности VPN';
 			case 'settings.general.dynamicNotification': return 'Отображение скорости в уведомлении';
+			case 'settings.general.hapticFeedback': return 'Тактильная обратная связь';
 			case 'settings.general.autoIpCheck': return 'Автоматически проверять IP-адрес соединения';
+			case 'settings.general.actionAtClosing': return 'Действие при закрытии';
+			case 'settings.general.actionsAtClosing.askEachTime': return 'Каждый раз спрашивать';
+			case 'settings.general.actionsAtClosing.hide': return 'Скрыть';
+			case 'settings.general.actionsAtClosing.exit': return 'Выйти';
 			case 'settings.advanced.sectionTitle': return 'Расширенные';
 			case 'settings.advanced.debugMode': return 'Режим отладки';
-			case 'settings.advanced.debugModeMsg': return 'Чтобы применить изменения, перезапустите приложение.';
+			case 'settings.advanced.debugModeMsg': return 'Чтобы применить изменения, перезапустите приложение';
 			case 'settings.advanced.memoryLimit': return 'Ограничение памяти';
-			case 'settings.advanced.memoryLimitMsg': return 'Включите, если у вас возникают ошибки нехватки памяти или частые сбои приложения.';
+			case 'settings.advanced.memoryLimitMsg': return 'Включите, если у вас возникают ошибки нехватки памяти или частые сбои приложения';
 			case 'settings.advanced.resetTunnel': return 'Сбросить профиль VPN';
-			case 'settings.network.perAppProxyPageTitle': return 'Раздельное проксирование';
+			case 'settings.network.perAppProxyPageTitle': return 'Раздельное проксирование приложений';
 			case 'settings.network.perAppProxyModes.off': return 'Все';
 			case 'settings.network.perAppProxyModes.offMsg': return 'Проксировать все приложения';
 			case 'settings.network.perAppProxyModes.include': return 'Прокси';
@@ -10322,7 +12160,7 @@ extension on TranslationsRu {
 			case 'settings.geoAssets.failureMsg': return 'Не удалось обновить объект';
 			case 'settings.geoAssets.successMsg': return 'Объект успешно обновлен';
 			case 'settings.geoAssets.addRecommended': return 'Добавить рекомендуемые активы';
-			case 'settings.geoAssets.missingGeoAssetsMsg': return 'Файлы выбранных ресурсов маршрутизации отсутствуют. Либо скачайте их, либо выберите существующие.';
+			case 'settings.geoAssets.missingGeoAssetsMsg': return 'Файлы выбранных ресурсов маршрутизации отсутствуют. Либо скачайте их, либо выберите существующие';
 			case 'about.pageTitle': return 'О программе';
 			case 'about.version': return 'Версия';
 			case 'about.sourceCode': return 'Исходный код';
@@ -10330,7 +12168,7 @@ extension on TranslationsRu {
 			case 'about.checkForUpdate': return 'Проверка обновления';
 			case 'about.privacyPolicy': return 'Политика конфиденциальности';
 			case 'about.termsAndConditions': return 'Условия и положения';
-			case 'appUpdate.notAvailableMsg': return 'Установлена последняя версия';
+			case 'appUpdate.notAvailableMsg': return 'Уже используется последняя версия';
 			case 'appUpdate.dialogTitle': return 'Доступно обновление';
 			case 'appUpdate.updateMsg': return 'Доступна новая версия ${_root.general.appTitle}. Обновить сейчас?';
 			case 'appUpdate.currentVersionLbl': return 'Текущая версия';
@@ -10350,7 +12188,7 @@ extension on TranslationsRu {
 			case 'failure.clash.core': return ({required Object reason}) => 'Ошибка ${reason}';
 			case 'failure.singbox.unexpected': return 'Непредвиденная ошибка (SingBox)';
 			case 'failure.singbox.serviceNotRunning': return 'Сервис не запущен';
-			case 'failure.singbox.missingPrivilege': return 'Отсутствие прав';
+			case 'failure.singbox.missingPrivilege': return 'Отсутствуют права';
 			case 'failure.singbox.missingPrivilegeMsg': return 'Режим VPN требует прав администратора. Перезапустите приложение от имени администратора или измените режим работы приложения.';
 			case 'failure.singbox.missingGeoAssets': return 'Отсутствуют географические ресурсы';
 			case 'failure.singbox.missingGeoAssetsMsg': return 'Георесурсы отсутствуют. Изменените выбранный ресурс или загрузите собственный в настройках.';
@@ -10374,9 +12212,9 @@ extension on TranslationsRu {
 			case 'failure.geoAssets.unexpected': return 'Неожиданная ошибка';
 			case 'failure.geoAssets.notUpdate': return 'Нет доступных обновлений';
 			case 'failure.geoAssets.activeNotFound': return 'Активный географический актив не найден';
-			case 'play.title': return 'HologatePlus (Preview)';
-			case 'play.short_description': return 'Автовыбор, SSH, VLESS, Vmess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
-			case 'play.full_description': return 'Основная цель HologatePlus — предоставить безопасный, удобный и эффективный клиент туннелирования. Он позволяет направлять весь трафик или трафик выбранного приложения на указанный Вами удалённый сервер.\nПримечание: мы не предоставляем серверы, пользователи должны сами обеспечивать конфиденциальность своих действий в Интернете, используя собственный сервер или доверенные серверы. Поддерживаются сервера с:— Обычной ссылка на подписку V2ray/Xray— Ссылкой на подписку Clash— Ссылко на подписку на Sing–Box\nВ чём уникальные особенности? — Удобство — Оптимизация и скорость — Автоматический выбор минимальной задержки — Отображение информации об использовании — Простой импорт ссылок одним щелчком мыши — Бесплатно и без рекламы — Простое переключение ссылок — …и много больше\nПоддерживаются:• Все протоколы, поддерживаемые Sing-Box• VLESS + xtls reality, vision• VMESS• Trojan• ShoadowSocks• Reality• V2ray• Hystria2• TUIC• SSH• ShadowTLS\nИсходный код доступен по адресу https://github.com/HologatePlus/HologatePlus-Next.Ядро приложения основано на открытом исходном коде Sing–Box.\nОписание разрешений:— СЛУЖБА VPN: поскольку целью данного приложения является предоставление безопасного, удобного и эффективного клиента туннелирования, это разрешение необходимо, чтобы иметь возможность направлять трафик через туннель на удалённый сервер.— ЗАПРОС ВСЕХ ПАКЕТОВ: это разрешение позволяет добавлять или удалять определённые приложения из списка для туннелирования.— ИНФОРМИРОВАНИЕ О ЗАВЕРШЕНИИ ЗАГРУЗКИ: это разрешение можно включить или отключить в настройках приложения, чтобы (де)активировать запуск приложения при загрузке устройства.— ПОСТОЯННОЕ УВЕДОМЛЕНИЕ: это разрешение необходимо, так как используется приоритетная служба для обеспечения непрерывной работы VPN.— Приложение не содержит рекламы. Сбор аналитики и данных о сбоях происходят только с явного согласия пользователя при первом использовании приложения.';
+			case 'play.title': return 'Hiddify (Предварительная версия)';
+			case 'play.short_description': return 'Автовыбор, SSH, VLESS, VMess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
+			case 'play.full_description': return 'Основная цель Hiddify — предоставить безопасный, удобный и эффективный клиент туннелирования. Он позволяет направлять весь трафик или трафик выбранного приложения на указанный Вами удалённый сервер.\n\nПримечание: мы не предоставляем серверы, пользователи должны сами обеспечивать конфиденциальность своих действий в Интернете, используя собственный сервер или доверенные серверы. \nПоддерживаются сервера с:\n- Обычной ссылкой на подписку V2ray/Xray\n- Ссылкой на подписку Clash\n- Ссылкой на подписку на Sing–Box\n\nВ чём уникальные особенности? \n- Удобство\n- Оптимизация и скорость\n- Автоматический выбор минимальной задержки\n- Отображение информации об использовании\n- Простой импорт подписок одним щелчком мыши\n- Бесплатно и без рекламы\n- Простое переключение подписок\n- И многое другое...\n\nПоддерживаются:\n- Все протоколы, поддерживаемые Sing-Box\n- VLESS + XTLS Reality, Vision\n- VMESS\n- Trojan\n- ShoadowSocks\n- Reality\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\nИсходный код доступен по адресу https://github.com/hiddify/Hiddify-Next\nЯдро приложения основано на открытом исходном коде Sing–Box.\n\nОписание разрешений:\n- СЛУЖБА VPN: поскольку целью данного приложения является предоставление безопасного, удобного и эффективного клиента туннелирования, это разрешение необходимо, чтобы иметь возможность направлять трафик через туннель на удалённый сервер.\n- ЗАПРОС ВСЕХ ПАКЕТОВ: это разрешение позволяет добавлять или удалять определённые приложения из списка для туннелирования.\n- ИНФОРМИРОВАНИЕ О ЗАВЕРШЕНИИ ЗАГРУЗКИ: это разрешение можно включить или отключить в настройках приложения, чтобы (де)активировать запуск приложения при загрузке устройства.\n- ПОСТОЯННОЕ УВЕДОМЛЕНИЕ: это разрешение необходимо, так как используется приоритетная служба для обеспечения непрерывной работы VPN.\n- Приложение не содержит рекламы. Сбор аналитики и данных о сбоях происходят только с явного согласия пользователя при первом использовании приложения.';
 			case 'connection.tapToConnect': return 'Нажмите для подключения';
 			case 'connection.connecting': return 'Подключение';
 			case 'connection.disconnecting': return 'Отключение';
@@ -10386,7 +12224,9 @@ extension on TranslationsRu {
 			case 'connection.experimentalNotice': return 'Экспериментальные функции в использовании';
 			case 'connection.experimentalNoticeMsg': return 'Вы включили некоторые экспериментальные функции, которые могут повлиять на качество соединения и вызвать непредвиденные ошибки. Вы всегда можете изменить или сбросить эти параметры на странице параметров конфигурации.';
 			case 'connection.disableExperimentalNotice': return 'Больше не показывать';
-			case 'connection.reconnectMsg': return 'Переподключить для применения изменений';
+			case 'connection.reconnectMsg': return 'Переподключение для применения изменений...';
+			case 'config.useXrayCoreWhenPossible.Label': return 'Использовать Xray-core по возможности';
+			case 'config.useXrayCoreWhenPossible.Description': return 'Использование Xray-core для анализа подписок. Чтобы включить эту опцию, вам необходимо повторно импортировать подписку.';
 			case 'config.resetBtn': return 'Сбросить параметры';
 			case 'config.serviceMode': return 'Режим работы';
 			case 'config.quickSettings': return 'Быстрые настройки';
@@ -10395,18 +12235,18 @@ extension on TranslationsRu {
 			case 'config.serviceModes.proxy': return 'Прокси';
 			case 'config.serviceModes.systemProxy': return 'Системный прокси';
 			case 'config.serviceModes.tun': return 'VPN';
-			case 'config.serviceModes.tunService': return 'VPN сервис';
+			case 'config.serviceModes.tunService': return 'VPN Сервис';
 			case 'config.shortServiceModes.proxy': return 'Прокси';
 			case 'config.shortServiceModes.systemProxy': return 'Системный прокси';
 			case 'config.shortServiceModes.tun': return 'VPN';
-			case 'config.shortServiceModes.tunService': return 'VPN сервис';
+			case 'config.shortServiceModes.tunService': return 'VPN Сервис';
 			case 'config.section.route': return 'Варианты маршрутизации';
 			case 'config.section.dns': return 'Параметры DNS';
 			case 'config.section.inbound': return 'Входящие параметры';
-			case 'config.section.mux': return 'Multiplexer';
-			case 'config.section.outbound': return 'Outbound Options';
-			case 'config.section.tlsTricks': return 'TLS Tricks';
-			case 'config.section.warp': return 'WARP Options';
+			case 'config.section.mux': return 'Мультиплексор';
+			case 'config.section.outbound': return 'Исходящие параметры';
+			case 'config.section.tlsTricks': return 'Хитрости TLS';
+			case 'config.section.warp': return 'Настройки WARP';
 			case 'config.section.misc': return 'Разные параметры';
 			case 'config.warpConsent.title': return 'Согласие Cloudflare WARP';
 			case 'config.warpConsent.description': return ({required InlineSpanBuilder tos, required InlineSpanBuilder privacy}) => TextSpan(children: [
@@ -10416,11 +12256,12 @@ extension on TranslationsRu {
 				privacy('Политикой конфиденциальности'),
 				const TextSpan(text: ' Cloudflare WARP.'),
 			]);
-			case 'config.generateWarpConfig': return 'Cгенерировать WARP конфиг';
-			case 'config.missingWarpConfig': return 'Отсутствует WARP конфиг';
-			case 'config.warpConfigGenerated': return 'WARP конфиг сгенерирован';
+			case 'config.generateWarpConfig': return 'Cгенерировать конфигурацию WARP';
+			case 'config.missingWarpConfig': return 'Отсутствует конфигурация WARP';
+			case 'config.warpConfigGenerated': return 'Создана конфигурация WARP';
 			case 'config.pageTitle': return 'Параметры конфигурации';
-			case 'config.logLevel': return 'Подробность журналирования';
+			case 'config.logLevel': return 'Уровень логирования';
+			case 'config.blockAds': return 'Блокировать рекламу';
 			case 'config.resolveDestination': return 'Определять назначение';
 			case 'config.ipv6Mode': return 'Маршрутизация IPv6';
 			case 'config.ipv6Modes.disable': return 'Отключено';
@@ -10434,38 +12275,45 @@ extension on TranslationsRu {
 			case 'config.mixedPort': return 'Смешанный порт';
 			case 'config.tproxyPort': return 'Прозрачный прокси порт';
 			case 'config.localDnsPort': return 'Локальный порт DNS';
-			case 'config.allowConnectionFromLan': return 'Allow Connection from LAN';
+			case 'config.allowConnectionFromLan': return 'Общий доступ к VPN в локальной сети';
 			case 'config.tunImplementation': return 'Реализация TUN';
-			case 'config.mtu': return 'MTU';
-			case 'config.connectionTestUrl': return 'URL проверки подключения';
+			case 'config.mtu': return 'Размер пакета (MTU)';
+			case 'config.connectionTestUrl': return 'URL для проверки подключения';
 			case 'config.urlTestInterval': return 'Интервал проверки URL';
 			case 'config.enableClashApi': return 'Использовать Clash API';
 			case 'config.clashApiPort': return 'Порт Clash API';
 			case 'config.enableTun': return 'Использовать TUN';
-			case 'config.setSystemProxy': return 'Использовать системный прокси';
-			case 'config.enableDnsRouting': return 'Enable DNS Routing';
-			case 'config.enableFakeDns': return 'Использовать поддельную DNS';
+			case 'config.setSystemProxy': return 'Установить системный прокси';
+			case 'config.enableDnsRouting': return 'Использовать маршрутизацию DNS';
+			case 'config.enableFakeDns': return 'Использовать поддельный DNS';
 			case 'config.bypassLan': return 'Обход локальной сети';
 			case 'config.strictRoute': return 'Строгая маршрутизация';
-			case 'config.enableTlsFragment': return 'Enable TLS Fragment';
-			case 'config.tlsFragmentSize': return 'TLS Fragment Size';
-			case 'config.tlsFragmentSleep': return 'TLS Fragment Sleep';
-			case 'config.enableTlsMixedSniCase': return 'Enable TLS Mixed SNI Case';
-			case 'config.enableTlsPadding': return 'Enable TLS Padding';
+			case 'config.enableTlsFragment': return 'Включить Фрагментацию TLS';
+			case 'config.tlsFragmentSize': return 'Размер фрагмента TLS';
+			case 'config.tlsFragmentSleep': return 'Сон фрагмента TLS';
+			case 'config.enableTlsMixedSniCase': return 'Включить TLS Mixed SNI Case';
+			case 'config.enableTlsPadding': return 'Включить TLS Padding';
 			case 'config.tlsPaddingSize': return 'TLS Padding';
-			case 'config.enableMux': return 'Enable Mux';
-			case 'config.muxProtocol': return 'Mux Protocol';
-			case 'config.muxMaxStreams': return 'Max Concurrent Streams';
-			case 'config.enableWarp': return 'Enable WARP';
-			case 'config.warpDetourMode': return 'Detour Mode';
-			case 'config.warpDetourModes.proxyOverWarp': return 'Работа прокси через WARP';
-			case 'config.warpDetourModes.warpOverProxy': return 'Работа WARP через прокси';
-			case 'config.warpDetourModes.inbound': return 'Detour WARP through proxies';
-			case 'config.warpDetourModes.outbound': return 'Detour proxies through WARP';
-			case 'config.warpLicenseKey': return 'License Key';
-			case 'config.warpCleanIp': return 'Clean IP';
-			case 'config.warpPort': return 'Port';
-			case 'config.warpNoise': return 'Noise';
+			case 'config.enableMux': return 'Включить Mux';
+			case 'config.muxProtocol': return 'Протокол Mux';
+			case 'config.muxMaxStreams': return 'Масимальное количество параллельных потоков';
+			case 'config.enableWarp': return 'Включить WARP';
+			case 'config.warpDetourMode': return 'Режим обхода WARP';
+			case 'config.warpDetourModes.proxyOverWarp': return 'Работа Прокси через WARP';
+			case 'config.warpDetourModes.warpOverProxy': return 'Работа WARP через Прокси';
+			case 'config.warpDetourModes.inbound': return 'Обход WARP через Прокси';
+			case 'config.warpDetourModes.outbound': return 'Обход Прокси через WARP';
+			case 'config.warpLicenseKey': return 'Лицензионный ключ';
+			case 'config.warpCleanIp': return 'Очистить IP';
+			case 'config.warpPort': return 'Порт';
+			case 'config.warpNoise': return 'Шум';
+			case 'config.warpNoiseSize': return 'Размер шума';
+			case 'config.warpNoiseMode': return 'Шумовой режим';
+			case 'config.warpNoiseDelay': return 'Задержка шума';
+			case 'window.hide': return 'Скрыть';
+			case 'window.close': return 'Закрыть';
+			case 'window.alertMessage': return 'Скрыть приложение или выйти?';
+			case 'window.remember': return 'Запомнить выбор';
 			default: return null;
 		}
 	}
@@ -10474,7 +12322,7 @@ extension on TranslationsRu {
 extension on TranslationsTr {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'Hiddify';
 			case 'general.reset': return 'Sıfırla';
 			case 'general.toggle.enabled': return 'Etkin';
 			case 'general.toggle.disabled': return 'Devre dışı';
@@ -10488,8 +12336,10 @@ extension on TranslationsTr {
 			case 'general.unknown': return 'Bilinmeyen';
 			case 'general.hidden': return 'Gizlenmiş';
 			case 'general.timeout': return 'Zaman aşımı';
+			case 'general.clipboardExportSuccessMsg': return 'Panoya Eklendi';
 			case 'general.showMore': return 'Daha fazla göster';
 			case 'general.showLess': return 'Daha az göster';
+			case 'general.openAppSettings': return 'Uygulama Ayarlarını Aç';
 			case 'general.grantPermission': return 'İzin Ver';
 			case 'intro.termsAndPolicyCaution': return ({required InlineSpanBuilder tap}) => TextSpan(children: [
 				const TextSpan(text: 'devam ederek '),
@@ -10500,10 +12350,14 @@ extension on TranslationsTr {
 			case 'home.pageTitle': return 'Ana Sayfa';
 			case 'home.emptyProfilesMsg': return 'Aboneliği profili ekleyerek başlayın';
 			case 'home.noActiveProfileMsg': return 'Profil seçin';
+			case 'stats.traffic': return 'Trafik';
 			case 'stats.trafficLive': return 'Canlı Trafik';
 			case 'stats.trafficTotal': return 'Toplam Trafik';
 			case 'stats.uplink': return 'Çıkış Yolu';
 			case 'stats.downlink': return 'Giriş Yolu';
+			case 'stats.connection': return 'Bağlantı';
+			case 'stats.speed': return 'Hız';
+			case 'stats.totalTransferred': return 'Toplam Aktarılan';
 			case 'profile.overviewPageTitle': return 'Profiller';
 			case 'profile.detailsPageTitle': return 'Profil';
 			case 'profile.activeProfileNameSemanticLabel': return ({required Object name}) => 'Aktif profil adı: "${name}".';
@@ -10515,6 +12369,10 @@ extension on TranslationsTr {
 			case 'profile.subscription.remainingTrafficSemanticLabel': return ({required Object consumed, required Object total}) => '${consumed}/${total} trafik tüketildi';
 			case 'profile.subscription.expired': return 'Süresi Doldu';
 			case 'profile.subscription.noTraffic': return 'Kotal Doldu';
+			case 'profile.subscription.upload': return 'Yüklemek';
+			case 'profile.subscription.download': return 'İndirmek';
+			case 'profile.subscription.total': return 'Toplam Trafik';
+			case 'profile.subscription.expireDate': return 'Son kullanma tarihi';
 			case 'profile.sortBy.lastUpdate': return 'Yakın zamanda güncellendi';
 			case 'profile.sortBy.name': return 'Alfabetik';
 			case 'profile.add.buttonText': return 'Yeni profil';
@@ -10525,7 +12383,10 @@ extension on TranslationsTr {
 			case 'profile.add.qrScanner.unexpectedError': return 'Bir şeyler yanlış gitti';
 			case 'profile.add.qrScanner.torchSemanticLabel': return 'El feneri';
 			case 'profile.add.qrScanner.facingSemanticLabel': return 'Kameraya önü';
+			case 'profile.add.qrScanner.permissionRequest': return 'QR Kodunu taramak için kamera izni';
 			case 'profile.add.manually': return 'Manuel giriş';
+			case 'profile.add.addWarp': return 'WARP ekle';
+			case 'profile.add.addingWarpMsg': return 'WARP\'ı kaydederken lütfen bekleyin.';
 			case 'profile.add.addingProfileMsg': return 'Profil Ekleniyor';
 			case 'profile.add.failureMsg': return 'Profil eklenemedi';
 			case 'profile.update.buttonTxt': return 'Güncelle';
@@ -10562,9 +12423,17 @@ extension on TranslationsTr {
 			case 'proxies.emptyProxiesMsg': return 'Kullanılabilir proxy yok';
 			case 'proxies.delayTestTooltip': return 'Test Gecikmesi';
 			case 'proxies.sortTooltip': return 'Proxy\'leri Sırala';
+			case 'proxies.checkIp': return 'IP\'yi kontrol edin';
+			case 'proxies.unknownIp': return 'Bilinmeyen IP';
 			case 'proxies.sortOptions.unsorted': return 'Varsayılan';
 			case 'proxies.sortOptions.name': return 'Alfabetik olarak';
 			case 'proxies.sortOptions.delay': return 'Gecikmeyle';
+			case 'proxies.activeProxySemanticLabel': return 'Aktif Vekil';
+			case 'proxies.delaySemantics.result': return ({required Object delay}) => 'Gecikme: ${delay}ms';
+			case 'proxies.delaySemantics.timeout': return 'Gecikme Testi Zaman Aşımı';
+			case 'proxies.delaySemantics.testing': return 'Gecikme: Test ediliyor...';
+			case 'proxies.ipInfoSemantics.address': return 'IP adresi';
+			case 'proxies.ipInfoSemantics.country': return 'Ülke';
 			case 'logs.pageTitle': return 'Log';
 			case 'logs.filterHint': return 'Filtre';
 			case 'logs.allLevelsFilter': return 'Tüm';
@@ -10577,14 +12446,20 @@ extension on TranslationsTr {
 			case 'settings.requiresRestartMsg': return 'Bunun etkili olması için uygulamayı yeniden başlatın';
 			case 'settings.experimental': return 'Deneysel';
 			case 'settings.experimentalMsg': return 'Deneysel işaretli özellikler hâlâ geliştirilme aşamasındadır ve sorunlara neden olabilir.';
+			case 'settings.exportOptions': return 'Anonim Seçenekleri Panoya Kopyala';
+			case 'settings.exportAllOptions': return 'Tüm Seçenekleri Panoya Kopyala';
+			case 'settings.importOptions': return 'Seçenekleri Panodan İçe Aktarma';
+			case 'settings.importOptionsMsg': return 'Bu, tüm yapılandırma seçeneklerini sağlanan değerlerle yeniden yazacaktır. Emin misin?';
 			case 'settings.general.sectionTitle': return 'Genel';
 			case 'settings.general.locale': return 'Dil';
 			case 'settings.general.region': return 'Bölge';
 			case 'settings.general.regionMsg': return 'Yerel adresleri atlamak için varsayılan seçeneği seçebilirsin';
-			case 'settings.general.regions.ir': return 'İran (ir)';
-			case 'settings.general.regions.cn': return 'Çin (cn)';
-			case 'settings.general.regions.ru': return 'Rusya (ru)';
-			case 'settings.general.regions.af': return 'Afghanistan (af)';
+			case 'settings.general.regions.ir': return 'İran (ir) 🇮🇷';
+			case 'settings.general.regions.cn': return 'Çin (cn) 🇨🇳';
+			case 'settings.general.regions.ru': return 'Rusya (ru) 🇷🇺';
+			case 'settings.general.regions.af': return 'Afghanistan (af) 🇦🇫';
+			case 'settings.general.regions.id': return 'Endonezya (id) 🇮🇩';
+			case 'settings.general.regions.tr': return 'Türk (tr) 🇹🇷';
 			case 'settings.general.regions.other': return 'Diğer';
 			case 'settings.general.themeMode': return 'Tema Modu';
 			case 'settings.general.themeModes.system': return 'Sistem temasını takip et';
@@ -10599,6 +12474,8 @@ extension on TranslationsTr {
 			case 'settings.general.ignoreBatteryOptimizations': return 'Pil Optimizasyonunu Devre Dışı Bırak';
 			case 'settings.general.ignoreBatteryOptimizationsMsg': return 'Optimum VPN performansı için kısıtlamaları kaldırın';
 			case 'settings.general.dynamicNotification': return 'Bildirimde hızı göster';
+			case 'settings.general.hapticFeedback': return 'Dokunsal geribildirim';
+			case 'settings.general.autoIpCheck': return 'Bağlantı IP\'sini Otomatik Olarak Kontrol Et';
 			case 'settings.advanced.sectionTitle': return 'Gelişmiş';
 			case 'settings.advanced.debugMode': return 'Hata ayıklama modu';
 			case 'settings.advanced.debugModeMsg': return 'Bu değişikliği uygulamak için uygulamayı yeniden başlatın';
@@ -10677,21 +12554,32 @@ extension on TranslationsTr {
 			case 'failure.geoAssets.unexpected': return 'Beklenmeyen hata';
 			case 'failure.geoAssets.notUpdate': return 'Güncelleme mevcut değil';
 			case 'failure.geoAssets.activeNotFound': return 'Etkin Coğrafi Varlık Bulunamadı';
-			case 'play.title': return 'HologatePlus (Önizleme)';
+			case 'play.title': return 'Hiddify (Önizleme)';
 			case 'play.short_description': return 'Otomatik, SSH, VLESS, Vmess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
-			case 'play.full_description': return 'HologatePlus\'in temel hedefi güvenli, kullanıcı dostu ve verimli bir tünel istemcisi sağlamaktır. VPN Hizmeti iznini kullanarak tüm trafiği veya seçilen uygulama trafiğini seçtiğiniz uzak bir sunucuya yönlendirmenizi sağlar. Not: Herhangi bir sunucu sağlamıyoruz; kullanıcıların kendi barındırılan sunucularını veya güvenilir sunucularını kullanarak çevrimiçi etkinliklerinin gizli kalmasını sağlamaları gerekir. Sunucuları aşağıdakilerle destekliyoruz: - Normal V2ray/Xray Abonelik Bağlantısı - Clash Abonelik Bağlantısı - Sing-Box Abonelik Bağlantısı Benzersiz özelliklerimiz nelerdir? - Kullanıcı Dostu - Optimize Edilmiş ve Hızlı - En Düşük Ping\'i otomatik olarak seçin - Kullanıcı kullanım bilgilerini gösterin - Derin bağlantı kullanarak tek tıklamayla alt bağlantıyı kolayca içe aktarın - Ücretsiz ve ADS Yok - Kullanıcı alt bağlantılarını kolayca değiştirin - giderek daha fazla Destek: - Sing-Box tarafından desteklenen tüm Protokoller - VLESS + xtls gerçeklik, vizyon - VMESS - Trojan - ShoadowSocks - Reality - V2ray - Hystria2 - TUIC - SSH - ShadowTLS Kaynak kodu https://github.com/HologatePlus/HologatePlus-Next adresinde mevcuttur. Uygulama çekirdeği açık tabanlıdır. kaynak şarkı kutusu. İzin Açıklaması: - VPN Hizmeti: Bu uygulamanın amacı güvenli, kullanıcı dostu ve verimli bir tünel istemcisi sağlamak olduğundan, trafiği tünel aracılığıyla uzak sunucuya yönlendirebilmek için bu izne ihtiyacımız var. - TÜM PAKETLERİ SORGULAYIN: Bu izin, kullanıcıların tünelleme için belirli uygulamaları dahil etmesine veya hariç tutmasına izin vermek için kullanılır. - ALMA ÖNYÜKLEME TAMAMLANDI: Bu izin, cihaz önyüklemesi sırasında bu uygulamayı etkinleştirmek için uygulama ayarlarından etkinleştirilebilir veya devre dışı bırakılabilir. - BİLDİRİMLER SONRASI: VPN hizmetinin sürekli çalışmasını sağlamak için bir ön plan hizmeti kullandığımız için bu izin önemlidir. - Bu uygulama reklam içermez. Analitik ve kilitlenme verileri yalnızca uygulamanın ilk kullanımında kullanıcının açık rızası ile gerçekleşir.';
+			case 'play.full_description': return 'Hiddify\'in temel hedefi güvenli, kullanıcı dostu ve verimli bir tünel istemcisi sağlamaktır. VPN Hizmeti iznini kullanarak tüm trafiği veya seçilen uygulama trafiğini seçtiğiniz uzak bir sunucuya yönlendirmenizi sağlar. Not: Herhangi bir sunucu sağlamıyoruz; kullanıcıların kendi barındırılan sunucularını veya güvenilir sunucularını kullanarak çevrimiçi etkinliklerinin gizli kalmasını sağlamaları gerekir. Sunucuları aşağıdakilerle destekliyoruz: - Normal V2ray/Xray Abonelik Bağlantısı - Clash Abonelik Bağlantısı - Sing-Box Abonelik Bağlantısı Benzersiz özelliklerimiz nelerdir? - Kullanıcı Dostu - Optimize Edilmiş ve Hızlı - En Düşük Ping\'i otomatik olarak seçin - Kullanıcı kullanım bilgilerini gösterin - Derin bağlantı kullanarak tek tıklamayla alt bağlantıyı kolayca içe aktarın - Ücretsiz ve ADS Yok - Kullanıcı alt bağlantılarını kolayca değiştirin - giderek daha fazla Destek: - Sing-Box tarafından desteklenen tüm Protokoller - VLESS + xtls gerçeklik, vizyon - VMESS - Trojan - ShoadowSocks - Reality - V2ray - Hystria2 - TUIC - SSH - ShadowTLS Kaynak kodu https://github.com/hiddify/Hiddify-Next adresinde mevcuttur. Uygulama çekirdeği açık tabanlıdır. kaynak şarkı kutusu. İzin Açıklaması: - VPN Hizmeti: Bu uygulamanın amacı güvenli, kullanıcı dostu ve verimli bir tünel istemcisi sağlamak olduğundan, trafiği tünel aracılığıyla uzak sunucuya yönlendirebilmek için bu izne ihtiyacımız var. - TÜM PAKETLERİ SORGULAYIN: Bu izin, kullanıcıların tünelleme için belirli uygulamaları dahil etmesine veya hariç tutmasına izin vermek için kullanılır. - ALMA ÖNYÜKLEME TAMAMLANDI: Bu izin, cihaz önyüklemesi sırasında bu uygulamayı etkinleştirmek için uygulama ayarlarından etkinleştirilebilir veya devre dışı bırakılabilir. - BİLDİRİMLER SONRASI: VPN hizmetinin sürekli çalışmasını sağlamak için bir ön plan hizmeti kullandığımız için bu izin önemlidir. - Bu uygulama reklam içermez. Analitik ve kilitlenme verileri yalnızca uygulamanın ilk kullanımında kullanıcının açık rızası ile gerçekleşir.';
 			case 'connection.tapToConnect': return 'Bağlanmak için dokunun';
 			case 'connection.connecting': return 'Bağlanıyor';
 			case 'connection.disconnecting': return 'Bağlantı kesiliyor';
 			case 'connection.connected': return 'Bağlandı';
+			case 'connection.reconnect': return 'Yeniden bağlan';
+			case 'connection.connectAnyWay': return 'Bağlamak';
 			case 'connection.experimentalNotice': return 'Kullanımdaki Deneysel Özellikler';
 			case 'connection.experimentalNoticeMsg': return 'Bağlantı kalitesini etkileyebilecek ve beklenmeyen hatalara neden olabilecek bazı deneysel özellikleri etkinleştirdiniz. Bu seçenekleri istediğiniz zaman Yapılandırma seçenekleri sayfasından değiştirebilir veya sıfırlayabilirsiniz.';
 			case 'connection.disableExperimentalNotice': return 'Bir daha gösterme';
+			case 'connection.reconnectMsg': return 'Değişiklikleri dikkate almak için yeniden bağlanılıyor...';
 			case 'config.resetBtn': return 'Ayarları sıfırla';
 			case 'config.serviceMode': return 'Servis modu';
+			case 'config.quickSettings': return 'Hızlı Ayarlar';
+			case 'config.setupWarp': return 'WARP\'ı Kur';
+			case 'config.allOptions': return 'Tüm Yapılandırma Seçenekleri';
 			case 'config.serviceModes.proxy': return 'Proxy';
 			case 'config.serviceModes.systemProxy': return 'Sistem Proxy';
 			case 'config.serviceModes.tun': return 'VPN';
+			case 'config.serviceModes.tunService': return 'VPN Hizmeti';
+			case 'config.shortServiceModes.proxy': return 'vekil';
+			case 'config.shortServiceModes.systemProxy': return 'Sistem Proxy\'si';
+			case 'config.shortServiceModes.tun': return 'VPN';
+			case 'config.shortServiceModes.tunService': return 'VPN Hizmeti';
 			case 'config.section.route': return 'Rota Seçenekleri';
 			case 'config.section.dns': return 'DNS Seçenekleri';
 			case 'config.section.inbound': return 'Gelen Seçenekler';
@@ -10708,8 +12596,12 @@ extension on TranslationsTr {
 				privacy('Gizlilik Politikası'),
 				const TextSpan(text: '\'nı kabul etmiş olursunuz.'),
 			]);
+			case 'config.generateWarpConfig': return 'WARP Yapılandırması Oluştur';
+			case 'config.missingWarpConfig': return 'WARP Yapılandırması Eksik';
+			case 'config.warpConfigGenerated': return 'WARP Yapılandırması Oluşturuldu';
 			case 'config.pageTitle': return 'Yapılandırma Seçenekleri';
 			case 'config.logLevel': return 'Log Seviyesi';
+			case 'config.blockAds': return 'Reklamları Engelle';
 			case 'config.resolveDestination': return 'Hedefi Çöz';
 			case 'config.ipv6Mode': return 'IPv6 Rotası';
 			case 'config.ipv6Modes.disable': return 'Devre dışı bırak';
@@ -10721,10 +12613,11 @@ extension on TranslationsTr {
 			case 'config.directDnsAddress': return 'Doğrudan DNS';
 			case 'config.directDnsDomainStrategy': return 'Doğrudan DNS Domain Stratejisi';
 			case 'config.mixedPort': return 'Mixed Port';
+			case 'config.tproxyPort': return 'Şeffaf Proxy Bağlantı Noktası';
 			case 'config.localDnsPort': return 'Yerel DNS Bağlantı Noktası';
 			case 'config.allowConnectionFromLan': return 'Allow Connection from LAN';
 			case 'config.tunImplementation': return 'TUN İmplementasyonu';
-			case 'config.mtu': return 'MTU';
+			case 'config.mtu': return 'Paket Boyutu (MTU)';
 			case 'config.connectionTestUrl': return 'Bağlantı Testi URL\'i';
 			case 'config.urlTestInterval': return 'URL Test Aralığı';
 			case 'config.enableClashApi': return 'Clash API\'yi etkinleştir';
@@ -10746,12 +12639,17 @@ extension on TranslationsTr {
 			case 'config.muxMaxStreams': return 'Max Concurrent Streams';
 			case 'config.enableWarp': return 'Enable WARP';
 			case 'config.warpDetourMode': return 'Detour Mode';
+			case 'config.warpDetourModes.proxyOverWarp': return 'WARP Aracılığıyla Proxy\'lerin Yönünü Değiştirin';
+			case 'config.warpDetourModes.warpOverProxy': return 'Proxy\'ler Aracılığıyla WARP\'tan Sapma';
 			case 'config.warpDetourModes.inbound': return 'Detour WARP through proxies';
 			case 'config.warpDetourModes.outbound': return 'Detour proxies through WARP';
 			case 'config.warpLicenseKey': return 'License Key';
 			case 'config.warpCleanIp': return 'Clean IP';
 			case 'config.warpPort': return 'Port';
 			case 'config.warpNoise': return 'Noise';
+			case 'config.warpNoiseSize': return 'Gürültü Boyutu';
+			case 'config.warpNoiseMode': return 'Gürültü Modu';
+			case 'config.warpNoiseDelay': return 'Gürültü Gecikmesi';
 			default: return null;
 		}
 	}
@@ -10760,7 +12658,7 @@ extension on TranslationsTr {
 extension on TranslationsZhCn {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'Hiddify';
 			case 'general.reset': return '重置';
 			case 'general.toggle.enabled': return '启用';
 			case 'general.toggle.disabled': return '禁用';
@@ -10860,12 +12758,12 @@ extension on TranslationsZhCn {
 			case 'proxies.emptyProxiesMsg': return '无可用的代理';
 			case 'proxies.delayTestTooltip': return '测试延迟';
 			case 'proxies.sortTooltip': return '对代理进行排序';
-			case 'proxies.checkIp': return '检测 IP 地址';
+			case 'proxies.checkIp': return '检测 IP 位置';
 			case 'proxies.unknownIp': return '未知的 IP';
-			case 'proxies.sortOptions.unsorted': return '默认';
-			case 'proxies.sortOptions.name': return '按字母顺序';
-			case 'proxies.sortOptions.delay': return '按延迟顺序';
-			case 'proxies.activeProxySemanticLabel': return '激活的代理';
+			case 'proxies.sortOptions.unsorted': return '默认顺序';
+			case 'proxies.sortOptions.name': return '按首字母排序';
+			case 'proxies.sortOptions.delay': return '按延迟排序';
+			case 'proxies.activeProxySemanticLabel': return '激活中的代理';
 			case 'proxies.delaySemantics.result': return ({required Object delay}) => '延迟: ${delay}ms';
 			case 'proxies.delaySemantics.timeout': return '延迟测试超时';
 			case 'proxies.delaySemantics.testing': return '正在测试延迟';
@@ -10878,7 +12776,7 @@ extension on TranslationsZhCn {
 			case 'logs.shareAppLogs': return '分享应用日志';
 			case 'logs.pauseTooltip': return '暂停';
 			case 'logs.resumeTooltip': return '恢复';
-			case 'logs.clearTooltip': return '清除';
+			case 'logs.clearTooltip': return '清空';
 			case 'settings.pageTitle': return '设置';
 			case 'settings.requiresRestartMsg': return '要使其生效，请重新启动应用程序';
 			case 'settings.experimental': return '实验性选项';
@@ -10886,19 +12784,22 @@ extension on TranslationsZhCn {
 			case 'settings.exportOptions': return '将匿名选项导出到剪贴板';
 			case 'settings.exportAllOptions': return '将所有选项导出到剪贴板（用于调试）';
 			case 'settings.importOptions': return '从剪贴板导入选项';
-			case 'settings.importOptionsMsg': return '这将使用提供的值重写所有配置选项。您确定吗？';
-			case 'settings.general.sectionTitle': return '一般选项';
+			case 'settings.importOptionsMsg': return '这将使用提供的值覆盖所有配置选项。您确定吗？';
+			case 'settings.general.sectionTitle': return '通用';
 			case 'settings.general.locale': return '语言';
 			case 'settings.general.region': return '地区';
 			case 'settings.general.regionMsg': return '帮助设置默认选项以绕过国内地址';
-			case 'settings.general.regions.ir': return '伊朗 (ir)';
-			case 'settings.general.regions.cn': return '中国 (cn)';
-			case 'settings.general.regions.ru': return '俄罗斯 (ru)';
-			case 'settings.general.regions.af': return '阿富汗 (af)';
+			case 'settings.general.regions.ir': return '伊朗 (ir) 🇮🇷';
+			case 'settings.general.regions.cn': return '中国 (cn) 🇨🇳';
+			case 'settings.general.regions.ru': return '俄罗斯 (ru) 🇷🇺';
+			case 'settings.general.regions.af': return '阿富汗 (af) 🇦🇫';
+			case 'settings.general.regions.id': return '印度尼西亚 (id) 🇮🇩';
+			case 'settings.general.regions.tr': return '土耳其（tr）🇹🇷';
+			case 'settings.general.regions.br': return '巴西 (br) 🇧🇷';
 			case 'settings.general.regions.other': return '其它';
 			case 'settings.general.themeMode': return '主题模式';
-			case 'settings.general.themeModes.system': return '遵循系统主题';
-			case 'settings.general.themeModes.dark': return '暗色';
+			case 'settings.general.themeModes.system': return '跟随系统主题';
+			case 'settings.general.themeModes.dark': return '深色';
 			case 'settings.general.themeModes.light': return '浅色';
 			case 'settings.general.themeModes.black': return '黑色';
 			case 'settings.general.enableAnalytics': return '启用分析';
@@ -10911,11 +12812,15 @@ extension on TranslationsZhCn {
 			case 'settings.general.dynamicNotification': return '在通知中显示网络速度';
 			case 'settings.general.hapticFeedback': return '触觉反馈';
 			case 'settings.general.autoIpCheck': return '自动检查连接的 IP';
+			case 'settings.general.actionAtClosing': return '关闭时动作';
+			case 'settings.general.actionsAtClosing.askEachTime': return '每次都询问';
+			case 'settings.general.actionsAtClosing.hide': return '隐藏';
+			case 'settings.general.actionsAtClosing.exit': return '退出';
 			case 'settings.advanced.sectionTitle': return '高级选项';
 			case 'settings.advanced.debugMode': return '调试模式';
 			case 'settings.advanced.debugModeMsg': return '重新启动应用程序以应用此更改';
 			case 'settings.advanced.memoryLimit': return '内存限制';
-			case 'settings.advanced.memoryLimitMsg': return '如果您遇到内存不足错误或频繁应用程序崩溃，请启用';
+			case 'settings.advanced.memoryLimitMsg': return '如果您遇到内存不足或频繁应用程序崩溃的问题，请启用';
 			case 'settings.advanced.resetTunnel': return '重置 VPN 配置文件';
 			case 'settings.network.perAppProxyPageTitle': return '分应用代理';
 			case 'settings.network.perAppProxyModes.off': return '全部';
@@ -10987,21 +12892,23 @@ extension on TranslationsZhCn {
 			case 'failure.connection.connectionError': return '连接错误';
 			case 'failure.connection.badCertificate': return '证书无效';
 			case 'failure.geoAssets.unexpected': return '意外错误';
-			case 'failure.geoAssets.notUpdate': return '无可用更新';
+			case 'failure.geoAssets.notUpdate': return '暂无可用更新';
 			case 'failure.geoAssets.activeNotFound': return '未找到激活的 GEO 资源文件';
-			case 'play.title': return 'HologatePlus（预览）';
+			case 'play.title': return 'Hiddify（预览）';
 			case 'play.short_description': return '自动，SSH, VLESS, Vmess, Trojan, Reality, Sing-Box, Clash, Xray, Shadowsocks';
-			case 'play.full_description': return 'HologatePlus 的主要目标是提供安全、用户友好且高效的隧道客户端。它使您能够利用 VPN 服务权限将所有流量或选定的应用程序流量路由到您选择的远程服务器。\n\n注：我们不提供任何服务器；用户需要使用自己托管的服务器或可信的服务器来确保您在线活动的私密性。\n \n我们支持以下类型的服务器：\n- 普通 V2ray/Xray 订阅链接\n- Clash 订阅链接\n- Sing-Box 订阅链接\n\n我们的特色是什么？\n\n- 用户友好\n- 优化和高速\n- 自动选择最低延迟\n- 显示用户使用信息\n- 通过一键链接轻松导入\n- 免费且无广告\n- 轻松切换线路\n- 等等\n\n支持：\n- Sing-Box 支持的所有协议\n- VLESS + XTLS Reality、Vision 协议\n- VMESS\n- Trojan\n- ShadowSocks\n- Reality\n- WireGuard\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\n\n源代码位于 https://github.com/HologatePlus/HologatePlus-Next\n应用程序核心基于开源的 Sing-Box。\n\n权限说明：\n\n- VPN 服务：由于此应用程序的目标是提供安全、用户友好和高效的隧道客户端，我们需要此权限以能够通过隧道将流量路由到远程服务器。\n获取应用程序列表：此权限用于允许用户包括或排除特定应用程序以进行隧道传输。\n- 接收开机广播：可以从应用程序设置中启用或禁用此权限，以便在设备启动时激活此应用程序。\n- 发送通知：此权限是必需的，因为我们使用前台服务来确保 VPN 服务的持续运行。\n- 本应用程序没有广告。分析和崩溃数据仅在首次使用应用程序时经用户明确同意的情况下发生。';
-			case 'connection.tapToConnect': return '点击连接';
+			case 'play.full_description': return 'Hiddify 的主要目标是提供安全、用户友好且高效的隧道客户端。它使您能够利用 VPN 服务权限将所有流量或选定的应用程序流量路由到您选择的远程服务器。\n\n注：我们不提供任何服务器；用户需要使用自己托管的服务器或可信的服务器来确保您在线活动的私密性。\n \n我们支持以下类型的服务器：\n- 普通 V2ray/Xray 订阅链接\n- Clash 订阅链接\n- Sing-Box 订阅链接\n\n我们的特色是什么？\n\n- 用户友好\n- 优化和高速\n- 自动选择最低延迟\n- 显示用户使用信息\n- 通过一键链接轻松导入\n- 免费且无广告\n- 轻松切换线路\n- 等等\n\n支持：\n- Sing-Box 支持的所有协议\n- VLESS + XTLS Reality、Vision 协议\n- VMESS\n- Trojan\n- ShadowSocks\n- Reality\n- WireGuard\n- V2ray\n- Hystria2\n- TUIC\n- SSH\n- ShadowTLS\n\n\n源代码位于 https://github.com/hiddify/Hiddify-Next\n应用程序核心基于开源的 Sing-Box。\n\n权限说明：\n\n- VPN 服务：由于此应用程序的目标是提供安全、用户友好和高效的隧道客户端，我们需要此权限以能够通过隧道将流量路由到远程服务器。\n获取应用程序列表：此权限用于允许用户包括或排除特定应用程序以进行隧道传输。\n- 接收开机广播：可以从应用程序设置中启用或禁用此权限，以便在设备启动时激活此应用程序。\n- 发送通知：此权限是必需的，因为我们使用前台服务来确保 VPN 服务的持续运行。\n- 本应用程序没有广告。分析和崩溃数据仅在首次使用应用程序时经用户明确同意的情况下发生。';
+			case 'connection.tapToConnect': return '开始连接';
 			case 'connection.connecting': return '正在连接';
 			case 'connection.disconnecting': return '正在断开连接';
 			case 'connection.connected': return '已连接';
 			case 'connection.reconnect': return '重新连接';
 			case 'connection.connectAnyWay': return '连接';
 			case 'connection.experimentalNotice': return '使用中的实验功能';
-			case 'connection.experimentalNoticeMsg': return '您启用了一些实验性功能，这些功能可能会影响连接质量并导致意外错误。您可以随时从“配置”页面更改或重置这些选项。';
+			case 'connection.experimentalNoticeMsg': return '您启用了一些实验性功能，这些功能可能会影响连接质量并导致一些意外错误。您可以随时从“配置选项”页面更改或重新设置这些选项。';
 			case 'connection.disableExperimentalNotice': return '不再显示';
 			case 'connection.reconnectMsg': return '重新连接以使更改生效';
+			case 'config.useXrayCoreWhenPossible.Label': return '尽可能使用 Xray-core';
+			case 'config.useXrayCoreWhenPossible.Description': return '解析子链接时使用 Xray-core。您需要重新导入子链接才能启用此选项。';
 			case 'config.resetBtn': return '重置选项';
 			case 'config.serviceMode': return '服务模式';
 			case 'config.quickSettings': return '快速设置';
@@ -11032,7 +12939,7 @@ extension on TranslationsZhCn {
 			]);
 			case 'config.generateWarpConfig': return '生成 WARP 配置文件';
 			case 'config.missingWarpConfig': return 'WARP 配置文件缺失';
-			case 'config.warpConfigGenerated': return 'WARP 配置文件已生成';
+			case 'config.warpConfigGenerated': return 'WARP 配置已生成';
 			case 'config.pageTitle': return '配置选项';
 			case 'config.logLevel': return '日志级别';
 			case 'config.blockAds': return '阻止广告';
@@ -11051,7 +12958,7 @@ extension on TranslationsZhCn {
 			case 'config.localDnsPort': return '本地 DNS 端口';
 			case 'config.allowConnectionFromLan': return '允许局域网连接';
 			case 'config.tunImplementation': return 'TUN 实现';
-			case 'config.mtu': return 'MTU';
+			case 'config.mtu': return '数据包大小 (MTU)';
 			case 'config.connectionTestUrl': return '连接测试网址';
 			case 'config.urlTestInterval': return '网址测试间隔';
 			case 'config.enableClashApi': return '启用 Clash API';
@@ -11081,7 +12988,13 @@ extension on TranslationsZhCn {
 			case 'config.warpCleanIp': return '清理 IP';
 			case 'config.warpPort': return '端口';
 			case 'config.warpNoise': return '噪音计数';
+			case 'config.warpNoiseSize': return '噪音大小';
+			case 'config.warpNoiseMode': return '噪音模式';
 			case 'config.warpNoiseDelay': return '噪音延迟';
+			case 'window.hide': return '隐藏';
+			case 'window.close': return '关闭';
+			case 'window.alertMessage': return '隐藏或退出应用程序？';
+			case 'window.remember': return '记住我的选择';
 			default: return null;
 		}
 	}
@@ -11090,7 +13003,7 @@ extension on TranslationsZhCn {
 extension on TranslationsZhTw {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'general.appTitle': return 'HologatePlus';
+			case 'general.appTitle': return 'Hiddify';
 			case 'general.reset': return '重置';
 			case 'general.toggle.enabled': return '啟用';
 			case 'general.toggle.disabled': return '停用';
@@ -11225,6 +13138,8 @@ extension on TranslationsZhTw {
 			case 'settings.general.regions.cn': return '中國 (cn)';
 			case 'settings.general.regions.ru': return '俄羅斯 (ru)';
 			case 'settings.general.regions.af': return '阿富汗 (af)';
+			case 'settings.general.regions.id': return '印尼 (id)';
+			case 'settings.general.regions.tr': return '土耳其 (tr) 🇹🇷';
 			case 'settings.general.regions.other': return '其他';
 			case 'settings.general.themeMode': return '主題模式';
 			case 'settings.general.themeModes.system': return '遵循系統主題';
@@ -11319,9 +13234,9 @@ extension on TranslationsZhTw {
 			case 'failure.geoAssets.unexpected': return '意外錯誤';
 			case 'failure.geoAssets.notUpdate': return '暫無可用更新';
 			case 'failure.geoAssets.activeNotFound': return '未找到活動 GEO 資源文件';
-			case 'play.title': return 'HologatePlus（預覽）';
+			case 'play.title': return 'Hiddify（預覽）';
 			case 'play.short_description': return '自動、SSH、VLESS、Vmess、Trojan、Reality、Sing-Box、Clash、Xray、Shadowsocks';
-			case 'play.full_description': return 'HologatePlus 的主要目標是提供安全、使用者友好且高效率的隧道用戶端。它使您能夠利用 VPN 服務權限將所有流量或選定的應用程式流量路由到您選擇的遠端伺服器。\n\n註：我們不提供任何伺服器；使用者需要使用自己的自託管伺服器或受信任的伺服器來確保其線上活動的隱私。\n\n我們透過以下方式支援伺服器：\n - 普通 V2ray/Xray 訂閱連結\n - Clash 訂閱連結\n - Sing-Box 訂閱連結\n\n 我們的獨特功能是什麼？\n - 使用者友善\n - 最佳化且快速\n - 自動選擇最低延遲\n - 顯示使用者使用資訊\n - 使用一鍵連結輕鬆導入\n - 免費且無廣告\n - 輕鬆切換線路\n - 等等\n 支援：\n - Sing-Box 支援的所有協定 \n - VLESS + XTLS Reality、Vision 協定 \n - VMESS\n - Trojan\n - ShadowSocks\n - Reality\n - WireGuard\n - V2ray\n - Hystria2\n - TUIC \n - SSH\n - ShadowTLS\n\n\n 原始碼位於 https://github.com/HologatePlus/HologatePlus-Next\n 應用程式核心基於開源的 Sing-Box。\n\n權限說明：\n\n - VPN 服務：由於此應用程式的目標是提供安全性、使用者友好且高效的隧道用戶端，因此我們需要此權限才能透過隧道將流量路由到遠端伺服器。\n - 獲取應用程式列表：此權限用於允許使用者包含或排除隧道的特定應用程式。\n - 接收啟動廣播：可以從應用程式設定中啟用或停用此權限，以在裝置啟動時啟動此應用程式。\n - 傳送通知：此權限至關重要，因為我們使用前台服務來確保 VPN 服務的持續運作。\n - 該應用程式沒有廣告。分析和崩潰數據僅在用戶首次使用應用程式時明確同意的情況下才會出現。';
+			case 'play.full_description': return 'Hiddify 的主要目標是提供安全、使用者友好且高效率的隧道用戶端。它使您能夠利用 VPN 服務權限將所有流量或選定的應用程式流量路由到您選擇的遠端伺服器。\n\n註：我們不提供任何伺服器；使用者需要使用自己的自託管伺服器或受信任的伺服器來確保其線上活動的隱私。\n\n我們透過以下方式支援伺服器：\n - 普通 V2ray/Xray 訂閱連結\n - Clash 訂閱連結\n - Sing-Box 訂閱連結\n\n 我們的獨特功能是什麼？\n - 使用者友善\n - 最佳化且快速\n - 自動選擇最低延遲\n - 顯示使用者使用資訊\n - 使用一鍵連結輕鬆導入\n - 免費且無廣告\n - 輕鬆切換線路\n - 等等\n 支援：\n - Sing-Box 支援的所有協定 \n - VLESS + XTLS Reality、Vision 協定 \n - VMESS\n - Trojan\n - ShadowSocks\n - Reality\n - WireGuard\n - V2ray\n - Hystria2\n - TUIC \n - SSH\n - ShadowTLS\n\n\n 原始碼位於 https://github.com/hiddify/Hiddify-Next\n 應用程式核心基於開源的 Sing-Box。\n\n權限說明：\n\n - VPN 服務：由於此應用程式的目標是提供安全性、使用者友好且高效的隧道用戶端，因此我們需要此權限才能透過隧道將流量路由到遠端伺服器。\n - 獲取應用程式列表：此權限用於允許使用者包含或排除隧道的特定應用程式。\n - 接收啟動廣播：可以從應用程式設定中啟用或停用此權限，以在裝置啟動時啟動此應用程式。\n - 傳送通知：此權限至關重要，因為我們使用前台服務來確保 VPN 服務的持續運作。\n - 該應用程式沒有廣告。分析和崩潰數據僅在用戶首次使用應用程式時明確同意的情況下才會出現。';
 			case 'connection.tapToConnect': return '點擊以連線';
 			case 'connection.connecting': return '連線中';
 			case 'connection.disconnecting': return '中斷連線中';
@@ -11362,9 +13277,10 @@ extension on TranslationsZhTw {
 			]);
 			case 'config.generateWarpConfig': return '生成 WARP 配置檔案';
 			case 'config.missingWarpConfig': return 'WARP 配置檔案缺失';
-			case 'config.warpConfigGenerated': return 'WARP 配置檔案已生成';
+			case 'config.warpConfigGenerated': return 'WARP 設定已生成';
 			case 'config.pageTitle': return '配置選項';
 			case 'config.logLevel': return '紀錄等級';
+			case 'config.blockAds': return '阻止廣告';
 			case 'config.resolveDestination': return '解析目標地址';
 			case 'config.ipv6Mode': return 'IPv6 路由';
 			case 'config.ipv6Modes.disable': return '停用';
@@ -11380,7 +13296,7 @@ extension on TranslationsZhTw {
 			case 'config.localDnsPort': return '本機 DNS 連接埠';
 			case 'config.allowConnectionFromLan': return '允許區域網路連線';
 			case 'config.tunImplementation': return 'TUN 實現';
-			case 'config.mtu': return 'MTU';
+			case 'config.mtu': return '封包大小 (MTU)';
 			case 'config.connectionTestUrl': return '連線測試網址';
 			case 'config.urlTestInterval': return '網址測試間隔';
 			case 'config.enableClashApi': return '啟用 Clash API';
@@ -11410,7 +13326,10 @@ extension on TranslationsZhTw {
 			case 'config.warpCleanIp': return '清理 IP';
 			case 'config.warpPort': return '連接埠';
 			case 'config.warpNoise': return '噪音計數';
+			case 'config.warpNoiseSize': return '噪音大小';
+			case 'config.warpNoiseMode': return '噪音模式';
 			case 'config.warpNoiseDelay': return '噪音延遲';
+			case 'window.remember': return '記住我的選擇';
 			default: return null;
 		}
 	}

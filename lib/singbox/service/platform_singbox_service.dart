@@ -17,15 +17,11 @@ class PlatformSingboxService with InfraLogger implements SingboxService {
   static const channelPrefix = "holo.gate.app2";
 
   static const methodChannel = MethodChannel("$channelPrefix/method");
-  static const statusChannel =
-      EventChannel("$channelPrefix/service.status", JSONMethodCodec());
-  static const alertsChannel =
-      EventChannel("$channelPrefix/service.alerts", JSONMethodCodec());
-  static const statsChannel =
-      EventChannel("$channelPrefix/stats", JSONMethodCodec());
+  static const statusChannel = EventChannel("$channelPrefix/service.status", JSONMethodCodec());
+  static const alertsChannel = EventChannel("$channelPrefix/service.alerts", JSONMethodCodec());
+  static const statsChannel = EventChannel("$channelPrefix/stats", JSONMethodCodec());
   static const groupsChannel = EventChannel("$channelPrefix/groups");
-  static const activeGroupsChannel =
-      EventChannel("$channelPrefix/active-groups");
+  static const activeGroupsChannel = EventChannel("$channelPrefix/active-groups");
   static const logsChannel = EventChannel("$channelPrefix/service.logs");
 
   late final ValueStream<SingboxStatus> _status;
@@ -33,10 +29,8 @@ class PlatformSingboxService with InfraLogger implements SingboxService {
   @override
   Future<void> init() async {
     loggy.debug("initializing");
-    final status =
-        statusChannel.receiveBroadcastStream().map(SingboxStatus.fromEvent);
-    final alerts =
-        alertsChannel.receiveBroadcastStream().map(SingboxStatus.fromEvent);
+    final status = statusChannel.receiveBroadcastStream().map(SingboxStatus.fromEvent);
+    final alerts = alertsChannel.receiveBroadcastStream().map(SingboxStatus.fromEvent);
 
     _status = ValueConnectableStream(Rx.merge([status, alerts])).autoConnect();
     await _status.first;
@@ -80,7 +74,7 @@ class PlatformSingboxService with InfraLogger implements SingboxService {
       () async {
         loggy.debug("changing options");
         await methodChannel.invokeMethod(
-          "change_config_options",
+          "change_hiddify_options",
           jsonEncode(options.toJson()),
         );
         return right(unit);
@@ -250,9 +244,7 @@ class PlatformSingboxService with InfraLogger implements SingboxService {
 
   @override
   Stream<List<String>> watchLogs(String path) async* {
-    yield* logsChannel
-        .receiveBroadcastStream()
-        .map((event) => (event as List).map((e) => e as String).toList());
+    yield* logsChannel.receiveBroadcastStream().map((event) => (event as List).map((e) => e as String).toList());
   }
 
   @override
