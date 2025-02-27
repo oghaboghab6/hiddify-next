@@ -24,7 +24,7 @@ class WebViewAboutPage extends HookConsumerWidget {
           top: 30.0,
         ),
         // child: WebViewWidget(controller: controller),
-        child: Platform.isWindows
+        child:1!=1
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.stretch,

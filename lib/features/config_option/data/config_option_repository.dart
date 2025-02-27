@@ -58,6 +58,7 @@ abstract class ConfigOptions {
   static final remoteDnsAddress = PreferencesNotifier.create<String, String>(
     "remote-dns-address",
     "udp://1.1.1.1",
+    // "https://sky.rethinkdns.com/dns-query",
     validator: (value) => value.isNotBlank,
   );
 
@@ -71,6 +72,7 @@ abstract class ConfigOptions {
   static final directDnsAddress = PreferencesNotifier.create<String, String>(
     "direct-dns-address",
     "1.1.1.1",
+    defaultValueFunction: (ref) => ref.read(region) == Region.cn ? "223.5.5.5" : "1.1.1.1",
     validator: (value) => value.isNotBlank,
   );
 
@@ -411,6 +413,13 @@ abstract class ConfigOptions {
       //       const SingboxRule(
       //         domains: "domain:.af,geosite:af",
       //         ip: "geoip:af",
+      //         outbound: RuleOutbound.bypass,
+      //       ),
+      //     ],
+      //   Region.id => [
+      //       const SingboxRule(
+      //         domains: "domain:.id,geosite:id",
+      //         ip: "geoip:id",
       //         outbound: RuleOutbound.bypass,
       //       ),
       //     ],
