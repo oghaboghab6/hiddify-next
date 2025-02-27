@@ -82,7 +82,7 @@ class ConfigDevicePage extends State<MyHomePage>  with PresLogger {
   Future<void> RequestServer(BuildContext context) async {
     try {
       final DioHttpClient client = DioHttpClient(
-          timeout: const Duration(seconds: 10),
+          timeout: const Duration(seconds: 30),
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true);
@@ -193,7 +193,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
 
         try {
           final DioHttpClient client = DioHttpClient(
-              timeout: const Duration(seconds: 10),
+              timeout: const Duration(seconds: 30),
               userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
               debug: true,
@@ -275,7 +275,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
         var deviceID = await get_unique_identifier();
 
         final DioHttpClient client = DioHttpClient(
-            timeout: const Duration(seconds: 10),
+            timeout: const Duration(seconds: 30),
             userAgent:
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
@@ -379,7 +379,7 @@ class _ConnectionWrapperState extends ConsumerState<ConfigDevicePage>
             "  -   " +
             account_id);
         final DioHttpClient client = DioHttpClient(
-            timeout: const Duration(seconds: 10),
+            timeout: const Duration(seconds: 30),
             userAgent:
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,

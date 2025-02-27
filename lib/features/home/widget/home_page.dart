@@ -249,7 +249,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         var deviceID = await get_unique_identifier();
 
         final DioHttpClient client = DioHttpClient(
-            timeout: const Duration(seconds: 10),
+            timeout: const Duration(seconds: 30),
             userAgent:
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
@@ -269,7 +269,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
           final SharedPreferences prefs =
           await SharedPreferences.getInstance();
           final jsonData = response.data!;
-
+          print( jsonData);
           if (jsonData['success'] == true) {
             device_name.value = jsonData['username'].toString() ?? '';
             count_device.value = jsonData['number_of_devices'].toString() ?? '';
@@ -433,7 +433,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
 
         ///////////////////////////
         final DioHttpClient client = DioHttpClient(
-            timeout: const Duration(seconds: 10),
+            timeout: const Duration(seconds: 30),
             userAgent:
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
@@ -566,7 +566,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         var deviceID = await get_unique_identifier();
 
         final DioHttpClient client = DioHttpClient(
-            timeout: const Duration(seconds: 10),
+            timeout: const Duration(seconds: 30),
             userAgent:
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
@@ -598,19 +598,21 @@ class HomePage extends HookConsumerWidget with PresLogger {
             globals.global_url + '/api/accounts/device-permission', formData);
         if (response.statusCode == 200) {
           final jsonData = response.data!;
+          print(jsonData);
           final SharedPreferences prefs =
           await SharedPreferences.getInstance();
           if (jsonData['success'] == true) {
-            device_name.value = jsonData['username']?.toString() ?? '';
-            count_device.value =
-                jsonData['number_of_devices']?.toString() ?? '';
-            date_account.value = jsonData['expiration_date']?.toString() ?? '';
-            volume_account.value = jsonData['traffic']?.toString() ?? '';
+            device_name.value = jsonData['username'].toString() ?? '';
+            count_device.value = jsonData['number_of_devices'].toString() ?? '';
+            date_account.value = jsonData['expiration_date'].toString() ?? '';
+            volume_account.value = jsonData['traffic'].toString() ?? '';
             globalBanner = jsonData['banner']?.toString() ?? "";
             globalUnreadNotificationCount = jsonData['unread_notification_count']?.toString() ?? "20";
-
             globalClickBanner = jsonData['banner_click']?.toString() ?? "";
-            // CustomToast.error(globalBanner).show(context);
+
+            var subscription_id = jsonData['subscription_id']?.toString() ?? '';
+            prefs.setString('subscription_id', subscription_id);
+            globals.global_subscription_id = subscription_id;
             var loginUrl = jsonData['login_url_no_domain']?.toString() ?? "";
             if (loginUrl.isNotNullOrEmpty) {
 
@@ -683,7 +685,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
         var deviceID = await get_unique_identifier();
 
         final DioHttpClient client = DioHttpClient(
-            timeout: const Duration(seconds: 10),
+            timeout: const Duration(seconds: 30),
             userAgent:
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
             debug: true,
@@ -1618,7 +1620,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
     // );
     try {
       final DioHttpClient client = DioHttpClient(
-          timeout: const Duration(seconds: 10),
+          timeout: const Duration(seconds: 30),
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
@@ -1877,7 +1879,7 @@ class HomePage extends HookConsumerWidget with PresLogger {
       var deviceID = await get_unique_identifier();
 
       final DioHttpClient client = DioHttpClient(
-          timeout: const Duration(seconds: 10),
+          timeout: const Duration(seconds: 30),
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,

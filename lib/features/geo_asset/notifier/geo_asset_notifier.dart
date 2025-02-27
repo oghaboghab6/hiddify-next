@@ -11,7 +11,7 @@
 // class FetchGeoAsset extends _$FetchGeoAsset with AppLogger {
 //   @override
 //   Future<Unit?> build(String id) async {
-//     ref.disposeDelay(const Duration(seconds: 10));
+//     ref.disposeDelay(const Duration(seconds: 30));
 //     return null;
 //   }
 

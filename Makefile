@@ -26,7 +26,8 @@ LIB_NAME=libcore
 ifeq ($(CHANNEL),prod)
 	CORE_URL=https://github.com/hiddify/hiddify-next-core/releases/download/v$(core.version)
 else
-	CORE_URL=https://github.com/hiddify/hiddify-next-core/releases/download/draft
+CORE_URL=https://github.com/hiddify/hiddify-next-core/releases/download/v$(core.version)
+#	CORE_URL=https://github.com/hiddify/hiddify-next-core/releases/download/draft
 endif
 
 ifeq ($(CHANNEL),prod)
@@ -176,7 +177,7 @@ android-aab-libs: android-libs
 windows-libs:
 	$(MKDIR) $(DESKTOP_OUT) || echo Folder already exists. Skipping...
 	curl -L $(CORE_URL)/$(CORE_NAME)-windows-amd64.tar.gz | tar xz -C $(DESKTOP_OUT)$(SEP)
-	ls $(DESKTOP_OUT) || dir $(DESKTOP_OUT)$(SEP)
+	dir  $(DESKTOP_OUT) || dir $(DESKTOP_OUT)$(SEP)
 	
 
 linux-libs:

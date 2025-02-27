@@ -188,51 +188,51 @@ class MobileWrapperRoute extends ShellRouteData {
           ],
         ),
         TypedGoRoute<LogsOverviewRoute>(
-          path: "/logs",
+          path: "logs",
           name: LogsOverviewRoute.name,
         ),
         TypedGoRoute<AboutRoute>(
-          path: "/about",
+          path: "about",
           name: AboutRoute.name,
         ),
         TypedGoRoute<LoginRoute>(
-          path: "/login",
+          path: "login",
           name: LoginRoute.name,
         ),
         TypedGoRoute<SelectWayLoginRoute>(
-          path: "/SelectWayLogin",
+          path: "SelectWayLogin",
           name: SelectWayLoginRoute.name,
         ),
         TypedGoRoute<LoginConfigRoute>(
-          path: "/LoginConfig",
+          path: "LoginConfig",
           name: LoginConfigRoute.name,
         ),
         TypedGoRoute<LoginEmailRoute>(
-          path: "/LoginEmail",
+          path: "LoginEmail",
           name: LoginEmailRoute.name,
         ),
         TypedGoRoute<ConfigDeviceRoute>(
-          path: "/ConfigDevice",
+          path: "ConfigDevice",
           name: ConfigDeviceRoute.name,
         ),
         TypedGoRoute<ConfigDeviceRoute2>(
-          path: "/ConfigDevice2",
+          path: "ConfigDevice2",
           name: ConfigDeviceRoute2.name,
         ),
         TypedGoRoute<ConfigLocationRoute>(
-          path: "/ConfigLocation",
+          path: "ConfigLocation",
           name: ConfigLocationRoute.name,
         ),
         TypedGoRoute<ConfigNoAccountRoute>(
-          path: "/ConfigNoAccount",
+          path: "ConfigNoAccount",
           name: ConfigNoAccountRoute.name,
         ),
         TypedGoRoute<WebViewRoute>(
-          path: "/webview",
+          path: "webview",
           name: WebViewRoute.name,
         ),
         TypedGoRoute<WebViewAboutRoute>(
-          path: "/webview_about",
+          path: "webview_about",
           name: WebViewAboutRoute.name,
         ),
       ],

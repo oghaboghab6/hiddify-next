@@ -266,7 +266,7 @@ class ProxiesOverviewPage extends HookConsumerWidget with PresLogger {
       var deviceID = await get_unique_identifier();
 
       final DioHttpClient client = DioHttpClient(
-          timeout: const Duration(seconds: 10),
+          timeout: const Duration(seconds: 30),
           userAgent:
               "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
           debug: true,
